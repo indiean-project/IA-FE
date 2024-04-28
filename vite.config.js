@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  //CORS 우회를 위해 아래 설정으로 백엔드 url 지정
   server: {
     proxy: {
       "/api": {
