@@ -1,0 +1,18 @@
+.boardSidebar__container {
+    color: white;
+    width: 30%;
+    .boardSidebar__box {
+        width: 300px;
+        position: fixed;
+        padding: 7%;
+    }
+    hr {
+        text-align: left;
+        margin-left: 0;
+        width: 100%;
+    }
+    .community__list {
+        display: flex;
+        justify-content: space-between;
+    }
+}

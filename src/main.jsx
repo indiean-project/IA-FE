@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp/>
+      },
+      {
+        path: '/FreeBoard',
+        element: <FreeBoard/>
       },
     ],
   },
