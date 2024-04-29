@@ -1,13 +1,40 @@
+
 .loginForm__box {
-    width: 75%; height: 40%;
-    input {
-        width:80%; height: 30px; 
-        background-color: #cccccc;        
-        border-radius: 10px;
-        #userId {
-            background-image: url('../../assets/loginicon.png');
-            background-size: 10px 10px;
-            background-repeat: no-repeat;
+    width: 75%;
+    h2 { color:white; font-style:bold; }
+
+    .loginForm__items {
+        position: relative;
+        .inputId, .inputPwd {
+            width:80%; height: 30px; 
+            background-color: #cccccc;        
+            border-radius: 10px;
+            padding-left:35px;
+        }
+        .idIcon, .pwdIcon {
+            position: absolute;
+            left: 5px; /* 원하는 위치 조정 */
+
+            width:10%; height:10%;
         }
     }
+    .loginForm__link {
+        display: flex;
+        justify-content: space-evenly;
+        .btn-login, .btn-signup {
+            color:#cecece;
+            font-size:20px;
+            font-weight: bold;
+            background-color: #444444;
+            border-radius: 10px;
+            width:20%; height: 40px;
+        }
+    }
+    a {
+        color:white;
+        font-size:20px;
+        font-weight: bold;
+        text-decoration-line: none;
+    }
 }
+
