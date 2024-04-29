@@ -11,7 +11,8 @@ function Header(){
                     <img src={logo_orange}/>
                 </div>
                 <div className='header__right'>
-
+                    <button type="submit" id="SignUp">Sign Up</button>
+                    <button type="submit" id="Login">Login</button>
                 </div>
             </div>
         </div>

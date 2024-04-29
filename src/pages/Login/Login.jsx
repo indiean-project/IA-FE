@@ -1,8 +1,16 @@
+import Header from '../../components/Header'
+import LoginForm from '../../components/LoginForm'
+// import SocialLoginForm from '../../components/SocialLoginForm'
+
 function Login(){
     return(
-        <div>
-            로그인
-        </div>
+        <>
+            <Header />
+            <div className="loginForm__container">
+                <LoginForm />
+                {/* <SocialLoginForm /> */}
+            </div>
+        </>
     );
 }
 export default Login;

@@ -1,0 +1,13 @@
+.loginForm__box {
+    width: 75%; height: 40%;
+    input {
+        width:80%; height: 30px; 
+        background-color: #cccccc;        
+        border-radius: 10px;
+        #userId {
+            background-image: url('../../assets/loginicon.png');
+            background-size: 10px 10px;
+            background-repeat: no-repeat;
+        }
+    }
+}
