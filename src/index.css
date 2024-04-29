@@ -16,7 +16,7 @@ body {
     top: 20%;
     left: 60%;
     height: 85%;
-
+    z-index: -1;
     /* 우클릭, 드래그 차단 */
     -webkit-user-select: none;
     -khtml-user-select: none;
