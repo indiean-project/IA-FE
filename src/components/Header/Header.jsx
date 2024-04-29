@@ -11,7 +11,6 @@ function Header(){
                     <img src={logo_orange}/>
                 </div>
                 <div className='header__right'>
-
                 </div>
             </div>
         </div>
