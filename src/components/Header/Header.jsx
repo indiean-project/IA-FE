@@ -35,10 +35,10 @@ function Header() {
                 </div>
                 <div className='header__right'>
                     <div>
-                        <NavLink to={"/login"}>Login</NavLink>
+                        <NavLink to={"/login"}>로그인</NavLink>
                     </div>
                     <div>
-                        <NavLink to={"/signUp"}>SignUp</NavLink>
+                        <NavLink to={"/signUp"}>회원가입</NavLink>
                     </div>
                 </div>
             </div>

@@ -3,11 +3,13 @@
     left: -300px;
     transition-duration: 0.3s;
 }
+
 .open {
     position: fixed;
     left: 0;
     transition-duration: 0.3s;
 }
+
 .nav__container {
     opacity: 1;
     position: fixed;
@@ -17,6 +19,7 @@
     z-index: 999;
     color: white;
     transition-duration: 0.2s;
+
     hr {
         width: 92%;
         border: 0;
@@ -57,7 +60,7 @@
         text-decoration: none;
         color: white;
     }
-    
+
     ul {
         list-style-type: none;
         width: 100%;
@@ -85,15 +88,21 @@
             width: 96%;
             padding-left: 4%;
             transition-duration: 0.2s;
-            ul{
+
+            ul {
                 transition-duration: 0.2s;
             }
-            ul > li{
-                transition-duration: 0.2s;
-            }
-            ul > li:hover {
+
+            ul>li {
                 width: 93%;
                 padding-left: 7%;
+                transition-duration: 0.2s;
+                font-size: 12px;
+            }
+
+            ul>li:hover {
+                width: 89%;
+                padding-left: 11%;
                 transition-duration: 0.2s;
             }
         }
@@ -117,12 +126,14 @@
 
 .ulClose {
     height: 0;
+
     li {
         height: 0 !important;
         font-size: 0;
         opacity: 0;
     }
 }
+
 .ulOpen {
     height: 150px;
 }
