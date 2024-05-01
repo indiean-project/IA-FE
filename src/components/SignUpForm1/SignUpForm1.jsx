@@ -5,13 +5,15 @@ import './SignUpForm1.scss';
 
 function SignUpForm1({ onNextPage }) {
 
+    const inputUserId = '';
+
     return (
         <>
             <div className="signUpForm__items">
                 <img className="idIcon" src={loginicon} alt="x" />
                 <input type="text" className="inputId" id="userId"
                     name="userId" placeholder="아이디를 입력해주세요"
-                    value="" />
+                    value="" onChange={inputUserId} />
                 <br/><br/>
                 <img className="pwdIcon" src={passwordIcon} alt="x" />
                 <input type="password" className="inputPwd" id="userPwd"

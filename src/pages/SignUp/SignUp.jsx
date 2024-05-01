@@ -1,6 +1,5 @@
 import {useState} from 'react';
 
-import Header from '../../components/Header';
 import SignUpForm1 from '../../components/SignUpForm1';
 import SignUpForm2 from '../../components/SignUpForm2';
 import SignUpForm3 from '../../components/SignUpForm3';
@@ -56,7 +55,6 @@ function SignUp(){
 
     return(
         <>
-            <Header />
             <div className="signUpForm__container">
                 <div className="signUpForm__box">
                     <div className="signUpcheck">
