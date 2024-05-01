@@ -30,7 +30,7 @@ function Header() {
                     <div className='header__left__menu'>
                         <List size={40} style={navCheck.style} onClick={()=>onClickNavCheck()} />
                     </div>
-                    <img src={logo_orange} />
+                    <img src={logo_orange} onClick={()=>location.href = '/'} />
 
                 </div>
                 <div className='header__right'>
