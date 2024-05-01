@@ -26,15 +26,14 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 <input type="password" className="inputPhone" id="phone"
                     name="phone" value="" />
                 <br /><br />
-                <div>
-                    <input type="text" className="certNum" id="certNum"
-                        name="certNum" value="" />
-                    <button>인증번호 발송</button>
-                </div>
+                <input type="text" className="certNum" id="certNum"
+                    name="certNum" value="" />
+                <button className="btn-cert">인증번호 발송</button>
+                <br /><br />
+                <button className="btn-suf2" onClick={onNextPage}>등록완료</button>
+                <button className="btn-suf2" onClick={onPrevPage}>뒤로가기</button>
             </div>
             <br />
-            <button type="button" onClick={onNextPage}>등록완료</button>
-            <button type="button" onClick={onPrevPage}>뒤로가기</button>
         </>
     )
 }

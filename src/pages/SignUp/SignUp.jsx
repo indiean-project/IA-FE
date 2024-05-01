@@ -38,23 +38,19 @@ function SignUp(){
             case 'form1':
                 setPrePage(signUpPage);
                 setSignUpPage('form2');
-                console.log(prePage);
                 break;
             case 'form2':
                 setPrePage(signUpPage);
                 setSignUpPage('form3');
-                console.log(prePage);
                 break;
             case 'form3':
                 break;
             default:
                 break;
         }
-        console.log(prePage);
     };
 
     const prePageLoad = () => {
-        console.log(prePage);
         setSignUpPage(prePage);
     };
 

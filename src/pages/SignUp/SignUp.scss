@@ -6,7 +6,6 @@
     text-align: center;
     align-items: center;
     .signUpForm__box {
-        font-family: 'Inter';
         width:100%;
         display: flex;
         flex-direction: column;
@@ -19,7 +18,7 @@
     
         img { height:30px; margin-right: 10px; }
     
-        h2 { margin:0; padding-top: 3px;}    
+        h2 { margin:0; padding-top: 3%;}    
         
         .signUpForm__steps {
             display: flex;

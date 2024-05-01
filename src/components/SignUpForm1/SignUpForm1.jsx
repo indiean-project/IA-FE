@@ -21,8 +21,7 @@ function SignUpForm1({ onNextPage }) {
             <br/>
             <button type="button" onClick={onNextPage}>계속하기</button>
             <br/>
-            <h2>또는</h2>
-
+            <h1>또는</h1>
         </>
     )
 }

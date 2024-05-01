@@ -12,22 +12,17 @@
             background-color: #cccccc;
             border-radius: 10px;
             padding-left: 35px;
-            font-family: 'Inter';
         }
-        div 
-        {
-            width:60%; display: flex;
-            justify-content: center;
-            .certNum {
-                width: 50%;
-                height: 30px;
-                background-color: #cccccc;
-                border-radius: 10px;
-                padding-left: 35px;
-                font-family: 'Inter';
-                margin-right: 20px;
-            }
+
+        .certNum {
+            width: 40%;
+            height: 30px;
+            background-color: #cccccc;
+            border-radius: 10px;
+            padding-left: 35px;
+            margin-right: 2%;
         }
+
 
         .idIcon,
         .pwdIcon {
@@ -38,15 +33,25 @@
             height: 5%;
             opacity: 0.25;
         }
+        .btn-cert {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width : 18%;
+            height: 40px;
+        }
+        .btn-suf2 {
+            margin: 0 20px;
+
+        }
     }
 
     button {
         background-color: #444444;
         color: white;
-        font-size: 18px;
+        font-size: 17px;
         border-radius: 10px;
         font-weight: bold;
-        font-family: 'Inter';
         width: 110px;
         height: 30px;
     }
