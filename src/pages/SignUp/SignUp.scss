@@ -5,4 +5,49 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
+    .signUpForm__box {
+        font-family: 'Inter';
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color:white;
+    
+        .signUpcheck { display: flex; }
+    
+        img { height:30px; margin-right: 10px; }
+    
+        h2 { margin:0; padding-top: 3px;}    
+        
+        .signUpForm__steps {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+    
+            .steps {
+                margin-left: 20px;
+                margin-right: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;    
+                .eclipse {
+                    border-radius: 50%;
+                    background-color: #cccccc;
+                    color: black;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+            .steps.active .eclipse {
+                background-color: #F2613F;
+                color: white;        
+            }
+        }
+    }
 }
+

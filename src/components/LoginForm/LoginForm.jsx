@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {loginUser} from '../../apis/user';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {loginUserState} from '../../recoil/LoginUser';
+import { useNavigate } from 'react-router-dom';
 
 import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
@@ -9,6 +10,8 @@ import passwordIcon from '../../assets/passwordLock.png';
 import './LoginForm.scss';
 
 function LoginForm() {
+
+    const navigate = useNavigate();
 
     const [inputAccount, setInputAccount] = useState({
         userId : '',
@@ -42,6 +45,9 @@ function LoginForm() {
         })
     }
 
+    const onSignUp = () => {
+        navigate("/signUp");
+    }
 
     return(
         <>
@@ -61,7 +67,7 @@ function LoginForm() {
                 <br/><br/>
                 <div className="loginForm__link">
                     <button className="btn-login" onClick={()=>onClickLogin()}>로그인</button>
-                    <button className="btn-signup" type="submit">회원가입</button>
+                    <button className="btn-signup" onClick={onSignUp}>회원가입</button>
                 </div>
                 <br/>
                 <a href="">아이디/비밀번호 찾기</a>
