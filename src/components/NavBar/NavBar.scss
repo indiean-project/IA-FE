@@ -1,23 +1,22 @@
+.close {
+    position: fixed;
+    left: -300px;
+    transition-duration: 0.3s;
+}
+.open {
+    position: fixed;
+    left: 0;
+    transition-duration: 0.3s;
+}
 .nav__container {
-    * {
-        @keyframes fadein {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-    }
-
+    opacity: 1;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.555);
     height: 100%;
     width: 300px;
     z-index: 999;
     color: white;
-
+    transition-duration: 0.2s;
     hr {
         width: 92%;
         border: 0;
@@ -25,25 +24,29 @@
         background-color: rgba(255, 255, 255, 0.24);
     }
 
-    
-    .nav__header{
+
+    .nav__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         h1 {
             margin-left: 15px;
             padding-top: 10px;
             font-size: 22px;
         }
-        span{
+
+        span {
             margin-right: 20px;
             margin-top: 15px;
-            svg{
+
+            svg {
                 transition-duration: 0.2s;
             }
         }
-        span:hover{
-            svg{
+
+        span:hover {
+            svg {
                 color: rgba(242, 96, 63, 0.911);
                 transition-duration: 0.2s;
             }
@@ -54,7 +57,7 @@
         text-decoration: none;
         color: white;
     }
-
+    
     ul {
         list-style-type: none;
         width: 100%;
@@ -69,6 +72,7 @@
             transition-duration: 0.2s;
             padding-left: 4%;
         }
+
         li:hover:not(.nav__item__box > ul > li) {
             transition-duration: 0.2s;
             background-color: rgba(255, 255, 255, 0.2);
@@ -77,9 +81,13 @@
         }
 
         .nav__item__box {
+            cursor: pointer;
             width: 96%;
             padding-left: 4%;
             transition-duration: 0.2s;
+            ul{
+                transition-duration: 0.2s;
+            }
             ul > li{
                 transition-duration: 0.2s;
             }
@@ -87,10 +95,10 @@
                 width: 93%;
                 padding-left: 7%;
                 transition-duration: 0.2s;
-                background-color: rgba(255, 255, 255, 0.2);
             }
         }
     }
+
     div {
         width: 100%;
         height: 50px;
@@ -98,10 +106,23 @@
         align-items: center;
         transition-duration: 0.2s;
     }
+
     >div:hover:not(.nav__header) {
         transition-duration: 0.2s;
         background-color: rgba(255, 255, 255, 0.2);
     }
 
 
+}
+
+.ulClose {
+    height: 0;
+    li {
+        height: 0 !important;
+        font-size: 0;
+        opacity: 0;
+    }
+}
+.ulOpen {
+    height: 150px;
 }
