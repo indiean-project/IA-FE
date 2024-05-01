@@ -1,10 +1,8 @@
 import logo_white from '../../assets/logo/logo_white.png';
-import loginicon from '../../assets/loginicon.png';
-import passwordIcon from '../../assets/passwordLock.png';
 
-import './SignUpForm.scss';
+import './SignUpForm3.scss';
 
-function SignUpForm() {
+function SignUpForm3() {
     
     return (
         <>
@@ -28,23 +26,14 @@ function SignUpForm() {
                     </div>
                 </div>
                 <div className="signUpForm__items">
-                    <img className="idIcon" src={loginicon} alt="x" />
-                    <input type="text" className="inputId" id="userId"
-                        name="userId" placeholder="아이디를 입력해주세요" 
-                        value="" />
-                    <br/><br/>
-                    <img className="pwdIcon" src={passwordIcon} alt="x" />
-                    <input type="password" className="inputPwd" id="userPwd" 
-                        name="userPwd" placeholder="비밀번호를 입력해주세요"
-                        value="" />            
+                    <h3>INDIE:안 의 일원이 되어주셔서 감사합니다!</h3>
                 </div>
                 <br/>
-                <button type="submit">계속하기</button>
-                <br/>
-                <h2>또는</h2>
+                <button type="submit">마이페이지</button>
+                <button type="submit">정보수정</button>
             </div>
         </>
     )
 }
 
-export default SignUpForm;
+export default SignUpForm3;

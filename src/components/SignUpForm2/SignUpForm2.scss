@@ -29,9 +29,8 @@
                 display:flex;
                 justify-content: center;
                 align-items: center;
-                
             }
-            &:first-of-type .eclipse { background-color: #F2613F; color:white; }
+            &:nth-of-type(2) .eclipse { background-color: #F2613F; color:white; }
 
         }
     }

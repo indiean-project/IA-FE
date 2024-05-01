@@ -1,0 +1,64 @@
+.signUpForm__box {
+    font-family: 'Do Hyeon';
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color:white;
+
+    .signUpcheck { display: flex; }
+
+    img { height:30px; margin-right: 10px; }
+
+    h2 { margin:0; padding-top: 3px;}
+
+    .signUpForm__steps {
+        display: flex;
+        justify-content: center;
+        margin-top:20px;
+        .steps {
+            margin-left:20px; margin-right:20px;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            .eclipse { 
+                border-radius: 50%; background-color:#cccccc; 
+                color:black; width:50px; height:50px;
+                display:flex;
+                justify-content: center;
+                align-items: center;                
+            }
+            &:last-of-type .eclipse { background-color: #F2613F; color:white; }
+
+        }
+    }
+    .signUpForm__items {
+        width: 70%;
+        position: relative;
+        .inputId, .inputPwd {
+            width:60%; height: 30px; 
+            background-color: #cccccc;        
+            border-radius: 10px;
+            padding-left:35px;
+            font-family:'Do Hyeon';
+        }
+        .idIcon, .pwdIcon {
+            position: absolute;
+            left: 10%; /* 원하는 위치 조정 */
+            width:5%; height:5%;
+            opacity: 0.25;
+        }
+    }
+
+    button {
+        background-color: #444444;
+        color:white;
+        font-size: 18px;
+        border-radius: 10px;
+        font-weight: bold;
+        font-family:'Do Hyeon';
+        width : 110px; height : 30px;
+    }
+}
