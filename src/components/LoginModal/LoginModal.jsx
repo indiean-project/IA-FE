@@ -2,16 +2,20 @@ import ModalBackground from '../ModalBackground';
 import { isModalActive } from '../../recoil/IsModalActive';
 import {loginUserState} from '../../recoil/LoginUser';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
+import { useNavigate } from 'react-router-dom';
 
 import './LoginModal.scss';
 
 const LoginModal = () => {
+
+    const navigate = useNavigate();
 
     const loginUserInfo = useRecoilValue(loginUserState);
     const setCloseButton = useSetRecoilState(isModalActive);
 
     const modalClose = () => {
         setCloseButton(false)
+        navigate("/");
     }
 
 
