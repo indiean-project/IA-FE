@@ -17,9 +17,12 @@ function LoginForm() {
         userId : '',
         userPwd : ''
     })
+    const [isLoginModal, setIsLoginModal] = useState(false);
 
     const setLoginUser = useSetRecoilState(loginUserState);
     const loginUserInfo = useRecoilValue(loginUserState);
+
+
 
     const onChangeAccount = (e) => {
 
@@ -40,9 +43,16 @@ function LoginForm() {
         setLoginUser({
             userId: result.userId,
             userName: result.userName,
+            nickName: result.nickName,
             phone: result.phone,
             address: result.address
         })
+        if (result.userId) { 
+            // navigate("/");
+            setIsLoginModal(true);
+        } else {
+            alert("로그인 정보가 틀렸습니다");
+        }
     }
 
     const onSignUp = () => {
@@ -72,6 +82,11 @@ function LoginForm() {
                 <br/>
                 <a href="">아이디/비밀번호 찾기</a>
             </div>
+            {isLoginModal && (
+                <div>
+                    
+                </div>
+            )}
         </>
 
     )

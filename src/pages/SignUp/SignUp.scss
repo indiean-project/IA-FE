@@ -14,39 +14,11 @@
         text-align: center;
         color:white;
     
-        .signUpcheck { display: flex; }
+        .signUpcheck { margin-top: 20px; display: flex; }
     
-        img { height:30px; margin-right: 10px; }
+        .logo_white { height:30px; margin-top:7.8%; }
     
-        h2 { margin:0; padding-top: 3%;}    
-        
-        .signUpForm__steps {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-    
-            .steps {
-                margin-left: 20px;
-                margin-right: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;    
-                .eclipse {
-                    border-radius: 50%;
-                    background-color: #cccccc;
-                    color: black;
-                    width: 50px;
-                    height: 50px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-            }
-            .steps.active .eclipse {
-                background-color: #F2613F;
-                color: white;        
-            }
-        }
+        h2 { margin-left: 10px; padding-top: 3%;}    
     }
 }
 

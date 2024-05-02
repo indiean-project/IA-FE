@@ -13,6 +13,7 @@ export const loginUserState = atom({
     default: {
         userId: '',
         userName: '',
+        nickName: '',
         phone: '',
         address: '',
     },

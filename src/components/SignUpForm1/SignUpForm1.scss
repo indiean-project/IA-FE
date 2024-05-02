@@ -2,24 +2,16 @@
         width: 70%;
         position: relative;
 
-        .inputId,
-        .inputPwd {
-            width: 60%;
-            height: 30px;
-            background-color: #cccccc;
-            border-radius: 10px;
-            padding-left: 35px;
-        }
-
         .idIcon,
         .pwdIcon {
-            position: relative;
-            left: 7%;
-            width: 28px;
-            height: 28px;
+            position: absolute;
+            width: 23px;
+            height: 23px;
             opacity: 0.2;
-            top: 8px;
+            margin-left: 5px;
+            margin-top: 5.5px;
         }
+
     }
 
     button {

@@ -13,9 +13,11 @@
         }
         .idIcon, .pwdIcon {
             position: absolute;
-            left: 10%; /* 원하는 위치 조정 */
-            width:5%; height:5%;
-            opacity: 0.25;
+            width: 23px;
+            height: 23px;
+            opacity: 0.2;
+            margin-left: 5px;
+            margin-top: 5.5px;
         }
     }
     .loginForm__link {
