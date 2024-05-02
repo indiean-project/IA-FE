@@ -1,0 +1,53 @@
+.concert__list{
+
+
+
+    .title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-size: 30px;
+        margin: 100px;
+        margin-left: 130px;
+        margin-bottom: 30px;
+        margin-top: 50px;
+        
+        
+       
+        .concert__search{
+            width: 300px;
+            height: 40px;
+            background-color: #cccccc;
+            border-radius: 10px;
+            margin-right: 30px;
+        }
+    }
+    .btn__area{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin:0px 150px 0px 150px;
+
+        span{
+            color: white;
+            font-size: 20px;
+        }
+        select{
+            background-color: rgb(78, 78, 78);
+            border-radius: 5px;
+            height: 50px;
+            font-size: 20px;
+            color: white;
+        }
+        button{
+            color: white;
+            font-size: 20px;
+            background-color: rgb(78, 78, 78);
+            border-radius: 5px;
+            height: 40px;
+        }    
+        
+    }
+   
+}

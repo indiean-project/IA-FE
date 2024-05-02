@@ -1,6 +1,6 @@
 import './Header.scss';
 import logo_orange from '../../assets/logo/logo_orange.png';
-import { List } from 'react-bootstrap-icons';
+import { ArrowBarDown, List } from 'react-bootstrap-icons';
 
 function Header(){
     return(
