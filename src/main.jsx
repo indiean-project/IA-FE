@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <SignUp/>
       },
       {
-        path: '/consertList',
+        path: '/concertList',
         element: <ConcertList/>
       }
     ],

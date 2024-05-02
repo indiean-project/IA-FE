@@ -34,6 +34,7 @@ body {
     height: 100%;
 }
 
+
 #background__drum {
     position: fixed;
     opacity: 0.08;
@@ -54,5 +55,14 @@ body {
     -o-user-drag: none;
     user-drag: none;
     z-index: -999;
+}
+input {
+    font-family: 'GmarketSans';
+}
+button {
+    font-family: 'GmarketSans';
+}
+select {
+    font-family: 'GmarketSans';
 }
 

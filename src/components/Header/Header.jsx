@@ -1,6 +1,5 @@
 import './Header.scss';
 import logo_orange from '../../assets/logo/logo_orange.png';
-import { ArrowBarDown, List } from 'react-bootstrap-icons';
 
 import { List } from 'react-bootstrap-icons';
 import { NavLink } from 'react-router-dom';

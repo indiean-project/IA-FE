@@ -1,5 +1,8 @@
 import './ConcertList.scss';
 import Concert from '../../components/Concert';
+import { NavLink } from 'react-router-dom';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 function ConcertList(){
    
     return(
@@ -17,9 +20,22 @@ function ConcertList(){
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
-                <button>공연문의</button>
+                <div className='btnQ'><NavLink>공연문의</NavLink></div>
             </div>
             <Concert></Concert>
+            <div className='calendar__space'>
+                <FullCalendar
+                    locale="kr"
+                    plugins={[dayGridPlugin]}
+                    initialView="dayGridMonth"
+                    weekends={true} // 주말 표시 속성
+                    events={[
+                    { title: 'Event 1', date: '2024-05-01' },
+                    { title: 'Event 2', date: '2024-05-02' }
+
+                    ]}
+                />
+            </div>
 
         </div>
        
