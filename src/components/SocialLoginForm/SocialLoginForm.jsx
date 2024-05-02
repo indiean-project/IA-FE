@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import './SocialLoginForm.scss';
-// import SocialKakaoLogin from '../SocialKakaoLogin';
 import KakaoLogin from 'react-kakao-login';
 
 function SocialLoginForm() {
