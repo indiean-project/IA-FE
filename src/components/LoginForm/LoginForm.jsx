@@ -1,13 +1,16 @@
 import {useState} from 'react';
 import {loginUser} from '../../apis/user';
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 import {loginUserState} from '../../recoil/LoginUser';
+import { isModalActive } from '../../recoil/IsModalActive';
 import { useNavigate } from 'react-router-dom';
 
+import LoginModal from '../LoginModal';
 import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
 
 import './LoginForm.scss';
+
 
 function LoginForm() {
 
@@ -17,12 +20,13 @@ function LoginForm() {
         userId : '',
         userPwd : ''
     })
-    const [isLoginModal, setIsLoginModal] = useState(false);
+
+    // const [isLoginModal, setIsLoginModal] = useState(false);
 
     const setLoginUser = useSetRecoilState(loginUserState);
     const loginUserInfo = useRecoilValue(loginUserState);
 
-
+    const [isModalOpen, setIsModalOpen] = useRecoilState(isModalActive);
 
     const onChangeAccount = (e) => {
 
@@ -49,7 +53,8 @@ function LoginForm() {
         })
         if (result.userId) { 
             // navigate("/");
-            setIsLoginModal(true);
+            // setIsLoginModal(true);
+            setIsModalOpen(true);
         } else {
             alert("로그인 정보가 틀렸습니다");
         }
@@ -82,13 +87,9 @@ function LoginForm() {
                 <br/>
                 <a href="">아이디/비밀번호 찾기</a>
             </div>
-            {isLoginModal && (
-                <div>
-                    
-                </div>
-            )}
-        </>
-
+            {/* {isLoginModal && <LoginModal/>} */}
+            {isModalOpen && <LoginModal />}
+        </>    
     )
 }
 export default LoginForm;
