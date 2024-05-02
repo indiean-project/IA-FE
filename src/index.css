@@ -40,7 +40,7 @@ body {
     top: 20%;
     left: 60%;
     height: 85%;
-    z-index:-1; /* 범위 내에 버튼을 누르면 클릭이 안 되서 z-index를 사용해서 제일 뒤로 밀었습니다.*/
+    z-index: -999;
 
     /* 우클릭, 드래그 차단 */
     -webkit-user-select: none;
