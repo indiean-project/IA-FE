@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
+import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: '/concertList',
         element: <ConcertList/>
-      }
+      },
       {
         path: '/funding',
         element: <></>
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
       {
         path: '/funding/detail',
         element: <FundDetail/>
-      }
+      },
+      {
+        path: '/board/free',
+        element: <FreeBoard/>
+      },
     ],
   },
 ]);
