@@ -34,6 +34,7 @@ body {
     height: 100%;
 }
 
+
 #background__drum {
     position: fixed;
     opacity: 0.08;
@@ -53,8 +54,15 @@ body {
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
+    z-index: -999;
+}
+input {
+    font-family: 'GmarketSans';
+}
+button {
+    font-family: 'GmarketSans';
+}
+select {
+    font-family: 'GmarketSans';
 }
 
-button {
-    font-family:'GmarketSans' !important; /* 버튼들이 글꼴 적용이 안 돼서 사용했습니다.*/
-}
