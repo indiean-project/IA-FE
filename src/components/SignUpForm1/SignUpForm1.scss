@@ -10,8 +10,14 @@
             opacity: 0.2;
             margin-left: 5px;
             margin-top: 5.5px;
+            
+            .good {
+                border: 1px solid greenyellow;
+            }
+            .bad {
+                border: 1px solid red;
+            }
         }
-
     }
 
     button {

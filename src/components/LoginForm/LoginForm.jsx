@@ -44,20 +44,28 @@ function LoginForm() {
         });
 
         console.log(result);
-        setLoginUser({
-            userId: result.userId,
-            userName: result.userName,
-            nickName: result.nickName,
-            phone: result.phone,
-            address: result.address
-        })
-        if (result.userId) { 
+        if (result !== '') { 
             // navigate("/");
             // setIsLoginModal(true);
-            setIsModalOpen(true);
+            setLoginUser({
+                ...result,
+                default : {
+                    userId: result.userId,
+                    userName: result.userName,
+                    nickName: result.nickName,
+                    phone: result.phone,
+                    address: result.address
+                }
+            })
+            setIsModalOpen({
+                ...isModalActive,
+                default:true
+            });
+            
         } else {
             alert("로그인 정보가 틀렸습니다");
         }
+        console.log(loginUserState);
     }
 
     const onSignUp = () => {

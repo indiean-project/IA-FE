@@ -7,7 +7,10 @@ const ModalWindow = () => {
     const setCloseButton = useSetRecoilState(isModalActive);
 
     const modalClose = () => {
-        setCloseButton(false)
+        setCloseButton({
+            ...isModalActive,
+            default: false
+        })
     }
 
 

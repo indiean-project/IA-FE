@@ -6,6 +6,7 @@ const KEY = 'userInfo';
 const {persistAtom} = recoilPersist({
     key: KEY,
     storage: sessionStorage,
+    // storage: 
 });
 
 export const loginUserState = atom({
