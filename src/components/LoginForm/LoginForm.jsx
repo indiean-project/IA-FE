@@ -54,7 +54,10 @@ function LoginForm() {
         if (result.userId) { 
             // navigate("/");
             // setIsLoginModal(true);
-            setIsModalOpen(true);
+            setIsModalOpen({
+                ...isModalOpen,
+                default: true
+            });
         } else {
             alert("로그인 정보가 틀렸습니다");
         }
