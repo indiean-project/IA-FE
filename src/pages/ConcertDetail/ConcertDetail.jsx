@@ -25,7 +25,7 @@ function ConcertDetail (){
                                 <th>공연시간</th>
                             </tr>
                             <tr>
-                                <td>2024.05.11~2024.05.12</td>
+                                <td className='' colSpan={2}>2024.05.11~2024.05.12</td>
                             </tr>
                             <tr>
                                 <th></th><td></td>
