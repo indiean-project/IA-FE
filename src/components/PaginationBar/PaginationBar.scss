@@ -1,0 +1,23 @@
+.paginationBar{
+    display: flex;
+    justify-content: center;
+    color: #CECECE;
+    margin-top: 5%;
+    div{
+        justify-content:center;
+        margin: 0% 2% 0% 2% ;
+        text-align: center;
+        padding-top: 15px;
+        background: #444444;
+        border-radius: 7px;
+        width: 50px;
+        height: 30px;
+        box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+        transition-duration: 0.2s;
+    }
+    div:hover{
+        box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
+        transition-duration: 0.2s;
+        cursor: pointer;
+    } 
+}
