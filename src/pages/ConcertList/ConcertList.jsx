@@ -1,8 +1,9 @@
 import './ConcertList.scss';
-import Concert from '../../components/Concert';
+import ConcertItem from '../../components/ConcertItem';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import PaginationBar from '../../components/PaginationBar';
 function ConcertList(){
    
     return(
@@ -22,7 +23,8 @@ function ConcertList(){
                 </div>
                 <div className='btnQ'><NavLink>공연문의</NavLink></div>
             </div>
-            <Concert></Concert>
+            <ConcertItem></ConcertItem>
+            <PaginationBar></PaginationBar>
             <div className='calendar__space'>
                 <FullCalendar
                     locale="kr"

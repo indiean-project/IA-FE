@@ -73,13 +73,16 @@
         justify-content: center;
         margin-top: 70px;
         .fc{
-            width: 600px;
-            height: 600px;
+            min-width: 600px;
+            min-height: 400px;
+            width: 70%;
+            height: 700px;
             color: white;
         }
         .fc-view-harness{
             background-color: #444444 /* 달력의 전체 배경색을 회색으로 변경 */
           }
+        .fc-button-group{display: none;}
        
     }
    

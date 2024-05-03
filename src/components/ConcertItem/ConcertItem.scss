@@ -1,11 +1,13 @@
 .board__concert__list{
     margin-top: 70px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 100px;
-    margin-left: 8%;
-    margin-right: 8%;
+    margin-left: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap:50px;
+    grid-gap:50px;
+    
+ 
     
     .concert__item{
         width: 350px;
@@ -17,9 +19,9 @@
             text-decoration: none;
             color: white;
             img{
-                margin :0px 35px 0px 35px ;
+                
                 height: 300px;
-                width: 280px;
+                width: 100%;
             }
             .concert__title{
                 text-align: center;
@@ -27,7 +29,7 @@
                 font-size: 20px;
             }
             .concert__date{
-                text-align: center;  
+                text-align: center; 
                 font-weight: 100;
                 font-size: 15px;
             }
