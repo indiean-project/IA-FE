@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
+import FundDetail from './pages/FundDetail'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         path: '/signUp',
         element: <SignUp/>
       },
+      {
+        path: '/funding',
+        element: <></>
+      },
+      {
+        path: '/funding/detail',
+        element: <FundDetail/>
+      }
     ],
   },
 ]);
