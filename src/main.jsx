@@ -39,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/funding/detail',
         element: <FundDetail/>
+      },
+      {
+       path: '/admin/test',
+       element: <><h1>hi</h1></> 
       }
     ],
   },
