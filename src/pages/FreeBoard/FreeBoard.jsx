@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import BoardSidebar from '../../components/BoardSidebar';
+import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
 
 function FreeBoard() {
@@ -198,6 +199,7 @@ function FreeBoard() {
                             </tr>
                         </tbody>
                     </table>
+                    <PaginationBar/>
                 </div>
             </div>
         </div>
