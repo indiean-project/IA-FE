@@ -54,3 +54,7 @@ body {
     -o-user-drag: none;
     user-drag: none;
 }
+
+button {
+    font-family:'GmarketSans' !important; /* 버튼들이 글꼴 적용이 안 돼서 사용했습니다.*/
+}

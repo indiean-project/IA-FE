@@ -1,0 +1,24 @@
+.signUpForm__container {
+    background-color: black;
+    width:75%; height: 1000px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    .signUpForm__box {
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color:white;
+    
+        .signUpcheck { margin-top: 20px; display: flex; }
+    
+        .logo_white { height:30px; margin-top:7.8%; }
+    
+        h2 { margin-left: 10px; padding-top: 3%;}    
+    }
+}
+

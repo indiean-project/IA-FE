@@ -1,0 +1,16 @@
+.modal__box {
+    width: 450px; height: 250px;
+    border-radius: 12px;
+    background-color: #242424;
+    z-index: 999;
+
+    position:fixed;
+    top:50%;
+    left:50%; 
+
+    padding:10px;  
+
+    text-align: center;
+
+    transform:translate(-50%,-50%);
+}

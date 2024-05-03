@@ -1,8 +1,15 @@
+import LoginForm from '../../components/LoginForm'
+import SocialLoginForm from '../../components/SocialLoginForm'
+import './Login.scss';
+
 function Login(){
     return(
-        <div>
-            로그인
-        </div>
+        <>
+            <div className="loginForm__container">
+                <LoginForm />
+                <SocialLoginForm />
+            </div>
+        </>
     );
 }
 export default Login;
