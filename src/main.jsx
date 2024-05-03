@@ -29,9 +29,9 @@ const router = createBrowserRouter([
         element: <SignUp/>
       },
       {
-        path: '/concertList',
+        path: '/concert',
         element: <ConcertList/>
-      }
+      },
       {
         path: '/funding',
         element: <></>
