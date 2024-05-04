@@ -17,7 +17,7 @@ function BoardSidebar() {
                 <div className='boardSidebar__post'>나는야 인기글</div>
                 <hr />
                 <div className='boardSidebar__label'>
-                    <label>추천글 <MdThumbUp /></label>
+                    <label>추천글 <MdThumbUp className='boardSidebar__thumb'/></label>
                 </div>
                 <div className='boardSidebar__post'>나는야 추천글</div>
                 <div className='boardSidebar__post'>나는야 추천글</div>
@@ -26,7 +26,7 @@ function BoardSidebar() {
                 <div className='boardSidebar__post'>나는야 추천글</div>
                 <hr />
                 <div className='boardSidebar__label'>
-                    <label>커뮤니티 <MdPeopleAlt /></label>
+                    <label>커뮤니티 <MdPeopleAlt className='boardSidebar__community'/></label>
                 </div>
                 <div className='community__list'>
                     <div className='community__list__item'>
