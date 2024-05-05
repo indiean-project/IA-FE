@@ -1,8 +1,14 @@
+import LoginModal from "../../components/LoginModal";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
+
 function Home(){
     return(
-        <div>
-            홈
-        </div>
+        <></>
+        // <ModalWindow>
+        //     <div>
+        //         반갑다
+        //     </div>
+        // </ModalWindow>
     );
 }
 export default Home;

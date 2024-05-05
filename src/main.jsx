@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
+import ConcertList from './pages/ConcertList'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp/>
+      },
+      {
+        path: '/concert',
+        element: <ConcertList/>
       },
       {
         path: '/funding',
