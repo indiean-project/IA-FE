@@ -1,9 +1,10 @@
 import Background from "../../components/Background";
+import FundItemDetail from "../../components/FundItemDetail";
 
 function FundDetail(){
     return(
         <Background>
-            <div>반갑다.</div>
+            <FundItemDetail/>
         </Background>
     );
 }
