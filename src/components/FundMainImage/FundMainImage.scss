@@ -1,0 +1,26 @@
+.fundMainImage__container {
+    display: flex;
+    height: 300px;
+    width: 60%;
+    .fundMainImage__thumb {
+        width: 20%;
+        img {
+            display: block !important;
+            object-fit: cover;
+            width: 100%;
+            height: 19.8%;
+            margin: 1%;
+        }
+    }
+    .FundMainImage__main {
+        width: 80%;
+        img {
+            margin-top: 1px;
+            margin-left: 3px;
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+}

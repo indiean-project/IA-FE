@@ -3,34 +3,36 @@ import { useEffect, useRef, useState } from "react";
 import FundItemDetail from "../../components/FundItemDetail";
 import FundNav from "../../components/FundNav/FundNav";
 
-function FundDetail(){
+function FundDetail() {
     const navRef = useRef([])
     const nav = [
         {
-            id : 'fundInfo',
-            value : '프로젝트 소개'
+            id: 'fundInfo',
+            value: '프로젝트 소개'
         },
         {
-            id : 'artistInfo',
-            value : '아티스트 소개'
+            id: 'artistInfo',
+            value: '아티스트 소개'
         },
         {
-            id : 'budget',
-            value : '예산'
+            id: 'budget',
+            value: '예산'
         },
         {
-            id : 'schedule',
-            value : '일정'
+            id: 'schedule',
+            value: '일정'
         }
     ];
-    const onClickNav = (idx)=>{
-        navRef.current[idx].scrollIntoView({behavior: "smooth" });
+    const onClickNav = (idx) => {
+        navRef.current[idx].scrollIntoView({ behavior: "smooth" });
     }
 
-    return(
+    return (
         <div className="fundDetail__container">
-            <FundNav nav={nav} onClickNav={onClickNav}/>
-            <FundItemDetail nav={nav} navRef={navRef}/>
+            <FundNav nav={nav} onClickNav={onClickNav} />
+            <div className='fundDetail__main'>
+                <FundItemDetail nav={nav} navRef={navRef} />
+            </div>
         </div>
     );
 }

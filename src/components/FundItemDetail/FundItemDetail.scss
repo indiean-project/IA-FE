@@ -1,10 +1,27 @@
-.fundItemDetail__box{
-    background-color: rgba(174, 174, 174, 0.63);
-    width: 60%;
-    margin: 0 auto;
-    .fundItemDetail__item{
-        padding-top: 60px;
+.fundItemDetail__title{
+    width: 100%;
+    .fundItemDetail__title__item1{
+        display: flex;
+        .fundItemDetail__title__content{
+            padding-left: 4%;
+            width: 36%;
+        }
     }
+    .fundItemDetail__title__item2{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.fundItemDetail__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+.fundItemDetail__content{
+    background-color: rgba(174, 174, 174, 0.63);
+    width: 100%;
     #fundInfo{
         height: 1000px;
     }
@@ -19,3 +36,4 @@
     }
     
 }
+
