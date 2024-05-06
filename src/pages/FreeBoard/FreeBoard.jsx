@@ -22,7 +22,7 @@ function FreeBoard() {
                     </div>
                     <div className='freeboard__item'>
                         <div className='freeboard__category'>커뮤니티 &gt; 자유게시판</div>
-                        <div className='freeboard__btn'><NavLink>글쓰기</NavLink></div>
+                        <div className='freeboard__btn'><NavLink to={"/board/write"}>글쓰기</NavLink></div>
                     </div>
                     <hr />
                     <table className='freeboard__table'>

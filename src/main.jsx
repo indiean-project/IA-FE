@@ -9,7 +9,8 @@ import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
-import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
+import FreeBoard from './pages/FreeBoard'
+import BoardWrite from './pages/BoardWrite'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: '/board/free',
         element: <FreeBoard/>
+      },
+      {
+        path: '/board/write',
+        element: <BoardWrite/>
       },
     ],
   },
