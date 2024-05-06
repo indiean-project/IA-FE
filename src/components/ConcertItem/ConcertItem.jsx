@@ -8,89 +8,82 @@ const Concert = () => {
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>
+                                                       
+                        </ul>
                     </NavLink> 
                 </div> 
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
+                        </ul>
                     </NavLink> 
                 </div>     
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
+                        </ul>
                     </NavLink> 
                 </div>
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                          
+                        </ul>
                     </NavLink> 
                 </div> 
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
+                        </ul>
                     </NavLink> 
                 </div> 
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
+                        </ul>
                     </NavLink> 
                 </div>
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
+                        </ul>
                     </NavLink> 
                 </div> 
                 <div className="concert__item">
                     <NavLink>
                         <img src={test}/>
-                        <div className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</div>
-                        <br></br>
-                        <div className='concert__date'>START:2024년 5월 3일 금요일</div>
-                        <div className='concert__date'>END:2024년 5월 3일 금요일</div>
-                        <br></br>
-                        <div className='concert__location'>LOCATION:오방가르드</div>
+                        <ul>
+                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
+                            <li className='concert__location'>LOCATION:오방가르드</li>
+                            <li className='concert__date'>2024.5.3~2024.5.3</li>                             
+                        </ul>
                     </NavLink> 
                 </div> 
             </div>
