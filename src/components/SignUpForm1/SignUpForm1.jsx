@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { debounce } from 'lodash';
 
-import { checkUserInfo } from '../../apis/checkUserInfo';
+import { checkUserInfo } from '../../apis/user';
 
 import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
@@ -10,62 +10,53 @@ import './SignUpForm1.scss';
 
 function SignUpForm1({ onNextPage }) {
 
-    const regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,}$/g;
-
     const [isDuplicateId, setIsDuplicateId] = useState('');
     const [isDuplicatePwd, setIsDuplicatePwd] = useState('');
 
-    const [inputIdAccount, setInputIdAccount] = useState({});
-    const [inputPwdAccount, setInputPwdAccount] = useState({})
+    const [inputIdAccount, setInputIdAccount] = useState('');
+    const [inputPwdAccount, setInputPwdAccount] = useState('')
 
-    const checkUserValue = async (userInfo) => {
-        if (userInfo.userId === '' && userInfo.userPwd === '') {
+    const checkUser = async() => {
+        if (inputIdAccount === '') {
             setIsDuplicateId('');
-            setIsDuplicatePwd('');
-        } else {
-            const result = await checkUserInfo(userInfo)
-
-            console.log(result);
-        
-            if (result.userId != null) {
-                // 가능
-                setIsDuplicateId('bad');
-            } else {
-                setIsDuplicateId('good');
-            }
-            console.log(regExp.test(inputPwdAccount.userPwd));
-            if (regExp.test(inputPwdAccount.userPwd)===true) {    // 비밀번호가 유효성 검사에 걸려 메세지 반환
-                // 불가능
-                setIsDuplicatePwd('good');
-            } else {
-                setIsDuplicatePwd('bad');
-            }
-    
+            return;
         }
-    }
 
-    const delayInput = useCallback(
-        debounce((i) => checkUserValue(i), 500),
-        []
-    )
+        if (inputPwdAccount === '') {
+            setIsDuplicatePwd('');
+            return;
+        }
+
+        const result = await checkUserInfo({
+            userId : inputIdAccount, 
+            userPwd : inputPwdAccount
+        });
+
+        console.log(result);
+
+        // if(result.userId !== null) {
+        if (result.name === "HAS_ID") {
+            setIsDuplicateId('bad');
+        } else {
+            setIsDuplicateId('good');
+        }
+
+        const regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,}$/g.test(userPwd);
+
+        setIsDuplicatePwd(regExp? 'good' : 'bad');
+    };
+
+    const delayInput = debounce(checkUser, 200);
 
     const onChangeIdAccount = (e) => {
-        setInputIdAccount(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-
-        delayInput({ ...inputIdAccount, [e.target.name]: e.target.value });
-    }
+        setInputIdAccount(e.target.value);
+        delayInput();
+    };
 
     const onChangePwdAccount = (e) => {
-        setInputPwdAccount(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }));
-
-        delayInput({ ...inputPwdAccount, [e.target.name]: e.target.value });
-    }
+        setInputPwdAccount(e.target.value);
+        delayInput();
+    };
 
     return (
         <>
@@ -73,13 +64,13 @@ function SignUpForm1({ onNextPage }) {
                 <img className="idIcon" src={loginicon} alt="x" />
                 <input type="text" className={`inputId ${isDuplicateId === '' ? '' : (isDuplicateId)}`} id="userId"
                     name="userId" placeholder="아이디를 입력해주세요"
-                    value={inputIdAccount.userId} onChange={(e) => onChangeIdAccount(e)} />
+                    value={inputIdAccount} onChange={(e)=>onChangeIdAccount(e)} />
                 <br /><br />
                 <img className="pwdIcon" src={passwordIcon} alt="x" />
                 <input type="password" className={`inputPwd ${isDuplicatePwd === '' ? '' : (isDuplicatePwd)}`} id="userPwd"
                     name="userPwd" placeholder="비밀번호를 입력해주세요"
-                    value={inputPwdAccount.userPwd}
-                    onChange={(e) => onChangePwdAccount(e)}
+                    value={inputPwdAccount}
+                    onChange={(e)=>onChangePwdAccount(e)}
                 />
             </div>
             <br />
