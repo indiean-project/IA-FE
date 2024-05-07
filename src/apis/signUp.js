@@ -1,4 +1,4 @@
-import API from "../core"
+import { API } from "../core"
 
 export const signUpUser = async(params) => {
     try {

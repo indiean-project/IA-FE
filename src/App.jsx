@@ -1,6 +1,7 @@
 import { RecoilRoot } from 'recoil'
 import Layout from './components/Layout'
 import drum from './assets/drum.png'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   // pr 체크
@@ -8,6 +9,7 @@ function App() {
     <RecoilRoot>
       <img src={drum} id="background__drum"/>
       <Layout/>
+      <Toaster/>
     </RecoilRoot>
   )
 }
