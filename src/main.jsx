@@ -10,6 +10,10 @@ import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
 import AdminPage from './pages/AdminPage/AdminPage.jsx'
+import AdminFundingApproval from './components/AdminFundingApproval/AdminFundingApproval.jsx'
+import AdminQuestionSection from './components/AdminQuestionSeciton/AdminQuestionSection.jsx'
+import AdminReportManagement from './components/AdminReportManagement/AdminReportManagement.jsx'
+import AdminUserAutority from './components/AdminUserAutority/AdminUserAutority.jsx'
 
 const router = createBrowserRouter([
   {
@@ -44,7 +48,20 @@ const router = createBrowserRouter([
       {
        path: '/admin',
        element: <AdminPage/> 
-      }
+      },
+      {
+        path: '/admin/fund',
+        element: <AdminFundingApproval/> 
+       }, {
+        path: '/admin/questions',
+        element: <AdminQuestionSection/> 
+       }, {
+        path: '/admin/report',
+        element: <AdminReportManagement/> 
+       }, {
+        path: '/admin/userAutority',
+        element: <AdminUserAutority/> 
+       }
     ],
   },
 ]);

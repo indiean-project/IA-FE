@@ -1,31 +1,24 @@
-
+import { NavLink } from "react-router-dom";
 
 function AdminPage(){
 
     return(
         <div>
-            <h1>indian(admin)버전이라고 따로 주고싶어요</h1>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            
             <table>
                 <tr>
-                    <th><button>유저권한 요청건</button></th>
-                    <th><button>펀딩승인 요청건</button></th>
-                    <th><button>문의 관리</button></th>
-                    <th><button>신고 관리</button></th>
-                    <th><button>유저 정보</button></th>
-                </tr>
+                    <th><NavLink to={"/admin/userAutority"} ><h2>유저 권한 요청</h2></NavLink></th> <br/> <br/><br/><br/>        
+                    <th><NavLink to={"/admin/fund"} ><h2>펀딩 승인 요청</h2></NavLink></th><br/><br/><br/><br/>
+                    <th><NavLink to={"/admin/questions"}><h2>문의 관리</h2></NavLink></th><br/><br/><br/><br/>
+                    <th><NavLink to={"/admin/report"} ><h2>신고 관리</h2></NavLink></th><br/><br/><br/><br/>
+                </tr>            
             </table>
-            <input palceholder="유저네임 or 키워드로 검색하세요..?"></input>
-            <input type="radio" id="" name="" value=""></input>
-            <label for ="option1">처리되지 않은 요청만 보기</label>
-            <table>
-                <tr>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-            </table>
-            <div> 페이징 처리</div>
+            <input placeholder="유저네임?으로 검색해주세요."/>
+            <button tyoe="submit">검색</button>
+            <br/>
+            <input type="radio" ></input>         
+            <label>읽지 않은 내용만 보기</label>            
         </div>
 
     );
