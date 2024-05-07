@@ -11,25 +11,25 @@ function AdminFundingApproval(){
             nickname : '옥암동 불꽃낙지'
         },
         {
-            fundNo : 2,
+            fundNo : 3,
             fundTitle : "띠요잉",
             fundContent : "dddd",
             nickname : '옥암동 불꽃낙지'
         },
         {
-            fundNo : 2,
+            fundNo : 4,
             fundTitle : "띠요잉",
             fundContent : "dddd",
             nickname : '옥암동 불꽃낙지'
         },
         {
-            fundNo : 2,
+            fundNo : 5,
             fundTitle : "띠요잉",
             fundContent : "dddd",
             nickname : '옥암동 불꽃낙지'
         },
         {
-            fundNo : 2,
+            fundNo : 6,
             fundTitle : "띠요잉",
             fundContent : "dddd",
             nickname : '옥암동 불꽃낙지'
@@ -47,6 +47,8 @@ function AdminFundingApproval(){
             nickname : '옥암동 불꽃낙지'
         },
     ]
+
+    
 
     return(
         <div>
@@ -69,14 +71,25 @@ function AdminFundingApproval(){
                     </tr>                    
                 </thead>
                 <tbody>                    
-                    <tr>
-                        
-                    </tr>
+                    {/* <tr>
+                       {test.map((data,index)=>(
+                         <span key={index}>
+                            {data}
+                         </span>
+                       ))}
+                    </tr> */}
+                    {test.map((data, index) => (
+                        <tr key={index}>
+                            <td>{data.fundNo}</td>
+                            <td>{data.fundTitle}</td>
+                            <td>{data.fundContent}</td>
+                            <td>{data.nickname}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
     );
-
 
 }
 
