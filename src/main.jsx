@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
+import AdminPage from './pages/AdminPage/AdminPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -41,8 +42,8 @@ const router = createBrowserRouter([
         element: <FundDetail/>
       },
       {
-       path: '/admin/test',
-       element: <><h1>hi</h1></> 
+       path: '/admin',
+       element: <AdminPage/> 
       }
     ],
   },

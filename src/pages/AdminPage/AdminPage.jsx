@@ -18,9 +18,14 @@ function AdminPage(){
             <input type="radio" id="" name="" value=""></input>
             <label for ="option1">처리되지 않은 요청만 보기</label>
             <table>
-                
+                <tr>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
             </table>
-            
+            <div> 페이징 처리</div>
         </div>
 
     );
