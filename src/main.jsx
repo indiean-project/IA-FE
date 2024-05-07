@@ -10,7 +10,7 @@ import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
 import FreeBoard from './pages/FreeBoard'
-import BoardWrite from './pages/BoardWrite'
+import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
         element: <FreeBoard/>
       },
       {
-        path: '/board/write',
-        element: <BoardWrite/>
+        path: '/board/enroll',
+        element: <BoardEnrollForm/>
       },
     ],
   },

@@ -1,9 +1,9 @@
 import ReactQuill from 'react-quill';
-import './BoardWrite.scss';
+import './BoardEnrollForm.scss';
 import { useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 
-function BoardWrite() {
+function BoardEnrollForm() {
     const [content, setContent] = useState('');
     const quillRef = useRef();
     const [imgList, setImgList] = useState([]);
@@ -80,10 +80,9 @@ function BoardWrite() {
 
     }
 
-
     return (
-        <div className="boardWrite__container">
-            <div className='boardWrite__box'>
+        <div className="boardEnrollForm__container">
+            <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
                     <select>
@@ -104,13 +103,12 @@ function BoardWrite() {
                         onChange={handleChange}
                         ref={quillRef}
                     />
-                    <div className='boardWrite__items'>
-                        <button>이미지 첨부</button>
+                    <div className='boardEnrollForm__items'>
+                        <button onClick={imageHandler}>이미지 첨부</button>
                         <button onClick={enroll}>등록</button>
                     </div>
                 </div>
             </div>
         </div>
     )
-
-} export default BoardWrite;
+} export default BoardEnrollForm;

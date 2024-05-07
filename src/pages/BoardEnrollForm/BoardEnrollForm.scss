@@ -1,4 +1,4 @@
-.boardWrite__container {
+.boardEnrollForm__container {
     margin: 10%;
     height: 100%;
     background-color: rgba(12, 12, 12, 0.63);
@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
 
-    .boardWrite__box {
+    .boardEnrollForm__box {
         width: 90%;
 
         label {
@@ -47,7 +47,7 @@
             }
         }
 
-        .boardWrite__items {
+        .boardEnrollForm__items {
             display: flex;
             justify-content: space-between;
 
