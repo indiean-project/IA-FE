@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './FundNav.scss';
-function FundNav({nav, onClickNav}) {
+function FundNav({nav, onClickNav, changeNav, setChangeNav, fundNavRef, onClickChangeNav}) {
 
 
     return (
@@ -8,7 +8,9 @@ function FundNav({nav, onClickNav}) {
             {
                 nav.map((item, idx)=>{
                     return(
-                        <div key={idx} onClick={()=>onClickNav(idx)}>
+                        <div key={idx} 
+                            onClick={()=>onClickNav(idx)}
+                            ref={(e)=>(fundNavRef.current[idx]=e)}>
                             {item.value}
                         </div>
                     );
