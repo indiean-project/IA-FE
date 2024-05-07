@@ -9,19 +9,29 @@ function FundItemDetail({ nav, navRef }) {
                     <FundMainImage />
                     <div className='fundItemDetail__title__content'>
                         <h4>목표금액</h4>
-                        <h2>20,000,000원</h2>
+                        <div className='fundItemDetail__title__price'>
+                            <h2>20,000,000</h2><div>원</div>
+                        </div>
                         <h4>펀딩금액</h4>
-                        <h2>15,100,500원</h2>
+                        <div className='fundItemDetail__title__price'>
+                            <h2>15,100,500</h2><div>원</div>
+                        </div>
                         <div></div>
                         <h4>참가자</h4>
-                        <h2>152명</h2>
+                        <div className='fundItemDetail__title__price'>
+                            <h2>152</h2><div>명</div>
+                        </div>
                     </div>
                 </div>
                 <div className='fundItemDetail__title__item2'>
-                    <div>
-                        <h4>펀딩기간</h4>
-                        <h2>D-4</h2>
+                    <div className='fundItemDetail__title__schedule'>
+                        <div className='fundItemDetail__title__schedule__item'>
+                            <h4>펀딩기간</h4>
+                            <h2>D-4</h2>
+                        </div>
+                        <div>2024/04/25 ~ 2024/05/25</div>
                     </div>
+
                     <div>
                         <button></button>
                         <button></button>

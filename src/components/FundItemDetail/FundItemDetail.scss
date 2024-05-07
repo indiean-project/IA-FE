@@ -1,16 +1,60 @@
 .fundItemDetail__title{
+    margin-top: 5%;
+    color: white;
     width: 100%;
+    h1{
+        font-size: 45px;
+    }
+    h4{
+        margin: 0;
+        margin-bottom: 5px;
+        color: rgba(187, 187, 187, 1);
+    }
+    h2{
+        margin: 0;
+    }
     .fundItemDetail__title__item1{
         display: flex;
+        justify-content: space-between;
         .fundItemDetail__title__content{
+            h2{
+                font-size: 40px;
+            }
+            h4{
+                font-size: 25px;
+            }
             padding-left: 4%;
             width: 36%;
+            .fundItemDetail__title__price{
+                margin-bottom: 15px;
+                display: flex;
+                align-items: end;
+                div{
+                    font-size: 25px;
+                    padding-left: 8px;
+                    padding-bottom: 3px;
+                }
+            }
         }
     }
     .fundItemDetail__title__item2{
         display: flex;
         justify-content: space-between;
         align-items: center;
+        .fundItemDetail__title__schedule{
+            margin-top: 2%;
+            margin-bottom: 2%;
+            .fundItemDetail__title__schedule__item{
+                h2, h4{
+                    margin: 0;
+                }
+                h2{
+                    padding-left: 15px;
+                }
+                display: flex;
+                align-items: center;
+            }
+        }
     }
 }
 .fundItemDetail__container{
