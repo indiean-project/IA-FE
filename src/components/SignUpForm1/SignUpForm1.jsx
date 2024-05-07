@@ -15,7 +15,8 @@ function SignUpForm1({ onNextPage }) {
     const [isDuplicateId, setIsDuplicateId] = useState('');
     const [isDuplicatePwd, setIsDuplicatePwd] = useState('');
 
-    const [inputAccount, setInputAccount] = useState({})
+    const [inputIdAccount, setInputIdAccount] = useState({});
+    const [inputPwdAccount, setInputPwdAccount] = useState({})
 
     const checkUserValue = async (userInfo) => {
         if (userInfo.userId === '' && userInfo.userPwd === '') {
@@ -32,8 +33,8 @@ function SignUpForm1({ onNextPage }) {
             } else {
                 setIsDuplicateId('good');
             }
-            console.log(regExp.test(inputAccount.userPwd));
-            if (regExp.test(inputAccount.userPwd)==true) {    // 비밀번호가 유효성 검사에 걸려 메세지 반환
+            console.log(regExp.test(inputPwdAccount.userPwd));
+            if (regExp.test(inputPwdAccount.userPwd)===true) {    // 비밀번호가 유효성 검사에 걸려 메세지 반환
                 // 불가능
                 setIsDuplicatePwd('good');
             } else {
@@ -48,13 +49,22 @@ function SignUpForm1({ onNextPage }) {
         []
     )
 
-    const onChangeAccount = (e) => {
-        setInputAccount(prevState => ({
+    const onChangeIdAccount = (e) => {
+        setInputIdAccount(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
         }));
 
-        delayInput({ ...inputAccount, [e.target.name]: e.target.value });
+        delayInput({ ...inputIdAccount, [e.target.name]: e.target.value });
+    }
+
+    const onChangePwdAccount = (e) => {
+        setInputPwdAccount(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
+
+        delayInput({ ...inputPwdAccount, [e.target.name]: e.target.value });
     }
 
     return (
@@ -63,13 +73,13 @@ function SignUpForm1({ onNextPage }) {
                 <img className="idIcon" src={loginicon} alt="x" />
                 <input type="text" className={`inputId ${isDuplicateId === '' ? '' : (isDuplicateId)}`} id="userId"
                     name="userId" placeholder="아이디를 입력해주세요"
-                    value={inputAccount.userId} onChange={(e) => onChangeAccount(e)} />
+                    value={inputIdAccount.userId} onChange={(e) => onChangeIdAccount(e)} />
                 <br /><br />
                 <img className="pwdIcon" src={passwordIcon} alt="x" />
                 <input type="password" className={`inputPwd ${isDuplicatePwd === '' ? '' : (isDuplicatePwd)}`} id="userPwd"
                     name="userPwd" placeholder="비밀번호를 입력해주세요"
-                    value={inputAccount.userPwd}
-                    onChange={(e) => onChangeAccount(e)}
+                    value={inputPwdAccount.userPwd}
+                    onChange={(e) => onChangePwdAccount(e)}
                 />
             </div>
             <br />

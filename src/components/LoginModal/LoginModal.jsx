@@ -1,7 +1,7 @@
 import ModalBackground from '../ModalBackground';
 import { isModalActive } from '../../recoil/IsModalActive';
 import {loginUserState} from '../../recoil/LoginUser';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState  } from 'recoil'
 import { useNavigate } from 'react-router-dom';
 
 import './LoginModal.scss';
@@ -14,11 +14,13 @@ const LoginModal = () => {
     const setCloseButton = useSetRecoilState(isModalActive);
 
     const modalClose = () => {
-        setCloseButton({
-            ...isModalActive,
-            default: false
-        })
-        navigate("/");
+        // setCloseButton({
+        //     ...isModalActive,
+        //     default: false
+        // })   => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X
+        setCloseButton(false);
+        console.log(isModalActive);
+        // navigate("/");
     }
 
 
@@ -35,7 +37,7 @@ const LoginModal = () => {
                 </div>
                 <br/>
                 <div>
-                    <button onClick={modalClose}>확인</button>
+                    <button onClick={()=>modalClose()}>확인</button>
                 </div>
             </div>
         </ModalBackground>
