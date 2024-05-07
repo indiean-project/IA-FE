@@ -36,8 +36,6 @@ function FundDetail() {
 
     const handleScroll = () => {
         const scroll = window.scrollY;
-        console.log(refY)
-        console.log(scroll);
         if (scroll < refY[1]) {
             onClickChangeNav(0);
         } else if (refY[1] <= scroll && scroll < refY[2]) {

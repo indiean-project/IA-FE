@@ -1,14 +1,36 @@
 import { Arrow90degRight, HandThumbsUp, Linkedin, PlusSquareFill, Share } from 'react-bootstrap-icons';
 import FundMainImage from '../FundMainImage/FundMainImage';
 import './FundItemDetail.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 function FundItemDetail({ nav, navRef }) {
 
-    const [rate, setRate] = useState();
+    const [rate, setRate] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [people, setPeople] = useState(0);
+    const priceRef = useRef(0);
+    const rateRef = useRef(0);
+    const peopleRef = useRef(0);
 
-    useEffect(()=>{
-        setRate(60);
-    },[]);
+
+    useEffect(() => { //동적으로 숫자 카운팅
+        let count = 15001020;
+        let goal = 20000000;
+        let peopleCount = 152;
+        const timer = setInterval(() => {
+            priceRef.current += Math.floor(count/peopleCount);
+            peopleRef.current += 1;
+            rateRef.current = (100 * (priceRef.current/goal)).toFixed(1);
+            setPrice(priceRef.current.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+            setRate(rateRef.current);
+            setPeople(peopleRef.current);
+            if (priceRef.current >= count) {
+                setPrice(count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                setPeople(peopleCount);
+                clearInterval(timer);
+            }
+        }, 10);
+    }, [])
+
     let rateColor = {
         background: `linear-gradient(90deg, #E3651D ${rate}%, #FFFFFF ${rate}%)`
     };
@@ -26,7 +48,7 @@ function FundItemDetail({ nav, navRef }) {
                         </div>
                         <h4>펀딩금액</h4>
                         <div className='fundItemDetail__title__price'>
-                                <h2>15,100,500</h2><div>원</div>
+                            <h2>{price}</h2><div>원</div>
                             <h4>
                                 {rate}%
                             </h4>
@@ -35,7 +57,7 @@ function FundItemDetail({ nav, navRef }) {
                         </div>
                         <h4>참가자</h4>
                         <div className='fundItemDetail__title__price'>
-                            <h2>152</h2><div>명</div>
+                            <h2>{people}</h2><div>명</div>
                         </div>
                     </div>
                 </div>
