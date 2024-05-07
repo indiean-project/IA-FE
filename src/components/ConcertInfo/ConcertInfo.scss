@@ -1,0 +1,24 @@
+.concert__info__box{
+    display: flex;
+    justify-content: center;
+   
+    .concert__info__item{
+        border-radius: 4px;
+        padding: 2%;
+        display: flex;
+        justify-content: center;
+        background-color:#242424;
+        min-width: 700px;
+        width: 50%;
+        img{
+            width: 350px;
+        }
+        .concert__info__text{
+            color: white;
+            max-width: 300px;
+            margin-left: 5%;
+            font-size: 15px;
+
+        }
+    }
+}
