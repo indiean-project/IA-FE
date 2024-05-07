@@ -24,11 +24,11 @@ function BoardEnrollForm() {
 
             const result = await tempImg(formData); // 이미지 임시 저장
 
-            let imgTag = `<img src="../public/tempImg/${result}" alt="${result}"/>`;
+            let imgTag = `<img src="../public/tempImg/${result.data}" alt="${result.data}"/>`;
 
             setContent(prevContent => prevContent + imgTag);
 
-            setImgList(imgList => [...imgList, result]);
+            setImgList(imgList => [...imgList, result.data]);
         }
     }
 
@@ -66,6 +66,7 @@ function BoardEnrollForm() {
         let moveList = [];
         let deleteList = [];
         let trimTitle;
+        let imgResult;
 
         // title.trim() === "" ? alert("제목을 입력해주세요") :
         // content.substring(4, content.length - 4).trim() === "" ? alert("내용을 입력해주세요.") :
@@ -82,17 +83,23 @@ function BoardEnrollForm() {
                 content.indexOf(item) !== -1 ? moveList.push(item) : deleteList.push(item);
             })
     
-            if (moveList !== "") imgMove(moveList);   // 에디터에 해당 이미지가 있을 시 tempImg에서 img폴더 경로로 이동
-            
+            if (moveList !== "") {
+                imgResult = await imgMove(moveList);   // 에디터에 해당 이미지가 있을 시 tempImg에서 img폴더 경로로 이동
+            }
             if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
 
-            // const result = await boardEnroll({
-            //     boardContent: content,
-            //     boardTitle: trimTitle,
-            //     member: {
-            //         userNo: 1   // 로그인 한 userNo로 수정예정
-            //     }
-            // })
+            const result = await boardEnroll({
+                boardContent: content,
+                boardTitle: trimTitle,
+                member: {
+                    userNo: 1   // 로그인 한 userNo로 수정예정
+                }
+            })
+
+            console.log(result.data);   // boardNo값 (content_no)
+            console.log(imgResult.data);    // imgURL
+
+
         }
     }
 
