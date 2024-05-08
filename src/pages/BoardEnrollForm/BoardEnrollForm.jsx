@@ -3,7 +3,7 @@ import './BoardEnrollForm.scss';
 import { useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
-import { boardEnroll } from '../../apis/boardEnroll';
+import { boardEnroll, imgEnroll } from '../../apis/boardEnroll';
 import toast from 'react-hot-toast';
 
 function BoardEnrollForm() {
@@ -41,7 +41,7 @@ function BoardEnrollForm() {
                     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                     [{ 'list': 'ordered' }, { 'list': 'bullet' },
                     { 'indent': '-1' }, { 'indent': '+1' }],
-                    ['link', 'image', 'video'],
+                    ['link', 'image'],
                     ['clean']
                 ],
                 handlers: {
@@ -62,15 +62,11 @@ function BoardEnrollForm() {
         setContent(content);
     };
 
-    const enroll = async() => {
+    const enroll = async () => {
         let moveList = [];
         let deleteList = [];
         let trimTitle;
         let imgResult;
-
-        // title.trim() === "" ? alert("제목을 입력해주세요") :
-        // content.substring(4, content.length - 4).trim() === "" ? alert("내용을 입력해주세요.") :
-        // trimTitle = title.trim();
 
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
@@ -82,7 +78,7 @@ function BoardEnrollForm() {
             imgList.forEach((item) => {
                 content.indexOf(item) !== -1 ? moveList.push(item) : deleteList.push(item);
             })
-    
+
             if (moveList !== "") {
                 imgResult = await imgMove(moveList);   // 에디터에 해당 이미지가 있을 시 tempImg에서 img폴더 경로로 이동
             }
@@ -96,8 +92,12 @@ function BoardEnrollForm() {
                 }
             })
 
-            console.log(result.data);   // boardNo값 (content_no)
-            console.log(imgResult.data);    // imgURL
+            if (imgResult.data.length > 0) {
+                imgEnroll({
+                    contentNo: result.data,
+                    imgUrlList: imgResult.data
+                });
+            }
 
 
         }
@@ -115,7 +115,7 @@ function BoardEnrollForm() {
                     </select>
                 </div>
                 <div>
-                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e)=>{setTitle(e.target.value)}} />
+                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} />
                 </div>
                 <div>
                     <ReactQuill

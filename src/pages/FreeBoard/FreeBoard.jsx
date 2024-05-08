@@ -2,8 +2,16 @@ import { NavLink } from 'react-router-dom';
 import BoardSidebar from '../../components/BoardSidebar';
 import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
+import { useEffect, useState } from 'react';
+import { freeBoardList } from '../../apis/freeboardList';
 
 function FreeBoard() {
+    const [BoardList, setBoardList] = useState ([]);
+    const currenPage = 1;
+    useEffect(() => {
+        freeBoardList(currenPage);
+    }, [])
+
     return (
         <div className='freeboard__container'>
             <div className='freeboard__box'>
