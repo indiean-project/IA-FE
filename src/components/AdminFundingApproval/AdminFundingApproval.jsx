@@ -1,54 +1,54 @@
-import  {useState} from "react";
+import  {useEffect, useState} from "react";
+import { adminUser } from "../../apis/admin";
 
 function AdminFundingApproval(){
     const [fundingRequest, setFundingRequest] = useState([])
 
-    const test = [
-        {
-            fundNo : 2,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 3,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 4,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 5,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 6,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 2,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-        {
-            fundNo : 2,
-            fundTitle : "띠요잉",
-            fundContent : "dddd",
-            nickname : '옥암동 불꽃낙지'
-        },
-    ]
+    useEffect(()=> {
+        getList();
+    }, []);
 
-    
+    const getList = async () => {
+        const result = await adminUser();
+        console.log(result);
+        if (result.status === "SUCCESS")
+            setFundingRequest(result.data);
+    }
+   
+    // const test = [
+    //     {
+    //         fundNo : 2,
+    //         fundTitle : "띠요잉",
+    //         fundContent : "dddd",
+    //         nickname : '옥암동 불꽃낙지'
+    //     },
+    //     {
+    //         fundNo : 3,
+    //         fundTitle : "띠요잉",
+    //         fundContent : "dddd",
+    //         nickname : '옥암동 불꽃낙지'
+    //     },
+    //     {
+    //         fundNo : 4,
+    //         fundTitle : "띠요잉",
+    //         fundContent : "dddd",
+    //         nickname : '옥암동 불꽃낙지'
+    //     },
+    //     {
+    //         fundNo : 5,
+    //         fundTitle : "띠요잉",
+    //         fundContent : "dddd",
+    //         nickname : '옥암동 불꽃낙지'
+    //     },
+    //     {
+    //         fundNo : 6,
+    //         fundTitle : "띠요잉",
+    //         fundContent : "dddd",
+    //         nickname : '옥암동 불꽃낙지'
+    //     },    
+    // ]
+
+
 
     return(
         <div>
@@ -78,7 +78,7 @@ function AdminFundingApproval(){
                          </span>
                        ))}
                     </tr> */}
-                    {test.map((data, index) => (
+                    {fundingRequest.map((data, index) => (
                         <tr key={index}>
                             <td>{data.fundNo}</td>
                             <td>{data.fundTitle}</td>
