@@ -4,7 +4,7 @@
 
         .inputId,
         .inputPwd,
-        .checkPwd,
+        .certPwd,
         .inputName,
         .inputPhone {
             width: 60%;
@@ -22,6 +22,14 @@
             padding-left: 35px;
             margin-right: 2%;
         }
+
+        .certPwd.good, .certNum.good {
+            border: 2px solid greenyellow;
+        }
+        .certPwd.bad, .certNum.bad {
+            border: 2px solid red;
+        }
+
         .btn-cert {
             text-overflow: ellipsis;
             overflow: hidden;

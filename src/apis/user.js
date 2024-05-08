@@ -17,13 +17,23 @@ export const signUpUser = async(params) => {
         console.log(e);
     }
 }
-
-export const checkUserInfo = async(params) => {
+// return e.response.data;
+export const checkUserId = async(params) => {
     try {
-        const {data} = await API.post("/apis/user/signUp/checkInfo", params);
+        const {data} = await API.post("/apis/user/signUp/checkId", params);
         return data;
     } catch (e){
         console.log(e);
-        return e.response.data;
+        return e;
+    }
+}
+
+export const checkUserPwd = async(params) => {
+    try {
+        const {data} = await API.post("/apis/user/signUp/checkPwd", params);
+        return data;
+    } catch (e){
+        console.log(e);
+        return e;
     }
 }
