@@ -4,7 +4,7 @@ import poster from './poster.jpg';
 import artist from './10cm.jpg';
 import { useState } from 'react';
 import ConcertInfo from '../../components/ConcertInfo';
-import ConcertReply from '../../components/ConcertReply/ConcertReply';
+import CommonReply from '../../components/CommonReply/CommonReply';
 
 function ConcertDetail (){
 
@@ -86,7 +86,7 @@ function ConcertDetail (){
                 </div>
             </div>
             <div>
-                {detailState ==='info' ? <ConcertInfo/> : <ConcertReply/>}
+                {detailState ==='info' ? <ConcertInfo/> : <CommonReply/>}
             </div>
         </div>
     )
