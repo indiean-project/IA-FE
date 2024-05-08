@@ -15,12 +15,12 @@ function Reply(){
                 <table>
                     <thead>
                         <tr>
-                            <td className='title'>user01</td><td>&nbsp; 2024.04.23 <BsPencilSquare className='pointer'/> <BsTrash className='pointer'/></td>
+                            <td className='title'>user01</td><td>&nbsp; 2024.04.23 { loginUser.userId ===""? <><BsPencilSquare className='pointer'/> <BsTrash className='pointer'/></>:"" }</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td className='text' colSpan={2}>sdfsdfsdsdfgsdffsdfssdfgsdfdfsdgsdgsdgsd</td><td className='report'>신고</td>
+                            <td className='text' colSpan={2}>sdfsdfsdsdfgsdffsdfssdfgsdfdfsdgsdgsdgsd</td>{ loginUser.userId !==""? <td className='report'> 신고</td>:<td></td>}
                         </tr>
                         <tr>
                             <td colSpan={3}><hr></hr></td>
