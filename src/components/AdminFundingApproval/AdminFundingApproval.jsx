@@ -64,10 +64,11 @@ function AdminFundingApproval(){
             <table>
                 <thead>
                     <tr>
-                        <th>No.</th>                      
-                        <th>펀딩명</th>
-                        <th>내용</th>
-                        <th>작성자</th>
+                        <th>No.</th>                                             
+                        <th>펀딩타입</th>
+                        <th>펀딩제목</th>
+                        <th>유저넘버</th>
+                        <th>처리상태</th>
                     </tr>                    
                 </thead>
                 <tbody>                    
@@ -81,9 +82,10 @@ function AdminFundingApproval(){
                     {fundingRequest.map((data, index) => (
                         <tr key={index}>
                             <td>{data.fundNo}</td>
+                            <td>{data.fundTypeNo}</td>
                             <td>{data.fundTitle}</td>
-                            <td>{data.fundContent}</td>
-                            <td>{data.nickname}</td>
+                            <td>{data.userNo}</td>
+                            <td>{data.fundStatus}</td>
                         </tr>
                     ))}
                 </tbody>
