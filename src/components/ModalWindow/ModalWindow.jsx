@@ -2,7 +2,7 @@ import ModalBackground from '../ModalBackground';
 import { isModalActive } from '../../recoil/IsModalActive';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 
-const ModalWindow = () => {
+const ModalWindow = (props) => {
 
     const setCloseButton = useSetRecoilState(isModalActive);
 
@@ -15,7 +15,7 @@ const ModalWindow = () => {
     return (
         <ModalBackground>
             <div className="modal__box">
-                <button onClick={modalClose}>확인</button>
+                {props.children}
             </div>
         </ModalBackground>
     );

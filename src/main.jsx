@@ -9,6 +9,7 @@ import SignUp from './pages/SignUp'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
+import FundList from './pages/FundList'
 import FreeBoard from './pages/FreeBoard'
 import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 
@@ -31,12 +32,12 @@ const router = createBrowserRouter([
         element: <SignUp/>
       },
       {
-        path: '/concertList',
+        path: '/concert',
         element: <ConcertList/>
       },
       {
         path: '/funding',
-        element: <></>
+        element: <FundList/>
       },
       {
         path: '/funding/detail',
