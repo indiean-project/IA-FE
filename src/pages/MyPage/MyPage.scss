@@ -1,16 +1,141 @@
 .myPage__container {
     background-color: black;
-    width:75%; height:100%;
+    width: 60%; min-width: 800px; height: auto;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
     margin: 0 auto;
-    margin-top : 70px;
+    margin-top: 70px;
     padding-top: 20px;
-}
+    padding-bottom: 50px;
 
-.myPage__box {
-    width:100%;
-    display:grid;
+    .myPage__box {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        grid-template-rows: 50px 350px 350px 350px;
+        grid-template-areas:
+            "headh2 headh2 headh2 headh2"
+            "profile__img profile__img text__info text__info"
+            "profile__intro profile__intro favorite favorite"
+            "bList bList bList bList";
+        color: white;
+
+        .headh2 {
+            grid-area: headh2;
+        }
+
+        ;
+
+        .profile__img {
+            grid-area: profile__img;
+
+            .showImg {
+                margin: 50px auto;
+                background-color: gray;
+                border-radius: 50%;
+                max-width: 250px;
+                min-height: 250px;
+            }
+        }
+
+        ;
+
+        .text__info {
+            grid-area: text__info;
+            display: flex;
+            align-items: center;
+
+            div {
+                width: 100%;
+
+                input {
+                    width: 50%;
+                    min-width: 150px;
+                    height: 30px;
+                    background-color: #cccccc;
+                    border-radius: 10px;
+                    padding-left: 25px;
+                    margin-right: 20px;
+                }
+
+                button {
+                    width: 35px;
+                    height: 35px;
+                    background-color: black;
+                }
+
+                button:active {
+                    background-color: #6c757d
+                }
+            }
+        }
+
+        ;
+
+        .profile__intro {
+            grid-area: profile__intro;
+
+            textarea {
+                background-color: #cccccc;
+                border-radius: 3px;
+                width: 250px;
+                height: 250px;
+                resize: none;
+                margin: 50px auto;
+                padding: 15px;
+                font-family: 'GmarketSans';
+                font-weight: 600;
+                font-size: 20px;
+                overflow-y: hidden;
+            }
+
+            textarea:focus {
+                overflow: auto;
+                outline: none;
+            }
+
+            textarea::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        ;
+
+        .favorite {
+            grid-area: favorite;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+
+            div {
+                width: 100%;
+                display: flex;
+                .fav__artist,
+                .fav__music {
+                    width: 100%;
+                    min-width: 200px;
+                    flex-direction: column;
+                    .fav__img {
+                        margin : 20px auto;
+                        width: 150px; height: 150px; 
+                        background-color: gray;
+                        border-radius: 50%;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        ;
+
+        .bList {
+            grid-area: bList;
+            margin-top: 10px;
+        }
+
+        ;
+    }
 }
