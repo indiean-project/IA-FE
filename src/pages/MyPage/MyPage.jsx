@@ -5,6 +5,7 @@ import { PencilSquare } from 'react-bootstrap-icons';
 import { loginUserState } from '../../recoil/LoginUser';
 
 import './MyPage.scss';
+import { updateUser } from '../../apis/user';
 
 function MyPage() {
     const loginUser = useRecoilValue(loginUserState);
@@ -33,20 +34,39 @@ function MyPage() {
         })
     };
 
+    const onClickUpdate = async () => {
+        console.log(editAccount);
+        const result = await updateUser({
+            nickname: editAccount.nickname,
+            userName: editAccount.userName,
+            userPwd: editAccount.userPwd,
+            phone: editAccount.phone,
+            address: editAccount.address,
+            userProfileImg: editAccount.userProfileImg,
+            userContent: editAccount.userContent,
+            userFavoriteArtist: editAccount.userFavoriteArtist,
+            userFavoriteMusic: editAccount.userFavoriteMusic
+        })
+        console.log(result);
+        if(result.response && result.response.data.name === "HAS_NICKNAME") {
+            
+        }
+    }
+
     return (
         <>
             <div className="myPage__container">
                 <div className="myPage__box">
                     <div className="headh2"><h2>{loginUser.data.nickname} 님의 페이지입니다.</h2></div>
                     <div className="profile__img">
-                        {/* img란입니다. */}
+                        {/* img란입니다. , profile__intro와 묶어서 쓸 예정 <UserProfile />*/}
                         <div className="showImg">
                             <img src={editAccount.userProfileImg} alt="xxxx" />
                             {/* <input type="image" /> */}
                         </div>
                     </div>
                     <div className="text__info">
-                        {/* 각종 개인 정보가 들어갈 란입니다. */}
+                        {/* 각종 개인 정보가 들어갈 란입니다. <UserTextInfo />*/}
                         <div>
                             <input type="text" value={editAccount.nickname} id="nickname" name="nickname"
                                 readOnly={doEdit !== "nickname"} onChange={(e) => onChangeUserInfo(e)} />
@@ -79,7 +99,7 @@ function MyPage() {
                         </textarea>
                     </div>
                     <div className="favorite">
-                        {/* 선호 아티스트 및 음악 등록란 :: spotify 키 필요 */}
+                        {/* 선호 아티스트 및 음악 등록란 :: spotify 키 필요, <UserFavorite /> */}
                         <h3>Favorite</h3>
                         <div>
                             <div className="fav__artist">
@@ -99,10 +119,12 @@ function MyPage() {
                         </div>
                     </div>
                     <div className="bList">
+                        {/* <UserWriteHistory /> */}
                         작성글 및 댓글 불러올 공간
                     </div>
                 </div>
-                <button>정보 수정</button> 
+                {/* 비동기 통신용 onClick = {onClickUpdate} */}
+                <button>정보 수정</button>
             </div>
         </>
     );
