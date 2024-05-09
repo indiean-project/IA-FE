@@ -14,7 +14,7 @@ export const loginUserState = atom({
     default: {
         userId: '',
         userName: '',
-        nickName: '',
+        nickname: '',
         phone: '',
         address: '',
     },

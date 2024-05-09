@@ -69,6 +69,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
             // if(isConfirmPwd === 'good' && isCertNum === 'good') {
             if(isConfirmPwd === 'good') {
                 onNextPage();
+                sessionStorage.clear();
             } else {
                 return null;
             }

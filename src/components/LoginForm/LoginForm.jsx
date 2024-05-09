@@ -10,6 +10,7 @@ import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
 
 import './LoginForm.scss';
+import toast from 'react-hot-toast';
 
 
 function LoginForm() {
@@ -47,30 +48,21 @@ function LoginForm() {
         // } else if (result.status === 400 && result.code === "account-002") {
         //     alert(result.message);
         if(result === undefined) {
-            alert("로그인 정보가 틀렸습니다.");
+            toast.error('로그인 정보가 올바르지 않습니다.');
             // alert(result.message);
         // } else if(result !== '') { 
         } else {
-            // navigate("/");
-            // setIsLoginModal(true);
             setLoginUser({
                 ...result,
                 default : {
                     userId: result.userId,
                     userName: result.userName,
-                    nickName: result.nickName,
+                    nickname: result.nickname,
                     phone: result.phone,
                     address: result.address
                 }
             })
-            // setIsModalOpen({
-            //     ...isModalActive,
-            //     default:true
-            // }); => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X
             setIsModalOpen(true);
-        // } else {
-        //     alert("로그인 정보가 틀렸습니다");
-        // }
         }
         console.log(loginUserInfo);
         console.log(isModalOpen);
@@ -110,3 +102,9 @@ function LoginForm() {
     )
 }
 export default LoginForm;
+
+
+            // setIsModalOpen({
+            //     ...isModalActive,
+            //     default:true
+            // }); => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X

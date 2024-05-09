@@ -20,7 +20,7 @@ const LoginModal = () => {
         // })   => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X
         setCloseButton(false);
         console.log(isModalActive);
-        // navigate("/");
+        navigate("/");
     }
 
 
@@ -33,7 +33,7 @@ const LoginModal = () => {
                 </div>
                 <hr/>
                 <div>
-                    <p>{loginUserInfo.userId}님 방문 환영합니다!</p>
+                    <p>{loginUserInfo.data.nickname}님 방문 환영합니다!</p>
                 </div>
                 <br/>
                 <div>

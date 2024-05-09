@@ -45,7 +45,7 @@ function Header() {
                             <NavLink to={"/signUp"}>회원가입</NavLink>
                         </div>
                     </div>
-                    : '마이페이지 '+ loginUser.userId}
+                    : '마이페이지 '+ loginUser.data.nickname}
 
             </div>
         </div>
