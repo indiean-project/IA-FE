@@ -3,8 +3,23 @@ import Background from '../../components/Background';
 import './FundList.scss';
 import { CaretDownFill, Search } from 'react-bootstrap-icons';
 import { PuffLoader } from 'react-spinners';
+import { useEffect, useRef, useState } from 'react';
+import { selectAllFund } from '../../apis/fund';
 
 function FundList() {
+    const [fundList, setFundList] = useState([]);
+    const fundListRef = useRef();
+
+    const selectAllFundList = async()=>{
+        const list = await selectAllFund();
+        console.log(list);
+        setFundList(list['data']);
+    }
+    
+    useEffect(()=>{
+        selectAllFundList();        
+    },[])
+
     return (
         <Background>
             <div className='fundList__container'>
@@ -42,14 +57,18 @@ function FundList() {
                     <p>정렬</p>
                 </div>
                 <div className='fundList__general'>
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
-                    <FundItem />
+                    {fundList.map((item)=>{
+                        return(
+                            <FundItem
+                                key={item.fundNo}
+                                fundTitle={item.fundTitle}
+                                fundType={item.fundType}
+                                fundDescription={item.fundDescription}
+                                target={item.target}
+                                revenue={item.revenue}
+                            />
+                        );
+                    })}
                 </div>
                 <div className='spinner'>
                     <PuffLoader color='#F2613F' />

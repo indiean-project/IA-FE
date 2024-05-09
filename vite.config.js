@@ -6,10 +6,10 @@ export default defineConfig({
   //CORS 우회를 위해 아래 설정으로 백엔드 url 지정
   server: {
     proxy: {
-      "/api": {
+      "/server": {
         target: "http://localhost:8080/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/server/, ""),
         secure: false,
         ws: true,
       },
