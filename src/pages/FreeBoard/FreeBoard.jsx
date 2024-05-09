@@ -3,13 +3,18 @@ import BoardSidebar from '../../components/BoardSidebar';
 import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
-import { freeBoardList } from '../../apis/freeboardList';
+import { freeBoardList } from '../../apis/board';
 
 function FreeBoard() {
     const [BoardList, setBoardList] = useState ([]);
-    const currenPage = 1;
+    const page = 0;
     useEffect(() => {
-        freeBoardList(currenPage);
+        async function list() {
+            const list = await freeBoardList(page);
+            setBoardList(list.data);
+            console.log(list.data);
+        }
+        list();
     }, [])
 
     return (
@@ -53,158 +58,16 @@ function FreeBoard() {
                                 <td>94</td>
                                 <td>8</td>
                             </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>4624</td>
-                                <td className='freeboard__tbody__title'>샘플용 제목<span>[23]</span></td>
-                                <td>artis</td>
-                                <td>15:23</td>
-                                <td>94</td>
-                                <td>8</td>
-                            </tr>
+                            {BoardList.map((item)=>(
+                                <tr>
+                                    <td>{item.boardNo}</td>
+                                    <td>{item.boardTitle}</td>
+                                    <td>{item.nickname}</td>
+                                    <td>{item.enrollDate}</td>
+                                    <td>{item.viewCount}</td>
+                                    <td></td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                     <PaginationBar/>
