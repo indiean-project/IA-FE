@@ -17,6 +17,8 @@ import AdminReportManagement from './components/AdminReportManagement/AdminRepor
 import AdminUserAutority from './components/AdminUserAutority/AdminUserAutority.jsx'
 import FundList from './pages/FundList'
 import ConcertDetail from './pages/ConcertDetail/ConcertDetail.jsx'
+import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
+import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -75,7 +77,15 @@ const router = createBrowserRouter([
        {
         path: '/admin/userAutority',
         element: <AdminUserAutority/> 
-       }
+       },
+       {
+        path: '/board/free',
+        element: <FreeBoard/>
+      },
+      {
+        path: '/board/enroll',
+        element: <BoardEnrollForm/>
+      },
     ],
   },
 ]);
