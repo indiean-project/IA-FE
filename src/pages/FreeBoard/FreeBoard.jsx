@@ -5,7 +5,7 @@ import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
 import { freeBoardList } from '../../apis/board';
 import { pageMove } from '../../apis/pagination';
-import { boardPoint } from '../../recoil/boardPonit';
+import { boardPoint } from '../../recoil/boardPoint';
 import { useSetRecoilState } from 'recoil';
 
 
