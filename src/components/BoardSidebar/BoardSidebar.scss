@@ -1,0 +1,64 @@
+.boardSidebar__container {
+    color: white;
+    width: 20%;
+
+    .boardSidebar__box {
+        width: 15%;
+        position: fixed;
+        padding-top: 5%;
+        padding-left: 3%;
+        left: 5%;
+        .boardSidebar__label {
+            
+            label {
+                font-weight: bold;
+                font-size: 17px;
+                margin-left: 10px;
+                svg {
+                    color: red;
+                    vertical-align: middle;
+                }
+            }
+
+            .boardSidebar__thumb {
+                color: rgb(66, 133, 244);
+            }
+
+            .boardSidebar__community {
+                color: rgb(52, 168, 83);
+            }
+        }
+
+        .boardSidebar__category {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .boardSidebar__post {
+            padding-top: 15px;
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+
+
+        hr {
+            text-align: left;
+            margin-left: 0;
+            width: 100%;
+            background-color: #F2613F;
+            height: 2px;
+            border: none;
+            margin-bottom: 5%;
+        }
+        .community__list {
+            margin-top: 15px;
+            .community__list__item {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 5px;
+                padding-bottom: 10px;
+                font-size: 13px;
+            }
+
+        }
+    }
+}
