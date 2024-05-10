@@ -51,9 +51,9 @@ function MyPage() {
             userFavoriteMusic: editAccount.userFavoriteMusic
         })
         console.log(result);
-        if(result.response && result.response.data.name === "HAS_NICKNAME") {
+        // if(result.response && result.response.data.name === "HAS_NICKNAME") {
             
-        }
+        // }
     }
 
     return (
