@@ -15,6 +15,9 @@ function MyPage() {
         setDoEdit(id);
     };
 
+    // loginUserState는 id, name, nickname, phone, address 5개 항목만 저장 중이다.
+    // 1. loginUserState default값 변경해야함
+    // 2. 서버에서의 Dto 항목 변경 및 통합 필요? <- UserInfodto라는 별도의 이름 객체 생성 중
     const [editAccount, setEditAccount] = useState({
         nickname: loginUser.data.nickname,
         userName: loginUser.data.userName,
