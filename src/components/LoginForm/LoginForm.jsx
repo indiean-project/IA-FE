@@ -41,6 +41,7 @@ function LoginForm() {
         const result = await loginUser({
             userId: inputAccount.userId,
             userPwd: inputAccount.userPwd,
+            // socialStatus : 'N'
         });
 
         console.log(result);
