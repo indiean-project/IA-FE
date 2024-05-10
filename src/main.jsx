@@ -10,6 +10,7 @@ import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
 import FundList from './pages/FundList'
+import ConcertDetail from './pages/ConcertDetail/ConcertDetail.jsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/funding/detail',
         element: <FundDetail/>
+      },
+      {
+        path: '/concert/detail',
+        element: <ConcertDetail/>
       }
     ],
   },
