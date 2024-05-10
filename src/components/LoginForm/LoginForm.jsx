@@ -10,6 +10,7 @@ import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
 
 import './LoginForm.scss';
+import toast from 'react-hot-toast';
 
 
 function LoginForm() {
@@ -20,8 +21,6 @@ function LoginForm() {
         userId: '',
         userPwd: ''
     })
-
-    // const [isLoginModal, setIsLoginModal] = useState(false);
 
     const setLoginUser = useSetRecoilState(loginUserState);
     const loginUserInfo = useRecoilValue(loginUserState);
@@ -41,27 +40,35 @@ function LoginForm() {
         console.log(inputAccount);
         const result = await loginUser({
             userId: inputAccount.userId,
-            userPwd: inputAccount.userPwd
+            userPwd: inputAccount.userPwd,
         });
 
         console.log(result);
-        setLoginUser({
-            userId: result.userId,
-            userName: result.userName,
-            nickName: result.nickName,
-            phone: result.phone,
-            address: result.address
-        })
-        if (result.userId) {
-            // navigate("/");
-            // setIsLoginModal(true);
-            setIsModalOpen({
-                ...isModalOpen,
-                default: true
-            });
+        // if (result.status === 404 && result.code === "account-001") {
+        //     alert(result.message);
+        // } else if (result.status === 400 && result.code === "account-002") {
+        //     alert(result.message);
+        if(result === undefined) {
+            toast.error('로그인 정보가 올바르지 않습니다.');
+            // alert(result.message);
+        // } else if(result !== '') { 
         } else {
-            alert("로그인 정보가 틀렸습니다");
+            setLoginUser({
+                ...result,
+                default : {
+                    userId: result.userId,
+                    userName: result.userName,
+                    nickname: result.nickname,
+                    phone: result.phone,
+                    address: result.address
+                }
+            })
+            setIsModalOpen(true);
         }
+        console.log(loginUserInfo);
+        console.log(isModalOpen);
+
+        console.log(loginUserState);
     }
 
     const onSignUp = () => {
@@ -91,9 +98,14 @@ function LoginForm() {
                 <br />
                 <a href="">아이디/비밀번호 찾기</a>
             </div>
-            {/* {isLoginModal && <LoginModal/>} */}
-            {isModalOpen && <LoginModal />}
-        </>
+            {isModalOpen && <LoginModal/>}
+        </>    
     )
 }
 export default LoginForm;
+
+
+            // setIsModalOpen({
+            //     ...isModalActive,
+            //     default:true
+            // }); => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X

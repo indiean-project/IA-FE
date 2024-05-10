@@ -11,7 +11,12 @@
             margin-left: 5px;
             margin-top: 5.5px;
         }
-
+        .inputId.good, .inputPwd.good {
+            border: 2px solid greenyellow;
+        }
+        .inputId.bad, .inputPwd.bad {
+            border: 2px solid red;
+        }
     }
 
     button {

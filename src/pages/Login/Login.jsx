@@ -6,7 +6,7 @@ function Login(){
     return(
         <>
             <div className="loginForm__container">
-                <LoginForm />
+                <LoginForm  />
                 <SocialLoginForm />
             </div>
         </>
