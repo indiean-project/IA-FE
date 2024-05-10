@@ -2,11 +2,15 @@ import { NavLink } from "react-router-dom";
 import './NavBar.scss';
 import { useState } from "react";
 import { ArrowLeft } from "react-bootstrap-icons";
+import {cPage} from '../../recoil/page'
+import { useSetRecoilState} from 'recoil';
 
 function NavBar(props) {
 
     const [checkCommu, setCheckCommu] = useState(false);
     const [animaiton, setAnimation] = useState('ulClose');
+    
+    const setCpage = useSetRecoilState(cPage);
 
     const onClickComm = ()=>{
         checkCommu ? setCheckCommu(false) : setCheckCommu(true);
@@ -17,6 +21,8 @@ function NavBar(props) {
         props.onClickNavCheck()
         setCheckCommu(false);
         setAnimation('ulClose');
+        setCpage(1);
+
     }
 
     return (
