@@ -4,15 +4,23 @@ import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
 import { freeBoardList } from '../../apis/board';
+import { pageMove } from '../../apis/pagination';
+import { boardPoint } from '../../recoil/boardPoint';
+import { useSetRecoilState } from 'recoil';
+
 
 function FreeBoard() {
     const [BoardList, setBoardList] = useState ([]);
-    const page = 0;
+    
+    const url = "board/free/boardlist";
+    const page = 1;
+    
     useEffect(() => {
         async function list() {
-            const list = await freeBoardList(page);
-            setBoardList(list.data);
-            console.log(list.data);
+            // const list = await freeBoardList(page);
+            const list = await pageMove(url, page);
+            setBoardList(list);
+            console.log(list);
         }
         list();
     }, [])

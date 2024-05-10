@@ -1,11 +1,11 @@
 import './ConcertList.scss';
-import ConcertItem from '../../components/ConcertItem';
+// import ConcertItem from '../../components/ConcertItem';
 import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { useRecoilState , useRecoilValue} from 'recoil';
-import { boardPoint } from '../../recoil/boardPonit';
+import { boardPoint } from '../../recoil/boardPoint';
 import {cPage} from '../../recoil/page'
 import {pageMove} from '../../apis/pagination'
 import { useEffect, useState } from 'react';
