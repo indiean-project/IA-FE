@@ -1,17 +1,30 @@
 import './ConcertList.scss';
 import ConcertItem from '../../components/ConcertItem';
+import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import PaginationBar from '../../components/PaginationBar';
+import { useRecoilState , useRecoilValue} from 'recoil';
+import { boardPoint } from '../../recoil/boardPonit';
+import {cPage} from '../../recoil/page'
+import {pageMove} from '../../apis/pagination'
+import { useEffect, useState } from 'react';
 
 function ConcertList(){
     
+    const [cBoard,setCboard] = useRecoilState(boardPoint);
+    const currentPage = useRecoilValue(cPage);
+    const [concertList,setConcertList] = useState([]);
 
-
-    
-
-    
+    useEffect(()=>{
+        const list = async () => {
+            const currentBoard = 'concert/concertList'
+            setCboard('concert/concertList')
+            setConcertList(await pageMove(currentBoard,currentPage));
+          console.log(currentPage)
+        }
+        list();
+    },[])
 
     return(
         <div className='concert__list'>
@@ -30,7 +43,7 @@ function ConcertList(){
                 </div>
                 <div className='btnQ'><NavLink>공연문의</NavLink></div>
             </div>
-            <ConcertItem></ConcertItem>
+            <ConcertItem concertList={concertList}></ConcertItem>
             <PaginationBar></PaginationBar>
             <div className='calendar__space'>
                 <FullCalendar

@@ -1,91 +1,26 @@
 import './ConcertItem.scss';
 import test from './test.jpg'
 import { NavLink } from 'react-router-dom';
-const Concert = () => {
+const Concert = (props) => {
     return (
         <div>
             <div className='board__concert__list'>
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>
-                                                       
-                        </ul>
-                    </NavLink> 
-                </div> 
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
-                        </ul>
-                    </NavLink> 
-                </div>     
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
-                        </ul>
-                    </NavLink> 
-                </div>
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                          
-                        </ul>
-                    </NavLink> 
-                </div> 
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
-                        </ul>
-                    </NavLink> 
-                </div> 
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
-                        </ul>
-                    </NavLink> 
-                </div>
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                           
-                        </ul>
-                    </NavLink> 
-                </div> 
-                <div className="concert__item">
-                    <NavLink>
-                        <img src={test}/>
-                        <ul>
-                            <li className='concert__title'>부산 6eyes 내한 with 소음발광, 칩앤스위트</li>                            
-                            <li className='concert__location'>LOCATION:오방가르드</li>
-                            <li className='concert__date'>2024.5.3~2024.5.3</li>                             
-                        </ul>
-                    </NavLink> 
-                </div> 
+                {props.concertList.map((item,idx)=>{
+                    
+                    return(
+                        <div className="concert__item">
+                            <NavLink key={idx}>
+                                <img src={test}/>
+                                <ul>
+                                    <li className='concert__title'>{item.concertTitle}</li>                            
+                                    <li className='concert__location'>LOCATION:{item.location}</li>
+                                    <li className='concert__date'>{item.startDate}~{item.endDate}</li>                   
+                                </ul>
+                            </NavLink> 
+                        </div>
+                    )
+                 })
+                }
             </div>
         </div>     
     );
