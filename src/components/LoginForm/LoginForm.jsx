@@ -58,10 +58,17 @@ function LoginForm() {
                 ...result,
                 default : {
                     userId: result.userId,
+                    userPwd: result.userPwd,
                     userName: result.userName,
                     nickname: result.nickname,
                     phone: result.phone,
-                    address: result.address
+                    address: result.address,
+                    deleteYn: result.deleteYn,
+                    reportStatus: result.reportStatus,
+                    userProfileImg: result.userProfileImg,
+                    userContent: result.userContent,
+                    userFavoriteArtist: result.userFavoriteArtist,
+                    userFavoriteMusic: result.userFavoriteMusic
                 }
             })
             setIsModalOpen(true);

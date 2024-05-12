@@ -13,10 +13,17 @@ export const loginUserState = atom({
     key: KEY,
     default: {
         userId: '',
+        userPwd: '',
         userName: '',
         nickname: '',
         phone: '',
         address: '',
+        deleteYn: '',
+        reportStatus: '',
+        userProfileImg: '',
+        userContent: '',
+        userFavoriteArtist: '',
+        userFavoriteMusic: ''
     },
     effects_UNSTABLE: [persistAtom],
 });

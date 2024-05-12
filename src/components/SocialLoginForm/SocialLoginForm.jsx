@@ -69,7 +69,7 @@ function SocialLoginForm() {
                 <button className="btn-googleLogin" type="submit">Google로 로그인하기</button>
             </div>
             {/* {kakaoLogin && <KakaoLogin />} */}
-            {isModalOpen && <LoginModal/>}
+            {/* {isModalOpen && <LoginModal/>} */}
         </>
 
     )

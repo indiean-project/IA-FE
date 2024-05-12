@@ -12,7 +12,7 @@ function SignUpForm3() {
             <br />
             {/* <button type="submit">마이페이지</button> */}
             <div>
-                <NavLink to={"/myPage"}>마이페이지</NavLink>
+                <NavLink to={"/login"}>로그인페이지</NavLink>
             </div>
         </>
     )

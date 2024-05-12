@@ -10,9 +10,9 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
 
     const storageId = sessionStorage.getItem("userId");
     const storagePwd = sessionStorage.getItem("userPwd");
-    setTimeout(()=>{
-        sessionStorage.clear();
-    }, 3000);
+    // setTimeout(()=>{
+    //     sessionStorage.clear();
+    // }, 3000);
 
     console.log(storagePwd);
     const [isConfirmPwd, setIsConfirmPwd] = useState('');
