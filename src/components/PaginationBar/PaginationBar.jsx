@@ -1,17 +1,50 @@
 import './PaginationBar.scss';
-
-function PaginationBar() {
+import {cPage} from '../../recoil/page'
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
+function PaginationBar({pageInfo,list}) {
     
+    
+    const [currentPage,setCruuntPage] = useRecoilState (cPage);
+    const pageList = ()=>{ 
+        let page = []
+        
+        if (pageInfo !== undefined) {
+            for(let i = pageInfo.startPage ; i <= pageInfo.endPage ;i++){
+                    page.push(<div className={`${i===currentPage?"currentPage":"otherPage"}`} id={i} onClick={(e)=>{
+                        if(currentPage === +e.target.id){
+                           return false;
+                        }else{
+                            setCruuntPage(+e.target.id)
+                        }
+                        }} >{i}</div>);
+            }
+        }
+        return page;
+    }
+    useEffect(()=>{
+      
+        list()
+    },[currentPage])
 
     return (
         <div className='paginationBar'>
-            <div>&lt;</div>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>&gt;</div>
+            <div className={`${currentPage<=1?"currentPage":"otherPage"}`} onClick={()=>{
+                if(currentPage <=1){
+                    return false;
+                }else{
+                    setCruuntPage(currentPage-1)
+                }
+            }}>&lt;
+            </div>
+            {pageList()}
+            <div className={`${pageInfo !== undefined ? currentPage >= pageInfo.totalPage? "currentPage": "otherPage" :"otherPage"}`} onClick={()=>{
+                if(currentPage >= pageInfo.totalPage){
+                    return false;
+                }else{
+                    setCruuntPage(currentPage+1)
+                }
+            }}>&gt;</div>
         </div>
     )
 

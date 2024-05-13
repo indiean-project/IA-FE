@@ -8,8 +8,8 @@ const Concert = (props) => {
                 {props.concertList.map((item,idx)=>{
                     
                     return(
-                        <div className="concert__item">
-                            <NavLink key={idx}>
+                        <div className="concert__item" key={idx}>
+                            <NavLink >
                                 <img src={test}/>
                                 <ul>
                                     <li className='concert__title'>{item.concertTitle}</li>                            
