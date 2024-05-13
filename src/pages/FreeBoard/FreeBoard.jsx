@@ -11,6 +11,7 @@ import { useSetRecoilState } from 'recoil';
 
 function FreeBoard() {
     const [BoardList, setBoardList] = useState ([]);
+    const [sort, setSort] = useState("boardNo");
     
     const url = "board/free/boardlist";
     const page = 1;
@@ -18,7 +19,11 @@ function FreeBoard() {
     useEffect(() => {
         async function list() {
             // const list = await freeBoardList(page);
-            const list = await pageMove(url, page);
+            const list = await pageMove({
+                url: url,
+                page: page,
+                sort: sort
+            });
             setBoardList(list);
             console.log(list);
         }
@@ -36,7 +41,7 @@ function FreeBoard() {
                         </div>
                         <div>
                             <select name="" id="">
-                                <option value="">최신순</option>
+                                <option value="boardNo">최신순</option>
                                 <option value="">인기순</option>
                             </select>
                         </div>

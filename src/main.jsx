@@ -19,6 +19,7 @@ import FundList from './pages/FundList'
 import ConcertDetail from './pages/ConcertDetail/ConcertDetail.jsx'
 import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
+import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
         path: '/board/enroll',
         element: <BoardEnrollForm/>
       },
+      {
+        path: '/board/colo',
+        element: <ColoBoard/>
+      }
     ],
   },
 ]);
