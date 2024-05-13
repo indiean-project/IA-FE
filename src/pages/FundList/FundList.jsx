@@ -1,7 +1,7 @@
 import FundItem from '../../components/FundItem';
 import Background from '../../components/Background';
 import './FundList.scss';
-import { CaretDownFill, Search } from 'react-bootstrap-icons';
+import { ArrowDown, ArrowUp, CaretDownFill, Search } from 'react-bootstrap-icons';
 import { PuffLoader } from 'react-spinners';
 import { useEffect, useRef, useState } from 'react';
 import { selectAllFund } from '../../apis/fund';
@@ -9,11 +9,76 @@ import { selectAllFund } from '../../apis/fund';
 function FundList() {
     const [fundList, setFundList] = useState([]);
     const fundListRef = useRef();
+    const [selectBox, setSelectBox] = useState(false);
+    const [selectItem, setSelectItem] = useState({
+        value: '최신순',
+        standard: 'fundNo',
+        sort: 'DESC',
+        sortCheck: true
+    })
 
     const selectAllFundList = async()=>{
-        const list = await selectAllFund();
+        console.log(selectItem);
+        const list = await selectAllFund(selectItem);
         console.log(list);
         setFundList(list['data']);
+    }
+
+    const onClickSelectBox = ()=>{
+        selectBox? setSelectBox(false) : setSelectBox(true);
+    }
+
+    const onClickSelectItem = (value)=>{
+        switch (value) {
+            case '최신순' :
+                setSelectItem({
+                    ...selectItem,
+                    value: value,
+                    standard: 'fundNo'
+                });
+                break;
+            case '목표액순' :
+                setSelectItem({
+                    ...selectItem,
+                    value: value,
+                    standard: 'target'
+                });
+                break;
+            case '펀딩액순' :
+                setSelectItem({
+                    ...selectItem,
+                    value: value,
+                    standard: 'revenue'
+                });
+                break;
+            case '달성률순' :
+                setSelectItem({
+                    ...selectItem,
+                    value: value,
+                    standard: 'rate'
+                });
+                break;
+        }
+        setSelectItem({
+            ...selectItem,
+            value: value
+        });
+        
+        setSelectBox(false);
+        selectAllFundList();
+    }
+
+    const onClickSortCheck = ()=>{
+        selectItem.sortCheck? setSelectItem({
+            ...selectItem,
+            sort: 'ASC',
+            sortCheck: false 
+        }) :
+        setSelectItem({
+            ...selectItem,
+            sort: 'DESC',
+            sortCheck: true
+        })
     }
     
     useEffect(()=>{
@@ -53,7 +118,18 @@ function FundList() {
                     </div>
                 </div>
                 <div className='fundList__sort'>
-                    <div className='select__box'>최신순 < CaretDownFill /> </div>
+                    <div className='select__box' onClick={()=>onClickSelectBox()}>{selectItem.value} < CaretDownFill /> </div>
+                    {selectBox? <div className='select__item'>
+                        <table>
+                            <tr onClick={()=>onClickSelectItem('최신순')}>최신순</tr>
+                            <tr onClick={()=>onClickSelectItem('목표액순')}>목표액순</tr>
+                            <tr onClick={()=>onClickSelectItem('펀딩액순')}>펀딩액순</tr>
+                            <tr onClick={()=>onClickSelectItem('달성률순')}>달성률순</tr>
+                        </table>
+                    </div> : ''}
+                    <div className='select__sort' onClick={()=>onClickSortCheck()}>
+                    {selectItem.sortCheck? <ArrowDown/> :<ArrowUp/>}
+                    </div>
                     <p>정렬</p>
                 </div>
                 <div className='fundList__general'>
