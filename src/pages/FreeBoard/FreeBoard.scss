@@ -1,0 +1,139 @@
+.freeboard__container {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 130px;
+    height: 100%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    color: white;
+
+    .freeboard__box {
+        background-color: rgba(12, 12, 12, 0.63);
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        .freeboard__items {
+            width: 60%;
+            .freeboard__item {
+                flex: 1;
+                display: flex;
+                justify-content: space-between;
+                margin-right: 10%;
+                margin-top: 20px;
+
+                label {
+                    font-size: 30px;
+                }
+    
+                select {
+                    padding-top: 3%;
+                    padding-left: 10%;
+                    text-align: center;
+                    height: 40px;
+                    width: 120px;
+                    background: #444444;
+                    box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                    border-radius: 7px;
+                    color: #CECECE;
+                    font-size: 17px;
+                    border: none;
+                }
+                
+                .freeboard__btn {
+                    background: #444444;
+                    border-radius: 7px;
+                    width: 120px;
+                    height: 40px;
+                    box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                    display: flex;
+                    align-items: center;
+                    transition-duration: 0.2s;
+                    margin-bottom: 1%;
+                    a{
+                        text-decoration: none;
+                        background-color: rgba(0, 0, 0, 0);
+                        border-color: rgba(0, 0, 0, 0);
+                        font-size: 17px;
+                        font-weight: 400;
+                        text-align: center;
+                        color: #CECECE;
+                        width: 100%;
+                        padding-top: 3px;
+                    }
+                }
+                .freeboard__btn:hover {
+                    box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
+                    transition-duration: 0.2s;
+                }
+
+                .freeboard__category {
+                    align-content: end;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+
+            hr {
+                text-align: left;
+                margin-left: 0;
+                width: 90%;
+                background-color: #F2613F;
+                height: 1px;
+                border: none;
+            }
+
+            .freeboard__table {
+                width: 90%;
+                text-align: center;
+                thead {
+                    th {
+                        font-size: 17px;
+                        height: 30%;
+                        border: 1px solid white;
+                        border-left: none;
+                        border-top: none;
+                        border-bottom: none;
+                    }
+                    
+                    .freeboard__thead__no {
+                        width: 9%;
+                    }
+                    .freeboard__thead__title {
+                        width: 46%;
+                    }
+                    .freeboard__thead__writer {
+                        width: 13%;
+                    }
+                    .freeboard__thead__enrolldate {
+                        width: 11%;
+                    }
+                    .freeboard__thead__count {
+                        width: 11%;
+                    }
+                    .freeboard__thead__like {
+                        width: 9%;
+                        border-right: none;
+                    }
+
+                }
+                tbody {
+                    td {
+                        font-size: 15px;
+                        padding-top: 2%;
+                    }
+                }
+                .freeboard__tbody__title {
+                    padding-left: 1%;
+                    text-align: start;
+                span {
+                    color: #FF0000;
+                }
+
+                }
+            }
+        }
+    }
+}

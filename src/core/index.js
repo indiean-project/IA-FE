@@ -1,11 +1,17 @@
 import axios from "axios";
 
-const API = axios.create({
-    baseURL: "/api",
+export const API = axios.create({
+    baseURL: "/server",
     headers: {
         "Content-Type": "application/json",
     },
     withCredentials: true,
 });
 
-export default API;
+export const imgAPI = axios.create({
+    baseURL: "/server",
+    headers: {
+        "Content-Type": "multipart/form-data",
+    },
+    withCredentials: true,
+});

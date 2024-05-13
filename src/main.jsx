@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import MyPage from './pages/MyPage'
 import ErrorPage from './pages/ErrorPage'
 import FundDetail from './pages/FundDetail'
 import ConcertList from './pages/ConcertList'
@@ -14,6 +15,10 @@ import AdminFundingApproval from './components/AdminFundingApproval/AdminFunding
 import AdminQuestionSection from './components/AdminQuestionSeciton/AdminQuestionSection.jsx'
 import AdminReportManagement from './components/AdminReportManagement/AdminReportManagement.jsx'
 import AdminUserAutority from './components/AdminUserAutority/AdminUserAutority.jsx'
+import FundList from './pages/FundList'
+import ConcertDetail from './pages/ConcertDetail/ConcertDetail.jsx'
+import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
+import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -34,16 +39,24 @@ const router = createBrowserRouter([
         element: <SignUp/>
       },
       {
+        path: '/myPage',
+        element: <MyPage/>
+      },
+      {
         path: '/concert',
         element: <ConcertList/>
       },
       {
         path: '/funding',
-        element: <></>
+        element: <FundList/>
       },
       {
         path: '/funding/detail',
         element: <FundDetail/>
+      },
+      {
+        path: '/concert/detail',
+        element: <ConcertDetail/>
       },
       {
        path: '/admin',
@@ -52,16 +65,27 @@ const router = createBrowserRouter([
       {
         path: '/admin/fund',
         element: <AdminFundingApproval/> 
-       }, {
+       }, 
+       {
         path: '/admin/questions',
         element: <AdminQuestionSection/> 
-       }, {
+       }, 
+       {
         path: '/admin/report',
         element: <AdminReportManagement/> 
-       }, {
+       }, 
+       {
         path: '/admin/userAutority',
         element: <AdminUserAutority/> 
-       }
+       },
+       {
+        path: '/board/free',
+        element: <FreeBoard/>
+      },
+      {
+        path: '/board/enroll',
+        element: <BoardEnrollForm/>
+      },
     ],
   },
 ]);

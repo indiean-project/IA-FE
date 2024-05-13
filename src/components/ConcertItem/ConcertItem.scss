@@ -1,0 +1,53 @@
+.board__concert__list{
+    margin-top: 70px;
+    margin-left: 15%;
+    margin-right: 10%;
+    
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap:60px;
+ 
+    
+    .concert__item{
+        width: 208px;
+        
+        cursor: pointer;
+        background-color: #242424c4;
+        border-radius: 4px;
+        a{
+            
+            text-decoration: none;
+            color: white;
+            
+            img{
+                border-radius: 5px;
+                height: 277px;
+                width: 100%;
+            }
+            ul{
+                list-style-type: none;
+                margin-left: -30px;
+            }
+            .concert__title{
+                text-align: left;
+                font-weight: 700;
+                font-size: 17px;
+                text-overflow: ellipsis;
+
+            }
+            .concert__date{
+                text-align: left; 
+                font-size: 13px;
+                color: #999;
+            }
+            .concert__location{
+                text-align: left;
+                margin-top: 8px;
+                font-size: 15px;
+            }
+        }
+    }
+
+
+}

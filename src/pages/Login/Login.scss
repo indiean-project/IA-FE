@@ -1,8 +1,11 @@
 .loginForm__container {
     background-color: black;
-    width:75%; height: 1000px;
+    width:60%; min-width: 800px; height: 1000px;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin: 0 auto;
+    margin-top :60px;
+    padding-top: 20px;
 }

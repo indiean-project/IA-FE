@@ -13,6 +13,8 @@ function SignUp(){
     const [signUpPage, setSignUpPage] = useState('form1');
     const [prePage, setPrePage] = useState(null);
 
+
+
     const signUpPageLoad = () => {
         switch (signUpPage) {
             case 'form1':
@@ -45,11 +47,19 @@ function SignUp(){
                     <SignUpStep onPage={signUpPage} />
                     {signUpPage === 'form1' && (
                         <>
-                            <SignUpForm1 onNextPage={signUpPageLoad} />
+                            <SignUpForm1 
+                            onNextPage={signUpPageLoad}
+                            // inputIdAccount={inputIdAccount}
+                            // inputPwdAccount={inputPwdAccount}
+                             />
                             <SocialSignUpForm />
                         </>
                     )}
-                    {signUpPage === 'form2' && <SignUpForm2 onNextPage={signUpPageLoad} onPrevPage={prePageLoad} />}
+                    {signUpPage === 'form2' && 
+                    <SignUpForm2 onNextPage={signUpPageLoad} onPrevPage={prePageLoad} 
+                    // inputIdAccount={inputIdAccount}
+                    // inputPwdAccount={inputPwdAccount}
+                    />}
                     {signUpPage === 'form3' && <SignUpForm3 />}
                 </div>
             </div>

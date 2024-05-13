@@ -1,0 +1,182 @@
+.concertDetail__container{
+    margin-top: 13%;
+    .concertDetail__top{
+       display: flex;
+       justify-content: space-between;
+       margin:0% 5% 0% 5%;
+        .concertDetail__title{
+            color: white;
+            font-size: 30px
+        }
+        .btn{
+            background: #E3651D;
+            border-radius: 7px;
+            width: 120px;
+            height: 40px;
+            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            transition-duration: 0.2s;
+        }
+        a{
+            text-decoration: none;
+                background-color: rgba(0, 0, 0, 0);
+                border-color: rgba(0, 0, 0, 0);
+                font-size: 20px;
+                font-weight: 400;
+                text-align: center;
+                color: #CECECE;
+                width: 100%;
+                padding-top: 3px;
+        }
+        .btn:hover{
+            box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
+            transition-duration: 0.2s;
+        }  
+    }
+    .concertDetail__itemBox{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        .concertDetail__item{
+            display: flex;
+            justify-content:space-around;
+            
+            background-color: #242424;
+            width: 900px;
+            border-radius: 5px;
+            .concertDetail__poster{
+                width:400px;
+                height:450px;
+                img{
+                    height: 100%;
+                    width: 100%;
+                    
+                }
+            }
+            .concertDetail__content{
+                color: white;
+                line-height: 230%;
+                
+                ul{
+                    list-style-type: none;
+                    font-weight: normal;
+                    strong{
+                        font-size: 20px;
+                    }
+                    .concertInfo{
+                        font-size: 15px;
+                        color: #999;
+                    }
+                   
+                }
+                
+                .ticketlink{
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 50px;
+                }
+                .btn{      
+                    background: #E3651D;
+                    border-radius: 7px;
+                    width: 100px;
+                    height: 30px;
+                    box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                    display: flex;
+                    align-items: center;
+                    transition-duration: 0.2s;
+                    a{
+                        text-decoration: none;
+                            background-color: rgba(0, 0, 0, 0);
+                            border-color: rgba(0, 0, 0, 0);
+                            font-size: 15px;
+                            font-weight: 400;
+                            text-align: center;
+                            color: #CECECE;
+                            width: 100%;
+                            padding-top: 3px;
+                    }
+                }
+                .btn:hover{
+                    box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
+                    transition-duration: 0.2s;
+                }
+            } 
+        }
+    }
+    .concert__lineupTilte{
+        display: flex;
+        justify-content: space-between;
+        margin:5% 15% 2% 15%;
+        
+        strong{
+            color: white;
+            font-size: 17px;
+        }
+        .btn{      
+            background: #FEE500;
+            border-radius: 7px;
+            width: 100px;
+            height: 40px;
+            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            transition-duration: 0.2s;
+            a{
+                text-decoration: none;
+                    background-color: rgba(0, 0, 0, 0);
+                    border-color: rgba(0, 0, 0, 0);
+                    font-size: 15px;
+                    font-weight: 400;
+                    text-align: center;
+                    color: black;
+                    width: 100%;
+                    padding-top: 3px;
+            }
+        }
+        .btn:hover{
+            box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
+            transition-duration: 0.2s;
+        }
+    }
+   
+        
+    .line__up{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        .artist_box{
+            margin: 0% 3% 0% 3%;
+            .artist__picture{
+                
+                img{
+                    
+                    border-radius: 100px;
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+            .artist__name{
+                color: white;
+                
+            }
+        }
+
+    }
+   .concert__content__top{
+        margin-top: 5% ;
+        color: white;
+        font-size: 20px;
+        padding-left: 20%;
+        span{
+            margin: 0% 0% 0% 5%;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            width: 100px;
+        }
+        .state__on{
+            border-bottom: 2px solid #E3651D;
+        }
+   }
+}

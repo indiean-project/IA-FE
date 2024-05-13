@@ -36,7 +36,7 @@ function Header() {
                     <img src={logo_orange} onClick={() => location.href = '/'} />
 
                 </div>
-                {loginUser.userId === '' ?
+                {loginUser.userId == '' ?
                     <div className='header__right'>
                         <div>
                             <NavLink to={"/login"}>로그인</NavLink>
@@ -45,7 +45,7 @@ function Header() {
                             <NavLink to={"/signUp"}>회원가입</NavLink>
                         </div>
                     </div>
-                    : '마이페이지 옥암동불꽃낙지'}
+                    : '마이페이지 '+ loginUser.data.nickname}
 
             </div>
         </div>
