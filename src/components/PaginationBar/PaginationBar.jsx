@@ -11,7 +11,7 @@ function PaginationBar({pageInfo,list}) {
         
         if (pageInfo !== undefined) {
             for(let i = pageInfo.startPage ; i <= pageInfo.endPage ;i++){
-                    page.push(<div className={`${i===currentPage?"currentPage":"otherPage"}`} id={i} onClick={(e)=>{
+                    page.push(<div  key={i} className={`${i===currentPage?"currentPage":"otherPage"}`} id={i} onClick={(e)=>{
                         if(currentPage === +e.target.id){
                            return false;
                         }else{

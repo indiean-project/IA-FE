@@ -4,58 +4,58 @@ import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import {  useRecoilValue , useSetRecoilState} from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import {cPage} from '../../recoil/page'
-import {pageMove} from '../../apis/pagination'
+import { cPage } from '../../recoil/page'
+import { pageMove } from '../../apis/pagination'
 import { useEffect, useState } from 'react';
 
-function ConcertList(){
-    
-    
+function ConcertList() {
+
+    const eventColor = ['blue','green','red','yellow','black']
     const currentPage = useRecoilValue(cPage);
-    const [concertList,setConcertList] = useState([]);
-    const [sort,setSort] = useState("최신순");
-    const [text,setText] = useState();
-    
-    const [pageInfo,setPageInfo] = useState();
+    const [concertList, setConcertList] = useState([]);
+    const [sort, setSort] = useState("최신순");
+    const [search, setSearch] = useState();
+
+    const [pageInfo, setPageInfo] = useState();
     const list = async () => {
+        
         const currentBoard = 'concert/concertList'
-                 const result =  await pageMove({
-                    url: currentBoard,
-                    page : currentPage,
-                    sort : sort,
-                    text : text
-                    });
-                    
-                    setConcertList(result.listDto)
-                    setPageInfo(result.pageinfo)
-                    
+        const result = await pageMove({
+            url: currentBoard,
+            page: currentPage,
+            sort: sort,
+            search: search
+        });
+
+        setConcertList(result.listDto)
+        setPageInfo(result.pageinfo)
+
     }
-    useEffect(()=>{
-      
-        
+    useEffect(() => {
+
+
         list();
-        
-    },[])
-    const handleKeyEnter = (e)=>{
-        if (e.key === 'Enter') { 
+
+    }, [])
+    const handleKeyEnter = (e) => {
+        if (e.key === 'Enter') {
             list();
         }
     }
 
-    return(
+    return (
         <div className='concert__list'>
             <div className='title'>
                 <h1>CONCERT LIST</h1>
-                <input className='concert__search' type="text" name="search" placeholder='검색어를 입력하세요' value={text} onChange={(e)=>{setText(e.target.value)}} onKeyPress={(e)=>{handleKeyEnter(e)}}/>
+                <input className='concert__search' type="text" name="search" placeholder='검색어를 입력하세요' value={search} onChange={(e) => { setSearch(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
             </div>
             <div className='btn__area'>
                 <div>
-                    <select name="score" id="select-id" onChange={(e)=>{setSort(e.target.value)}}>
-                        <option value="최신순">최신순</option>
-                        <option value="마감순">마감순</option>
-                        <option value="조회수">죄회수</option>
+                    <select name="sort" id="select-id" value={sort} onChange={(e) => { setSort(e.target.value) }}>
+                        <option value="createDate">최신순</option>
+                        <option value="endDate">마감순</option>
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
@@ -70,15 +70,15 @@ function ConcertList(){
                     initialView="dayGridMonth"
                     weekends={true} // 주말 표시 속성
                     events={[
-                    { title: 'Event 1', date: '2024-05-01' },
-                    { title: 'Event 2', date: '2024-05-02' }
+                        { title: 'Event 1', start: '2024-05-01',end: '2024-05-03',color: eventColor[Math.floor(Math.random() * 6)] },
+                        { title: 'Event 2', date: '2024-05-02',color: eventColor[Math.floor(Math.random() * 6)] }
 
                     ]}
                 />
             </div>
 
         </div>
-       
+
     );
 }
 export default ConcertList;
