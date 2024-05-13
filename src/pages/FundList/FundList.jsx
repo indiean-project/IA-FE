@@ -20,8 +20,8 @@ function FundList() {
     const selectAllFundList = async()=>{
         console.log(selectItem);
         const list = await selectAllFund(selectItem);
-        console.log(list);
         setFundList(list['data']);
+        console.log(fundList);
     }
 
     const onClickSelectBox = ()=>{
@@ -59,13 +59,8 @@ function FundList() {
                 });
                 break;
         }
-        setSelectItem({
-            ...selectItem,
-            value: value
-        });
         
         setSelectBox(false);
-        selectAllFundList();
     }
 
     const onClickSortCheck = ()=>{
@@ -82,8 +77,8 @@ function FundList() {
     }
     
     useEffect(()=>{
-        selectAllFundList();        
-    },[])
+        selectAllFundList();
+    },[selectItem])
 
     return (
         <Background>
@@ -121,10 +116,12 @@ function FundList() {
                     <div className='select__box' onClick={()=>onClickSelectBox()}>{selectItem.value} < CaretDownFill /> </div>
                     {selectBox? <div className='select__item'>
                         <table>
-                            <tr onClick={()=>onClickSelectItem('최신순')}>최신순</tr>
-                            <tr onClick={()=>onClickSelectItem('목표액순')}>목표액순</tr>
-                            <tr onClick={()=>onClickSelectItem('펀딩액순')}>펀딩액순</tr>
-                            <tr onClick={()=>onClickSelectItem('달성률순')}>달성률순</tr>
+                        <tbody>
+                            <tr onClick={()=>onClickSelectItem('최신순')}><td>최신순</td></tr>
+                            <tr onClick={()=>onClickSelectItem('목표액순')}><td>목표액순</td></tr>
+                            <tr onClick={()=>onClickSelectItem('펀딩액순')}><td>펀딩액순</td></tr>
+                            <tr onClick={()=>onClickSelectItem('달성률순')}><td>달성률순</td></tr>
+                            </tbody>
                         </table>
                     </div> : ''}
                     <div className='select__sort' onClick={()=>onClickSortCheck()}>
