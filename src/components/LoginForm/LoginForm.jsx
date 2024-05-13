@@ -65,6 +65,7 @@ function LoginForm() {
                     address: result.address,
                     deleteYn: result.deleteYn,
                     reportStatus: result.reportStatus,
+                    socialStatus: result.socialStatus,
                     userProfileImg: result.userProfileImg,
                     userContent: result.userContent,
                     userFavoriteArtist: result.userFavoriteArtist,

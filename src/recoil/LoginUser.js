@@ -20,6 +20,7 @@ export const loginUserState = atom({
         address: '',
         deleteYn: '',
         reportStatus: '',
+        socialStatus: '',
         userProfileImg: '',
         userContent: '',
         userFavoriteArtist: '',

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import KakaoLogin from 'react-kakao-login';
 
+import LoginModal from '../LoginModal';
 import { loginUser } from '../../apis/user';
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
@@ -27,7 +28,7 @@ function SocialLoginForm() {
         const result = await loginUser({
             userId: tokenEmail,
             userPwd: '',
-            // socialStatus: 'K'
+            socialStatus: 'K'
         })
 
         console.log(result);
@@ -39,10 +40,18 @@ function SocialLoginForm() {
                 ...result,
                 default : {
                     userId: result.userId,
+                    userPwd: result.userPwd,
                     userName: result.userName,
                     nickname: result.nickname,
                     phone: result.phone,
-                    address: result.address
+                    address: result.address,
+                    deleteYn: result.deleteYn,
+                    reportStatus: result.reportStatus,
+                    socialStatus: result.socialStatus,
+                    userProfileImg: result.userProfileImg,
+                    userContent: result.userContent,
+                    userFavoriteArtist: result.userFavoriteArtist,
+                    userFavoriteMusic: result.userFavoriteMusic
                 }
             })
             setIsModalOpen(true);
@@ -69,7 +78,7 @@ function SocialLoginForm() {
                 <button className="btn-googleLogin" type="submit">Google로 로그인하기</button>
             </div>
             {/* {kakaoLogin && <KakaoLogin />} */}
-            {/* {isModalOpen && <LoginModal/>} */}
+            {isModalOpen && <LoginModal/>}
         </>
 
     )

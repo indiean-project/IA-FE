@@ -38,6 +38,26 @@ export const checkUserPwd = async(params) => {
     }
 }
 
+export const sendEmail = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/signUp/sendEmail", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const checkCertNum = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/signUp/checkCertNum", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
 export const updateUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/myPage/update", params);
