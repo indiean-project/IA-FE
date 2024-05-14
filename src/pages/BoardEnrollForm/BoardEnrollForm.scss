@@ -65,12 +65,6 @@
 
                 cursor: pointer;
             }
-            .boardEnrollForm__vote {
-                margin-left: 20px;
-            }
-            .boardEnrollForm__vote__close {
-                display: none;
-            }
         }
         .boardEnrollForm__insert__vote {
             margin-top: 2%;
@@ -86,9 +80,9 @@
                 }
             }
         }
-        .boardEnrollForm__insert__vote__close {
-            display: none;
-        }
     }
 
+}
+.displayNone {
+    display: none;
 }

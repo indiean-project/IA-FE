@@ -5,11 +5,29 @@ import "./ColoBoard.scss";
 import { MdThumbUp } from "react-icons/md";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import CommonReply from "../../components/CommonReply/CommonReply";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { pageMove } from "../../apis/pagination";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState('close');
     const [replyBtnValue, setReplyBtnValue] = useState('∨');
+    const [boardList, setBoardList] = useState([]);
+    const [sort, setSort] = useState("boardNo");
+    const url = "board/colo/boardlist";
+    const page = 1;
+
+    useEffect(() => {
+        async function list() {
+            const list = await pageMove({
+                url: url,
+                page: page,
+                sort: sort
+            });
+            console.log(list);
+            setBoardList(list);
+        }
+        list();
+    }, [])
 
 
     return (
@@ -35,39 +53,43 @@ function ColoBoard() {
                     </div>
                     <hr />
                     <div className="coloBoard__items__area">
-                        <div className="coloBoard__item2">
-                            <div>No.3469</div>
-                            <div>user01</div>
-                            <div>2024-04-23 <BsPencilSquare /> <BsTrash /></div>
-                        </div>
-                        <ColoBar />
-                        <p className="coloBoard__content">
-                            본문 내용@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-                        </p>
-                        <div className="coloBoard__item3">
-                            <div className="coloBoard__like">
-                                <div><MdThumbUp /></div>
-                                <div>38</div>
-                            </div>
-                        </div>
+                        {boardList.map((item, index)=>{
+                            return (
+                                <>
+                                    <div className="coloBoard__item2" key={index}>
+                                        <div>No.{item.boardNo}</div>
+                                        <div>{item.nickname}</div>
+                                        <div>{item.enrollDate} <BsPencilSquare /> <BsTrash /></div>
+                                    </div>
+                                    <ColoBar list={item} />
+                                    <p className="coloBoard__content" dangerouslySetInnerHTML={{__html: item.boardContent}}></p>
+                                    <div className="coloBoard__item3">
+                                        <div className="coloBoard__like">
+                                            <div><MdThumbUp /></div>
+                                            <div>{item.likeCount}</div>
+                                        </div>
+                                    </div>
 
-                        <div className="coloBoard__item4">
+                                    <div className="coloBoard__item4">
 
-                            <div className="coloBoard__reply__btn" onClick={() => {
-                                setReplyBtn(() => {
-                                    replyBtn === 'close' ? setReplyBtn('open') : setReplyBtn('close')
-                                }),
-                                    setReplyBtnValue(() => {
-                                        replyBtn === 'close' ? setReplyBtnValue('∧') : setReplyBtnValue('∨')
-                                    })
-                            }}>{replyBtnValue} 댓글(38)</div>
+                                        <div className="coloBoard__reply__btn" onClick={() => {
+                                            setReplyBtn(() => {
+                                                replyBtn === 'close' ? setReplyBtn('open') : setReplyBtn('close')
+                                            }),
+                                                setReplyBtnValue(() => {
+                                                    replyBtn === 'close' ? setReplyBtnValue('∧') : setReplyBtnValue('∨')
+                                                })
+                                        }}>{replyBtnValue} 댓글({item.replies})</div>
 
-                            <div className="coloBoard__report__btn">신고</div>
-                        </div>
-                        <div className={replyBtn === 'close' ? 'coloBoard__reply__close' : ''}>
-                            <CommonReply />
+                                        <div className="coloBoard__report__btn">신고</div>
+                                    </div>
+                                    <div className={replyBtn === 'close' ? 'displayNone' : ''}>
+                                        <CommonReply />
 
-                        </div>
+                                    </div>
+                                </>
+                            )
+                        })}
                     </div>
                 </div>
             </div>

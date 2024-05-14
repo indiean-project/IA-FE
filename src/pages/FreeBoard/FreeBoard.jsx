@@ -3,16 +3,14 @@ import BoardSidebar from '../../components/BoardSidebar';
 import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
-import { freeBoardList } from '../../apis/board';
 import { pageMove } from '../../apis/pagination';
 import { boardPoint } from '../../recoil/boardPonit';
 import { useSetRecoilState } from 'recoil';
 
 
 function FreeBoard() {
-    const [BoardList, setBoardList] = useState ([]);
+    const [boardList, setBoardList] = useState ([]);
     const [sort, setSort] = useState("boardNo");
-    
     const url = "board/free/boardlist";
     const page = 1;
     
@@ -63,7 +61,7 @@ function FreeBoard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {BoardList.map((item)=>(
+                            {boardList.map((item)=>(
                                 <tr>
                                     <td>{item.boardNo}</td>
                                     <td className='freeboard__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
