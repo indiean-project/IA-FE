@@ -13,6 +13,7 @@ function BoardEnrollForm() {
     const [imgList, setImgList] = useState([]);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('free');
+    const [voteInput, setVoteInput] = useState('close');
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -147,6 +148,10 @@ function BoardEnrollForm() {
         }
     }
 
+    function voteState() {
+        voteInput === 'close' ? setVoteInput('open') : setVoteInput('close');
+    }
+
     return (
         <div className="boardEnrollForm__container">
             <div className='boardEnrollForm__box'>
@@ -171,8 +176,15 @@ function BoardEnrollForm() {
                         ref={quillRef}
                     />
                     <div className='boardEnrollForm__items'>
-                        <button onClick={imageHandler}>이미지 첨부</button>
+                        <div>
+                            <button onClick={imageHandler}>이미지 첨부</button>
+                            <button className={category === 'colo' ? 'boardEnrollForm__vote' : 'boardEnrollForm__vote__close'} onClick={voteState}>투표</button>
+                        </div>
                         <button onClick={enroll}>등록</button>
+                    </div>
+                    <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'boardEnrollForm__insert__vote__close'}>
+                        <div><label>항목1</label><input type="text" /></div>
+                        <div><label>항목2</label><input type="text" /></div>
                     </div>
                 </div>
             </div>
