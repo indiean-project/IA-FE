@@ -5,62 +5,103 @@ import { ArrowDown, ArrowUp, CaretDownFill, Search } from 'react-bootstrap-icons
 import { PuffLoader } from 'react-spinners';
 import { useEffect, useRef, useState } from 'react';
 import { selectAllFund } from '../../apis/fund';
+import { useInView } from 'react-intersection-observer';
+import moment from 'moment';
+import { now } from 'lodash';
 
 function FundList() {
     const [fundList, setFundList] = useState([]);
     const fundListRef = useRef();
-    const [selectBox, setSelectBox] = useState(false);
+    const [between, setBetween] = useState(true);
+    const [compYnStyle, setCompYnStyle] = useState({
+        true : {
+            'border-bottom': '3px solid #F2613F'
+        },
+        false : {
+            'border': 'opacity 0'
+        }
+    })
+    const [ref, inView] = useInView();
+    const [selectBox, setSelectBox] = useState([false, false]);
+    const [loadingCheck, setLoadingCheck] = useState(false);
     const [selectItem, setSelectItem] = useState({
-        value: '최신순',
-        standard: 'fundNo',
+        sortName: '최신순',
+        sortValue: 'fundNo',
         sort: 'DESC',
-        sortCheck: true
+        sortCheck: true,
+        page : 8,
+        keyword: '',
+        searchName: '전체',
+        searchValue: null
     })
 
+    const standard = [
+        {
+            name: '최신순',
+            value: 'fundNo'
+        },
+        {
+            name: '목표액순',
+            value: 'target'
+        },
+        {
+            name: '펀딩액순',
+            value: 'revenue'
+        },
+        {
+            name: '달성률순',
+            value: 'rate'
+        }
+    ];
+    const searchItem = [
+        {
+            name: '전체',
+            value: null
+        },
+        {
+            name: '아티스트',
+            value: 'artist'
+        },
+        {
+            name: '제목',
+            value: 'fundTitle'
+        },
+        {
+            name: '내용',
+            value: 'fundContent'
+        }
+    ]
+
     const selectAllFundList = async()=>{
-        console.log(selectItem);
         const list = await selectAllFund(selectItem);
         setFundList(list['data']);
-        console.log(fundList);
     }
 
-    const onClickSelectBox = ()=>{
-        selectBox? setSelectBox(false) : setSelectBox(true);
+    const onClickSelectBox = (num)=>{
+        let list = selectBox;
+        list[num] = selectBox[num]? false : true;
+        setSelectBox([...list]);
     }
 
-    const onClickSelectItem = (value)=>{
-        switch (value) {
-            case '최신순' :
-                setSelectItem({
-                    ...selectItem,
-                    value: value,
-                    standard: 'fundNo'
-                });
-                break;
-            case '목표액순' :
-                setSelectItem({
-                    ...selectItem,
-                    value: value,
-                    standard: 'target'
-                });
-                break;
-            case '펀딩액순' :
-                setSelectItem({
-                    ...selectItem,
-                    value: value,
-                    standard: 'revenue'
-                });
-                break;
-            case '달성률순' :
-                setSelectItem({
-                    ...selectItem,
-                    value: value,
-                    standard: 'rate'
-                });
-                break;
+    const onClickSelectItem = (param, idx)=>{
+        if(idx===0){
+            setSelectItem({
+                ...selectItem,
+                searchName: param.name,
+                searchValue: param.value
+            })
+        } else{
+            setSelectItem({
+                ...selectItem,
+                sortName: param.name,
+                sortValue: param.value
+            })
         }
         
-        setSelectBox(false);
+        let list = selectBox;
+        list[idx] = false;
+        setSelectBox([...list]);
+        
     }
 
     const onClickSortCheck = ()=>{
@@ -75,10 +116,28 @@ function FundList() {
             sortCheck: true
         })
     }
+
+    const onClickCompYn = ()=>{
+        between? setBetween(false) : setBetween(true);
+
+    }
     
     useEffect(()=>{
         selectAllFundList();
-    },[selectItem])
+    },[selectItem.sort, selectItem.sortValue, selectItem.page])
+
+    useEffect(()=>{
+        if(inView){
+            setLoadingCheck(true);
+            setTimeout(()=>{
+                setSelectItem({
+                    ...selectItem,
+                    page: selectItem.page + 8
+                })
+                setLoadingCheck(false);
+            }, 1000)
+        }
+    }, [inView])
 
     return (
         <Background>
@@ -92,11 +151,21 @@ function FundList() {
                             <Search size={25} />
                         </div>
                     </div>
-                    <div className='select__box'>필터 < CaretDownFill /> </div>
+                    <div className='select__box' onClick={()=>onClickSelectBox(0)}>{selectItem.searchName}< CaretDownFill /> </div>
+                    {selectBox[0]? <div className='select__item'>
+                        <table>
+                        <tbody>
+                            <tr onClick={()=>onClickSelectItem(searchItem[0], 0)}><td>전체</td></tr>
+                            <tr onClick={()=>onClickSelectItem(searchItem[1], 0)}><td>아티스트</td></tr>
+                            <tr onClick={()=>onClickSelectItem(searchItem[2], 0)}><td>제목</td></tr>
+                            <tr onClick={()=>onClickSelectItem(searchItem[3], 0)}><td>내용</td></tr>
+                            </tbody>
+                        </table>
+                    </div> : ''}
                 </div>
                 <div className='fundList__compYn'>
-                    <div>진행중</div>
-                    <div>마감</div>
+                    <div style={between? compYnStyle.true:compYnStyle.false} onClick={()=>onClickCompYn()}>진행중</div>
+                    <div style={between? compYnStyle.false:compYnStyle.true} onClick={()=>onClickCompYn()}>마감</div>
                 </div>
                 <div className='fundList__hot'>
                     <div className='fundList__hot__header'>
@@ -113,14 +182,14 @@ function FundList() {
                     </div>
                 </div>
                 <div className='fundList__sort'>
-                    <div className='select__box' onClick={()=>onClickSelectBox()}>{selectItem.value} < CaretDownFill /> </div>
-                    {selectBox? <div className='select__item'>
+                    <div className='select__box' onClick={()=>onClickSelectBox(1)}>{selectItem.sortName} < CaretDownFill /> </div>
+                    {selectBox[1]? <div className='select__item'>
                         <table>
                         <tbody>
-                            <tr onClick={()=>onClickSelectItem('최신순')}><td>최신순</td></tr>
-                            <tr onClick={()=>onClickSelectItem('목표액순')}><td>목표액순</td></tr>
-                            <tr onClick={()=>onClickSelectItem('펀딩액순')}><td>펀딩액순</td></tr>
-                            <tr onClick={()=>onClickSelectItem('달성률순')}><td>달성률순</td></tr>
+                            <tr onClick={()=>onClickSelectItem(standard[0], 1)}><td>최신순</td></tr>
+                            <tr onClick={()=>onClickSelectItem(standard[1], 1)}><td>목표액순</td></tr>
+                            <tr onClick={()=>onClickSelectItem(standard[2], 1)}><td>펀딩액순</td></tr>
+                            <tr onClick={()=>onClickSelectItem(standard[3], 1)}><td>달성률순</td></tr>
                             </tbody>
                         </table>
                     </div> : ''}
@@ -130,21 +199,20 @@ function FundList() {
                     <p>정렬</p>
                 </div>
                 <div className='fundList__general'>
-                    {fundList.map((item)=>{
+                    {fundList.filter(item=> between?new Date(item.endDate) >= new Date() 
+                    : new Date(item.endDate) < new Date())
+                    .map((item)=>{
+                        console.log(item);
                         return(
                             <FundItem
                                 key={item.fundNo}
-                                fundTitle={item.fundTitle}
-                                fundType={item.fundType}
-                                fundDescription={item.fundDescription}
-                                target={item.target}
-                                revenue={item.revenue}
+                                item={item}
                             />
                         );
                     })}
                 </div>
-                <div className='spinner'>
-                    <PuffLoader color='#F2613F' />
+                <div className='spinner' ref={ref}>
+                    {loadingCheck ? <PuffLoader color='#F2613F'/> : '모든 펀딩을 불러왔습니다.' }
                 </div>
             </div>
         </Background>
