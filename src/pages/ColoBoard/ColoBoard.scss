@@ -79,13 +79,70 @@
                 margin-top: 3%;
                 width: 90%;
                 background-color: rgba(217, 217, 217, 0.06);
+                
                 .coloBoard__item2 {
                     display: flex;
                     padding: 2%;
                     div {
                         margin-right: 5%;
                         margin-bottom: 2%;
+                        svg {
+                            vertical-align: middle;
+                            cursor: pointer;
+                        }
                     }
+                }
+                .coloBoard__content {
+                    margin-top: 5%;
+                    margin-left: 10%;
+                    margin-right: 10%;
+                    word-wrap: break-word;
+                }
+
+
+                .coloBoard__item3 {
+                    display: flex;
+                    justify-content: center;
+                    .coloBoard__like {
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        margin-top: 5%;
+                        width: 70px;
+                        height: 40px;
+                        background-color: #CDCDCD;
+                        border-radius: 18px;
+                        color: black;
+                        font-weight: 700;
+                        text-shadow: 0px 0px 12.3px #E3651D;
+
+                        div {
+                            margin-right: 5%;
+                            margin-left: 5%;
+                            margin-top: 4px;
+                        }
+
+                        svg {
+                            font-size: 22px;
+                        }
+                    }
+                }
+
+                .coloBoard__item4 {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 5%;
+                    .coloBoard__reply__btn {
+                        cursor: pointer;
+                    }
+                    .coloBoard__report__btn {
+                        cursor: pointer;
+                    }
+                }
+                .coloBoard__reply__close {
+                    display: none;
                 }
             }
         }
