@@ -1,9 +1,11 @@
+import AdminFundingApproval from "../AdminFundingApproval";
 
 
 function AdminQuestionSection(){
 
     return(
         <div>
+           
             <br/><br/><br/><br/>
             <h1>문의사항 리스트</h1>
             <select>

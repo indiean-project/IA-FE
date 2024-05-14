@@ -15,7 +15,7 @@ function AdminPage(){
                 </tr>            
             </table>
             <input placeholder="유저네임?으로 검색해주세요."/>
-            <button tyoe="submit">검색</button>
+            <button type="submit">검색</button>
             <br/>
             <input type="radio" ></input>         
             <label>읽지 않은 내용만 보기</label>            
