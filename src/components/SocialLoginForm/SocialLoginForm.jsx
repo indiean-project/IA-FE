@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {useRecoilState, useSetRecoilState, useRecoilValue} from 'recoil';
 import KakaoLogin from 'react-kakao-login';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 import LoginModal from '../LoginModal';
 import { loginUser } from '../../apis/user';
@@ -66,6 +68,59 @@ function SocialLoginForm() {
         console.log(error);
     };
 
+
+    // const googleOnSuccess = async(data) => {
+    //     console.log(data)
+
+    //     credentialResponse => {
+    //         console.log(jwtDecode(credentialResponse.credential()));
+    //     }
+
+    //     const tokenEmail = data.profile.google_account.email;
+    //     console.log(tokenEmail);
+        
+    //     const result = await loginUser({
+    //         userId: tokenEmail,
+    //         userPwd: '',
+    //         socialStatus: 'G'
+    //     })
+
+    //     console.log(result);
+
+    //     if(result === undefined) {
+    //         toast.error('로그인 정보가 올바르지 않습니다.');
+    //     } else {
+    //         setLoginUser({
+    //             ...result,
+    //             default : {
+    //                 userId: result.userId,
+    //                 userPwd: result.userPwd,
+    //                 userName: result.userName,
+    //                 nickname: result.nickname,
+    //                 phone: result.phone,
+    //                 address: result.address,
+    //                 deleteYn: result.deleteYn,
+    //                 reportStatus: result.reportStatus,
+    //                 socialStatus: result.socialStatus,
+    //                 userProfileImg: result.userProfileImg,
+    //                 userContent: result.userContent,
+    //                 userFavoriteArtist: result.userFavoriteArtist,
+    //                 userFavoriteMusic: result.userFavoriteMusic
+    //             }
+    //         })
+    //         setIsModalOpen(true);
+    //     }
+    //     console.log(loginUserInfo);
+    //     console.log(isModalOpen);
+
+    //     console.log(loginUserState);
+
+    // }
+    // const googleOnError = (error) => {
+    //     console.log(error);
+    // };
+
+
     return (
         <>
             <div className="socialLoginDiv">
@@ -74,13 +129,28 @@ function SocialLoginForm() {
                     onSuccess={kakaoOnSuccess}
                     onFail={kakaoOnFailure}
                 />
-                {/* <button className="btn-kakaoLogin" onClick={()=>setKakaoLogin(true)}>kakao로 로그인하기</button> */}
-                <button className="btn-googleLogin" type="submit">Google로 로그인하기</button>
+                <br/>
+                <GoogleOAuthProvider clientId = {import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+                    {/* <GoogleLogin 
+                        onSuccess={googleOnSuccess}
+                        onError={googleOnError}
+                    /> */}
+                    <GoogleLogin onSuccess = {(credentialResponse) => {
+                        console.log(jwtDecode(credentialResponse.accessToken));
+                    }}
+                    onError={()=> {
+                        console.log("Login Failed");
+                    }} />
+                </GoogleOAuthProvider>
             </div>
-            {/* {kakaoLogin && <KakaoLogin />} */}
+
             {isModalOpen && <LoginModal/>}
         </>
 
     )
 }
 export default SocialLoginForm;
+
+                // {/* <button className="btn-kakaoLogin" onClick={()=>setKakaoLogin(true)}>kakao로 로그인하기</button> */}
+                
+                // {/* <button className="btn-googleLogin" type="submit">Google로 로그인하기</button> */}

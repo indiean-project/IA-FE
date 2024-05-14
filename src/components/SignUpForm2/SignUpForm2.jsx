@@ -76,7 +76,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
 
     const nextPage = async () => {
 
-        if (isConfirmPwd === 'good') {
+        if (storageSocial === 'N' && isConfirmPwd === 'good') {
             const result = await signUpUser({
                 userId: storageId,
                 userPwd: storagePwd,
@@ -91,8 +91,24 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 onNextPage();
                 sessionStorage.clear();
             }
+        } else if (storageSocial !== 'N') {
+            const result = await signUpUser({
+                userId: storageId,
+                userPwd: '',
+                userName: signUpInfo.userName,
+                phone: signUpInfo.phone,
+                socialStatus: storageSocial
+            })
+            console.log(result);
+            if (result.response && result.response.data.name === "HAS_PHONE") {
+                toast.error("동일 전화번호 계정이 있습니다! 중복 가입은 불가능합니다.");
+            } else {
+                onNextPage();
+                sessionStorage.clear();
+            }
         } else {
             toast.error("회원가입에 실패했습니다.");
+            console.log(error);
             return null;
         }
 
