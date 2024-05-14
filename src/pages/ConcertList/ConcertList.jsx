@@ -6,21 +6,22 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import {calendarList} from '../../apis/calendarList'
 import { cPage } from '../../recoil/page'
 import { pageMove } from '../../apis/pagination'
 import { useEffect, useState } from 'react';
 
 function ConcertList() {
 
-    const eventColor = ['blue','green','red','yellow','black']
+    const eventColor = ['blue', 'green', 'red', 'yellow', 'black']
     const currentPage = useRecoilValue(cPage);
     const [concertList, setConcertList] = useState([]);
-    const [sort, setSort] = useState("최신순");
-    const [search, setSearch] = useState();
+    const [sort, setSort] = useState("createDate");
+    const [search, setSearch] = useState("");
 
     const [pageInfo, setPageInfo] = useState();
     const list = async () => {
-        
+
         const currentBoard = 'concert/concertList'
         const result = await pageMove({
             url: currentBoard,
@@ -33,12 +34,20 @@ function ConcertList() {
         setPageInfo(result.pageinfo)
 
     }
+    const calendar = async() => {
+        console.log("들어옴")
+        const currentCalendar = await calendarList();
+    }
     useEffect(() => {
 
-
+        calendar();
         list();
 
     }, [])
+    useEffect(() => {
+        list();
+        
+    }, [sort])
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
             list();
@@ -70,8 +79,8 @@ function ConcertList() {
                     initialView="dayGridMonth"
                     weekends={true} // 주말 표시 속성
                     events={[
-                        { title: 'Event 1', start: '2024-05-01',end: '2024-05-03',color: eventColor[Math.floor(Math.random() * 6)] },
-                        { title: 'Event 2', date: '2024-05-02',color: eventColor[Math.floor(Math.random() * 6)] }
+                        { title: 'Event 1', start: '2024-05-01', end: '2024-05-03', color: eventColor[Math.floor(Math.random() * 6)] },
+                        { title: 'Event 2', date: '2024-05-02', color: eventColor[Math.floor(Math.random() * 6)] }
 
                     ]}
                 />
