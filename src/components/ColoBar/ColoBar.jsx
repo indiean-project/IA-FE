@@ -3,9 +3,6 @@ import "./ColoBar.scss";
 
 
 function ColoBar({list}) {
-    useEffect(()=>{
-        console.log(list.boardTitle);
-    }, [])
     return (
         <div className="coloBar__container">
             <label>{list.boardTitle}</label>

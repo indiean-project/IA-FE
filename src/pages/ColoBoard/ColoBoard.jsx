@@ -9,8 +9,7 @@ import { useEffect, useState } from "react";
 import { pageMove } from "../../apis/pagination";
 
 function ColoBoard() {
-    const [replyBtn, setReplyBtn] = useState('close');
-    const [replyBtnValue, setReplyBtnValue] = useState('∨');
+    const [replyBtn, setReplyBtn] = useState([]);
     const [boardList, setBoardList] = useState([]);
     const [sort, setSort] = useState("boardNo");
     const url = "board/colo/boardlist";
@@ -23,11 +22,19 @@ function ColoBoard() {
                 page: page,
                 sort: sort
             });
-            console.log(list);
             setBoardList(list);
+            setReplyBtn(new Array(list.length).fill('close'));
         }
         list();
     }, [])
+
+    function toggleReplyBtn(index) {
+        setReplyBtn((prevState) => {
+            const state = [...prevState];
+            state[index] = state[index] === 'close' ? 'open' : 'close';
+            return state
+        })
+    }
 
 
     return (
@@ -52,17 +59,17 @@ function ColoBoard() {
                         <div className='coloBoard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
                     </div>
                     <hr />
-                    <div className="coloBoard__items__area">
-                        {boardList.map((item, index)=>{
-                            return (
-                                <>
-                                    <div className="coloBoard__item2" key={index}>
+                    {boardList.map((item, index) => {
+                        return (
+                            <>
+                                <div className="coloBoard__items__area" key={index}>
+                                    <div className="coloBoard__item2">
                                         <div>No.{item.boardNo}</div>
                                         <div>{item.nickname}</div>
                                         <div>{item.enrollDate} <BsPencilSquare /> <BsTrash /></div>
                                     </div>
                                     <ColoBar list={item} />
-                                    <p className="coloBoard__content" dangerouslySetInnerHTML={{__html: item.boardContent}}></p>
+                                    <p className="coloBoard__content" dangerouslySetInnerHTML={{ __html: item.boardContent }}></p>
                                     <div className="coloBoard__item3">
                                         <div className="coloBoard__like">
                                             <div><MdThumbUp /></div>
@@ -72,25 +79,19 @@ function ColoBoard() {
 
                                     <div className="coloBoard__item4">
 
-                                        <div className="coloBoard__reply__btn" onClick={() => {
-                                            setReplyBtn(() => {
-                                                replyBtn === 'close' ? setReplyBtn('open') : setReplyBtn('close')
-                                            }),
-                                                setReplyBtnValue(() => {
-                                                    replyBtn === 'close' ? setReplyBtnValue('∧') : setReplyBtnValue('∨')
-                                                })
-                                        }}>{replyBtnValue} 댓글({item.replies})</div>
+                                        <div className="coloBoard__reply__btn" onClick={() => toggleReplyBtn(index)}>
+                                            {replyBtn[index] === 'close' ? '∧' : '∨'} 댓글({item.replies})</div>
 
                                         <div className="coloBoard__report__btn">신고</div>
                                     </div>
-                                    <div className={replyBtn === 'close' ? 'displayNone' : ''}>
+                                    <div className={replyBtn[index] === 'close' ? 'displayNone' : ''}>
                                         <CommonReply />
 
                                     </div>
-                                </>
-                            )
-                        })}
-                    </div>
+                                </div>
+                            </>
+                        )
+                    })}
                 </div>
             </div>
         </div>
