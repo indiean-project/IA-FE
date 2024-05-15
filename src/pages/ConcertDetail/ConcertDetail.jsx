@@ -1,15 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './ConcertDetail.scss';
 import poster from './poster.jpg';
 import artist from './10cm.jpg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ConcertInfo from '../../components/ConcertInfo';
 import CommonReply from '../../components/CommonReply/CommonReply';
 
 function ConcertDetail (){
 
     const [detailState,setDetailState] = useState('info');
-
+    const location = useLocation();
+    useEffect(()=>{
+        console.log(location);
+    },[])
 
 
     return (

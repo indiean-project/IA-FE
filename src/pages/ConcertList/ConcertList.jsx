@@ -4,7 +4,7 @@ import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import {calendarList} from '../../apis/calendarList'
 import { cPage } from '../../recoil/page'
@@ -13,12 +13,12 @@ import { useEffect, useState } from 'react';
 
 function ConcertList() {
 
-    const eventColor = ['blue', 'green', 'red', 'yellow', 'black']
-    const currentPage = useRecoilValue(cPage);
+    const eventColor = ['blue', 'green', 'red', 'gray', 'black']
+    const [currentPage,setCurrentPage] = useRecoilState(cPage);
     const [concertList, setConcertList] = useState([]);
     const [sort, setSort] = useState("createDate");
-    const [search, setSearch] = useState("");
-
+    const [keyword, setKeyword] = useState("");
+    const [event, setEvent] = useState();
     const [pageInfo, setPageInfo] = useState();
     const list = async () => {
 
@@ -27,7 +27,7 @@ function ConcertList() {
             url: currentBoard,
             page: currentPage,
             sort: sort,
-            search: search
+            keyword: keyword
         });
 
         setConcertList(result.listDto)
@@ -35,8 +35,16 @@ function ConcertList() {
 
     }
     const calendar = async() => {
-        console.log("들어옴")
+        
         const currentCalendar = await calendarList();
+        const eventList = currentCalendar.map((concert)=>{
+            let date = new Date(concert.endDate)
+            let endDate = new Date(date.setDate(date.getDate()+1)).toISOString().substring(0,10);
+            
+            return {title : concert.concertTitle, start: concert.startDate, end : endDate,color: eventColor[Math.floor(Math.random() * 6)]}
+        })
+        
+        setEvent(eventList);
     }
     useEffect(() => {
 
@@ -58,11 +66,11 @@ function ConcertList() {
         <div className='concert__list'>
             <div className='title'>
                 <h1>CONCERT LIST</h1>
-                <input className='concert__search' type="text" name="search" placeholder='검색어를 입력하세요' value={search} onChange={(e) => { setSearch(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
+                <input className='concert__search' type="text" name="keyword" placeholder='검색어를 입력하세요' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
             </div>
             <div className='btn__area'>
                 <div>
-                    <select name="sort" id="select-id" value={sort} onChange={(e) => { setSort(e.target.value) }}>
+                    <select name="sort" id="select-id" value={sort} onChange={(e) => { setSort(e.target.value), setCurrentPage(1) }}>
                         <option value="createDate">최신순</option>
                         <option value="endDate">마감순</option>
                     </select> &nbsp;
@@ -78,11 +86,7 @@ function ConcertList() {
                     plugins={[dayGridPlugin]}
                     initialView="dayGridMonth"
                     weekends={true} // 주말 표시 속성
-                    events={[
-                        { title: 'Event 1', start: '2024-05-01', end: '2024-05-03', color: eventColor[Math.floor(Math.random() * 6)] },
-                        { title: 'Event 2', date: '2024-05-02', color: eventColor[Math.floor(Math.random() * 6)] }
-
-                    ]}
+                    events={event}
                 />
             </div>
 

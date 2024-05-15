@@ -1,22 +1,31 @@
 import './ConcertItem.scss';
 import test from './test.jpg'
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const Concert = (props) => {
+    const navigate = useNavigate();
+    const handleDetailPost = ({ concert }) => {
+        
+        navigate('/concert/detail', {
+                state:{
+                    concertNo : concert.concertNo
+                },
+        });    
+      };
     return (
         <div>
             <div className='board__concert__list'>
-                {props.concertList.map((item,idx)=>{
+                {props.concertList.map((concert,idx)=>{
                     
                     return(
-                        <div className="concert__item" key={idx}>
-                            <NavLink >
+                        <div className="concert__item" key={idx} onClick={()=>{handleDetailPost({concert})}}>
+                            <div>
                                 <img src={test}/>
                                 <ul>
-                                    <li className='concert__title'>{item.concertTitle}</li>                            
-                                    <li className='concert__location'>LOCATION:{item.location}</li>
-                                    <li className='concert__date'>{item.startDate}~{item.endDate}</li>                   
+                                    <li className='concert__title'>{concert.concertTitle}</li>                            
+                                    <li className='concert__location'>LOCATION:{concert.location}</li>
+                                    <li className='concert__date'>{concert.startDate}~{concert.endDate}</li>                   
                                 </ul>
-                            </NavLink> 
+                            </div> 
                         </div>
                     )
                  })
