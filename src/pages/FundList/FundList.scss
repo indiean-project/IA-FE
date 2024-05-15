@@ -44,8 +44,15 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                cursor: pointer;
                 svg{
                     color: rgba(0, 0, 0, 0.64);
+                    transition: 0.2s;
+                }
+            }
+            .fundList__form__icon:hover{
+                svg{
+                    color: rgba(242, 97, 63, 1);
                 }
             }
             
@@ -100,8 +107,7 @@
         div{
             width: 90px;
             text-align: center;
-            border-bottom: 3px solid #F2613F;
-            border: opacify($color: #000000, $amount: 0);
+            border-bottom: 3px solid #f2603f00;
             cursor: pointer;
             transition: 0.3s;
         }

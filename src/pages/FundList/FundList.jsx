@@ -4,18 +4,20 @@ import './FundList.scss';
 import { ArrowDown, ArrowUp, CaretDownFill, Search } from 'react-bootstrap-icons';
 import { PuffLoader } from 'react-spinners';
 import { useEffect, useRef, useState } from 'react';
-import { selectAllFund } from '../../apis/fund';
+import { selectAllFund, selectSoonFund } from '../../apis/fund/fund';
 import { useInView } from 'react-intersection-observer';
 import moment from 'moment';
-import { now } from 'lodash';
+import { now, shuffle } from 'lodash';
 
 function FundList() {
     const [fundList, setFundList] = useState([]);
+    const [soonList, setSoonList] = useState([]);
+    const keywordRef = useRef();
     const fundListRef = useRef();
     const [between, setBetween] = useState(true);
     const [compYnStyle, setCompYnStyle] = useState({
         true : {
-            'border-bottom': '3px solid #F2613F'
+            'borderBottom': '3px solid #F2613F'
         },
         false : {
             'border': 'opacity 0'
@@ -29,10 +31,10 @@ function FundList() {
         sortValue: 'fundNo',
         sort: 'DESC',
         sortCheck: true,
-        page : 8,
+        page : 10,
         keyword: '',
         searchName: '전체',
-        searchValue: null
+        searchValue: 'all'
     })
 
     const standard = [
@@ -56,7 +58,7 @@ function FundList() {
     const searchItem = [
         {
             name: '전체',
-            value: null
+            value: 'all'
         },
         {
             name: '아티스트',
@@ -117,14 +119,29 @@ function FundList() {
         })
     }
 
-    const onClickCompYn = ()=>{
-        between? setBetween(false) : setBetween(true);
-
+    const onClickCompYn = (value)=>{
+        setBetween(value);
     }
+
+    const onClickKeywordSearch = (value)=>{
+        setSelectItem({
+            ...selectItem,
+            keyword: value
+        })
+    }
+
+    const selectSoonFundList = async()=>{
+        const list = await selectSoonFund();
+        setSoonList(shuffle(list['data']));
+    }
+
+    useEffect(()=>{
+        selectSoonFundList();
+    },[])
     
     useEffect(()=>{
         selectAllFundList();
-    },[selectItem.sort, selectItem.sortValue, selectItem.page])
+    },[selectItem.sort, selectItem.sortValue, selectItem.page, selectItem.keyword])
 
     useEffect(()=>{
         if(inView){
@@ -132,7 +149,7 @@ function FundList() {
             setTimeout(()=>{
                 setSelectItem({
                     ...selectItem,
-                    page: selectItem.page + 8
+                    page: selectItem.page + 10
                 })
                 setLoadingCheck(false);
             }, 1000)
@@ -146,8 +163,8 @@ function FundList() {
                 <h3>아티스트를 펀딩하고 다양한 리워드를 만나보세요!</h3>
                 <div className='fundList__form'>
                     <div className='fundList__form__input'>
-                        <input type="text" placeholder='키워드를 입력하세요.' />
-                        <div className='fundList__form__icon'>
+                        <input type="text" ref={keywordRef} placeholder='키워드를 입력하세요.' />
+                        <div className='fundList__form__icon' onClick={()=>onClickKeywordSearch(keywordRef.current.value)}>
                             <Search size={25} />
                         </div>
                     </div>
@@ -164,8 +181,8 @@ function FundList() {
                     </div> : ''}
                 </div>
                 <div className='fundList__compYn'>
-                    <div style={between? compYnStyle.true:compYnStyle.false} onClick={()=>onClickCompYn()}>진행중</div>
-                    <div style={between? compYnStyle.false:compYnStyle.true} onClick={()=>onClickCompYn()}>마감</div>
+                    <div style={between? compYnStyle.true:compYnStyle.false} onClick={()=>onClickCompYn(true)}>진행중</div>
+                    <div style={between? compYnStyle.false:compYnStyle.true} onClick={()=>onClickCompYn(false)}>마감</div>
                 </div>
                 <div className='fundList__hot'>
                     <div className='fundList__hot__header'>
@@ -175,10 +192,12 @@ function FundList() {
                         </div>
                     </div>
                     <div className='fundList__hot__items'>
-                        <FundItem />
-                        <FundItem />
-                        <FundItem />
-                        <FundItem />
+                        {soonList.length > 0? soonList.filter((item)=>soonList.indexOf(item) < 4).map((item)=>{
+                            return(
+                                <FundItem key={item.fundNo}
+                                        item={item} />
+                            );
+                        }): '확인되는 펀딩이 없습니다.'}
                     </div>
                 </div>
                 <div className='fundList__sort'>
@@ -202,7 +221,6 @@ function FundList() {
                     {fundList.filter(item=> between?new Date(item.endDate) >= new Date() 
                     : new Date(item.endDate) < new Date())
                     .map((item)=>{
-                        console.log(item);
                         return(
                             <FundItem
                                 key={item.fundNo}

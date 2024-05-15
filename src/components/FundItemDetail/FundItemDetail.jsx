@@ -2,7 +2,12 @@ import { Arrow90degRight, HandThumbsUp, Linkedin, PlusSquareFill, Share } from '
 import FundMainImage from '../FundMainImage/FundMainImage';
 import './FundItemDetail.scss';
 import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { selectFundDetail } from '../../apis/fund/fund';
 function FundItemDetail({ nav, navRef }) {
+
+    const params = useParams().id
+    const [fund, setFund] = useState({});
 
     const [rate, setRate] = useState(0);
     const [price, setPrice] = useState(0);
@@ -11,11 +16,24 @@ function FundItemDetail({ nav, navRef }) {
     const rateRef = useRef(0);
     const peopleRef = useRef(0);
 
+    useEffect(()=>{
+        getFundDetail();
+    },[])
 
-    useEffect(() => { //동적으로 숫자 카운팅
-        let count = 15001020;
-        let goal = 20000000;
-        let peopleCount = 152;
+    useEffect(()=>{
+        console.log(fund.revenue);
+        console.log(fund.target);
+    },[fund])
+
+    const getFundDetail = async()=>{
+        const detail = await selectFundDetail(params);
+        setFund(detail['data']);
+    }
+
+    const counting = ()=>{
+        let count = fund.revenue;
+        let goal = fund.target;
+        let peopleCount = fund.people;
         const timer = setInterval(() => {
             priceRef.current += Math.floor(count/peopleCount);
             peopleRef.current += 1;
@@ -29,6 +47,10 @@ function FundItemDetail({ nav, navRef }) {
                 clearInterval(timer);
             }
         }, 10);
+    }
+
+    useEffect(() => { //동적으로 숫자 카운팅
+        counting();
     }, [])
 
     let rateColor = {
