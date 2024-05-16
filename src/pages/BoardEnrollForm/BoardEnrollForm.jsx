@@ -3,7 +3,7 @@ import './BoardEnrollForm.scss';
 import { useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
-import { freeboardEnroll } from '../../apis/board';
+import { BoardEnroll, ColoEnroll } from '../../apis/board';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,10 @@ function BoardEnrollForm() {
     const quillRef = useRef();
     const [imgList, setImgList] = useState([]);
     const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('free');
+    const [category, setCategory] = useState('FREE');
+    const [voteInput, setVoteInput] = useState('close');
+    const [coloTitle1, setColoTitle1] = useState('');
+    const [coloTitle2, setColoTitle2] = useState('');
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -57,12 +60,11 @@ function BoardEnrollForm() {
         'header', 'font', 'size',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
-        'link', 'image', 'video'
+        'link', 'video'
     ];
 
     const handleChange = (content) => {
         setContent(content);
-        console.log(category);
     };
 
     const enroll = async () => {
@@ -70,81 +72,64 @@ function BoardEnrollForm() {
         let deleteList = [];
         let trimTitle;
         let imgResult;
-        let freeResult;
-        let proudResult;
         let coloResult;
+        let result;
+        let success;
 
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
+            return
         } else if (content.substring(4, content.length - 4).trim() === "") {
             toast.error("내용을 입력해주세요.");
-        } else {
-            trimTitle = title.trim();
+            return
+        }
 
-            imgList.forEach((item) => {
-                content.indexOf(item) !== -1 ? moveList.push(item) : deleteList.push(item);
-            })
-
-            if (moveList !== "") {
-                imgResult = await imgMove(moveList);   // 에디터에 해당 이미지가 있을 시 tempImg에서 img폴더 경로로 이동
-            }
-            if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
-
-            freeResult = await freeboardEnroll({
-                boardContent: content,
-                boardTitle: trimTitle,
-                member: {
-                    userNo: 1   // 로그인 한 userNo로 수정예정
-                }
-            })
-
-            // 아티스트 자랑, 콜로세움 컨트롤러 추가 시 삼항연산자로 수정 예정
-            // category === 'free' ?
-            //     freeResult = await freeboardEnroll({
-            //         boardContent: content,
-            //         boardTitle: trimTitle,
-            //         member: {
-            //             userNo: 1
-            //         }
-            //     })
-            // : category === 'proud' ?
-            //     proudResult = await proudboardEnroll({
-            //         boardContent: content,
-            //         boardTitle: trimTitle,
-            //         member: {
-            //             userNo: 1
-            //         }
-            //     })
-            // : coloResult = await coloboardEnroll({
-            //     boardContent: content,
-            //     boardTitle: trimTitle,
-            //     member: {
-            //         userNo: 1
-            //     }
-            // });
-
-            if (imgResult.data.length > 0) {
-                imgEnroll({
-                    contentNo: freeResult.data,
-                    imgUrlList: imgResult.data
-                });
-
-                // category === 'free' ?
-                // imgEnroll({
-                //     contentNo: freeResult.data,
-                //     imgUrlList: imgResult.data
-                // })
-                // : category === 'proud' ?
-                // imgEnroll({
-                //     contentNo: proudResult.data,
-                //     imgUrlList: imgResult.data
-                // })
-                // : imgEnroll({
-                //     contentNo: coloResult.data,
-                //     imgUrlList: imgResult.data
-                // });
+        if (category === 'COLO') {
+            if (coloTitle1 === '' && coloTitle2 === '') {
+                toast.error("콜로세움 게시판은 투표를 만들어야 작성 가능합니다.");
+                return
             }
         }
+        trimTitle = title.trim();
+
+        imgList.forEach((item) => {
+            content.indexOf(item) !== -1 ? moveList.push(item) : deleteList.push(item);
+        })
+
+        if (moveList !== "") {
+            imgResult = await imgMove(moveList);   // 에디터에 해당 이미지가 있을 시 tempImg에서 img폴더 경로로 이동
+        }
+        if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
+
+            result = await BoardEnroll({
+                boardContent: content,
+                boardTitle: trimTitle,
+                contentTypeNo: category,
+                member: {
+                    userNo: 1
+                }
+            });
+
+            result.data[1] === 'COLO' ? coloResult = await ColoEnroll({
+                colLeftTitle: coloTitle1,
+                colRightTitle: coloTitle2,
+                board: {
+                    boardNo: result.data[0]
+                }
+            }) : success = result.status;
+
+        if (imgResult.data.length > 0) {
+            imgEnroll({
+                contentNo: result.data[0],
+                imgUrlList: imgResult.data
+            });
+
+        }
+        success === 'SUCCESS' || coloResult.status === "SUCCESS" ? toast.success('작성 완료') : toast.error('작성 실패');
+    }
+
+    function voteState() {
+        voteInput === 'close' ? setVoteInput('open') : setVoteInput('close');
     }
 
     return (
@@ -153,9 +138,9 @@ function BoardEnrollForm() {
                 <label>커뮤니티 글쓰기</label>
                 <div>
                     <select onChange={(e) => { setCategory(e.target.value) }}>
-                        <option value="free">자유 게시판</option>
-                        <option value="proud">아티스트 자랑하기</option>
-                        <option value="colo">콜로세움</option>
+                        <option value="FREE">자유 게시판</option>
+                        <option value="PROUD">아티스트 자랑하기</option>
+                        <option value="COLO">콜로세움</option>
                     </select>
                 </div>
                 <div>
@@ -171,8 +156,13 @@ function BoardEnrollForm() {
                         ref={quillRef}
                     />
                     <div className='boardEnrollForm__items'>
-                        <button onClick={imageHandler}>이미지 첨부</button>
+                        <button className={category === 'COLO' ? 'displayNone' : ''} onClick={imageHandler}>이미지 첨부</button>
+                        <button className={category === 'COLO' ? '' : 'displayNone'} onClick={voteState}>투표</button>
                         <button onClick={enroll}>등록</button>
+                    </div>
+                    <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'displayNone'}>
+                        <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }} /></div>
+                        <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }} /></div>
                     </div>
                 </div>
             </div>

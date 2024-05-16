@@ -1,13 +1,12 @@
 .boardSidebar__container {
     color: white;
+    margin-right: 10%;
     width: 20%;
-
     .boardSidebar__box {
-        width: 15%;
-        position: fixed;
-        padding-top: 5%;
-        padding-left: 3%;
-        left: 5%;
+        top: 100px;
+        width: 100%;
+        position: sticky;
+        padding-top: 30%;
         .boardSidebar__label {
             
             label {

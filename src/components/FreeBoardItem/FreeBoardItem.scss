@@ -1,0 +1,70 @@
+hr {
+    text-align: left;
+    margin-left: 0;
+    width: 90%;
+    background-color: #F2613F;
+    height: 1px;
+    border: none;
+}
+
+.freeboarditem__table {
+    width: 90%;
+    text-align: center;
+
+    thead {
+        th {
+            font-size: 17px;
+            height: 30%;
+            border: 1px solid white;
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        .freeboarditem__thead__no {
+            width: 9%;
+        }
+
+        .freeboarditem__thead__title {
+            width: 46%;
+        }
+
+        .freeboarditem__thead__writer {
+            width: 13%;
+        }
+
+        .freeboarditem__thead__enrolldate {
+            width: 11%;
+        }
+
+        .freeboarditem__thead__count {
+            width: 11%;
+        }
+
+        .freeboarditem__thead__like {
+            width: 9%;
+            border-right: none;
+        }
+
+    }
+
+    tbody {
+        td {
+            font-size: 15px;
+            padding-top: 2%;
+        }
+    }
+
+    .freeboarditem__tbody__title {
+        padding-left: 1%;
+        text-align: start;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100px;
+        span {
+            color: #FF0000;
+        }
+
+    }
+}
