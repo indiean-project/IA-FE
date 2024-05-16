@@ -60,7 +60,7 @@ function ColoBoard() {
                         <div className='coloBoard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
                     </div>
                     <hr />
-                    {boardList.map((item, index) => {
+                    {boardList != undefined && boardList.map((item, index) => {
                         return (
                             <>
                                 <div className="coloBoard__items__area" key={index}>
