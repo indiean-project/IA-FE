@@ -22,6 +22,7 @@ function ColoBoard() {
                 page: page,
                 sort: sort
             });
+            console.log(list);
             setBoardList(list);
             setReplyBtn(new Array(list.length).fill('close'));
         }
