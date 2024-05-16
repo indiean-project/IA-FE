@@ -21,6 +21,7 @@ import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 import ArtistDetail from './pages/ArtistDetail'
+import BoardDetail from './pages/BoardDetail/BoardDetail.jsx'
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path:'/artist/detail',
         element: <ArtistDetail/>
+      },
+      {
+        path: 'board/detail',
+        element: <BoardDetail/>
       }
     ],
   },
