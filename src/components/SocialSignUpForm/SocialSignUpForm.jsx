@@ -1,7 +1,11 @@
 import KakaoLogin from 'react-kakao-login';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
 import {checkUserId} from '../../apis/user';
 
 import './SocialSignUpForm.scss';
+import toast from 'react-hot-toast';
 
 function SocialSignUpForm({ onNextPage }) {
     
@@ -18,7 +22,7 @@ function SocialSignUpForm({ onNextPage }) {
 
         console.log(idResult);
 
-        if(idResult.response && idResult.status === "SUCCESS") {
+        if(idResult.response && idResult.response.data.name === "HAS_ID") {
             toast.error('계정 정보가 존재합니다.');
         } else {
             sessionStorage.setItem("userId", tokenEmail);
@@ -30,11 +34,35 @@ function SocialSignUpForm({ onNextPage }) {
 
         console.log(loginUserState);
 
-    }
+    };
+
     const kakaoOnFailure = (error) => {
         console.log(error);
     };
 
+    const googleOnSuccess = async(data) => {
+        const tokenEmail = jwtDecode(data.credential).email;
+        console.log(tokenEmail);
+
+        const idResult = await checkUserId({
+            userId: tokenEmail,
+        })
+
+        console.log(idResult);
+
+        if(idResult.response && idResult.response.data.name === "HAS_ID") {
+            toast.error('계정 정보가 존재합니다.');
+        } else {
+            sessionStorage.setItem("userId", tokenEmail);
+            sessionStorage.setItem("socialStatus", "G");
+            return onNextPage();
+        }
+        console.log(loginUserInfo);
+        console.log(isModalOpen);
+
+        console.log(loginUserState);
+
+    }
 
     return (
         <>
@@ -43,9 +71,14 @@ function SocialSignUpForm({ onNextPage }) {
                     token={kakaoClientId}
                     onSuccess={kakaoOnSuccess}
                     onFail={kakaoOnFailure}
-                />
-                <button className="btn-googleLogin" type="submit">Google로 가입하기</button>
-                {/* <button className="" type="submit"></button> */}
+                /><br/>
+                <GoogleOAuthProvider clientId = {import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+                    <GoogleLogin 
+                        onSuccess = {googleOnSuccess}
+                        onError={()=> {
+                        console.log("Login Failed");
+                    }} />
+                </GoogleOAuthProvider>
             </div>
         </>
     )

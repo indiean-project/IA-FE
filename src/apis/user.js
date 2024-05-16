@@ -40,7 +40,7 @@ export const checkUserPwd = async(params) => {
 
 export const sendEmail = async(params) => {
     try {
-        const {data} = await API.post("/api/user/signUp/sendEmail", params);
+        const {data} = await API.get("/api/user/signUp/sendEmail?userId="+ params.userId);
         return data;
     } catch (e) {
         console.log(e);

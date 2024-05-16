@@ -68,58 +68,48 @@ function SocialLoginForm() {
         console.log(error);
     };
 
+    const googleOnSuccess = async(data) => {
+        const tokenEmail = jwtDecode(data.credential).email;
+        console.log(tokenEmail);
 
-    // const googleOnSuccess = async(data) => {
-    //     console.log(data)
+        const result = await loginUser({
+            userId: tokenEmail,
+            userPwd: '',
+            socialStatus: 'G'
+        })
 
-    //     credentialResponse => {
-    //         console.log(jwtDecode(credentialResponse.credential()));
-    //     }
+        console.log(result);
 
-    //     const tokenEmail = data.profile.google_account.email;
-    //     console.log(tokenEmail);
-        
-    //     const result = await loginUser({
-    //         userId: tokenEmail,
-    //         userPwd: '',
-    //         socialStatus: 'G'
-    //     })
+        if(result === undefined) {
+            toast.error('로그인 정보가 올바르지 않습니다.');
+        } else {
+            setLoginUser({
+                ...result,
+                default : {
+                    userId: result.userId,
+                    userPwd: result.userPwd,
+                    userName: result.userName,
+                    nickname: result.nickname,
+                    phone: result.phone,
+                    address: result.address,
+                    deleteYn: result.deleteYn,
+                    reportStatus: result.reportStatus,
+                    socialStatus: result.socialStatus,
+                    userProfileImg: result.userProfileImg,
+                    userContent: result.userContent,
+                    userFavoriteArtist: result.userFavoriteArtist,
+                    userFavoriteMusic: result.userFavoriteMusic
+                }
+            })
+            setIsModalOpen(true);
+        }
+        console.log(loginUserInfo);
+        console.log(isModalOpen);
 
-    //     console.log(result);
+        console.log(loginUserState);
+        console.log("Login Success");
 
-    //     if(result === undefined) {
-    //         toast.error('로그인 정보가 올바르지 않습니다.');
-    //     } else {
-    //         setLoginUser({
-    //             ...result,
-    //             default : {
-    //                 userId: result.userId,
-    //                 userPwd: result.userPwd,
-    //                 userName: result.userName,
-    //                 nickname: result.nickname,
-    //                 phone: result.phone,
-    //                 address: result.address,
-    //                 deleteYn: result.deleteYn,
-    //                 reportStatus: result.reportStatus,
-    //                 socialStatus: result.socialStatus,
-    //                 userProfileImg: result.userProfileImg,
-    //                 userContent: result.userContent,
-    //                 userFavoriteArtist: result.userFavoriteArtist,
-    //                 userFavoriteMusic: result.userFavoriteMusic
-    //             }
-    //         })
-    //         setIsModalOpen(true);
-    //     }
-    //     console.log(loginUserInfo);
-    //     console.log(isModalOpen);
-
-    //     console.log(loginUserState);
-
-    // }
-    // const googleOnError = (error) => {
-    //     console.log(error);
-    // };
-
+    }
 
     return (
         <>
@@ -128,17 +118,11 @@ function SocialLoginForm() {
                     token={kakaoClientId}
                     onSuccess={kakaoOnSuccess}
                     onFail={kakaoOnFailure}
-                />
-                <br/>
+                /><br/>
                 <GoogleOAuthProvider clientId = {import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-                    {/* <GoogleLogin 
-                        onSuccess={googleOnSuccess}
-                        onError={googleOnError}
-                    /> */}
-                    <GoogleLogin onSuccess = {(credentialResponse) => {
-                        console.log(jwtDecode(credentialResponse.accessToken));
-                    }}
-                    onError={()=> {
+                    <GoogleLogin 
+                        onSuccess = {googleOnSuccess}
+                        onError={()=> {
                         console.log("Login Failed");
                     }} />
                 </GoogleOAuthProvider>

@@ -49,13 +49,21 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
 
     const [isCertNum, setIsCertNum] = useState('');
     const [certNum, setCertNum] = useState('');
+    const [sendCode, setSendCode] = useState('');
 
-    const sendCertNum = () => {
-
-        const result = sendEmail({
+    const sendCertNum = async() => {
+        console.log(storageId);
+        setSendCode('');
+        const result = await sendEmail({
             userId: storageId
         })
-        toast.success('인증번호가 전송되었습니다.');
+        console.log(result);
+        setSendCode(result);
+        if(result !== undefined) {
+            toast.success('인증번호가 전송되었습니다.');    
+        } else {
+            toast.error('인증번호 전송에 실패했습니다.')
+        }
     }
 
     const confirmCertNum = (certNum) => {
@@ -63,20 +71,21 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
             setIsCertNum('');
             return;
         }
-        setIsCertNum(certNum === data ? 'good' : 'bad');
-        // data는 실제 받아오는 인증번호 값으로 정의해야 함
+        setIsCertNum(certNum === sendCode ? 'good' : 'bad');
+        // code는 실제 받아오는 인증번호 값으로 정의해야 함
+        console.log(isCertNum);
     }
 
     const onCertNum = (e) => {
         setCertNum(e.target.value);
     }
     const onBlurCertNum = () => {
-        onCertNum(certNum);
+        confirmCertNum(certNum);
     }
 
     const nextPage = async () => {
 
-        if (storageSocial === 'N' && isConfirmPwd === 'good') {
+        if (storageSocial === 'N' && isConfirmPwd === 'good' && isCertNum === 'good') {
             const result = await signUpUser({
                 userId: storageId,
                 userPwd: storagePwd,
@@ -91,7 +100,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 onNextPage();
                 sessionStorage.clear();
             }
-        } else if (storageSocial !== 'N') {
+        } else if (storageSocial !== 'N' && isCertNum === 'good') {
             const result = await signUpUser({
                 userId: storageId,
                 userPwd: '',
@@ -142,7 +151,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                     name="phone" value={signUpInfo.phone} placeholder="연락처를 입력하세요"
                     onChange={(e) => onChangeInfo(e)} />
                 <br /><br />
-                <input type="number" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
+                <input type="text" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
                     name="certNum" value={certNum} placeholder="인증번호를 입력하세요"
                     onChange={onCertNum} onBlur={onBlurCertNum} />
                 <button className="btn-cert" onClick={sendCertNum} >인증번호 발송</button>

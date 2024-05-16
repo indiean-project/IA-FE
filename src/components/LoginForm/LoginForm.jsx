@@ -57,6 +57,7 @@ function LoginForm() {
             setLoginUser({
                 ...result,
                 default : {
+                    userNo : result.userNo,
                     userId: result.userId,
                     userPwd: result.userPwd,
                     userName: result.userName,
