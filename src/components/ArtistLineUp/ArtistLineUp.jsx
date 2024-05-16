@@ -28,7 +28,7 @@ function ArtistLineUp({ lineup }) {
             { lineup !== undefined ? lineup.map((artist,idx) => {
                 return (
                     <div className='artist_box' key={idx}>
-                        <div className='artist__picture'><div onClick={()=>{handleOnClick(artist.artist)}}><img src={artistImg} /></div></div>
+                        <div className='artist__picture'><div className={`${artist.artist !==null ?"clickOn":""}`} onClick={()=>{handleOnClick(artist.artist)}}><img src={artistImg} /></div></div>
                         <span className='artist__name'>{artist.artistName}</span>
                     </div>
                 );

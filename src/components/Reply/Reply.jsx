@@ -26,9 +26,7 @@ function Reply(){
                             <td colSpan={3}><hr></hr></td>
                         </tr>
                     </tbody>
-                </table>
-                
-                
+                </table> 
             </div>
         </div>
     )

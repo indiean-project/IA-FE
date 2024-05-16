@@ -46,6 +46,7 @@
             width: 900px;
             border-radius: 5px;
             .concertDetail__poster{
+                margin-left: 8%;
                 width:400px;
                 height:450px;
                 img{
@@ -57,6 +58,7 @@
             .concertDetail__content{
                 color: white;
                 line-height: 230%;
+                margin-right: 8%;
                 
                 ul{
                     list-style-type: none;
