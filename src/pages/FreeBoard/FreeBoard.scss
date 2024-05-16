@@ -75,65 +75,6 @@
                     color: rgba(255, 255, 255, 0.6);
                 }
             }
-
-            hr {
-                text-align: left;
-                margin-left: 0;
-                width: 90%;
-                background-color: #F2613F;
-                height: 1px;
-                border: none;
-            }
-
-            .freeboard__table {
-                width: 90%;
-                text-align: center;
-                thead {
-                    th {
-                        font-size: 17px;
-                        height: 30%;
-                        border: 1px solid white;
-                        border-left: none;
-                        border-top: none;
-                        border-bottom: none;
-                    }
-                    
-                    .freeboard__thead__no {
-                        width: 9%;
-                    }
-                    .freeboard__thead__title {
-                        width: 46%;
-                    }
-                    .freeboard__thead__writer {
-                        width: 13%;
-                    }
-                    .freeboard__thead__enrolldate {
-                        width: 11%;
-                    }
-                    .freeboard__thead__count {
-                        width: 11%;
-                    }
-                    .freeboard__thead__like {
-                        width: 9%;
-                        border-right: none;
-                    }
-
-                }
-                tbody {
-                    td {
-                        font-size: 15px;
-                        padding-top: 2%;
-                    }
-                }
-                .freeboard__tbody__title {
-                    padding-left: 1%;
-                    text-align: start;
-                span {
-                    color: #FF0000;
-                }
-
-                }
-            }
         }
     }
 }
