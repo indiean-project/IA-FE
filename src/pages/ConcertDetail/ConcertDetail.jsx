@@ -1,17 +1,27 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import './ConcertDetail.scss';
 import poster from './poster.jpg';
-import artist from './10cm.jpg';
 import { useEffect, useState } from 'react';
 import ConcertInfo from '../../components/ConcertInfo';
 import CommonReply from '../../components/CommonReply/CommonReply';
+import ArtistLineUp from '../../components/ArtistLineUp';
+import { selectConcert } from '../../apis/concertDetail';
 
 function ConcertDetail (){
-
+    
     const [detailState,setDetailState] = useState('info');
     const location = useLocation();
+    const [lineup,setLineup]  = useState([]);
+    let concert = [];
+    const concertItem =  async() =>{
+        concert = await selectConcert(location.state.concertNo);
+        setLineup(concert.concertLineupList);
+    }
+    
+    
     useEffect(()=>{
-        console.log(location);
+       
+        concertItem()  
     },[])
 
 
@@ -21,7 +31,7 @@ function ConcertDetail (){
         <div className='concertDetail__container'>
             <div className='concertDetail__top'>
                 <div className='concertDetail__title'>
-                [부산] 6eyes 내한 with 소음발광, 칩앤스위트
+                    {concert.concertTitle}
                 </div>
                 <div className='btn'><NavLink>수정요청</NavLink></div>
             </div>
@@ -60,28 +70,7 @@ function ConcertDetail (){
                 <strong>LINE UP</strong>
                 <div><div className='btn'><NavLink>카카오 공유</NavLink></div></div>
             </div>
-            <di className='line__up'>
-                <div className='artist_box'>
-                    <div className='artist__picture'><NavLink><img src={artist}/></NavLink></div>
-                    <span className='artist__name'>10cm</span>
-                </div>
-                <div className='artist_box'>
-                    <div className='artist__picture'><NavLink><img src={artist}/></NavLink></div>
-                    <span className='artist__name'>10cm</span>
-                </div>
-                <div className='artist_box'>
-                    <div className='artist__picture'><NavLink><img src={artist}/></NavLink></div>
-                    <span className='artist__name'>10cm</span>
-                </div>
-                <div className='artist_box'>
-                    <div className='artist__picture'><NavLink><img src={artist}/></NavLink></div>
-                    <span className='artist__name'>10cm</span>
-                </div>
-                <div className='artist_box'>
-                    <div className='artist__picture'><NavLink><img src={artist}/></NavLink></div>
-                    <span className='artist__name'>10cm</span>
-                </div>
-            </di>
+            <ArtistLineUp lineup={lineup}/>
             <div className='concert__content__top'>
                 <div>
                     <span className={`${detailState === 'info' ? 'state__on':''}`} onClick={()=>{setDetailState('info')}}>공연정보</span> 

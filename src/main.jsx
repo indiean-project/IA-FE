@@ -16,9 +16,10 @@ import AdminQuestionSection from './components/AdminQuestionSeciton/AdminQuestio
 import AdminReportManagement from './components/AdminReportManagement/AdminReportManagement.jsx'
 import AdminUserAutority from './components/AdminUserAutority/AdminUserAutority.jsx'
 import FundList from './pages/FundList'
-import ConcertDetail from './pages/ConcertDetail/'
+import ConcertDetail from './pages/ConcertDetail'
 import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
+import ArtistDetail from './pages/ArtistDetail'
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
         path: '/board/enroll',
         element: <BoardEnrollForm/>
       },
+      {
+        path:'/artist/detail',
+        element: <ArtistDetail/>
+      }
     ],
   },
 ]);

@@ -4,8 +4,7 @@ import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-
+import { useRecoilState} from 'recoil';
 import {calendarList} from '../../apis/calendarList'
 import { cPage } from '../../recoil/page'
 import { pageMove } from '../../apis/pagination'
