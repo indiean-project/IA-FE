@@ -1,17 +1,17 @@
 import { API } from "../core";
 
-export const freeboardEnroll = async(params) => {
+export const BoardEnroll = async(params) => {
     try {
-        const {data} = await API.post("/api/board/free/enroll", params);
+        const {data} = await API.post("/api/board/enroll", params);
         return data;
     } catch (e) {
         console.log(e);
     }
 }
 
-export const freeBoardList = async(params) => {
+export const ColoEnroll = async(params) => {
     try {
-        const {data} = await API.post("/api/board/free/boardlist?page=" + params);
+        const {data} = await API.post("/api/board/colo/enroll", params);
         return data;
     } catch (e) {
         console.log(e);

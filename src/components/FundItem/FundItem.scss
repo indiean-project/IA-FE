@@ -7,6 +7,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+
+    .fundItem__hover{
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0);
+        color: rgba(255, 255, 255, 0);
+        width: 100%;
+        height: 40%;
+        border-radius: 4px 4px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.2s;
+    }
 
     img {
         display: block;
@@ -17,20 +32,20 @@
     }
 
     .fundItem__category {
-        margin: 2%;
+        margin: 8px;
         font-size: 10px;
         font-weight: 100;
     }
 
     .fundItem__title {
-        margin: 2%;
-        margin-top: 2%;
+        margin: 8px;
+        margin-top: 8px;
         font-size: 25px;
         font-weight: 500;
     }
 
     .fundItem__content {
-        margin: 2%;
+        margin: 8px;
         font-weight: 100;
     }
 
@@ -40,20 +55,23 @@
         }
 
         display: flex;
-        margin: 2%;
+        margin: 8px;
         margin-bottom: 0;
         justify-content: space-between;
-
-        :first-child {
-            color: rgba(242, 97, 63, 1);
-            font-weight: 700;
+        div{
+            display: flex;
+            justify-content: space-between;
+            :first-child {
+                color: rgba(242, 97, 63, 1);
+                font-weight: 700;
+            }
+            :nth-child(2) {
+                width: 8px;
+            }
+            :last-child {
+                font-weight: 700;
+            }
         }
-
-        :nth-child(2) {
-            margin-right: 35%;
-            font-weight: 700;
-        }
-
         :last-child {
             font-weight: 700;
             text-shadow: 0px 0px 18.8px #F2613F;
@@ -64,5 +82,11 @@
         height: 3%;
         margin: 0% 2% 4% 2%;
         border-radius: 3px;
+    }
+}
+.fundItem__container:hover{
+    .fundItem__hover{
+        background-color: rgba(0, 0, 0, 0.575);
+        color: rgb(255, 255, 255);
     }
 }

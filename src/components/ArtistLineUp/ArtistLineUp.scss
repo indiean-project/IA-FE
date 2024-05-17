@@ -1,0 +1,22 @@
+.line__up{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+.artist_box{
+    margin: 0% 3% 0% 3%;
+    .artist__picture{
+        
+        img{
+            
+            border-radius: 100px;
+            width: 100px;
+            height: 100px;
+        }
+    }
+    .artist__name{
+        color: white;
+        
+    }
+}
+
+}

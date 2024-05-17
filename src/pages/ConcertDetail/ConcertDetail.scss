@@ -141,28 +141,6 @@
     }
    
         
-    .line__up{
-            display: flex;
-            justify-content: center;
-            text-align: center;
-        .artist_box{
-            margin: 0% 3% 0% 3%;
-            .artist__picture{
-                
-                img{
-                    
-                    border-radius: 100px;
-                    width: 100px;
-                    height: 100px;
-                }
-            }
-            .artist__name{
-                color: white;
-                
-            }
-        }
-
-    }
    .concert__content__top{
         margin-top: 5% ;
         color: white;
@@ -178,5 +156,12 @@
         .state__on{
             border-bottom: 2px solid #E3651D;
         }
+   }
+   .detail__content {
+    display: flex;
+    justify-content: center;
+    .detail__content__item {
+        width: 50%;
+    }
    }
 }

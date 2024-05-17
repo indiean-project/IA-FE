@@ -26,3 +26,4 @@ export const imgMove = async(params) => {
         console.log(e);
     }
 }
+

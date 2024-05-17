@@ -1,27 +1,32 @@
 import { NavLink } from 'react-router-dom';
 import BoardSidebar from '../../components/BoardSidebar';
-import PaginationBar from '../../components/PaginationBar';
 import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
-import { freeBoardList } from '../../apis/board';
 import { pageMove } from '../../apis/pagination';
-import { boardPoint } from '../../recoil/boardPonit';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+import FreeBoardItem from '../../components/FreeBoardItem';
+import { cPage } from '../../recoil/page';
 
 
 function FreeBoard() {
-    const [BoardList, setBoardList] = useState ([]);
-    
+    const [boardList, setBoardList] = useState ([]);
+    const [sort, setSort] = useState("boardNo");
     const url = "board/free/boardlist";
-    const page = 1;
+    const [keyword, setKeyword] = useState("");
+    const [currentPage,setCurrentPage] = useRecoilState(cPage);
+    const [pageInfo, setPageInfo] = useState();
     
+    async function list() {
+        const list = await pageMove({
+            url: url,
+            page: currentPage,
+            sort: sort,
+            keyword: keyword
+        });
+        setBoardList(list.listDto);
+        setPageInfo(list.pageinfo);
+    }
     useEffect(() => {
-        async function list() {
-            // const list = await freeBoardList(page);
-            const list = await pageMove(url, page);
-            setBoardList(list);
-            console.log(list);
-        }
         list();
     }, [])
 
@@ -36,7 +41,7 @@ function FreeBoard() {
                         </div>
                         <div>
                             <select name="" id="">
-                                <option value="">최신순</option>
+                                <option value="boardNo">최신순</option>
                                 <option value="">인기순</option>
                             </select>
                         </div>
@@ -45,32 +50,7 @@ function FreeBoard() {
                         <div className='freeboard__category'>커뮤니티 &gt; 자유게시판</div>
                         <div className='freeboard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
                     </div>
-                    <hr />
-                    <table className='freeboard__table'>
-                        <thead>
-                            <tr>
-                                <th className='freeboard__thead__no'>번호</th>
-                                <th className='freeboard__thead__title'>제목</th>
-                                <th className='freeboard__thead__writer'>작성자</th>
-                                <th className='freeboard__thead__enrolldate'>등록일</th>
-                                <th className='freeboard__thead__count'>조회</th>
-                                <th className='freeboard__thead__like'>추천</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {BoardList.map((item)=>(
-                                <tr>
-                                    <td>{item.boardNo}</td>
-                                    <td className='freeboard__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                    <td>{item.nickname}</td>
-                                    <td>{item.enrollDate}</td>
-                                    <td>{item.viewCount}</td>
-                                    <td>{item.likeCount}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <PaginationBar/>
+                    <FreeBoardItem boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
             </div>
         </div>
