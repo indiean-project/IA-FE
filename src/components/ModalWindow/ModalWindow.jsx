@@ -1,6 +1,7 @@
 import ModalBackground from '../ModalBackground';
 import { isModalActive } from '../../recoil/IsModalActive';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
+import './ModalWindow.scss';
 
 const ModalWindow = (props) => {
 
@@ -17,7 +18,7 @@ const ModalWindow = (props) => {
 
     return (
         <ModalBackground>
-            <div className="modal__box">
+            <div className="modal__box" onClick={(e)=>e.stopPropagation()}>
                 {props.children}
             </div>
         </ModalBackground>

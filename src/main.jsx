@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <FundList/>
       },
       {
-        path: '/funding/detail',
+        path: '/funding/detail/:id',
         element: <FundDetail/>
       },
       {

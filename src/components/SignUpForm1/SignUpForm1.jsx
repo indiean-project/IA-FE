@@ -66,6 +66,7 @@ function SignUpForm1({ onNextPage }) {
         if(isDuplicateId === 'good' && isDuplicatePwd === 'good') {
             sessionStorage.setItem("userId", inputIdAccount);
             sessionStorage.setItem("userPwd", inputPwdAccount);
+            sessionStorage.setItem("socialStatus", "N");
             onNextPage();
         } else {
             return null;

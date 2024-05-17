@@ -12,11 +12,20 @@ const {persistAtom} = recoilPersist({
 export const loginUserState = atom({
     key: KEY,
     default: {
+        userNo: '',
         userId: '',
+        userPwd: '',
         userName: '',
         nickname: '',
         phone: '',
         address: '',
+        deleteYn: '',
+        reportStatus: '',
+        socialStatus: '',
+        userProfileImg: '',
+        userContent: '',
+        userFavoriteArtist: '',
+        userFavoriteMusic: ''
     },
     effects_UNSTABLE: [persistAtom],
 });

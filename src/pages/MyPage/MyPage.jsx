@@ -19,6 +19,7 @@ function MyPage() {
     // 1. loginUserState default값 변경해야함
     // 2. 서버에서의 Dto 항목 변경 및 통합 필요? <- UserInfodto라는 별도의 이름 객체 생성 중
     const [editAccount, setEditAccount] = useState({
+        userNo : loginUser.data.userNo,
         nickname: loginUser.data.nickname,
         userName: loginUser.data.userName,
         userPwd: loginUser.data.userPwd,
@@ -40,6 +41,7 @@ function MyPage() {
     const onClickUpdate = async () => {
         console.log(editAccount);
         const result = await updateUser({
+            userNo : editAccount.userNo,
             nickname: editAccount.nickname,
             userName: editAccount.userName,
             userPwd: editAccount.userPwd,
@@ -93,13 +95,10 @@ function MyPage() {
                         </div>
                     </div>
                     <div className="profile__intro">
-                        {/* 마이페이지를 소개할 자유로운 문구를 적을 수 있습니다 */}
-                        <textarea value={editAccount.userContent}
+                        <textarea value={editAccount.userContent} id="userContent" name="userContent"
                             onChange={(e) => onChangeUserInfo(e)}
                             readOnly={doEdit !== "userContent"}
-                            onDoubleClick={() => onDoEdit("userContent")}>
-                            {loginUser.data.userContent}
-                        </textarea>
+                            onDoubleClick={() => onDoEdit("userContent")} />
                     </div>
                     <div className="favorite">
                         {/* 선호 아티스트 및 음악 등록란 :: spotify 키 필요, <UserFavorite /> */}
@@ -126,8 +125,7 @@ function MyPage() {
                         작성글 및 댓글 불러올 공간
                     </div>
                 </div>
-                {/* 비동기 통신용 onClick = {onClickUpdate} */}
-                <button>정보 수정</button>
+                <button className="btn-update" onClick={onClickUpdate} >정보 수정</button>
             </div>
         </>
     );
