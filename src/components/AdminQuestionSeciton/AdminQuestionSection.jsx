@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { adminQuestion, adminQuestionSearch } from "../../apis/admin";
-
+import './AdminQuestionSection.scss';
 
 function AdminQuestionSection() {
 
@@ -73,9 +73,9 @@ function AdminQuestionSection() {
                         {questionRequest.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.questionNo}</td>
-                                <td>{data.qContent}</td>
+                                <td>{data.questionContent}</td>
                                 <td>{data.userNo}</td>
-                                <td>{data.qDate}</td>
+                                <td>{data.questionDate}</td>
                                 <td>{data.ansYn}</td>
                             </tr>
                         ))}

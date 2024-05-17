@@ -28,7 +28,7 @@ export const adminFundSearch = async(params) => {
 // 문의사항 관련 리스트 통신 api
 export const adminQuestion = async() => {
     try {
-        const {data} = await API.post("api/admin/question");
+        const {data} = await API.post("api/admin/questions");
         return data;
     } catch (e){
         console.log(e);
@@ -40,6 +40,16 @@ export const adminQuestion = async() => {
 export const adminQuestionSearch = async(params) => {
     try {
         const {data} = await API.post("api/admin/questionSection", params);
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+
+//******* 신고 관련 api**********// 
+export const adminReport = async() => {
+    try {
+        const {data} = await API.post("api/admin/report");
         return data;
     } catch (e){
         console.log(e);
