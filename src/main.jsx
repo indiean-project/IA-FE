@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         element: <ArtistDetail/>
       },
       {
-        path: 'board/detail',
+        path: 'board/detail/:id',
         element: <BoardDetail/>
       }
     ],

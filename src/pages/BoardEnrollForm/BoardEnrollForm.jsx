@@ -60,7 +60,7 @@ function BoardEnrollForm() {
         'header', 'font', 'size',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
-        'link', 'video'
+        'link', 'image',
     ];
 
     const handleChange = (content) => {

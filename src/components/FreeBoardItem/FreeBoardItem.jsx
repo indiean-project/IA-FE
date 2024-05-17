@@ -26,7 +26,7 @@ function FreeBoardItem(props) {
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={() => navigate("/board/detail?boardNo="+item.boardNo, {state: {list: props.boardList, item: item, pageInfo: props.pageInfo}})}>
+                            <tr key={index} onClick={() => navigate("/board/detail/"+item.boardNo)}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
                                 <td>{item.nickname}</td>
