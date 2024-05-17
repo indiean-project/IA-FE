@@ -103,7 +103,7 @@
             }
 
             div {
-                margin-right: 2%;
+                margin: 2%;
                 height: 40px;
                 width: 100%;
                 background: rgba(205, 205, 205, 1);
@@ -302,6 +302,11 @@
             height: 30px;
             border-radius: 4px;
             background-color: rgba(242, 97, 63, 1);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .reward__select__btn:hover{
+            background-color: rgb(241, 115, 87);
         }
     }
 }
