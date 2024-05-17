@@ -52,7 +52,7 @@ function SignUp(){
                             // inputIdAccount={inputIdAccount}
                             // inputPwdAccount={inputPwdAccount}
                              />
-                            <SocialSignUpForm />
+                            <SocialSignUpForm onNextPage={signUpPageLoad} />
                         </>
                     )}
                     {signUpPage === 'form2' && 

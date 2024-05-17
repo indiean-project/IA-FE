@@ -22,10 +22,10 @@ function FundDetail() {
     }, [changeNav])
     useEffect(() => {
         setRefY([
-            (window.scrollY + navRef.current[0].getBoundingClientRect().top)-80,
-            (window.scrollY + navRef.current[1].getBoundingClientRect().top)-80,
-            (window.scrollY + navRef.current[2].getBoundingClientRect().top)-80,
-            (window.scrollY + navRef.current[3].getBoundingClientRect().top)-80,])
+            (window.scrollY + navRef.current[0].getBoundingClientRect().top)-100,
+            (window.scrollY + navRef.current[1].getBoundingClientRect().top)-100,
+            (window.scrollY + navRef.current[2].getBoundingClientRect().top)-100,
+            (window.scrollY + navRef.current[3].getBoundingClientRect().top)-100,])
     },[])
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);

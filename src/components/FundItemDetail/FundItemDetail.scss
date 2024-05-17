@@ -35,8 +35,7 @@
                 font-size: 20px;
             }
 
-            padding-left: 4%;
-            width: 36%;
+            width: 400px;
 
             .fundItemDetail__title__price {
                 margin-bottom: 15px;
@@ -96,8 +95,7 @@
         }
 
         .fundItemDetail__title__btn {
-            padding-left: 4%;
-            width: 36%;
+            width: 400px;
             display: flex;
 
             svg {
@@ -105,7 +103,7 @@
             }
 
             div {
-                margin-right: 2%;
+                margin: 2%;
                 height: 40px;
                 width: 100%;
                 background: rgba(205, 205, 205, 1);
@@ -128,7 +126,7 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    width: 60%;
+    width: 1150px;
     height: 100%;
     padding-bottom: 5%;
 
@@ -142,23 +140,26 @@
     display: flex;
 
     .fundItemDetail__content__items {
-        background-color: rgba(174, 174, 174, 0.63);
-        width: 60%;
+        background-color: rgba(255, 255, 255, 0.534);
+        width: 700px;
 
+        .fundItemDetail__content__item {
+            h3 {
+                padding-left: 3%;
+                color: rgba(104, 104, 104, 0.651);
+            }
 
-        #artistInfo {
-            height: 1000px;
-            scroll-margin: 60px;
-        }
+            hr {
+                width: 95%;
+                background-color: rgba(197, 197, 197, 0.651);
+                height: 1px;
+                border: 0;
+            }
 
-        #budget {
-            height: 1000px;
-            scroll-margin: 60px;
-        }
-
-        #schedule {
-            height: 1000px;
-            scroll-margin: 60px;
+            .item__content {
+                min-height: 300px;
+                padding-left: 4%;
+            }
         }
     }
 
@@ -166,8 +167,8 @@
         position: sticky;
         height: 0;
         top: 20%;
-        margin-left: 4%;
-        width: 36%;
+        margin-left: 59px;
+        width: 400px;
 
         .fundItemDetail__reward__item {
             background-color: rgba(255, 255, 255, 0.15);
@@ -184,6 +185,12 @@
                     color: rgba(255, 255, 255, 0.42);
                     margin-left: 3%;
                     margin-right: 2%;
+                    cursor: pointer;
+                    transition: 0.2s;
+                }
+
+                svg:hover {
+                    color: rgba(255, 255, 255, 0.651);
                 }
 
                 .reward__option__item__content {
@@ -229,6 +236,22 @@
         margin-left: 2%;
         color: white;
         font-weight: 100;
+
+        input {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            outline: none;
+            text-align: center;
+            color: white;
+            font-size: 15px;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
 
     .slash {
@@ -279,6 +302,11 @@
             height: 30px;
             border-radius: 4px;
             background-color: rgba(242, 97, 63, 1);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .reward__select__btn:hover{
+            background-color: rgb(241, 115, 87);
         }
     }
 }
