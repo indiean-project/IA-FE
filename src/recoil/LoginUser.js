@@ -14,10 +14,18 @@ export const loginUserState = atom({
     default: {
         userNo: '',
         userId: '',
+        userPwd: '',
         userName: '',
         nickname: '',
         phone: '',
         address: '',
+        deleteYn: '',
+        reportStatus: '',
+        socialStatus: '',
+        userProfileImg: '',
+        userContent: '',
+        userFavoriteArtist: '',
+        userFavoriteMusic: ''
     },
     effects_UNSTABLE: [persistAtom],
 });
