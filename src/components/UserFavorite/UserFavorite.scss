@@ -1,0 +1,27 @@
+.favorite {
+    grid-area: favorite;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    div {
+        width: 100%;
+        display: flex;
+        .fav__artist,
+        .fav__music {
+            width: 100%;
+            min-width: 200px;
+            flex-direction: column;
+            .fav__img {
+                margin : 20px auto;
+                width: 150px; height: 150px; 
+                background-color: gray;
+                border-radius: 50%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+;

@@ -1,0 +1,29 @@
+.text__info {
+    grid-area: text__info;
+    display: flex;
+    align-items: center;
+
+    div {
+        width: 100%;
+
+        input {
+            width: 50%;
+            min-width: 150px;
+            height: 30px;
+            background-color: #cccccc;
+            border-radius: 10px;
+            padding-left: 25px;
+            margin-right: 20px;
+        }
+
+        button {
+            width: 35px;
+            height: 35px;
+            background-color: black;
+        }
+
+        button:active {
+            background-color: #6c757d
+        }
+    }
+}

@@ -1,0 +1,42 @@
+.profile__img {
+    grid-area: profile__img;
+
+    .showImg {
+        margin: 50px auto;
+        background-color: gray;
+        border-radius: 50%;
+        max-width: 250px;
+        min-height: 250px;
+    }
+}
+
+;
+
+.profile__intro {
+    grid-area: profile__intro;
+
+    textarea {
+        background-color: #cccccc;
+        border-radius: 3px;
+        width: 250px;
+        height: 250px;
+        resize: none;
+        margin: 50px auto;
+        padding: 15px;
+        font-family: 'GmarketSans';
+        font-weight: 600;
+        font-size: 20px;
+        overflow-y: hidden;
+    }
+
+    textarea:focus {
+        overflow: auto;
+        outline: none;
+    }
+
+    textarea::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+;
