@@ -10,6 +10,7 @@ import { loginUserState } from '../../recoil/LoginUser';
 import moment from 'moment';
 import FundPayment from '../FundPayment/FundPayment';
 import { isModalActive } from '../../recoil/IsModalActive';
+import toast from 'react-hot-toast';
 
 function FundItemDetail({ nav, navRef }) {
 
@@ -113,13 +114,25 @@ function FundItemDetail({ nav, navRef }) {
         return { __html: DOMPurify.sanitize(value) };
     }
 
+    const onClickPayment = ()=>{
+        if(loginUser.userId === ''){
+            toast.error("펀딩은 로그인 후 이용 가능합니다.");
+            return;
+        }
+        if(totalPrice === 0){
+            toast.error("리워드를 1개 이상 선택해주세요.");
+            return;
+        }
+        setModal(true)
+    }
+
     let rateColor = {
         background: `linear-gradient(90deg, #E3651D ${rate}%, #FFFFFF ${rate}%)`
     };
 
     return (
         <div className='fundItemDetail__container'>
-            {modal && <FundPayment reward={orderList} totalPrice={totalPrice}/>}
+            {modal && <FundPayment reward={orderList} totalPrice={totalPrice} fundNo={params}/>}
             <div className='fundItemDetail__title' id={nav[0].id} ref={(e) => (navRef.current[0] = e)}>
                 <h1>{fund.fundTitle}</h1>
                 <div className='fundItemDetail__title__item1'>
@@ -243,7 +256,7 @@ function FundItemDetail({ nav, navRef }) {
                                 <h4>합계</h4><h3>{totalPrice
                                     .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3><h4>원</h4>
                             </div>
-                            <div className='reward__select__btn' onClick={()=>setModal(true)}>
+                            <div className='reward__select__btn' onClick={()=>onClickPayment()}>
                                 펀딩 신청하기
                             </div>
                         </div>
