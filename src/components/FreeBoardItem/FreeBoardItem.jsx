@@ -31,7 +31,7 @@ function FreeBoardItem(props) {
                     })}
                 </tbody>
             </table>
-            <PaginationBar />
+            <PaginationBar pageInfo={props.pageInfo} list={props.list} />
         </>
     )
 } export default FreeBoardItem;
