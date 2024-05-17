@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import PaginationBar from '../PaginationBar';
 import './FreeBoardItem.scss';
+import { ViewCount } from '../../apis/board';
 
 function FreeBoardItem(props) {
     const navigate = useNavigate();
 
     if(!props.boardList) {
         return <></>
+    }
+
+    function clickItem(item) {
+        const boardNo = item.boardNo;
+        ViewCount(boardNo);
+        navigate("/board/detail/"+item.boardNo)
     }
 
     return (
@@ -26,7 +33,7 @@ function FreeBoardItem(props) {
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={() => navigate("/board/detail/"+item.boardNo)}>
+                            <tr key={index} onClick={()=>clickItem(item)}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
                                 <td>{item.nickname}</td>

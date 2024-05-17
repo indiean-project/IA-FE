@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import BoardSidebar from "../../components/BoardSidebar";
 import ColoBar from "../../components/ColoBar";
 import "./ColoBoard.scss";
@@ -19,6 +19,8 @@ function ColoBoard() {
     const [keyword, setKeyword] = useState("");
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [pageInfo, setPageInfo] = useState();
+    const category = "콜로세움";
+    const navigate = useNavigate();
 
     async function list() {
         const list = await pageMove({
@@ -48,7 +50,7 @@ function ColoBoard() {
 
         <div className="coloBoard__container">
             <div className="coloBoard__box">
-                <BoardSidebar />
+                <BoardSidebar category={category}/>
                 <div className="coloBoard__items">
                     <div className="coloBoard__item1">
                         <div>
@@ -63,7 +65,7 @@ function ColoBoard() {
                     </div>
                     <div className='coloBoard__item1'>
                         <div className='coloBoard__category'>커뮤니티 &gt; 콜로세움</div>
-                        <div className='coloBoard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
+                        <div className='coloBoard__btn'><a onClick={()=>{navigate("/board/enroll", {state: {category: category}})}}>글쓰기</a></div>
                     </div>
                     <hr />
                     {boardList != undefined && boardList.map((item, index) => {

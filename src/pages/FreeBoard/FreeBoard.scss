@@ -17,7 +17,7 @@
         width: 100%;
 
         .freeboard__items {
-            width: 60%;
+            width: 70%;
             .freeboard__item {
                 flex: 1;
                 display: flex;
@@ -63,6 +63,7 @@
                         color: #CECECE;
                         width: 100%;
                         padding-top: 3px;
+                        cursor: pointer;
                     }
                 }
                 .freeboard__btn:hover {

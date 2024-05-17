@@ -1,11 +1,11 @@
 import './BoardSidebar.scss';
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { MdPeopleAlt, MdThumbUp } from "react-icons/md";
-function BoardSidebar() {
+function BoardSidebar({category}) {
     return (
         <div className="boardSidebar__container">
             <div className='boardSidebar__box'>
-                <div className='boardSidebar__category'>커뮤니티 &gt; 자유게시판</div>
+                <div className='boardSidebar__category'>커뮤니티 &gt; {category}</div>
                 <hr/>
                 <div className='boardSidebar__label'>
                     <label>인기글 <FaFireFlameCurved /></label>

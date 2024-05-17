@@ -1,21 +1,28 @@
 import ReactQuill from 'react-quill';
 import './BoardEnrollForm.scss';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
 import { BoardEnroll, ColoEnroll } from '../../apis/board';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
     const quillRef = useRef();
     const [imgList, setImgList] = useState([]);
     const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('FREE');
+    const [category, setCategory] = useState('');
     const [voteInput, setVoteInput] = useState('close');
     const [coloTitle1, setColoTitle1] = useState('');
     const [coloTitle2, setColoTitle2] = useState('');
+    const location = useLocation();
+
+    useEffect(()=>{
+        const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
+        setCategory(categoryState);
+    }, [location.state])
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -137,7 +144,7 @@ function BoardEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
-                    <select onChange={(e) => { setCategory(e.target.value) }}>
+                    <select value={category} onChange={(e) => { setCategory(e.target.value) }}>
                         <option value="FREE">자유 게시판</option>
                         <option value="PROUD">아티스트 자랑하기</option>
                         <option value="COLO">콜로세움</option>

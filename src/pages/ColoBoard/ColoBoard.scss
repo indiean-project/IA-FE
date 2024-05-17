@@ -14,7 +14,7 @@
         height: 100%;
         width: 100%;
         .coloBoard__items {
-            width: 60%;
+            width: 70%;
             height: 100%;
             hr {
                 text-align: left;
@@ -63,6 +63,7 @@
                         color: #CECECE;
                         width: 100%;
                         padding-top: 3px;
+                        cursor: pointer;
                     }
                 }
                 .coloBoard__btn:hover {

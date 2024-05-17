@@ -7,18 +7,20 @@ import FreeBoardItem from '../../components/FreeBoardItem';
 import { pageMove } from '../../apis/pagination';
 import { cPage } from '../../recoil/page';
 import { useRecoilState } from 'recoil';
+import { LikeCount } from '../../apis/board';
 
 function BoardDetail() {
     const [pageInfo, setPageInfo] = useState();
     const url = "board/free/boardlist";
-    const [currentPage,setCurrentPage] = useRecoilState(cPage);
+    const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [keyword, setKeyword] = useState("");
     const [boardList, setBoardList] = useState();
-    const param = useParams().id; 
+    const param = useParams().id;
     const [boardItem, setBoardItem] = useState([]);
     let selectItem;
+    let like;
 
-    const list = async()=>{
+    const list = async () => {
         const list = await pageMove({
             url: url,
             page: currentPage,
@@ -26,17 +28,28 @@ function BoardDetail() {
             keyword: keyword
         }
         )
-        selectItem = list.listDto.forEach((item)=>{
-            if(item.boardNo === +param) {
+        selectItem = list.listDto.forEach((item) => {
+            if (item.boardNo === +param) {
                 setBoardItem(item);
             }
         })
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
     }
-    useEffect(()=>{
+    useEffect(() => {
         list();
     }, [param])
+
+    const likeCount = async () => {
+        like = await LikeCount({
+            contentNo: boardItem.boardNo,
+            brType: "BOARD",
+            member: {
+                userNo: 1
+            }
+        })
+        list();
+    }
 
     if (!boardItem) {
         return <></>
@@ -69,13 +82,13 @@ function BoardDetail() {
                 <p dangerouslySetInnerHTML={{ __html: boardItem.boardContent }}></p>
             </div>
             <div className='boardDetail__like__area'>
-                <div className="boardDetail__like">
+                <div className="boardDetail__like" onClick={() => likeCount()}>
                     <div><MdThumbUp /></div>
                     <div>{boardItem.likeCount}</div>
                 </div>
             </div>
-            <CommonReply/>
-            <FreeBoardItem pageInfo={pageInfo} boardList={boardList} list={list}/>
+            <CommonReply />
+            <FreeBoardItem pageInfo={pageInfo} boardList={boardList} list={list} />
         </div>
     )
 } export default BoardDetail;

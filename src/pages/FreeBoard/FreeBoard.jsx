@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BoardSidebar from '../../components/BoardSidebar';
 import './FreeBoard.scss';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,8 @@ function FreeBoard() {
     const [keyword, setKeyword] = useState("");
     const [currentPage,setCurrentPage] = useRecoilState(cPage);
     const [pageInfo, setPageInfo] = useState();
+    const category = "자유게시판";
+    const navigate = useNavigate();
     
     async function list() {
         const list = await pageMove({
@@ -33,7 +35,7 @@ function FreeBoard() {
     return (
         <div className='freeboard__container'>
             <div className='freeboard__box'>
-                <BoardSidebar />
+                <BoardSidebar category={category}/>
                 <div className='freeboard__items'>
                     <div className='freeboard__item'>
                         <div>
@@ -48,7 +50,7 @@ function FreeBoard() {
                     </div>
                     <div className='freeboard__item'>
                         <div className='freeboard__category'>커뮤니티 &gt; 자유게시판</div>
-                        <div className='freeboard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
+                        <div className='freeboard__btn'><a onClick={()=>{navigate("/board/enroll", {state: {category: category}})}}>글쓰기</a></div>
                     </div>
                     <FreeBoardItem boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
