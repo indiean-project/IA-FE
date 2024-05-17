@@ -5,6 +5,10 @@ import './FreeBoardItem.scss';
 function FreeBoardItem(props) {
     const navigate = useNavigate();
 
+    if(!props.boardList) {
+        return <></>
+    }
+
     return (
         <>
             <hr />
@@ -22,7 +26,7 @@ function FreeBoardItem(props) {
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={() => navigate("/board/detail", {state: {list: props.boardList, item: item, pageInfo: props.pageInfo}})}>
+                            <tr key={index} onClick={() => navigate("/board/detail?boardNo="+item.boardNo, {state: {list: props.boardList, item: item, pageInfo: props.pageInfo}})}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
                                 <td>{item.nickname}</td>
