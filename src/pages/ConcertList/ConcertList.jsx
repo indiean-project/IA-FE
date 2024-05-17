@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { useRecoilState} from 'recoil';
-import {calendarList} from '../../apis/calendarList'
+import {calendarList} from '../../apis/concert/calendarList'
 import { cPage } from '../../recoil/page'
 import { pageMove } from '../../apis/pagination'
 import { useEffect, useState } from 'react';
@@ -53,7 +53,6 @@ function ConcertList() {
     }, [])
     useEffect(() => {
         list();
-        
     }, [sort])
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {

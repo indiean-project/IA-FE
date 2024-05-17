@@ -21,6 +21,7 @@ import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
 import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 import ArtistDetail from './pages/ArtistDetail'
+import ArtistList from './pages/ArtistList'
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         element: <MyPage/>
       },
       {
-        path: '/concert',
+        path: '/concert/',
         element: <ConcertList/>
       },
       {
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
         element: <FundDetail/>
       },
       {
-        path: '/concert/detail',
+        path: '/concert/detail/:id',
         element: <ConcertDetail/>
       },
       {
@@ -93,8 +94,12 @@ const router = createBrowserRouter([
         element: <ColoBoard/>
       },
       {
-        path:'/artist/detail',
+        path:'/artist/detail/:id',
         element: <ArtistDetail/>
+      },
+      {
+        path:'/artist',
+        element: <ArtistList/>
       }
     ],
   },

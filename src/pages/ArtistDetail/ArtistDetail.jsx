@@ -1,5 +1,11 @@
 import './ArtistDetail.scss';
+
 function ArtistDetail(){
+    
+    
+    
+    
+    
     return(
         <>
         </>

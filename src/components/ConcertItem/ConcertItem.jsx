@@ -4,12 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Concert = (props) => {
     const navigate = useNavigate();
     const handleDetailPost = ({ concert }) => {
-        
-        navigate('/concert/detail', {
-                state:{
-                    concertNo : concert.concertNo
-                },
-        });    
+        const concertNo = concert.concertNo;
+        navigate('/concert/detail/'+concertNo);    
       };
     return (
         <div>

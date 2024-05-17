@@ -1,20 +1,20 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import './ConcertDetail.scss';
 import poster from './poster.jpg';
 import { useEffect, useState } from 'react';
 import ConcertInfo from '../../components/ConcertInfo';
 import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
-import { selectConcert } from '../../apis/concertDetail';
+import { selectConcert } from '../../apis/concert/concertDetail';
 
 function ConcertDetail() {
     const boardUrl = "concert";
+    const parama = useParams().id;
     const [concert, setConcert] = useState([]);
     const [detailState, setDetailState] = useState('info');
-    const location = useLocation();
     const [lineup, setLineup] = useState();
     const concertItem = async () => {
-        const concertInfo = await selectConcert(location.state.concertNo);
+        const concertInfo = await selectConcert(parama);
         setLineup(concertInfo.concertLineupList);
         setConcert(concertInfo)
 
@@ -49,16 +49,17 @@ function ConcertDetail() {
                                 <div className='concertInfo'>{concert.location}</div>
                             </li>
                             <li>
+                                {console.log(concert)}
                                 <strong>공연기간</strong>
                                 <div className='concertInfo'>{concert.startDate}~{concert.endDate}</div>
                             </li>
                             <li>
                                 <strong>공연시간</strong>
-                                <div className='concertInfo'>100분</div>
+                                <div className='concertInfo'>{concert.runtime}</div>
                             </li>
                             <li>
                                 <strong>가격</strong>
-                                <div className='concertInfo'>{concert.concertPrice}</div>
+                                <div className='concertInfo'>{(+concert.concertPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
                             </li>
                         </ul>
 
@@ -79,8 +80,10 @@ function ConcertDetail() {
                     <span className={`${detailState === 'reply' ? 'state__on' : ''}`} onClick={() => { setDetailState('reply') }} >기대글</span>
                 </div>
             </div>
-            <div>
-                {detailState === 'info' ? <ConcertInfo concertInfo={concert.concertInfo} /> : <CommonReply concertNo={concert.concertNo} boardUrl={boardUrl} />}
+            <div className='detail__content'>
+                <div className='detail__content__item'>
+                    {detailState === 'info' ? <ConcertInfo concertInfo={concert.concertInfo} /> : <CommonReply concertNo={concert.concertNo} boardUrl={boardUrl} />}
+                </div>
             </div>
         </div>
     )

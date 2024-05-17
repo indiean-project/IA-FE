@@ -1,5 +1,6 @@
 .concertDetail__container{
     margin-top: 13%;
+    padding-bottom: 60px;
     .concertDetail__top{
        display: flex;
        justify-content: space-between;
@@ -157,6 +158,13 @@
         }
         .state__on{
             border-bottom: 2px solid #E3651D;
+        }
+   }
+   .detail__content{
+        display: flex;
+        justify-content: center;
+        .detail__content__item{
+            width: 50%;
         }
    }
 }
