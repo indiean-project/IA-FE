@@ -77,8 +77,10 @@ function ConcertDetail (){
                     <span className={`${detailState === 'reply' ? 'state__on':''}`} onClick={()=>{setDetailState('reply')}} >기대글</span>
                 </div>
             </div>
-            <div>
-                {detailState ==='info' ? <ConcertInfo/> : <CommonReply/>}
+            <div className='detail__content'>
+                <div className='detail__content_item'>
+                    {detailState ==='info' ? <ConcertInfo/> : <CommonReply/>}
+                </div>
             </div>
         </div>
     )
