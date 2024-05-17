@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { adminFund, adminFundSearch } from "../../apis/admin";
+import { adminFund, adminFundSearch, searchByfundType, searchByprocessingStatus, adminFundSearchByTitle} from "../../apis/admin";
 import './AdminFundingApproval.scss';
 
 function AdminFundingApproval() {
     const [fundingRequest, setFundingRequest] = useState([])
     const [searchItem, setSearchItem] = useState({
-        keyword: '',
-        type: '',
+        keyword: '',     
     });
+   
 
     useEffect(() => {
         getList();
@@ -21,8 +21,7 @@ function AdminFundingApproval() {
     }
 
     const onClickSearch = async()=>{
-        console.log(searchItem);
-        const result = await adminFundSearch(searchItem);
+        const result = await adminFundSearchByTitle(searchItem.keyword);
         setFundingRequest(result.data);
         console.result(result);
     }
@@ -33,6 +32,17 @@ function AdminFundingApproval() {
         })
     }
 
+    const onChangeFundType = async(e)=>{
+        const result = await searchByfundType(e.target.value);
+        setFundingRequest(result.data);
+        console.log(result);
+    }
+
+    const onChangeProcessingStatus = async(e)=>{
+        const result = await searchByprocessingStatus(e.target.value);
+        setFundingRequest(result.data);
+        console.log(result);
+    }
 
     return (
         <div>
@@ -41,13 +51,21 @@ function AdminFundingApproval() {
                 <h1 className="adminfunding__request">펀딩 요청</h1>
                 <div className="adminfunding__optionsearch"> 
                 {/* <form action="api/admin/fundSearch" method="post"> */}
-                <select name='type' onChange={(e)=>onChangeSearch(e)}>
-                    <option value={'1'}>제목</option>
-                    <option value={'2'}>펀딩종류</option>
-                    <option value={'3'}>처리상태</option>
+                <select name='fundType' onChange={(e)=>onChangeFundType(e)}>
+                    <option value={''}>펀딩종류</option>
+                    <option value={'CONCERT'}>공연</option>
+                    <option value={'ALBUM'}>앨범</option>
+                    <option value={'GOODS'}>굿즈</option>
+                    <option value={'FANMEETING'}>팬미팅</option>
                 </select>
 
-                <input type="text" name="keyword" value={searchItem.keyword} onChange={(e)=>onChangeSearch(e)}/>
+                <select name='status' onChange={(e)=>onChangeProcessingStatus(e)}>
+                    <option value={''}>처리상태</option>
+                    <option value={'N'}>미승인</option>
+                    <option value={'Y'}>승인</option>
+                </select>
+
+                <input type="text" name="keyword" value={searchItem.keyword} onChange={(e)=>onChangeSearch(e)} placeholder='펀딩 제목을 입력하세요'/>
                 <button onClick={()=>onClickSearch()}>검색</button>
                 {/* </form> */}
                 </div>
