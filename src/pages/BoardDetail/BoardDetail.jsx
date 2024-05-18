@@ -37,6 +37,7 @@ function BoardDetail() {
         setPageInfo(list.pageinfo);
     }
     useEffect(() => {
+        window.scrollTo(0, 0);
         list();
     }, [param])
 

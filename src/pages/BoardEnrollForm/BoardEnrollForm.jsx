@@ -6,7 +6,7 @@ import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
 import { BoardEnroll, ColoEnroll } from '../../apis/board';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
@@ -18,6 +18,7 @@ function BoardEnrollForm() {
     const [coloTitle1, setColoTitle1] = useState('');
     const [coloTitle2, setColoTitle2] = useState('');
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
@@ -132,7 +133,16 @@ function BoardEnrollForm() {
             });
 
         }
-        success === 'SUCCESS' || coloResult.status === "SUCCESS" ? toast.success('작성 완료') : toast.error('작성 실패');
+
+        if (success === 'SUCCESS') {
+            navigate("/board/detail/"+result.data[0]);
+            toast.success('작성 완료');
+        } else if (coloResult.status === "SUCCESS") {
+            toast.success('작성 완료');
+            navigate("/board/colo");
+        } else {
+            toast.error('작성 실패');
+        }
     }
 
     function voteState() {

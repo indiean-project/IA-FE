@@ -10,6 +10,7 @@ import { pageMove } from "../../apis/pagination";
 import { useRecoilState } from "recoil";
 import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
+import { LikeCount } from "../../apis/board";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -21,6 +22,7 @@ function ColoBoard() {
     const [pageInfo, setPageInfo] = useState();
     const category = "콜로세움";
     const navigate = useNavigate();
+    const [likeState, setLikeState] = useState();
 
     async function list() {
         const list = await pageMove({
@@ -31,11 +33,13 @@ function ColoBoard() {
         });
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
-        setReplyBtn(new Array(list.listDto.length).fill('close'));
+        if(replyBtn.length === 0) {
+            setReplyBtn(new Array(list.listDto.length).fill('close'));
+        }
     }
     useEffect(() => {
         list();
-    }, [])
+    }, [likeState])
 
     function toggleReplyBtn(index) {
         setReplyBtn((prevState) => {
@@ -43,6 +47,18 @@ function ColoBoard() {
             state[index] = state[index] === 'close' ? 'open' : 'close';
             return state
         })
+    }
+
+    const likeCount = async (boardNo) => {
+        const like = await LikeCount({
+            contentNo: boardNo,
+            brType: "BOARD",
+            member: {
+                userNo: 1
+            }
+        })
+        setLikeState(like.status);
+        list();
     }
 
 
@@ -79,7 +95,7 @@ function ColoBoard() {
                                 <ColoBar list={item} />
                                 <p className="coloBoard__content" dangerouslySetInnerHTML={{ __html: item.boardContent }}></p>
                                 <div className="coloBoard__item3">
-                                    <div className="coloBoard__like">
+                                    <div className="coloBoard__like" onClick={()=>likeCount(item.boardNo)}>
                                         <div><MdThumbUp /></div>
                                         <div>{item.likeCount}</div>
                                     </div>

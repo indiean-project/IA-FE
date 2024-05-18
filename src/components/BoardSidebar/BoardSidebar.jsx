@@ -1,7 +1,18 @@
+import { useEffect, useState } from 'react';
 import './BoardSidebar.scss';
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { MdPeopleAlt, MdThumbUp } from "react-icons/md";
+import { BoardAmount } from '../../apis/board';
 function BoardSidebar({category}) {
+    const [amountList, setAmountList] = useState([]);
+
+    const boardAmount = async() => {
+        const amount = await BoardAmount();
+        setAmountList(amount.data);
+    }
+    useEffect(()=>{
+        boardAmount();
+    }, [])
     return (
         <div className="boardSidebar__container">
             <div className='boardSidebar__box'>
@@ -31,15 +42,15 @@ function BoardSidebar({category}) {
                 <div className='community__list'>
                     <div className='community__list__item'>
                         <div>자유게시판</div>
-                        <div>4624</div>
+                        <div>{amountList[0]}</div>
                     </div>
                     <div className='community__list__item'>
                         <div>아티스트 자랑</div>
-                        <div>3849</div>
+                        <div>{amountList[1]}</div>
                     </div>
                     <div className='community__list__item'>
                         <div>콜로세움</div>
-                        <div>3469</div>
+                        <div>{amountList[2]}</div>
                     </div>
                 </div>
             </div>
