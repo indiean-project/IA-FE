@@ -54,25 +54,7 @@ function LoginForm() {
             // alert(result.message);
         // } else if(result !== '') { 
         } else {
-            setLoginUser({
-                ...result,
-                default : {
-                    userNo : result.userNo,
-                    userId: result.userId,
-                    userPwd: result.userPwd,
-                    userName: result.userName,
-                    nickname: result.nickname,
-                    phone: result.phone,
-                    address: result.address,
-                    deleteYn: result.deleteYn,
-                    reportStatus: result.reportStatus,
-                    socialStatus: result.socialStatus,
-                    userProfileImg: result.userProfileImg,
-                    userContent: result.userContent,
-                    userFavoriteArtist: result.userFavoriteArtist,
-                    userFavoriteMusic: result.userFavoriteMusic
-                }
-            })
+            setLoginUser(result['data']);
             setIsModalOpen(true);
         }
         console.log(loginUserInfo);
