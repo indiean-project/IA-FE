@@ -2,9 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import PaginationBar from '../PaginationBar';
 import './FreeBoardItem.scss';
 import { ViewCount } from '../../apis/board';
+import { useRecoilState } from 'recoil';
+import { boardPoint } from '../../recoil/boardPoint';
 
 function FreeBoardItem(props) {
     const navigate = useNavigate();
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     if(!props.boardList) {
         return <></>
@@ -13,11 +16,12 @@ function FreeBoardItem(props) {
     function clickItem(item) {
         const boardNo = item.boardNo;
         ViewCount(boardNo);
-        navigate("/board/detail/"+item.boardNo)
+        setBoardCategory("free");
+        navigate("/board/detail/"+item.boardNo);
     }
 
     return (
-        <>
+        <div className='freeboarditem__container'>
             <hr />
             <table className='freeboarditem__table'>
                 <thead>
@@ -46,6 +50,6 @@ function FreeBoardItem(props) {
                 </tbody>
             </table>
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
-        </>
+        </div>
     )
 } export default FreeBoardItem;

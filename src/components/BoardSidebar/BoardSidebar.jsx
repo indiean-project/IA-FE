@@ -3,6 +3,7 @@ import './BoardSidebar.scss';
 import { FaFireFlameCurved } from "react-icons/fa6";
 import { MdPeopleAlt, MdThumbUp } from "react-icons/md";
 import { BoardAmount } from '../../apis/board';
+import { NavLink } from 'react-router-dom';
 function BoardSidebar({category}) {
     const [amountList, setAmountList] = useState([]);
 
@@ -40,18 +41,24 @@ function BoardSidebar({category}) {
                     <label>커뮤니티 <MdPeopleAlt className='boardSidebar__community'/></label>
                 </div>
                 <div className='community__list'>
-                    <div className='community__list__item'>
-                        <div>자유게시판</div>
-                        <div>{amountList[0]}</div>
-                    </div>
-                    <div className='community__list__item'>
-                        <div>아티스트 자랑</div>
-                        <div>{amountList[1]}</div>
-                    </div>
-                    <div className='community__list__item'>
-                        <div>콜로세움</div>
-                        <div>{amountList[2]}</div>
-                    </div>
+                    <NavLink to={"/board/free"}>
+                        <div className='community__list__item'>
+                            <div>자유게시판</div>
+                            <div>{amountList[0]}</div>
+                        </div>
+                    </NavLink>
+                    <NavLink to={"/board/proud"}>
+                        <div className='community__list__item'>
+                            <div>아티스트 자랑</div>
+                            <div>{amountList[1]}</div>
+                        </div>
+                    </NavLink>
+                    <NavLink to={"/board/colo"}>
+                        <div className='community__list__item'>
+                            <div>콜로세움</div>
+                            <div>{amountList[2]}</div>
+                        </div>
+                    </NavLink>
                 </div>
             </div>
         </div>

@@ -9,18 +9,27 @@ import { cPage } from '../../recoil/page';
 import { useRecoilState } from 'recoil';
 import { LikeCount } from '../../apis/board';
 import DOMPurify from 'dompurify';
+import ProudItem from '../../components/ProudItem';
+import { boardPoint } from '../../recoil/boardPoint';
+import { loginUserState } from '../../recoil/LoginUser';
 
 function BoardDetail() {
     const [pageInfo, setPageInfo] = useState();
-    const url = "board/free/boardlist";
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [keyword, setKeyword] = useState("");
     const [boardList, setBoardList] = useState();
     const param = useParams().id;
     const [boardItem, setBoardItem] = useState([]);
+    const location = useLocation();
+    const [category, setCategory] = useState();
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     let like;
 
+
     const list = async () => {
+        const url = "board/" + boardCategory + "/boardlist";
+        boardCategory === "free" ? setCategory("자유게시판") : setCategory("아티스트 자랑");
         const list = await pageMove({
             url: url,
             page: currentPage,
@@ -45,7 +54,7 @@ function BoardDetail() {
             contentNo: boardItem.boardNo,
             brType: "BOARD",
             member: {
-                userNo: 1
+                userNo: loginUser.userNo
             }
         })
         list();
@@ -71,9 +80,9 @@ function BoardDetail() {
                     <div>추천 : {boardItem.likeCount}</div>
                 </div>
             </div>
-            <hr />
+            <hr className='boardDetail__hr'/>
             <div className='boardDetail__box'>
-                <div>자유게시판</div>
+                <div>{category}</div>
                 <div className='boardDetail__item'>
                     <div>수정</div>
                     <div>삭제</div>
@@ -92,7 +101,11 @@ function BoardDetail() {
                 </div>
             </div>
             <CommonReply />
-            <FreeBoardItem pageInfo={pageInfo} boardList={boardList} list={list} />
+            <div className='boardDetail__list'>
+                {category === "자유게시판" ? 
+                    <FreeBoardItem pageInfo={pageInfo} boardList={boardList} list={list} />
+                : <ProudItem  pageInfo={pageInfo} boardList={boardList} list={list} />}
+            </div>
         </div>
     )
 } export default BoardDetail;

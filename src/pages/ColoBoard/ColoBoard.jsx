@@ -12,6 +12,7 @@ import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
 import { LikeCount } from "../../apis/board";
 import DOMPurify from "dompurify";
+import { loginUserState } from "../../recoil/LoginUser";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -25,6 +26,7 @@ function ColoBoard() {
     const navigate = useNavigate();
     const [likeState, setLikeState] = useState();
     const location = useLocation();
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     async function list() {
         const list = await pageMove({
@@ -56,7 +58,7 @@ function ColoBoard() {
             contentNo: boardNo,
             brType: "BOARD",
             member: {
-                userNo: 1
+                userNo: loginUser.userNo
             }
         })
         setLikeState(like.status);
@@ -75,7 +77,7 @@ function ColoBoard() {
                 <div className="coloBoard__items">
                     <div className="coloBoard__item1">
                         <div>
-                            <label>콜로세움</label>
+                            <label>{category}</label>
                         </div>
                         <div>
                             <select name="" id="">
@@ -85,7 +87,7 @@ function ColoBoard() {
                         </div>
                     </div>
                     <div className='coloBoard__item1'>
-                        <div className='coloBoard__category'>커뮤니티 &gt; 콜로세움</div>
+                        <div className='coloBoard__category'>커뮤니티 &gt; {category}</div>
                         <div className='coloBoard__btn'><a onClick={()=>{navigate("/board/enroll", {state: {category: category}})}}>글쓰기</a></div>
                     </div>
                     <hr />

@@ -7,6 +7,9 @@ import { BoardEnroll, ColoEnroll } from '../../apis/board';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { boardPoint } from '../../recoil/boardPoint';
+import { loginUserState } from '../../recoil/LoginUser';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
@@ -19,6 +22,8 @@ function BoardEnrollForm() {
     const [coloTitle2, setColoTitle2] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     useEffect(()=>{
         const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
@@ -37,7 +42,7 @@ function BoardEnrollForm() {
 
             const result = await tempImg(formData); // 이미지 임시 저장
 
-            let imgTag = `<img src="../public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
 
             setContent(prevContent => prevContent + imgTag);
 
@@ -114,7 +119,7 @@ function BoardEnrollForm() {
                 boardTitle: trimTitle,
                 contentTypeNo: category,
                 member: {
-                    userNo: 1
+                    userNo: loginUser.userNo
                 }
             });
 
@@ -129,13 +134,20 @@ function BoardEnrollForm() {
         if (imgResult.data.length > 0) {
             imgEnroll({
                 contentNo: result.data[0],
-                imgUrlList: imgResult.data
+                imgUrlList: imgResult.data,
+                fabcTypeEnum: "BOARD"
             });
 
         }
 
         if (success === 'SUCCESS') {
-            navigate("/board/detail/"+result.data[0]);
+            if (category === "FREE") {
+                setBoardCategory("free");
+                navigate("/board/detail/"+result.data[0]);
+            } else {
+                setBoardCategory("proud");
+                navigate("/board/detail/"+result.data[0]);
+            }
             toast.success('작성 완료');
         } else if (coloResult.status === "SUCCESS") {
             toast.success('작성 완료');

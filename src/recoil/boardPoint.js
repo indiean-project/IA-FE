@@ -1,16 +1,16 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const board = 'board';
+const category = 'category';
 
 
 const {persistAtom} = recoilPersist({
-    key: board,
+    key: category,
     storage: sessionStorage,
 });
 
 export const boardPoint = atom({
-    key: board,
+    key: category,
     default: "",
     effects_UNSTABLE: [persistAtom],
 });
