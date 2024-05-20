@@ -1,12 +1,30 @@
 .profile__img {
     grid-area: profile__img;
-
+    position: relative;
     .showImg {
+        position: relative;
+        display:flex;
+        justify-content: center;
+        align-items: center;
         margin: 50px auto;
         background-color: gray;
         border-radius: 50%;
         max-width: 250px;
         min-height: 250px;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+        .profileImgInput { 
+            display: block;
+            opacity: 0; 
+            width: 100%; height: 100%; 
+            position: absolute;
+            top: 0; left: 0; 
+        }
     }
 }
 
@@ -40,26 +58,3 @@
 }
 
 ;
-<UserProfile
-editAccount={editAccount}
-doEdit={doEdit}
-onChangeUserInfo={onChangeUserInfo}
-onDoEdit={onDoEdit} />
-<UserTextInfo
-editAccount={editAccount}
-doEdit={doEdit}
-onChangeUserInfo={onChangeUserInfo}
-onDoEdit={onDoEdit} />
-<UserFavorite
-editAccount={editAccount}
-doEdit={doEdit}
-onChangeUserInfo={onChangeUserInfo}
-onDoEdit={onDoEdit} />
-<UserWriteHistory />
-</div>
-<button className="btn-update" onClick={onClickUpdate} >정보 수정</button>
-</div>
-{isModalOpen &&
-<UserUpdateModal updateInfo={updateInfo} errorMsg={errorMsg} />}
-</>
-);
