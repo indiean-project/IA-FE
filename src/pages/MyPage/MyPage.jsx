@@ -28,16 +28,16 @@ function MyPage() {
     // 1. loginUserState default값 변경해야함
     // 2. 서버에서의 Dto 항목 변경 및 통합 필요? <- UserInfodto라는 별도의 이름 객체 생성 중
     const [editAccount, setEditAccount] = useState({
-        userNo: loginUser.data.userNo,
-        nickname: loginUser.data.nickname,
-        userName: loginUser.data.userName,
-        userPwd: loginUser.data.userPwd,
-        phone: loginUser.data.phone,
-        address: loginUser.data.address,
-        userProfileImg: loginUser.data.userProfileImg,
-        userContent: loginUser.data.userContent,
-        userFavoriteArtist: loginUser.data.userFavoriteArtist,
-        userFavoriteMusic: loginUser.data.userFavoriteMusic
+        userNo : loginUser.userNo,
+        nickname: loginUser.nickname,
+        userName: loginUser.userName,
+        userPwd: loginUser.userPwd,
+        phone: loginUser.phone,
+        address: loginUser.address,
+        userProfileImg: loginUser.userProfileImg,
+        userContent: loginUser.userContent,
+        userFavoriteArtist: loginUser.userFavoriteArtist,
+        userFavoriteMusic: loginUser.userFavoriteMusic
     });
 
     const onChangeUserInfo = (e) => {
