@@ -67,7 +67,7 @@ function AdminFundingApproval() {
 
                 <input type="text" name="keyword" value={searchItem.keyword} onChange={(e)=>onChangeSearch(e)} placeholder='펀딩 제목을 입력하세요'/>
                 <button onClick={()=>onClickSearch()}>검색</button>
-                {/* </form> */}
+              
                 </div>
                 <table className="adminfunding__table" border={1}>
                     <thead className="adminfunding__tablehead">
@@ -80,14 +80,7 @@ function AdminFundingApproval() {
                         </tr>
                     </thead>
                     <tbody className="adminfunding__tablebody">
-                        {/* <tr>
-                       {test.map((data,index)=>(
-                         <span key={index}>
-                            {data}
-                         </span>
-                       ))}
-                    </tr> */}
-                        {fundingRequest.map((data, index) => (
+                          {fundingRequest.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.fundNo}</td>
                                 <td>{data.fundTypeNo}</td>

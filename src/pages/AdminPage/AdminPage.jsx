@@ -8,7 +8,7 @@ function AdminPage(){
             
             <table>
                 <tr>
-                    <th><NavLink to={"/admin/userAutority"} ><h2>유저 권한 요청</h2></NavLink></th> <br/> <br/><br/><br/>        
+                    <th><NavLink to={"/admin/userAuthority"} ><h2>유저 권한 요청</h2></NavLink></th> <br/> <br/><br/><br/>        
                     <th><NavLink to={"/admin/fund"} ><h2>펀딩 승인 요청</h2></NavLink></th><br/><br/><br/><br/>
                     <th><NavLink to={"/admin/questions"}><h2>문의 관리</h2></NavLink></th><br/><br/><br/><br/>
                     <th><NavLink to={"/admin/report"} ><h2>신고 관리</h2></NavLink></th><br/><br/><br/><br/>

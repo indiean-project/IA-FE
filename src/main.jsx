@@ -14,7 +14,7 @@ import AdminPage from './pages/AdminPage/AdminPage.jsx'
 import AdminFundingApproval from './components/AdminFundingApproval/AdminFundingApproval.jsx'
 import AdminQuestionSection from './components/AdminQuestionSeciton/AdminQuestionSection.jsx'
 import AdminReportManagement from './components/AdminReportManagement/AdminReportManagement.jsx'
-import AdminUserAutority from './components/AdminUserAutority/AdminUserAutority.jsx'
+import AdminUserAuthority from './components/AdminUserAuthority/AdminUserAuthority.jsx'
 import FundList from './pages/FundList'
 import ConcertDetail from './pages/ConcertDetail'
 import FreeBoard from './pages/FreeBoard/FreeBoard.jsx'
@@ -78,8 +78,8 @@ const router = createBrowserRouter([
         element: <AdminReportManagement/> 
        }, 
        {
-        path: '/admin/userAutority',
-        element: <AdminUserAutority/> 
+        path: '/admin/userAuthority',
+        element: <AdminUserAuthority/> 
        },
        {
         path: '/board/free',
