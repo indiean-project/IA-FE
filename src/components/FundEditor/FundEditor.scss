@@ -1,0 +1,14 @@
+.fundEditor__container{
+    margin-bottom: 10px;
+    color: black;
+    .quill{
+        background-color: white;
+        width: 98%;
+        *{
+            color: black;
+        }
+        .ql-container {
+            height: 700px;
+        }
+    }
+}
