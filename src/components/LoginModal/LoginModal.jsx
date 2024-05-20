@@ -33,7 +33,7 @@ const LoginModal = () => {
                 </div>
                 <hr/>
                 <div>
-                    <p>{loginUserInfo.data.nickname}님 방문 환영합니다!</p>
+                    <p>{loginUserInfo.nickname}님 방문 환영합니다!</p>
                 </div>
                 <br/>
                 <div>
