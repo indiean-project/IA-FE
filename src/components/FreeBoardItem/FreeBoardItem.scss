@@ -19,6 +19,7 @@ hr {
             border-left: none;
             border-top: none;
             border-bottom: none;
+            padding-bottom: 1%;
         }
 
         .freeboarditem__thead__no {
@@ -49,9 +50,14 @@ hr {
     }
 
     tbody {
+        tr:hover {
+            background-color: rgba(160, 160, 160, 0.6);
+            cursor: pointer;
+        }
         td {
             font-size: 15px;
-            padding-top: 2%;
+            padding-top: 1%;
+            padding-bottom: 1%;
         }
     }
 

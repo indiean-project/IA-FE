@@ -157,4 +157,11 @@
             border-bottom: 2px solid #E3651D;
         }
    }
+   .detail__content {
+    display: flex;
+    justify-content: center;
+    .detail__content__item {
+        width: 50%;
+    }
+   }
 }

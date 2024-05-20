@@ -40,3 +40,26 @@
 }
 
 ;
+<UserProfile
+editAccount={editAccount}
+doEdit={doEdit}
+onChangeUserInfo={onChangeUserInfo}
+onDoEdit={onDoEdit} />
+<UserTextInfo
+editAccount={editAccount}
+doEdit={doEdit}
+onChangeUserInfo={onChangeUserInfo}
+onDoEdit={onDoEdit} />
+<UserFavorite
+editAccount={editAccount}
+doEdit={doEdit}
+onChangeUserInfo={onChangeUserInfo}
+onDoEdit={onDoEdit} />
+<UserWriteHistory />
+</div>
+<button className="btn-update" onClick={onClickUpdate} >정보 수정</button>
+</div>
+{isModalOpen &&
+<UserUpdateModal updateInfo={updateInfo} errorMsg={errorMsg} />}
+</>
+);

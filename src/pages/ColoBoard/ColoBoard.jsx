@@ -27,10 +27,9 @@ function ColoBoard() {
             sort: sort,
             keyword: keyword
         });
-        console.log(list);
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
-        setReplyBtn(new Array(list.length).fill('close'));
+        setReplyBtn(new Array(list.listDto.length).fill('close'));
     }
     useEffect(() => {
         list();
