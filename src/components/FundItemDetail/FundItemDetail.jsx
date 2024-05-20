@@ -63,6 +63,12 @@ function FundItemDetail({ nav, navRef }) {
     }, [fund])
 
     const counting = (count, goal, peopleCount) => {
+        if(peopleCount === 0){
+            setPrice(0);
+            setRate(0);
+            setPeople(0);
+            return;
+        }
         const timer = setInterval(() => {
             priceRef.current += Math.floor(count / peopleCount);
             peopleRef.current += 1;
