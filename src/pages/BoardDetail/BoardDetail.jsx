@@ -8,6 +8,7 @@ import { pageMove } from '../../apis/pagination';
 import { cPage } from '../../recoil/page';
 import { useRecoilState } from 'recoil';
 import { LikeCount } from '../../apis/board';
+import DOMPurify from 'dompurify';
 
 function BoardDetail() {
     const [pageInfo, setPageInfo] = useState();
@@ -17,7 +18,6 @@ function BoardDetail() {
     const [boardList, setBoardList] = useState();
     const param = useParams().id;
     const [boardItem, setBoardItem] = useState([]);
-    let selectItem;
     let like;
 
     const list = async () => {
@@ -28,17 +28,16 @@ function BoardDetail() {
             keyword: keyword
         }
         )
-        selectItem = list.listDto.forEach((item) => {
-            if (item.boardNo === +param) {
-                setBoardItem(item);
-            }
+        list.listDto.forEach((item) => {
+            item.boardNo === +param ? setBoardItem(item) : "";
         })
-        setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
+        setBoardList(list.listDto);
+        
     }
     useEffect(() => {
-        window.scrollTo(0, 0);
         list();
+        window.scrollTo(0, 0);
     }, [param])
 
     const likeCount = async () => {
@@ -50,6 +49,10 @@ function BoardDetail() {
             }
         })
         list();
+    }
+
+    const createMarkUp = (value) => {
+        return { __html: DOMPurify.sanitize(value) };
     }
 
     if (!boardItem) {
@@ -80,7 +83,7 @@ function BoardDetail() {
             </div>
             <div className='boardDetaill__title'>
                 <label>{boardItem.boardTitle}</label>
-                <p dangerouslySetInnerHTML={{ __html: boardItem.boardContent }}></p>
+                <p dangerouslySetInnerHTML={createMarkUp(boardItem.boardContent)}></p>
             </div>
             <div className='boardDetail__like__area'>
                 <div className="boardDetail__like" onClick={() => likeCount()}>

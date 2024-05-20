@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BoardSidebar from "../../components/BoardSidebar";
 import ColoBar from "../../components/ColoBar";
 import "./ColoBoard.scss";
@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
 import { LikeCount } from "../../apis/board";
+import DOMPurify from "dompurify";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -23,6 +24,7 @@ function ColoBoard() {
     const category = "콜로세움";
     const navigate = useNavigate();
     const [likeState, setLikeState] = useState();
+    const location = useLocation();
 
     async function list() {
         const list = await pageMove({
@@ -33,11 +35,11 @@ function ColoBoard() {
         });
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
-        if(replyBtn.length === 0) {
-            setReplyBtn(new Array(list.listDto.length).fill('close'));
-        }
+        replyBtn.length === 0 ? setReplyBtn(new Array(list.listDto.length).fill('close')) : ""
     }
+    
     useEffect(() => {
+        location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
     }, [likeState])
 
@@ -61,6 +63,9 @@ function ColoBoard() {
         list();
     }
 
+    const createMarkUp = (value) => {
+        return { __html: DOMPurify.sanitize(value) };
+    }
 
     return (
 
@@ -93,7 +98,7 @@ function ColoBoard() {
                                     <div>{item.enrollDate} <BsPencilSquare /> <BsTrash /></div>
                                 </div>
                                 <ColoBar list={item} />
-                                <p className="coloBoard__content" dangerouslySetInnerHTML={{ __html: item.boardContent }}></p>
+                                <p className="coloBoard__content" dangerouslySetInnerHTML={createMarkUp(item.boardContent)}></p>
                                 <div className="coloBoard__item3">
                                     <div className="coloBoard__like" onClick={()=>likeCount(item.boardNo)}>
                                         <div><MdThumbUp /></div>

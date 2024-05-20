@@ -139,7 +139,7 @@ function BoardEnrollForm() {
             toast.success('작성 완료');
         } else if (coloResult.status === "SUCCESS") {
             toast.success('작성 완료');
-            navigate("/board/colo");
+            navigate("/board/colo", {state: {state: "SUCCESS"}});
         } else {
             toast.error('작성 실패');
         }
