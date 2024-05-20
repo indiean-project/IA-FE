@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import FundInputBar from '../FundInputBar';
 import './FundEnrollForm.scss';
-import { PencilSquare, PlusSquareFill, Trash3 } from 'react-bootstrap-icons';
+import { PencilSquare, PlusSquareFill, Trash3, Trash3Fill, XCircleFill, XSquareFill } from 'react-bootstrap-icons';
 import FundEditor from '../FundEditor/FundEditor';
+import { imgDelete, tempImg } from '../../apis/imgFilter';
 
 function FundEnrollForm({ nav, navRef }) {
     const [fundForm, setFundForm] = useState({
@@ -25,6 +26,8 @@ function FundEnrollForm({ nav, navRef }) {
         limitAmount: ''
     })
 
+    const [bossImg, setBossImg] = useState(['', '', '', '', '']);
+
     const onChangeFundForm = (e) => {
         setFundForm({
             ...fundForm,
@@ -37,6 +40,35 @@ function FundEnrollForm({ nav, navRef }) {
             [e.target.name]: e.target.value
         })
     }
+
+    const imageHandler = (idx) => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+        input.onchange = async () => {
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+            const result = await tempImg(formData); // 이미지 임시 저장
+            let list = [...bossImg];
+            list[idx] = result.data;
+            setBossImg(list);
+        }
+    }
+    const imageDelete = async(img, idx) => {
+        let list = new Array();
+        list.push(img);
+        await imgDelete(list);
+
+        let resetList = [...bossImg];
+        resetList[idx] = '';
+        setBossImg(resetList);
+    }
+
+    useEffect(()=>{
+
+    },[bossImg])
 
     return (
         <div className='fundEnrollForm__container'>
@@ -94,16 +126,28 @@ function FundEnrollForm({ nav, navRef }) {
                 <div className='fundEnrollForm__item'>
                     <h3>대표 사진</h3>
                     <div className='fundEnrollForm__img'>
-                        <div className='fundEnrollForm__img__input'><PlusSquareFill size={35} /></div>
-                        <div className='fundEnrollForm__img__input'><PlusSquareFill size={35} /></div>
-                        <div className='fundEnrollForm__img__input'><PlusSquareFill size={35} /></div>
-                        <div className='fundEnrollForm__img__input'><PlusSquareFill size={35} /></div>
-                        <div className='fundEnrollForm__img__input'><PlusSquareFill size={35} /></div>
+                        {bossImg.map((img, idx) => {
+                            return (
+                                <>
+                                    {img != '' ? 
+                                    <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                    <img src={'../public/tempImg' + img} /> 
+                                    <div className='delete__icon'>
+                                        <div className='delete__background'></div>
+                                        <XCircleFill size={35}/>
+                                    </div>
+                                    </div>
+                                    : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)}>
+                                        <PlusSquareFill size={35} key={idx} />
+                                    </div>}
+                                </>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className='fundEnrollForm__item'>
                     <h3>프로젝트 소개</h3>
-                    <FundEditor/>
+                    <FundEditor />
                 </div>
             </div>
             <div id={nav[1].id} ref={(e) => (navRef.current[1] = e)} className='fundEnrollForm__artistForm form'>
@@ -111,7 +155,7 @@ function FundEnrollForm({ nav, navRef }) {
                 <h2>아티스트 소개</h2>
                 <div className='fundEnrollForm__item'>
                     <h3>아티스트 소개</h3>
-                    <FundEditor/>
+                    <FundEditor />
                 </div>
             </div>
             <div id={nav[2].id} ref={(e) => (navRef.current[2] = e)} className='fundEnrollForm__rewardForm form'>

@@ -56,6 +56,7 @@
     display: flex;
 
     .fundEnrollForm__img__input {
+        position: relative;
         margin-right: 10px;
         background: rgba(89, 89, 89, 0.4);
         border: 2px dashed #ffffff98;
@@ -66,7 +67,40 @@
         align-items: center;
         transition: 0.2s;
         cursor: pointer;
-
+        img{
+            width: 100%;
+            object-fit: fill;
+            height: 100%;
+        }
+        .delete__icon{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            .delete__background{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0);
+                transition: 0.2s;
+            }
+            svg{
+                color: rgba(255, 255, 255, 0.534);
+                transition: 0.2s;
+                z-index: 5;
+            }
+        }
+        .delete__icon:hover{
+            .delete__background{
+                background-color: rgba(0, 0, 0, 0.541);
+            }
+            svg{
+                color: rgba(255, 255, 255, 0.74);
+            }
+        }
         svg {
             color: rgba(255, 255, 255, 0.17);
         }
