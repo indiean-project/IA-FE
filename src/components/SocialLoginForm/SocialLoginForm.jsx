@@ -38,24 +38,7 @@ function SocialLoginForm() {
         if(result === undefined) {
             toast.error('로그인 정보가 올바르지 않습니다.');
         } else {
-            setLoginUser({
-                ...result,
-                default : {
-                    userId: result.userId,
-                    userPwd: result.userPwd,
-                    userName: result.userName,
-                    nickname: result.nickname,
-                    phone: result.phone,
-                    address: result.address,
-                    deleteYn: result.deleteYn,
-                    reportStatus: result.reportStatus,
-                    socialStatus: result.socialStatus,
-                    userProfileImg: result.userProfileImg,
-                    userContent: result.userContent,
-                    userFavoriteArtist: result.userFavoriteArtist,
-                    userFavoriteMusic: result.userFavoriteMusic
-                }
-            })
+            setLoginUser(result['data']);
             setIsModalOpen(true);
         }
         console.log(loginUserInfo);
