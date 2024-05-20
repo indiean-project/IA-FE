@@ -16,6 +16,12 @@ function ArtistList() {
         sort : 'createDate',
         size : 10
     })
+    const changeSort = (sortVal)=>{
+        setSelectItem({
+            ...selectItem,
+            sort : sortVal
+        })
+    }
     const [loadingCheck, setLoadingCheck] = useState(false);
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
@@ -45,6 +51,9 @@ function ArtistList() {
     useEffect(()=>{
         list();
     },[selectItem])
+    useEffect(()=>{
+        list()
+    },[])
 
 
     return (
@@ -56,7 +65,7 @@ function ArtistList() {
                 </div>
                 <div className='btn__area'>
                     <div>
-                        <select name="sort" id="select-id" value={selectItem.sort}>
+                        <select name="sort" id="select-id" value={selectItem.sort} onChange={(e)=>{changeSort(e.target.value)}}>
                             <option value="createDate">최신순</option>
                             <option value="debut">데뷔</option>
                         </select> &nbsp;
@@ -65,7 +74,10 @@ function ArtistList() {
                     <div className='btnQ'><NavLink>아티스트 등록</NavLink></div>
                 </div>
                 <div className='artist__item__container'>
-                    <ArtistItem/>
+                    {artistList.length > 0 ?artistList.map((artist,idx)=>{
+                        return <ArtistItem artist={artist} key={idx}/>
+                        }):''
+                    }
                 </div>
                 <div className='spinner__box'>
                     <div className='spinner' ref={ref}>
