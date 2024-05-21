@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BoardSidebar from "../../components/BoardSidebar";
 import ColoBar from "../../components/ColoBar";
 import "./ColoBoard.scss";
@@ -10,6 +10,10 @@ import { pageMove } from "../../apis/pagination";
 import { useRecoilState } from "recoil";
 import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
+import { LikeCount } from "../../apis/board";
+import DOMPurify from "dompurify";
+import { loginUserState } from "../../recoil/LoginUser";
+import toast from "react-hot-toast";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -19,6 +23,11 @@ function ColoBoard() {
     const [keyword, setKeyword] = useState("");
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [pageInfo, setPageInfo] = useState();
+    const category = "콜로세움";
+    const navigate = useNavigate();
+    const [likeState, setLikeState] = useState();
+    const location = useLocation();
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     async function list() {
         const list = await pageMove({
@@ -29,11 +38,13 @@ function ColoBoard() {
         });
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
-        setReplyBtn(new Array(list.listDto.length).fill('close'));
+        replyBtn.length === 0 ? setReplyBtn(new Array(list.listDto.length).fill('close')) : ""
     }
+    
     useEffect(() => {
+        location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
-    }, [])
+    }, [likeState])
 
     function toggleReplyBtn(index) {
         setReplyBtn((prevState) => {
@@ -43,16 +54,35 @@ function ColoBoard() {
         })
     }
 
+    const likeCount = async (boardNo) => {
+        const like = await LikeCount({
+            contentNo: boardNo,
+            brType: "BOARD",
+            member: {
+                userNo: loginUser.userNo
+            }
+        })
+        setLikeState(like.status);
+        list();
+    }
+
+    const createMarkUp = (value) => {
+        return { __html: DOMPurify.sanitize(value) };
+    }
+
+    function writerBtn() {
+        loginUser.userNo !== '' ? navigate("/board/enroll", {state: {category: category}}) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+    }
 
     return (
 
         <div className="coloBoard__container">
             <div className="coloBoard__box">
-                <BoardSidebar />
+                <BoardSidebar category={category}/>
                 <div className="coloBoard__items">
                     <div className="coloBoard__item1">
                         <div>
-                            <label>콜로세움</label>
+                            <label>{category}</label>
                         </div>
                         <div>
                             <select name="" id="">
@@ -62,8 +92,8 @@ function ColoBoard() {
                         </div>
                     </div>
                     <div className='coloBoard__item1'>
-                        <div className='coloBoard__category'>커뮤니티 &gt; 콜로세움</div>
-                        <div className='coloBoard__btn'><NavLink to={"/board/enroll"}>글쓰기</NavLink></div>
+                        <div className='coloBoard__category'>커뮤니티 &gt; {category}</div>
+                        <div className='coloBoard__btn'><a onClick={()=>{writerBtn()}}>글쓰기</a></div>
                     </div>
                     <hr />
                     {boardList != undefined && boardList.map((item, index) => {
@@ -75,9 +105,9 @@ function ColoBoard() {
                                     <div>{item.enrollDate} <BsPencilSquare /> <BsTrash /></div>
                                 </div>
                                 <ColoBar list={item} />
-                                <p className="coloBoard__content" dangerouslySetInnerHTML={{ __html: item.boardContent }}></p>
+                                <p className="coloBoard__content" dangerouslySetInnerHTML={createMarkUp(item.boardContent)}></p>
                                 <div className="coloBoard__item3">
-                                    <div className="coloBoard__like">
+                                    <div className="coloBoard__like" onClick={()=>likeCount(item.boardNo)}>
                                         <div><MdThumbUp /></div>
                                         <div>{item.likeCount}</div>
                                     </div>

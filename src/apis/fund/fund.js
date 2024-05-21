@@ -46,3 +46,12 @@ export const payReserve = async (params) => {
         console.log(e);
     }
 }
+
+export const fundEnroll = async (params) => {
+    try {
+        const { data } = await API.post('/api/fund/enroll', params);
+        return data;
+    } catch (e) {
+        console.log(e)
+    }
+}

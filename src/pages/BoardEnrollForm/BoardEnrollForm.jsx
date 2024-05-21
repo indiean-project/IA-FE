@@ -1,21 +1,34 @@
 import ReactQuill from 'react-quill';
 import './BoardEnrollForm.scss';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import 'react-quill/dist/quill.snow.css';
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
 import { BoardEnroll, ColoEnroll } from '../../apis/board';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { boardPoint } from '../../recoil/boardPoint';
+import { loginUserState } from '../../recoil/LoginUser';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
     const quillRef = useRef();
     const [imgList, setImgList] = useState([]);
     const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('FREE');
+    const [category, setCategory] = useState('');
     const [voteInput, setVoteInput] = useState('close');
     const [coloTitle1, setColoTitle1] = useState('');
     const [coloTitle2, setColoTitle2] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+
+    useEffect(()=>{
+        const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
+        setCategory(categoryState);
+    }, [location.state])
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -29,7 +42,7 @@ function BoardEnrollForm() {
 
             const result = await tempImg(formData); // 이미지 임시 저장
 
-            let imgTag = `<img src="../public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
 
             setContent(prevContent => prevContent + imgTag);
 
@@ -60,7 +73,7 @@ function BoardEnrollForm() {
         'header', 'font', 'size',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
-        'link', 'video'
+        'link', 'image'
     ];
 
     const handleChange = (content) => {
@@ -106,7 +119,7 @@ function BoardEnrollForm() {
                 boardTitle: trimTitle,
                 contentTypeNo: category,
                 member: {
-                    userNo: 1
+                    userNo: loginUser.userNo
                 }
             });
 
@@ -121,11 +134,27 @@ function BoardEnrollForm() {
         if (imgResult.data.length > 0) {
             imgEnroll({
                 contentNo: result.data[0],
-                imgUrlList: imgResult.data
+                imgUrlList: imgResult.data,
+                fabcTypeEnum: "BOARD"
             });
 
         }
-        success === 'SUCCESS' || coloResult.status === "SUCCESS" ? toast.success('작성 완료') : toast.error('작성 실패');
+
+        if (success === 'SUCCESS') {
+            if (category === "FREE") {
+                setBoardCategory("free");
+                navigate("/board/detail/"+result.data[0]);
+            } else {
+                setBoardCategory("proud");
+                navigate("/board/detail/"+result.data[0]);
+            }
+            toast.success('작성 완료');
+        } else if (coloResult.status === "SUCCESS") {
+            toast.success('작성 완료');
+            navigate("/board/colo", {state: {state: "SUCCESS"}});
+        } else {
+            toast.error('작성 실패');
+        }
     }
 
     function voteState() {
@@ -137,7 +166,7 @@ function BoardEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
-                    <select onChange={(e) => { setCategory(e.target.value) }}>
+                    <select value={category} onChange={(e) => { setCategory(e.target.value) }}>
                         <option value="FREE">자유 게시판</option>
                         <option value="PROUD">아티스트 자랑하기</option>
                         <option value="COLO">콜로세움</option>

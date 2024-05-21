@@ -144,6 +144,10 @@ function FundList() {
     },[selectItem.sort, selectItem.sortValue, selectItem.page, selectItem.keyword])
 
     useEffect(()=>{
+        console.log(fundList)
+    },[fundList])
+
+    useEffect(()=>{
         if(inView){
             setLoadingCheck(true);
             setTimeout(()=>{

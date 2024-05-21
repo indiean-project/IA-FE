@@ -1,13 +1,12 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './FundEditor.scss';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { tempImg } from '../../apis/imgFilter';
 
-function FundEditor() {
+function FundEditor({onEditorChange, FACheck, imgList, setImgList}) {
 
     const [content, setContent] = useState('');
-    const [imgList, setImgList] = useState([]);
     const quillRef = useRef();
 
     const imageHandler = () => {
@@ -20,7 +19,7 @@ function FundEditor() {
             const formData = new FormData();
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
-            let imgTag = `<img src="../public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
             setContent(prevContent => prevContent + imgTag);
             setImgList(imgList => [...imgList, result.data]);
         }
@@ -35,6 +34,9 @@ function FundEditor() {
     const handleChange = (content) => {
         setContent(content);
     };
+    useEffect(()=>{
+        onEditorChange(content, FACheck);
+    }, [content])
 
     const modules = useMemo(() => {
         return {

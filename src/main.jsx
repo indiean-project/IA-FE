@@ -23,6 +23,7 @@ import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 import ArtistDetail from './pages/ArtistDetail'
 import BoardDetail from './pages/BoardDetail/BoardDetail.jsx'
 import FundEnroll from './pages/FundEnroll/FundEnroll.jsx'
+import ProudBoard from './pages/ProudBoard/ProudBoard.jsx'
 import ArtistList from './pages/ArtistList'
 import ArtistEnrollForm from './pages/ArtistEnrollForm'
 
@@ -105,8 +106,12 @@ const router = createBrowserRouter([
         element: <ArtistDetail/>
       },
       {
-        path: 'board/detail',
+        path: 'board/detail/:id',
         element: <BoardDetail/>
+      },
+      {
+        path: 'board/proud',
+        element: <ProudBoard/>
       },
       {
         path:'/artist',

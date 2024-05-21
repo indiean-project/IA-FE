@@ -3,13 +3,21 @@ import FundInputBar from '../FundInputBar';
 import './FundEnrollForm.scss';
 import { PencilSquare, PlusSquareFill, Trash3, Trash3Fill, XCircleFill, XSquareFill } from 'react-bootstrap-icons';
 import FundEditor from '../FundEditor/FundEditor';
-import { imgDelete, tempImg } from '../../apis/imgFilter';
+import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
+import SelectBar from '../SelectBar/SelectBar';
+import { fundEnroll } from '../../apis/fund/fund';
+import { useRecoilValue } from 'recoil';
+import { loginUserState } from '../../recoil/LoginUser';
+import moment from 'moment';
 
 function FundEnrollForm({ nav, navRef }) {
+    const loginUserInfo = useRecoilValue(loginUserState);
     const [fundForm, setFundForm] = useState({
+        userNo: loginUserInfo.userNo,
         fundTitle: '',
+        fundDescription: '',
         target: '',
-        category: '',
+        category: '선택',
         startDate: '',
         endDate: '',
         fundInfo: '',
@@ -27,8 +35,16 @@ function FundEnrollForm({ nav, navRef }) {
     })
     const [rewardList, setRewardList] = useState([]);
     const [addReward, setAddReward] = useState(false);
-
+    const [fundInfoImgList, setFundInfoImgList] = useState([]);
+    const [artistInfoImgList, setArtistInfoImgList] = useState([]);
     const [bossImg, setBossImg] = useState(['', '', '', '', '']);
+
+    const category = [
+        {label:'공연', value: 'CONCERT'},
+        {label:'굿즈', value: 'GOODS'},
+        {label:'앨범', value: 'ALBUM'},
+        {label:'팬미팅', value: 'FANMEETING'},
+    ]
 
     const onChangeFundForm = (e) => {
         setFundForm({
@@ -67,14 +83,88 @@ function FundEnrollForm({ nav, navRef }) {
         resetList[idx] = '';
         setBossImg(resetList);
     }
-    const onClickRewardBtn = (check, yn)=>{
-        check? setRewardForm({...rewardForm, limitYn: yn})
-        : setRewardForm({...rewardForm, deliveryYn: yn});
+    const onClickRewardBtn = (check, yn) => {
+        check ? setRewardForm({ ...rewardForm, limitYn: yn })
+            : setRewardForm({ ...rewardForm, deliveryYn: yn });
+    }
+    const onClickRewardSubmit = (check) => {
+        if (check) {
+            let list = [...rewardList];
+            list.push(rewardForm);
+            setRewardList(list);
+        }
+        setRewardForm({
+            rewardName: '',
+            rewardPrice: '',
+            rewardInfo: '',
+            deliveryYn: 'N',
+            limitYn: 'N',
+            limitAmount: ''
+        })
+        setAddReward(false);
+    }
+    const onClickDeleteReward = (idx) => {
+        let list = [...rewardList];
+        list.splice(idx, 1);
+        setRewardList(list);
+    }
+
+    const onEditorChange = (content, FACheck) => {
+        if (FACheck === 'F') {
+            setFundForm({
+                ...fundForm,
+                fundInfo: content
+            })
+        } else {
+            setFundForm({
+                ...fundForm,
+                artistInfo: content
+            })
+        }
+    }
+
+    const onChangeCategory = (item)=>{
+        setFundForm({
+            ...fundForm,
+            category: item
+        })
+    }
+
+    const onClickSubmit = async()=>{
+        let moveList = new Array();
+        let deleteList = new Array();
+        let bossImgList = new Array();
+
+        fundInfoImgList.forEach((item)=>{
+            fundForm.fundInfo.indexOf(item) != -1? moveList.push(item) : deleteList.push(item);
+        })
+        artistInfoImgList.forEach((item)=>{
+            fundForm.artistInfo.indexOf(item) != -1? moveList.push(item) : deleteList.push(item);
+        })
+        bossImg.filter((item)=>item != '').forEach((item)=>{
+            bossImgList.push(item);
+        })
+
+        // moveList.length > 0 && await imgMove(moveList);
+        // deleteList.length > 0 && await imgDelete(deleteList);
+        // await imgMove(bossImgList);
+        
+        let paymentDate = new Date(fundForm.endDate);
+        paymentDate.setDate(paymentDate.getDate() + 1);
+
+        let fund = {
+            ...fundForm,
+            reward: rewardList,
+            paymentDate: moment(paymentDate).format('YYYY-MM-DD')
+        };
+        const result = await fundEnroll(fund);
+        console.log(fund);
+        console.log(result);
     }
 
     useEffect(() => {
-
-    }, [bossImg])
+        
+    }, [bossImg, rewardList, fundForm])
 
     return (
         <div className='fundEnrollForm__container'>
@@ -85,6 +175,10 @@ function FundEnrollForm({ nav, navRef }) {
                 <hr />
                 <h2>프로젝트 소개</h2>
                 <div className='fundEnrollForm__item'>
+                    <h3>카테고리</h3>
+                    <SelectBar list={category} onChangeValue={onChangeCategory} />
+                </div>
+                <div className='fundEnrollForm__item'>
                     <h3>프로젝트 제목</h3>
                     <FundInputBar width={"99%"}
                         paddingLeft={"5px"}
@@ -94,9 +188,21 @@ function FundEnrollForm({ nav, navRef }) {
                     />
                 </div>
                 <div className='fundEnrollForm__item'>
+                    <div>
+                    <h3>프로젝트 설명</h3><p>*썸네일에 제목과 함께 노출되는 문구입니다.</p>
+                    </div>
+                    <FundInputBar width={"99%"}
+                        paddingLeft={"5px"}
+                        name={'fundDescription'}
+                        value={fundForm.fundDescription}
+                        onChangeValue={onChangeFundForm}
+                    />
+                </div>
+                <div className='fundEnrollForm__item'>
                     <h3>목표 펀딩 금액</h3>
                     <div className='fundEnrollForm__input'>
                         <FundInputBar width={"30%"}
+                            type={'number'}
                             paddingLeft={"5px"}
                             name={'target'}
                             value={fundForm.target}
@@ -153,7 +259,10 @@ function FundEnrollForm({ nav, navRef }) {
                 </div>
                 <div className='fundEnrollForm__item'>
                     <h3>프로젝트 소개</h3>
-                    <FundEditor />
+                    <FundEditor onEditorChange={onEditorChange}
+                                FACheck={'F'}
+                                imgList={fundInfoImgList}
+                                setImgList={setFundInfoImgList} />
                 </div>
             </div>
             <div id={nav[1].id} ref={(e) => (navRef.current[1] = e)} className='fundEnrollForm__artistForm form'>
@@ -161,7 +270,10 @@ function FundEnrollForm({ nav, navRef }) {
                 <h2>아티스트 소개</h2>
                 <div className='fundEnrollForm__item'>
                     <h3>아티스트 소개</h3>
-                    <FundEditor />
+                    <FundEditor onEditorChange={onEditorChange}
+                                FACheck={'A'}
+                                imgList={artistInfoImgList}
+                                setImgList={setArtistInfoImgList} />
                 </div>
             </div>
             <div id={nav[2].id} ref={(e) => (navRef.current[2] = e)} className='fundEnrollForm__rewardForm form'>
@@ -171,18 +283,15 @@ function FundEnrollForm({ nav, navRef }) {
                     {rewardList.map((reward, idx) => {
                         return (
                             <div className='fundEnrollForm__reward' key={idx}>
-                                <h4>{rewardForm.rewardName}</h4>
+                                <h4>{reward.rewardName}</h4>
                                 <div className='fundEnrollForm__reward__box'>
                                     <div className='fundEnrollForm__reward__item'>
-                                        <p>{rewardForm.rewardInfo}</p>
-                                        <p>{rewardForm.rewardPrice}원</p>
+                                        <p>{reward.rewardInfo}</p>
+                                        <p>{reward.rewardPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</p>
                                     </div>
                                     <div>/</div>
-                                    <div className='fundEnrollForm__reward__amount'>{rewardForm.limitYn === 'N' ? rewardForm.limitAmount : '∞'}</div>
-                                    <div className='fundEnrollForm__reward__icon'>
-                                        <PencilSquare size={30} />
-                                    </div>
-                                    <div className='fundEnrollForm__reward__icon'>
+                                    <div className='fundEnrollForm__reward__amount'>{reward.limitYn === 'Y' ? reward.limitAmount : '∞'}</div>
+                                    <div className='fundEnrollForm__reward__icon' onClick={() => onClickDeleteReward(idx)}>
                                         <Trash3 size={30} />
                                     </div>
                                 </div>
@@ -234,11 +343,11 @@ function FundEnrollForm({ nav, navRef }) {
                             <div className={rewardForm.limitYn === 'N' ?
                                 'addform__item__btn__active' :
                                 'addform__item__btn__disabled'
-                            } onClick={()=>onClickRewardBtn(true, 'N')}>무제한</div>
+                            } onClick={() => onClickRewardBtn(true, 'N')}>무제한</div>
                             <div className={rewardForm.limitYn === 'Y' ?
                                 'addform__item__btn__active' :
                                 'addform__item__btn__disabled'
-                            } onClick={()=>onClickRewardBtn(true, 'Y')}>제한</div>
+                            } onClick={() => onClickRewardBtn(true, 'Y')}>제한</div>
                             <FundInputBar width={"70px"}
                                 type={'number'}
                                 paddingLeft={"5px"}
@@ -255,16 +364,16 @@ function FundEnrollForm({ nav, navRef }) {
                             <div className={rewardForm.deliveryYn === 'N' ?
                                 'addform__item__btn__active' :
                                 'addform__item__btn__disabled'
-                            } onClick={()=>onClickRewardBtn(false, 'N')}>필요 없음</div>
+                            } onClick={() => onClickRewardBtn(false, 'N')}>필요 없음</div>
                             <div className={rewardForm.deliveryYn === 'Y' ?
                                 'addform__item__btn__active' :
                                 'addform__item__btn__disabled'
-                            } onClick={()=>onClickRewardBtn(false, 'Y')}>필요</div>
+                            } onClick={() => onClickRewardBtn(false, 'Y')}>필요</div>
                         </div>
                     </div>
                     <div className='addform__submit'>
-                        <div className='addform__submit__btn'>취소</div>
-                        <div className='addform__submit__btn'>등록</div>
+                        <div className='addform__submit__btn' onClick={() => onClickRewardSubmit(false)}>취소</div>
+                        <div className='addform__submit__btn' onClick={() => onClickRewardSubmit(true)}>등록</div>
                     </div>
                 </div>}
 
@@ -272,10 +381,19 @@ function FundEnrollForm({ nav, navRef }) {
             <div id={nav[3].id} ref={(e) => (navRef.current[3] = e)} className='fundEnrollForm__budgetForm form'>
                 <hr />
                 <h2>예산</h2>
+                <div className='fundEnrollForm__textarea'>
+                    <textarea name="budgetInfo" onChange={(e) => onChangeFundForm(e)} >{fundForm.budgetInfo}</textarea>
+                </div>
             </div>
             <div id={nav[4].id} ref={(e) => (navRef.current[4] = e)} className='fundEnrollForm__scheduleForm form'>
                 <hr />
                 <h2>일정</h2>
+                <div className='fundEnrollForm__textarea'>
+                    <textarea name="scheduleInfo" onChange={(e) => onChangeFundForm(e)} >{fundForm.scheduleInfo}</textarea>
+                </div>
+            </div>
+            <div className='fundEnrollForm__submit'>
+                <div className='fundEnrollForm__submit__btn' onClick={()=>onClickSubmit()}>신청서 제출</div>
             </div>
         </div>
     );
