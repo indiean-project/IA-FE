@@ -7,6 +7,8 @@ import { useRecoilState } from 'recoil';
 import FreeBoardItem from '../../components/FreeBoardItem';
 import { cPage } from '../../recoil/page';
 import { boardPoint } from '../../recoil/boardPoint';
+import { loginUserState } from '../../recoil/LoginUser';
+import toast from 'react-hot-toast';
 
 
 function FreeBoard() {
@@ -18,6 +20,7 @@ function FreeBoard() {
     const [pageInfo, setPageInfo] = useState();
     const category = "자유게시판";
     const navigate = useNavigate();
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     
     async function list() {
         const list = await pageMove({
@@ -32,6 +35,10 @@ function FreeBoard() {
     useEffect(() => {
         list();
     }, [])
+
+    function writerBtn() {
+        loginUser.userNo !== '' ? navigate("/board/enroll", {state: {category: category}}) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+    }
 
     return (
         <div className='freeboard__container'>
@@ -51,7 +58,7 @@ function FreeBoard() {
                     </div>
                     <div className='freeboard__item'>
                         <div className='freeboard__category'>커뮤니티 &gt; {category}</div>
-                        <div className='freeboard__btn'><a onClick={()=>{navigate("/board/enroll", {state: {category: category}})}}>글쓰기</a></div>
+                        <div className='freeboard__btn'><a onClick={()=>{writerBtn()}}>글쓰기</a></div>
                     </div>
                     <FreeBoardItem boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>

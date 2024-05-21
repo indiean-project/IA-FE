@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { cPage } from "../../recoil/page";
 import { useRecoilState } from "recoil";
 import { pageMove } from "../../apis/pagination";
+import { loginUserState } from "../../recoil/LoginUser";
+import toast from "react-hot-toast";
 
 function ProudBoard() {
     const [boardList, setBoardList] = useState ([]);
@@ -16,6 +18,7 @@ function ProudBoard() {
     const [pageInfo, setPageInfo] = useState();
     const category = "아티스트 자랑";
     const navigate = useNavigate();
+    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     async function list() {
         const list = await pageMove({
@@ -30,6 +33,10 @@ function ProudBoard() {
     useEffect(() => {
         list();
     }, [])
+
+    function writerBtn() {
+        loginUser.userNo !== '' ? navigate("/board/enroll", {state: {category: category}}) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+    }
 
     return (
         <div className="proudBoard__container">
@@ -49,7 +56,7 @@ function ProudBoard() {
                     </div>
                     <div className='proudBoard__item'>
                         <div className='proudBoard__category'>커뮤니티 &gt; {category}</div>
-                        <div className='proudBoard__btn'><a onClick={()=>{navigate("/board/enroll", {state: {category: category}})}}>글쓰기</a></div>
+                        <div className='proudBoard__btn'><a onClick={()=>{writerBtn()}}>글쓰기</a></div>
                     </div>
                     <ProudItem boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
