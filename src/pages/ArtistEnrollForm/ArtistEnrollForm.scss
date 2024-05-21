@@ -1,0 +1,120 @@
+.artistEnrollForm {
+
+    .alert__area {
+        margin: 10% 0% 0% 10%;
+        color: white;
+        font-size: 30px;
+
+        svg {
+            margin: 2% 2% 0% 0%;
+        }
+    }
+
+    .artistEnrollForm__header {
+        display: flex;
+        justify-content: center;
+
+        h1 {
+            color: white;
+        }
+    }
+
+    .line__area {
+        display: flex;
+        justify-content: center;
+
+        hr {
+            background-color: rgba(255, 255, 255, 0.26);
+            margin: auto;
+            width: 80%;
+            height: 5px;
+            margin-top: 10px;
+        }
+    }
+
+    .artistEnrollForm__list__box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        h1 {
+            margin-bottom: 1%;
+        }
+
+        .artistEnrollForm__list {
+            margin-top: 7%;
+            width: 40%;
+
+        }
+    }
+
+    .artistEnrollForm__img {
+        display: flex;
+        height: 100%;
+        width: 40%;
+        
+
+        .fundEnrollForm__img__input {
+            position: relative;
+            margin-right: 10px;
+            background: rgba(89, 89, 89, 0.4);
+            border: 2px dashed #ffffff98;
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                object-fit: fill;
+                height: 100%;
+            }
+
+            .delete__icon {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .delete__background {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0);
+                    transition: 0.2s;
+                }
+
+                svg {
+                    color: rgba(255, 255, 255, 0.534);
+                    transition: 0.2s;
+                    z-index: 5;
+                }
+            }
+
+            .delete__icon:hover {
+                .delete__background {
+                    background-color: rgba(0, 0, 0, 0.541);
+                }
+
+                svg {
+                    color: rgba(255, 255, 255, 0.74);
+                }
+            }
+
+            svg {
+                color: rgba(255, 255, 255, 0.17);
+            }
+
+        }
+
+        .fundEnrollForm__img__input:hover {
+            background: rgba(145, 145, 145, 0.4);
+        }
+    }
+}
