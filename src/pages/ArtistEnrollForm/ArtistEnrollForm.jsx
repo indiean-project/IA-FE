@@ -4,6 +4,7 @@ import { BsExclamationCircle} from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
 import { imgDelete, tempImg } from '../../apis/imgFilter';
+import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
 
 function ArtistEnrollForm() {
     const [artistFrom, setArtistFrom] = useState({
@@ -86,24 +87,29 @@ function ArtistEnrollForm() {
                         </div>
                     </div>
                     <div className="artistEnrollFrom__img">
+                        <h1>대표 이미지</h1>
                         {bossImg.map((img, idx) => {
                             return (
                                 <>
                                     {img != '' ?
-                                        <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                        <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
                                             <img src={'../public/tempImg/' + img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
                                             </div>
                                         </div>
-                                        : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)}>
+                                        : <div className='artistEnrollForm__img__input' onClick={() => imageHandler(idx)}>
                                             <PlusSquareFill size={35} key={idx} />
                                         </div>}
                                 </>
                             );
                         })}
                     </div>
+                </div>
+                <div className='artistInfo__EnrollForm'>
+                    <h1>아티스트 소개 입력</h1>
+                    <ArtistEditor/>
                 </div>
             </div>
         </div>
