@@ -1,17 +1,24 @@
 import './ArtistEnrollForm.scss'
 import FundInputBar from '../../components/FundInputBar';
-import { BsExclamationCircle} from "react-icons/bs";
+import { BsExclamationCircle } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
 import { imgDelete, tempImg } from '../../apis/imgFilter';
 import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
+import { loginUserState } from '../../recoil/LoginUser';
+import { useRecoilValue } from 'recoil';
 
 function ArtistEnrollForm() {
+    const loginUserInfo = useRecoilValue(loginUserState);
     const [artistFrom, setArtistFrom] = useState({
+        userNo: loginUserInfo.userNo,
         artistName: '',
         debutDate: '',
         musicCategory: '',
-        artistStatus: ''
+        artistInfo: '',
+        artistStatus: 'N',
+        instagram: '',
+        youtube: ''
     })
     const onChangeArtistForm = (e) => {
         setArtistFrom({
@@ -24,7 +31,6 @@ function ArtistEnrollForm() {
         let list = new Array();
         list.push(img);
         await imgDelete(list);
-
         let resetList = [...bossImg];
         resetList[idx] = '';
         setBossImg(resetList);
@@ -44,9 +50,17 @@ function ArtistEnrollForm() {
             setBossImg(list);
         }
     }
+    const [artistInfoImgList, setArtistInfoImgList] = useState([]);
+    const onEditorChange = (content) => {
+        setArtistFrom({
+            ...artistFrom,
+            artistInfo: content
+        })
+
+    }
     useEffect(() => {
 
-    }, [bossImg])
+    }, [bossImg,artistFrom])
 
     return (
         <div className='artistEnrollForm'>
@@ -109,7 +123,30 @@ function ArtistEnrollForm() {
                 </div>
                 <div className='artistInfo__EnrollForm'>
                     <h1>아티스트 소개 입력</h1>
-                    <ArtistEditor/>
+                    <ArtistEditor onEditorChange={onEditorChange}
+                        imgList={artistInfoImgList}
+                        setImgList={setArtistInfoImgList} />
+                </div>
+                <div className='linkList'>
+                    <div className='artistEnrollFrom__item'>
+                        <h3>Instagram Link</h3>
+                        <FundInputBar width={"80%"}
+                            name={'instagram'}
+                            value={artistFrom.instagram}
+                            onChangeValue={onChangeArtistForm}
+                        />
+                    </div>
+                    <div className='artistEnrollFrom__item'>
+                        <h3>youtube Link</h3>
+                        <FundInputBar width={"80%"}
+                            name={'youtube'}
+                            value={artistFrom.youtube}
+                            onChangeValue={onChangeArtistForm}
+                        />
+                    </div>
+                </div>
+                <div className='artistEnrollForm__submit'>
+                    <div className='artistEnrollForm__submit__btn' onClick={() => onClickSubmit()}>신청서 제출</div>
                 </div>
             </div>
         </div>

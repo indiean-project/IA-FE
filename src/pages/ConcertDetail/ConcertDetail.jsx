@@ -6,6 +6,7 @@ import ConcertInfo from '../../components/ConcertInfo';
 import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
 import { selectConcert } from '../../apis/concert/concertDetail';
+import { Share } from 'react-bootstrap-icons';
 
 function ConcertDetail() {
     const boardUrl = "concert";
@@ -33,7 +34,7 @@ function ConcertDetail() {
         <div className='concertDetail__container'>
             <div className='concertDetail__top'>
                 <div className='concertDetail__title'>
-                    {concert.concertTitle}
+                    <h1>{concert.concertTitle}</h1>
                 </div>
                 <div className='btn'><NavLink>수정요청</NavLink></div>
             </div>
@@ -45,33 +46,39 @@ function ConcertDetail() {
                     <div className='concertDetail__content'>
                         <ul>
                             <li>
-                                <strong>장소</strong>
+                                <h2>장소</h2>
                                 <div className='concertInfo'>{concert.location}</div>
                             </li>
                             <li>
                                 {console.log(concert)}
-                                <strong>공연기간</strong>
+                                <h2>공연기간</h2>
                                 <div className='concertInfo'>{concert.startDate}~{concert.endDate}</div>
                             </li>
                             <li>
-                                <strong>공연시간</strong>
+                                <h2>공연시간</h2>
                                 <div className='concertInfo'>{concert.runtime}</div>
                             </li>
                             <li>
-                                <strong>가격</strong>
+                                <h2>가격</h2>
                                 <div className='concertInfo'>{(+concert.concertPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
                             </li>
+                            <li>
+                                <div className='ticketlink'>
+                                    {concert.ticketUrl !== null ? <div className='btn'><NavLink target='_blank' to={concert.ticketUrl}>티켓구매</NavLink></div> : <div></div>}
+                                </div>
+                            </li>
                         </ul>
-
-                        <div className='ticketlink'>
-                            {concert.ticketUrl !== null ? <div className='btn'><NavLink target='_blank' to={concert.ticketUrl}>티켓구매</NavLink></div> : <div></div>}
-                        </div>
                     </div>
                 </div>
             </div>
             <div className='concert__lineupTilte'>
-                <strong>LINE UP</strong>
-                <div><div className='btn'><NavLink>카카오 공유</NavLink></div></div>
+                <h2>LINE UP</h2>
+                <div className='btn__area'>
+                    <div>
+                        <Share size={20} />
+                        <span className='btn1'>공유하기</span>
+                    </div>
+                </div>
             </div>
             <ArtistLineUp lineup={lineup} />
             <div className='concert__content__top'>
@@ -82,7 +89,7 @@ function ConcertDetail() {
             </div>
             <div className='detail__content'>
                 <div className='detail__content_item'>
-                    {detailState ==='info' ? <ConcertInfo/> : <CommonReply/>}
+                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply />}
                 </div>
             </div>
         </div>

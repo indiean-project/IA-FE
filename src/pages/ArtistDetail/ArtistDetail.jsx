@@ -3,8 +3,7 @@ import { artistItme } from '../../apis/artist/artist';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Share } from 'react-bootstrap-icons';
-import { BsInstagram } from "react-icons/bs";
-import { BsYoutube } from "react-icons/bs";
+import { BsInstagram, BsYoutube} from "react-icons/bs";
 import MusicBox from '../../components/MusicBox';
 import test from './10cm.jpg';
 

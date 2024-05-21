@@ -3,13 +3,14 @@
     padding-bottom: 60px;
     .concertDetail__top{
        display: flex;
-       justify-content: space-between;
+       justify-content: space-around;
        margin:0% 5% 0% 5%;
         .concertDetail__title{
             color: white;
             font-size: 30px
         }
         .btn{
+            margin-top: 4%;
             background: #E3651D;
             border-radius: 7px;
             width: 120px;
@@ -43,32 +44,32 @@
             display: flex;
             justify-content:space-around;
             
-            background-color: #242424;
-            width: 900px;
+            background-color: rgba(12, 12, 12, 0.63);
+            width: 1200px;
+            height: 600px;
             border-radius: 5px;
             .concertDetail__poster{
-                margin-left: 8%;
-                width:400px;
-                height:450px;
+                width:600px;
+                height:100%;
                 img{
-                    height: 100%;
-                    width: 100%;
-                    
+                    width:600px;
+                    height:100%;
+                    border-radius: 7px 0px 0px 7px;
                 }
             }
             .concertDetail__content{
                 color: white;
+                width: 600px;
+                height: 100%;
                 line-height: 230%;
-                margin-right: 8%;
+                text-align: center;
                 
                 ul{
                     list-style-type: none;
                     font-weight: normal;
-                    strong{
-                        font-size: 20px;
-                    }
+                    
                     .concertInfo{
-                        font-size: 15px;
+                        font-size: 20px;
                         color: #999;
                     }
                    
@@ -110,36 +111,40 @@
     .concert__lineupTilte{
         display: flex;
         justify-content: space-between;
-        margin:5% 15% 2% 15%;
-        
-        strong{
+        margin:3% 15% 2% 15%;
+        h2{
             color: white;
-            font-size: 17px;
+            
         }
-        .btn{      
-            background: #FEE500;
-            border-radius: 7px;
-            width: 100px;
-            height: 40px;
-            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+        .btn__area {
+           
+    
+            width: 200px;
             display: flex;
-            align-items: center;
-            transition-duration: 0.2s;
-            a{
-                text-decoration: none;
-                    background-color: rgba(0, 0, 0, 0);
-                    border-color: rgba(0, 0, 0, 0);
-                    font-size: 15px;
-                    font-weight: 400;
-                    text-align: center;
-                    color: black;
-                    width: 100%;
-                    padding-top: 3px;
+    
+    
+            svg {
+                color: rgba(0, 0, 0, 0.6);
             }
-        }
-        .btn:hover{
-            box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
-            transition-duration: 0.2s;
+    
+            div {
+                margin: 2%;
+                height: 40px;
+                width: 100%;
+                background: rgba(205, 205, 205, 1);
+                border-radius: 7px;
+                box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: rgba(0, 0, 0, 0.6);
+                cursor: pointer;
+    
+                .btn1 {
+                    margin-left: 10%;
+                }
+    
+            }
         }
     }
    
@@ -155,6 +160,7 @@
             cursor: pointer;
             display: inline-block;
             width: 100px;
+            font-size: 25px;
         }
         .state__on{
             border-bottom: 2px solid #E3651D;
@@ -164,7 +170,7 @@
         display: flex;
         justify-content: center;
         .detail__content__item{
-            width: 50%;
+            width: 100%;
         }
    }
 }

@@ -2,13 +2,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './ArtistEditor.scss'
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-function ArtistEditor(){
+function ArtistEditor({onEditorChange, imgList, setImgList}) {
+    
     const [content, setContent] = useState('');
-    const [imgList, setImgList] = useState([]);
     const quillRef = useRef();
+   
     const imageHandler = () => {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
@@ -33,6 +34,9 @@ function ArtistEditor(){
     const handleChange = (content) => {
         setContent(content);
     };
+    useEffect(()=>{
+        onEditorChange(content);
+    }, [content])
     const modules = useMemo(() => {
         return {
             toolbar: {
@@ -52,7 +56,7 @@ function ArtistEditor(){
         }
     }, [])
 
-    return(
+    return (
         <div className='artistEditor__container'>
             <ReactQuill
                 theme="snow"
@@ -64,4 +68,4 @@ function ArtistEditor(){
             />
         </div>
     )
-}export default ArtistEditor
+} export default ArtistEditor
