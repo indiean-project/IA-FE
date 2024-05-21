@@ -1,0 +1,14 @@
+.mainFundList__container{
+    width: 100%;
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    svg{
+        color: white;
+    }
+    .mainFundList__item{
+        display: flex;
+        margin: 10px;
+    }
+}

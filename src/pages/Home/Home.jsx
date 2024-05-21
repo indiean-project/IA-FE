@@ -1,14 +1,11 @@
-import LoginModal from "../../components/LoginModal";
-import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import MainFundList from "../../components/MainFundList";
+import './Home.scss';
 
 function Home(){
     return(
-        <></>
-        // <ModalWindow>
-        //     <div>
-        //         반갑다
-        //     </div>
-        // </ModalWindow>
+        <div className="home__container">
+            <MainFundList/>
+        </div>
     );
 }
 export default Home;
