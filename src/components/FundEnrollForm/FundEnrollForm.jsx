@@ -21,10 +21,12 @@ function FundEnrollForm({ nav, navRef }) {
         rewardName: '',
         rewardPrice: '',
         rewardInfo: '',
-        deliveryYn: '',
-        limitYn: '',
+        deliveryYn: 'N',
+        limitYn: 'N',
         limitAmount: ''
     })
+    const [rewardList, setRewardList] = useState([]);
+    const [addReward, setAddReward] = useState(false);
 
     const [bossImg, setBossImg] = useState(['', '', '', '', '']);
 
@@ -56,7 +58,7 @@ function FundEnrollForm({ nav, navRef }) {
             setBossImg(list);
         }
     }
-    const imageDelete = async(img, idx) => {
+    const imageDelete = async (img, idx) => {
         let list = new Array();
         list.push(img);
         await imgDelete(list);
@@ -65,10 +67,14 @@ function FundEnrollForm({ nav, navRef }) {
         resetList[idx] = '';
         setBossImg(resetList);
     }
+    const onClickRewardBtn = (check, yn)=>{
+        check? setRewardForm({...rewardForm, limitYn: yn})
+        : setRewardForm({...rewardForm, deliveryYn: yn});
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[bossImg])
+    }, [bossImg])
 
     return (
         <div className='fundEnrollForm__container'>
@@ -129,17 +135,17 @@ function FundEnrollForm({ nav, navRef }) {
                         {bossImg.map((img, idx) => {
                             return (
                                 <>
-                                    {img != '' ? 
-                                    <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
-                                    <img src={'../public/tempImg' + img} /> 
-                                    <div className='delete__icon'>
-                                        <div className='delete__background'></div>
-                                        <XCircleFill size={35}/>
-                                    </div>
-                                    </div>
-                                    : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)}>
-                                        <PlusSquareFill size={35} key={idx} />
-                                    </div>}
+                                    {img != '' ?
+                                        <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                            <img src={'../public/tempImg/' + img} />
+                                            <div className='delete__icon'>
+                                                <div className='delete__background'></div>
+                                                <XCircleFill size={35} />
+                                            </div>
+                                        </div>
+                                        : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)}>
+                                            <PlusSquareFill size={35} key={idx} />
+                                        </div>}
                                 </>
                             );
                         })}
@@ -162,46 +168,33 @@ function FundEnrollForm({ nav, navRef }) {
                 <hr />
                 <h2>리워드</h2>
                 <div className='fundEnrollForm__item'>
+                    {rewardList.map((reward, idx) => {
+                        return (
+                            <div className='fundEnrollForm__reward' key={idx}>
+                                <h4>{rewardForm.rewardName}</h4>
+                                <div className='fundEnrollForm__reward__box'>
+                                    <div className='fundEnrollForm__reward__item'>
+                                        <p>{rewardForm.rewardInfo}</p>
+                                        <p>{rewardForm.rewardPrice}원</p>
+                                    </div>
+                                    <div>/</div>
+                                    <div className='fundEnrollForm__reward__amount'>{rewardForm.limitYn === 'N' ? rewardForm.limitAmount : '∞'}</div>
+                                    <div className='fundEnrollForm__reward__icon'>
+                                        <PencilSquare size={30} />
+                                    </div>
+                                    <div className='fundEnrollForm__reward__icon'>
+                                        <Trash3 size={30} />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
 
-                    <div className='fundEnrollForm__reward'>
-                        <h4>R석 + 사인CD</h4>
-                        <div className='fundEnrollForm__reward__box'>
-                            <div className='fundEnrollForm__reward__item'>
-                                <p>공연장 R석 우선 배정권/사인CD 등등 어쩌구 저쩌구...</p>
-                                <p>50,500원</p>
-                            </div>
-                            <div>/</div>
-                            <div className='fundEnrollForm__reward__amount'>60</div>
-                            <div className='fundEnrollForm__reward__icon'>
-                                <PencilSquare size={30} />
-                            </div>
-                            <div className='fundEnrollForm__reward__icon'>
-                                <Trash3 size={30} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className='fundEnrollForm__reward'>
-                        <h4>R석 + 사인CD</h4>
-                        <div className='fundEnrollForm__reward__box'>
-                            <div className='fundEnrollForm__reward__item'>
-                                <p>공연장 R석 우선 배정권/사인CD 등등 어쩌구 저쩌구...</p>
-                                <p>50,500원</p>
-                            </div>
-                            <div>/</div>
-                            <div className='fundEnrollForm__reward__amount'>60</div>
-                            <div className='fundEnrollForm__reward__icon'>
-                                <PencilSquare size={30} />
-                            </div>
-                            <div className='fundEnrollForm__reward__icon'>
-                                <Trash3 size={30} />
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className='fundEnrollForm__reward__add__btn'> <PlusSquareFill size={30} /> </div>
+                    <div className='fundEnrollForm__reward__add__btn' onClick={() => setAddReward(true)}> <PlusSquareFill size={30} /> </div>
                 </div>
 
-                <div className='fundEnrollForm__reward__add__form'>
+                {addReward && <div className='fundEnrollForm__reward__add__form'>
                     <hr />
                     <h3>리워드 추가</h3>
                     <div className='addform__item'>
@@ -238,25 +231,42 @@ function FundEnrollForm({ nav, navRef }) {
                     <div className='addform__item'>
                         <p>리워드 제공 수량</p>
                         <div className='addform__item__btn__box'>
-                            <div className='addform__item__btn'>무제한</div>
-                            <div className='addform__item__btn'>제한</div>
+                            <div className={rewardForm.limitYn === 'N' ?
+                                'addform__item__btn__active' :
+                                'addform__item__btn__disabled'
+                            } onClick={()=>onClickRewardBtn(true, 'N')}>무제한</div>
+                            <div className={rewardForm.limitYn === 'Y' ?
+                                'addform__item__btn__active' :
+                                'addform__item__btn__disabled'
+                            } onClick={()=>onClickRewardBtn(true, 'Y')}>제한</div>
                             <FundInputBar width={"70px"}
                                 type={'number'}
                                 paddingLeft={"5px"}
                                 name={'limitAmount'}
                                 value={rewardForm.limitAmount}
                                 onChangeValue={onChangeRewardForm}
+                                disabled={rewardForm.limitYn === 'N'}
                             />
                         </div>
                     </div>
                     <div className='addform__item'>
                         <p>배송지 필요 여부</p>
                         <div className='addform__item__btn__box'>
-                            <div className='addform__item__btn'>필요 없음</div>
-                            <div className='addform__item__btn'>필요</div>
+                            <div className={rewardForm.deliveryYn === 'N' ?
+                                'addform__item__btn__active' :
+                                'addform__item__btn__disabled'
+                            } onClick={()=>onClickRewardBtn(false, 'N')}>필요 없음</div>
+                            <div className={rewardForm.deliveryYn === 'Y' ?
+                                'addform__item__btn__active' :
+                                'addform__item__btn__disabled'
+                            } onClick={()=>onClickRewardBtn(false, 'Y')}>필요</div>
                         </div>
                     </div>
-                </div>
+                    <div className='addform__submit'>
+                        <div className='addform__submit__btn'>취소</div>
+                        <div className='addform__submit__btn'>등록</div>
+                    </div>
+                </div>}
 
             </div>
             <div id={nav[3].id} ref={(e) => (navRef.current[3] = e)} className='fundEnrollForm__budgetForm form'>

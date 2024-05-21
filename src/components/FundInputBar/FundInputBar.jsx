@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import './FundInputBar.scss';
 
-function FundInputBar({width, type, paddingLeft, name, value, onChangeValue}) {
+function FundInputBar({width, type, paddingLeft, name, value, onChangeValue, disabled}) {
 
     const style = {
         width: width,
@@ -10,7 +10,11 @@ function FundInputBar({width, type, paddingLeft, name, value, onChangeValue}) {
 
     return (
         <div className="fund__input" style={style}>
-            <input type={type} name={name} value={value} onChange={(e)=>onChangeValue(e)}/>
+            <input type={type} 
+                    name={name} 
+                    value={value} 
+                    onChange={(e)=>onChangeValue(e)}
+                    disabled={disabled}/>
         </div>
     );
 }
