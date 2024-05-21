@@ -4,6 +4,7 @@ import './FreeBoardItem.scss';
 import { ViewCount } from '../../apis/board';
 import { useRecoilState } from 'recoil';
 import { boardPoint } from '../../recoil/boardPoint';
+import FundInputBar from '../FundInputBar';
 
 function FreeBoardItem(props) {
     const navigate = useNavigate();
@@ -50,6 +51,10 @@ function FreeBoardItem(props) {
                 </tbody>
             </table>
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
+            <div className='freeboarditem__input__area'>
+                <FundInputBar width={"40%"} onChangeValue={(e)=>{props.setKeyword(e.target.value)}}/>
+                <div className='freeboarditem__btn'><a onClick={()=>{props.list()}}>검색</a></div>
+            </div>
         </div>
     )
 } export default FreeBoardItem;

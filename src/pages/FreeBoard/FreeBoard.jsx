@@ -60,7 +60,7 @@ function FreeBoard() {
                         <div className='freeboard__category'>커뮤니티 &gt; {category}</div>
                         <div className='freeboard__btn'><a onClick={()=>{writerBtn()}}>글쓰기</a></div>
                     </div>
-                    <FreeBoardItem boardList={boardList} pageInfo={pageInfo} list={list}/>
+                    <FreeBoardItem setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
             </div>
         </div>

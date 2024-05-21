@@ -18,7 +18,7 @@ function BoardDetail() {
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [keyword, setKeyword] = useState("");
     const [boardList, setBoardList] = useState();
-    const param = useParams().id;
+    let param = useParams().id;
     const [boardItem, setBoardItem] = useState([]);
     const location = useLocation();
     const [category, setCategory] = useState();
