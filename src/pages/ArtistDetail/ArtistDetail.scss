@@ -1,10 +1,10 @@
 .artistDetail {
     .btn__area {
         margin: 15% 0% 0% 65%;
-       
+
         width: 400px;
         display: flex;
-        
+
 
         svg {
             color: rgba(0, 0, 0, 0.6);
@@ -26,78 +26,99 @@
             .btn1 {
                 margin-left: 10%;
             }
-            
+
         }
     }
-    .artist__container{
+
+    .artist__container {
         margin-top: 3%;
         display: flex;
         justify-content: center;
-       
-        
-        .artist__title{
+
+
+        .artist__title {
             background-color: #0C0C0C;
             height: 600px;
             width: 600px;
             font-size: 20px;
-            border-radius:7px 0px 0px 7px;
-            .title{
+            border-radius: 7px 0px 0px 7px;
+
+            .title {
                 margin-top: 15%;
                 text-align: center;
                 color: white;
             }
-            .artist__picture{
+
+            .artist__picture {
                 margin-top: 2%;
-                height: 300px;
+                height: 350px;
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                img{
-                    border-radius: 300px;
-                    height: 300px;
-                    width: 300px;
-                }   
+
+                img {
+                    border-radius: 100%;
+                    width: 380px;
+                    height: 380px;
+                }
             }
-            .artist__info{
-             color: white;
-             display: flex;
-             justify-content: space-around;
-             text-align: center;
-             margin-top: 5%;
+
+            .artist__info {
+                color: white;
+                display: flex;
+                justify-content: space-around;
+                text-align: center;
+                margin-top: 5%;
             }
         }
-        .artist__content{
-            border-radius:0px 7px 7px 0px;
+
+        .artist__content {
+            border-radius: 0px 7px 7px 0px;
             background-color: #0C0C0C;
             height: 600px;
             width: 600px;
-            .aritst__text{
+
+            .aritst__text {
                 color: white;
-                height: 90%;
+                height: 85%;
                 width: 100%;
-                span{
+
+                span {
                     text-align: center;
-                    ul{
+
+                    ul {
                         font-size: 20px;
                         list-style: none;
                         line-height: 400%;
                     }
-                    .text{
+
+                    .text {
                         font-size: 20px;
                     }
                 }
             }
-            .sns__btn__area{
+
+            .sns__btn__area {
                 display: flex;
                 justify-content: center;
-                .sns__btn{
+
+                .sns__btn {
                     margin: 0% 3% 0% 3%;
+
                     svg {
                         cursor: pointer;
                         color: rgba(250, 245, 245, 0.6);
+                    
                     }
                 }
             }
         }
+    }
+
+    .musicList {
+        display: flex;
+        justify-content: space-around;
+        margin:5% 0% 5% 0%;
+
     }
 }

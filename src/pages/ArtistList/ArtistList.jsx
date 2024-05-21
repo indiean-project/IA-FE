@@ -71,7 +71,7 @@ function ArtistList() {
                         </select> &nbsp;
                         <span>정렬</span>
                     </div>
-                    <div className='btnQ'><NavLink>아티스트 등록</NavLink></div>
+                    <div className='btnQ'><NavLink to={"/artist/enroll"}>아티스트 등록</NavLink></div>
                 </div>
                 <div className='artist__item__container'>
                     {artistList.length > 0 ?artistList.map((artist,idx)=>{

@@ -22,6 +22,7 @@ import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 import ArtistDetail from './pages/ArtistDetail'
 import ArtistList from './pages/ArtistList'
+import ArtistEnrollForm from './pages/ArtistEnrollForm'
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path:'/artist',
         element: <ArtistList/>
+      },
+      {
+        path:'/artist/enroll',
+        element: <ArtistEnrollForm/>
       }
     ],
   },
