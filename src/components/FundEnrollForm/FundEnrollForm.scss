@@ -31,10 +31,12 @@
         width: 95%;
 
         hr {
-            background-color: rgba(255, 255, 255, 0.26);
+            background-color: rgba(255, 255, 255, 0.26) !important;
+            height: 1px;
             margin: 0;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 10px !important;
+            border: none;
         }
     }
 
