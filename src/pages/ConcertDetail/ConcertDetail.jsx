@@ -81,8 +81,8 @@ function ConcertDetail() {
                 </div>
             </div>
             <div className='detail__content'>
-                <div className='detail__content__item'>
-                    {detailState === 'info' ? <ConcertInfo concertInfo={concert.concertInfo} /> : <CommonReply concertNo={concert.concertNo} boardUrl={boardUrl} />}
+                <div className='detail__content_item'>
+                    {detailState ==='info' ? <ConcertInfo/> : <CommonReply/>}
                 </div>
             </div>
         </div>
