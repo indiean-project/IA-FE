@@ -68,9 +68,9 @@ export const updateUser = async(params) => {
     }
 }
 
-export const userBoard = async(params) => {
+export const getUserBoard = async(userNo) => {
     try {
-        const {data} = await API.post("/api/user/myPage/board", params);
+        const {data} = await API.get("/api/user/myPage/board?userNo=" + userNo);
         return data;
     } catch(e) {
         console.log(e);

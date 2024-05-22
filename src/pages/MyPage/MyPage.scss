@@ -15,13 +15,48 @@
         display: grid;
         grid-template-columns: repeat(4, 25%);
         grid-template-rows: 50px 30px 350px 350px 40px;
-        grid-template-areas:
-            "headh2 headh2 headh2 headh2"
-            "myPage__divs myPage__divs myPage__divs myPage__divs"
-            "profile__img profile__img text__info text__info"
-            "profile__intro profile__intro favorite favorite"
-            "myPage__buttons myPage__buttons myPage__buttons myPage__buttons";
         color: white;
+
+        &.main {
+            grid-template-areas:
+                "headh2 headh2 headh2 headh2"
+                "myPage__divs myPage__divs myPage__divs myPage__divs"
+                "profile__img profile__img text__info text__info"
+                "profile__intro profile__intro favorite favorite"
+                "myPage__buttons myPage__buttons myPage__buttons myPage__buttons";
+        }
+        &.board {    
+            grid-template-areas:
+                "headh2 headh2 headh2 headh2"
+                "myPage__divs myPage__divs myPage__divs myPage__divs"
+                "board board board board"
+                "board board board board"
+                "board board board board"
+        }
+        &.reply {
+            grid-template-areas:
+                "headh2 headh2 headh2 headh2"
+                "myPage__divs myPage__divs myPage__divs myPage__divs"
+                "reply reply reply reply"
+                "reply reply reply reply"
+                "reply reply reply reply"
+        }
+        &.fund {
+            grid-template-areas:
+                "headh2 headh2 headh2 headh2"
+                "myPage__divs myPage__divs myPage__divs myPage__divs"
+                "fund fund fund fund"
+                "fund fund fund fund"
+                "fund fund fund fund"
+        }
+        &.report {
+            grid-template-areas:
+                "headh2 headh2 headh2 headh2"
+                "myPage__divs myPage__divs myPage__divs myPage__divs"
+                "report report report report"
+                "report report report report"
+                "report report report report"
+        }
 
         .headh2 {
             grid-area: headh2;
