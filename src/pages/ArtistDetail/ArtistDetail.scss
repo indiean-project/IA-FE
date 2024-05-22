@@ -77,25 +77,19 @@
             background-color: rgba(12, 12, 12, 0.63);
             height: 600px;
             width: 600px;
-
-            .aritst__text {
+            h2{
+                margin-top: 10%;
                 color: white;
-                height: 85%;
+                text-align: center;
+            }
+            .aritst__text {
+                padding: 5% 5% 0% 5%;
+                margin-top: 10%;
+                color: white;
+                height: 60%;
                 width: 100%;
 
-                span {
-                    text-align: center;
-
-                    ul {
-                        font-size: 20px;
-                        list-style: none;
-                        line-height: 400%;
-                    }
-
-                    .text {
-                        font-size: 20px;
-                    }
-                }
+                
             }
 
             .sns__btn__area {

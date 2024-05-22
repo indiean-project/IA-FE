@@ -76,7 +76,7 @@ function ArtistList() {
                 <div className='artist__item__container'>
                     {artistList.length > 0 ?artistList.map((artist,idx)=>{
                         return <ArtistItem artist={artist} key={idx}/>
-                        }):''
+                        }):'검색 결과가 없습니다.'
                     }
                 </div>
                 <div className='spinner__box'>

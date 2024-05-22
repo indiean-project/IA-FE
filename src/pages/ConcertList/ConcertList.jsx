@@ -28,7 +28,7 @@ function ConcertList() {
             sort: sort,
             keyword: keyword
         });
-
+        
         setConcertList(result.listDto)
         setPageInfo(result.pageinfo)
 
@@ -36,6 +36,7 @@ function ConcertList() {
     const calendar = async() => {
         
         const currentCalendar = await calendarList();
+        
         const eventList = currentCalendar.map((concert)=>{
             let date = new Date(concert.endDate)
             let endDate = new Date(date.setDate(date.getDate()+1)).toISOString().substring(0,10);
@@ -77,6 +78,7 @@ function ConcertList() {
                 <div className='btnQ'><NavLink>공연문의</NavLink></div>
             </div>
             <ConcertItem concertList={concertList}></ConcertItem>
+            {concertList.length < 1? <div className='zero'>검색 결과가 없습니다.</div>:""}
             <PaginationBar pageInfo={pageInfo} list={list}></PaginationBar>
             <div className='calendar__space'>
                 <FullCalendar

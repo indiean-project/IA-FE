@@ -1,5 +1,5 @@
 import './ArtistDetail.scss';
-import { artistItme } from '../../apis/artist/artist';
+import { artistItem } from '../../apis/artist/artist';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Share } from 'react-bootstrap-icons';
@@ -15,13 +15,23 @@ function ArtistDetail() {
 
     const [artist, setArtist] = useState();
     const concertItem = async () => {
-        const artistInfo = await artistItme(parama);
+        const artistInfo = await artistItem(parama);
         setArtist(artistInfo);
     }
     useEffect(() => {
         concertItem();
 
     }, [])
+
+    const snsMove = (link) =>{
+        if(link==='i'){
+            location.href=artist.instagramLink
+        }else{
+            location.href=artist.youtubeLink
+        }
+    }
+
+    if(artist != null)
 
 
     return (
@@ -37,33 +47,25 @@ function ArtistDetail() {
             </div>
             <div className='artist__container'>
                 <div className='artist__title'>
-                    <div className='title'>아티스트 이름</div>
+                    <div className='title'>{artist.artistName}</div>
                     <div className='artist__picture'>
                         <img src={test} />
                     </div>
                     <div className='artist__info'>
-                        <div className=''>데뷔<br />2016.10.16</div>
-                        <div className=''>장르<br />이런저런</div>
+                        <div className=''>데뷔<br />{artist.debutDate}</div>
+                        <div className=''>장르<br />{artist.musicCategory}</div>
                     </div>
                 </div>
                 <div className='artist__content'>
+                    <h2>아티스트 소개</h2>
                     <div className='aritst__text'>
-                        <span>
-                            <p>
-                                <ul>
-                                    <li><b>생일 : </b>1992.09.14</li>
-                                    <li><b>활동유형 : </b>솔로</li>
-                                    <li><b>소속사 : </b>KOZ 엔터테인먼트</li>
-                                </ul>
-                                <p className='text'>
-                                    소개글 작성하는곳이당
-                                </p>
-                            </p>
+                        <span dangerouslySetInnerHTML={{ __html: artist.artistInfo}}>
+                            
                         </span>
                     </div>
                     <div className='sns__btn__area'>
-                        <div className='sns__btn'><BsInstagram size={40} /></div>
-                        <div className='sns__btn'><BsYoutube size={40} /></div>
+                        {artist.instagramLink === undefined? <div className='sns__btn' onClick={()=>{snsMove('i')}}><BsInstagram size={40} /></div>:""}
+                        {artist.youtubeLink === undefined? <div className='sns__btn'onClick={()=>{snsMove('y')}}><BsYoutube size={40} /></div>:""}
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@ function ConcertDetail() {
                                 <div className='concertInfo'>{concert.location}</div>
                             </li>
                             <li>
-                                {console.log(concert)}
+                                
                                 <h2>공연기간</h2>
                                 <div className='concertInfo'>{concert.startDate}~{concert.endDate}</div>
                             </li>
