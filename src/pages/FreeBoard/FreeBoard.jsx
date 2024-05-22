@@ -29,6 +29,7 @@ function FreeBoard() {
             sort: sort,
             keyword: keyword
         });
+        console.log(list);
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
     }

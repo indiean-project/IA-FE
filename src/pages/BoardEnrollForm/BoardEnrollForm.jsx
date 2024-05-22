@@ -25,9 +25,23 @@ function BoardEnrollForm() {
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
-    useEffect(()=>{
+    useEffect(() => {
         const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
         setCategory(categoryState);
+        if (location.state.boardItem !== undefined) {
+            const item = location.state.boardItem;
+            setTitle(item.boardTitle);
+            setContent(item.boardContent);
+            location.state.boardCategory === "free" ? setCategory("FREE") :
+                location.state.boardCategory === "proud" ? setCategory("PROUD") :
+                    location.state.boardCategory === "colo" ? setCategory("COLO") : "";
+            if (location.state.boardCategory === "colo") {
+                setVoteInput("open");
+                setColoTitle1(item.colLeftTitle);
+                setColoTitle2(item.colRightTitle);
+            }
+        }
+        console.log(location.state);
     }, [location.state])
 
     const imageHandler = () => {
@@ -88,6 +102,7 @@ function BoardEnrollForm() {
         let coloResult;
         let result;
         let success;
+        let colstate;
 
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
@@ -114,22 +129,35 @@ function BoardEnrollForm() {
         }
         if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
 
-            result = await BoardEnroll({
+        result = await BoardEnroll(
+            location.state.boardItem !== undefined ? {
+                boardNo: location.state.boardItem.boardNo,
                 boardContent: content,
                 boardTitle: trimTitle,
                 contentTypeNo: category,
                 member: {
                     userNo: loginUser.userNo
                 }
-            });
-
-            result.data[1] === 'COLO' ? coloResult = await ColoEnroll({
-                colLeftTitle: coloTitle1,
-                colRightTitle: coloTitle2,
-                board: {
-                    boardNo: result.data[0]
+            } :
+                {
+                    boardContent: content,
+                    boardTitle: trimTitle,
+                    contentTypeNo: category,
+                    member: {
+                        userNo: loginUser.userNo
+                    }
                 }
-            }) : success = result.status;
+        );
+        console.log(result);
+        console.log(location.state.boardItem);
+
+        result.data[1] === 'COLO' && location.state.boardItem === undefined ? coloResult = await ColoEnroll({
+            colLeftTitle: coloTitle1,
+            colRightTitle: coloTitle2,
+            board: {
+                boardNo: result.data[0]
+            }
+        }) : result.data[1] === 'COLO' && location.state.boardItem !== undefined ? colstate = "SUCCESS" : success = result.status;
 
         if (imgResult.data.length > 0) {
             imgEnroll({
@@ -140,18 +168,20 @@ function BoardEnrollForm() {
 
         }
 
+        console.log(result);
+
         if (success === 'SUCCESS') {
             if (category === "FREE") {
                 setBoardCategory("free");
-                navigate("/board/detail/"+result.data[0]);
-            } else {
+                navigate("/board/detail/" + result.data[0]);
+            } else if (category === "PROUD") {
                 setBoardCategory("proud");
-                navigate("/board/detail/"+result.data[0]);
+                navigate("/board/detail/" + result.data[0]);
             }
-            toast.success('작성 완료');
-        } else if (coloResult.status === "SUCCESS") {
-            toast.success('작성 완료');
-            navigate("/board/colo", {state: {state: "SUCCESS"}});
+            location.state.boardItem !== undefined ? toast.success('수정 완료') : toast.success('작성 완료');
+        } else if ((coloResult !== undefined && coloResult.status === "SUCCESS") || colstate === "SUCCESS") {
+            location.state.boardItem !== undefined ? toast.success('수정 완료') : toast.success('작성 완료');
+            navigate("/board/colo", { state: { state: "SUCCESS" } });
         } else {
             toast.error('작성 실패');
         }
@@ -166,14 +196,14 @@ function BoardEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
-                    <select value={category} onChange={(e) => { setCategory(e.target.value) }}>
+                    <select value={category} onChange={(e) => { setCategory(e.target.value) }} disabled={location.state.boardItem !== undefined ? true : false}>
                         <option value="FREE">자유 게시판</option>
                         <option value="PROUD">아티스트 자랑하기</option>
                         <option value="COLO">콜로세움</option>
                     </select>
                 </div>
                 <div>
-                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} />
+                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} value={title} />
                 </div>
                 <div>
                     <ReactQuill
@@ -190,8 +220,11 @@ function BoardEnrollForm() {
                         <button onClick={enroll}>등록</button>
                     </div>
                     <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'displayNone'}>
-                        <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }} /></div>
-                        <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }} /></div>
+                        <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }}
+                            value={coloTitle1} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
+
+                        <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }}
+                            value={coloTitle2} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
                     </div>
                 </div>
             </div>

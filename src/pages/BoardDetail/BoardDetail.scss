@@ -3,6 +3,7 @@
     height: 100%;
     margin: 10%;
     color: white;
+
     .boardDetail__box {
         display: flex;
         justify-content: space-between;
@@ -10,13 +11,29 @@
         padding-top: 3%;
         padding-left: 5%;
         margin-right: 3%;
+
         .boardDetail__item {
             display: flex;
+            cursor: pointer;
+
             div {
                 margin-right: 20px;
             }
+
+            svg {
+                vertical-align: middle;
+            }
+
+            .boardDetail__user__at {
+                color: red;
+            }
+
+            .boardDetail__user__ad {
+                color: purple;
+            }
         }
     }
+
     .boardDetail__hr {
         text-align: left;
         margin-left: 0;
@@ -25,26 +42,31 @@
         height: 1px;
         border: none;
     }
+
     .boardDetaill__title {
         margin-top: 5%;
         margin-left: 5%;
+
         label {
             font-size: 30px;
         }
+
         p {
             margin-top: 7%;
         }
     }
+
     .boardDetail__like__area {
         display: flex;
         justify-content: center;
         margin-bottom: 5%;
+
         .boardDetail__like {
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-    
+
             margin-top: 5%;
             width: 70px;
             height: 40px;
@@ -53,22 +75,50 @@
             color: black;
             font-weight: 700;
             text-shadow: 0px 0px 12.3px #E3651D;
-    
+
             div {
                 margin-right: 5%;
                 margin-left: 5%;
                 margin-top: 4px;
             }
-    
+
             svg {
                 font-size: 22px;
             }
         }
     }
+
     .boardDetail__list {
         display: flex;
         justify-content: center;
         width: 100%;
         padding-left: 4%;
+    }
+}
+
+.boardDetail__modal {
+    color: white;
+    margin-top: 2%;
+    .boardDetail__modal__buttom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div {
+            background: #444444;
+            border-radius: 7px;
+            width: 120px;
+            height: 40px;
+            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+            align-content: center;
+            transition-duration: 0.2s;
+            margin-bottom: 1%;
+            margin: 5%;
+            cursor: pointer;
+        }
+
+        div:hover {
+            box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
+            transition-duration: 0.2s;
+        }
     }
 }

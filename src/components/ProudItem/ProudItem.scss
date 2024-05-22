@@ -38,6 +38,15 @@
                     .proudItem__nickName {
                         padding-left: 5%;
                         margin-bottom: 3%;
+                        svg {
+                            vertical-align: middle;
+                        }
+                        .proudBoard__user__at {
+                            color: red;
+                        }
+                        .proudBoard__user__ad {
+                            color: purple;
+                        }
                     }
                     .proudItem__item2 {
                         display: flex;

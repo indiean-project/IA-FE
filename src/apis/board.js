@@ -44,3 +44,21 @@ export const BoardAmount = async(params) => {
         console.log(e);
     }
 }
+
+export const BoardDelete = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/delete", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const BoardSideBar = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/side/list", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
