@@ -1,5 +1,6 @@
 import Bootpay from "@bootpay/client-js";
 import { API } from "../../core"
+import { Navigate } from "react-router-dom";
 
 export const selectAllFund = async (params) => {
     try {
@@ -25,6 +26,7 @@ export const selectFundDetail = async (param) => {
         return data;
     } catch (e) {
         console.log(e);
+        
     }
 }
 
