@@ -17,3 +17,30 @@ export const ColoEnroll = async(params) => {
         console.log(e);
     }
 }
+
+export const ViewCount = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/viewCount", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const LikeCount = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/likeCount", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const BoardAmount = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/amount", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}

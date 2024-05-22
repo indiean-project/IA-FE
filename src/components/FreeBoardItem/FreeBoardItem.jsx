@@ -1,16 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import PaginationBar from '../PaginationBar';
 import './FreeBoardItem.scss';
+import { ViewCount } from '../../apis/board';
+import { useRecoilState } from 'recoil';
+import { boardPoint } from '../../recoil/boardPoint';
+import FundInputBar from '../FundInputBar';
 
 function FreeBoardItem(props) {
     const navigate = useNavigate();
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     if(!props.boardList) {
         return <></>
     }
 
+    function clickItem(item) {
+        const boardNo = item.boardNo;
+        ViewCount(boardNo);
+        setBoardCategory("free");
+        navigate("/board/detail/"+item.boardNo);
+    }
+
     return (
-        <>
+        <div className='freeboarditem__container'>
             <hr />
             <table className='freeboarditem__table'>
                 <thead>
@@ -26,7 +38,7 @@ function FreeBoardItem(props) {
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={() => navigate("/board/detail?boardNo="+item.boardNo, {state: {list: props.boardList, item: item, pageInfo: props.pageInfo}})}>
+                            <tr key={index} onClick={()=>clickItem(item)}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
                                 <td>{item.nickname}</td>
@@ -39,6 +51,10 @@ function FreeBoardItem(props) {
                 </tbody>
             </table>
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
-        </>
+            <div className='freeboarditem__input__area'>
+                <FundInputBar width={"40%"} onChangeValue={(e)=>{props.setKeyword(e.target.value)}}/>
+                <div className='freeboarditem__btn'><a onClick={()=>{props.list()}}>검색</a></div>
+            </div>
+        </div>
     )
 } export default FreeBoardItem;

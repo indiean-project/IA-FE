@@ -7,6 +7,7 @@
         width: 100%;
         position: sticky;
         padding-top: 30%;
+        margin-bottom: 100px;
         .boardSidebar__label {
             
             label {
@@ -57,7 +58,10 @@
                 padding-bottom: 10px;
                 font-size: 13px;
             }
-
+            a {
+                text-decoration: none;
+                color: white;
+            }
         }
     }
 }

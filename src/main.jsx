@@ -22,6 +22,8 @@ import BoardEnrollForm from './pages/BoardEnrollForm/BoardEnrollForm.jsx'
 import ColoBoard from './pages/ColoBoard/ColoBoard.jsx'
 import ArtistDetail from './pages/ArtistDetail'
 import BoardDetail from './pages/BoardDetail/BoardDetail.jsx'
+import FundEnroll from './pages/FundEnroll/FundEnroll.jsx'
+import ProudBoard from './pages/ProudBoard/ProudBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/funding/detail/:id',
         element: <FundDetail/>
+      },
+      {
+        path: 'funding/enroll',
+        element: <FundEnroll/>
       },
       {
         path: '/concert/detail',
@@ -98,8 +104,12 @@ const router = createBrowserRouter([
         element: <ArtistDetail/>
       },
       {
-        path: 'board/detail',
+        path: 'board/detail/:id',
         element: <BoardDetail/>
+      },
+      {
+        path: 'board/proud',
+        element: <ProudBoard/>
       }
     ],
   },
