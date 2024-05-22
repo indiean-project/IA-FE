@@ -67,6 +67,17 @@ export const updateUser = async(params) => {
         return e;
     }
 }
+
+export const userBoard = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/myPage/board", params);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
 // 임시로 이미지 관련 주소 바꾸어서 이용함
 export const tempImg = async(params) => {
     try {

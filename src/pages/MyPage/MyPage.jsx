@@ -15,22 +15,6 @@ function MyPage() {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const [profilePage, setProfilePage] = useState('main');
 
-    const profileLoad = () => {
-        switch (profilePage) {
-            case 'main':
-                break;
-            case 'board':
-                break;
-            case 'reply':
-                break;
-            case 'fund':
-                break;
-            case 'report':
-                break;
-            default:
-                break;
-        }
-    };
     return (
         <>
             <div className="myPage__container">

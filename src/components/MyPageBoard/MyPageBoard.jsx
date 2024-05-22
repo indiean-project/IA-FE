@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
@@ -12,6 +13,7 @@ function MyPageBoard(props) {
     
     const navigate = useNavigate();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const [boardList, setBoardList] = useState ([]);
 
     if(!props.boardList) {
         return <></>
