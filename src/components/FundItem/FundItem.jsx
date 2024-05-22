@@ -14,7 +14,7 @@ function FundItem({ item }) {
     };
 
     const onClickFundItem = ()=>{
-        navigate('detail/'+fundNo, {state: {value: day}});
+        navigate('/funding/detail/'+fundNo, {state: {value: day}});
     }
 
     useEffect(() => {
