@@ -113,6 +113,10 @@ const router = createBrowserRouter([
       }
     ],
   },
+  {
+    path: '/error',
+    element: <ErrorPage/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
