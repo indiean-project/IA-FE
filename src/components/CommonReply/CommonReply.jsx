@@ -3,6 +3,7 @@ import './CommonReply.scss';
 import Reply from '../Reply'
 import { useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser'; 
+import toast from 'react-hot-toast';
 
 function CommonReply(){
     const inputRef = useRef(null);
@@ -15,6 +16,10 @@ function CommonReply(){
           inputRef.current.readOnly=true;
         }
       }, [])
+      const clickOn = () =>{
+        loginUser.userId ===""?toast.error("로그인해주세요"):null
+
+      }
     
     
     return(

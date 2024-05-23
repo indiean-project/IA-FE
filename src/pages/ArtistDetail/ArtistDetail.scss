@@ -1,0 +1,118 @@
+.artistDetail {
+    .btn__area {
+        margin: 15% 0% 0% 65%;
+
+        width: 400px;
+        display: flex;
+
+
+        svg {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        div {
+            margin: 2%;
+            height: 40px;
+            width: 100%;
+            background: rgba(205, 205, 205, 1);
+            border-radius: 7px;
+            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+
+            .btn1 {
+                margin-left: 10%;
+            }
+
+        }
+    }
+
+    .artist__container {
+        margin-top: 3%;
+        display: flex;
+        justify-content: center;
+
+
+        .artist__title {
+            background-color: rgba(12, 12, 12, 0.63);
+            height: 600px;
+            width: 600px;
+            font-size: 20px;
+            border-radius: 7px 0px 0px 7px;
+
+            .title {
+                margin-top: 15%;
+                text-align: center;
+                color: white;
+            }
+
+            .artist__picture {
+                margin-top: 2%;
+                height: 350px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+
+                img {
+                    border-radius: 100%;
+                    width: 380px;
+                    height: 380px;
+                }
+            }
+
+            .artist__info {
+                color: white;
+                display: flex;
+                justify-content: space-around;
+                text-align: center;
+                margin-top: 5%;
+            }
+        }
+
+        .artist__content {
+            border-radius: 0px 7px 7px 0px;
+            background-color: rgba(12, 12, 12, 0.63);
+            height: 600px;
+            width: 600px;
+            h2{
+                margin-top: 10%;
+                color: white;
+                text-align: center;
+            }
+            .aritst__text {
+                padding: 5% 5% 0% 5%;
+                margin-top: 10%;
+                color: white;
+                height: 60%;
+                width: 100%;
+
+                
+            }
+
+            .sns__btn__area {
+                display: flex;
+                justify-content: center;
+
+                .sns__btn {
+                    margin: 0% 3% 0% 3%;
+
+                    svg {
+                        cursor: pointer;
+                        color: rgba(250, 245, 245, 0.6);
+                    
+                    }
+                }
+            }
+        }
+    }
+
+    .musicList {
+        display: flex;
+        justify-content: space-around;
+        margin:5% 0% 5% 0%;
+
+    }
+}

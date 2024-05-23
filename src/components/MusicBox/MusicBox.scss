@@ -1,0 +1,36 @@
+.music__box {
+    margin: 0% 1% 0% 1%;
+    background-color: rgba(12, 12, 12, 0.63);
+    height: 550px;
+    width: 480px;
+    border-radius: 7px;
+    .album__picture{
+        border-radius: 7px 7px 0px 0px;
+        
+        width: 100%;
+        height: 60%;
+        img{
+            border-radius: 7px 7px 0px 0px;
+            width: 100%;
+            height: 100%;
+        }
+        
+
+    }
+    .album__info{
+        margin: 5% 0% 0% 2%;
+        color: white;
+        line-height: 200%;
+        .track__info{
+            font-size: 25px;
+        }
+        .track__text{
+            font-size: 18px;
+        }
+        .audio__area{
+            display: flex;
+            justify-content: center;
+        }
+
+    }
+}

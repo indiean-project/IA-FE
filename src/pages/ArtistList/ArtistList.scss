@@ -1,7 +1,5 @@
-.concert__list{
+.artist__list__container{
     padding-bottom: 60px;
-
-
     .title{
         display: flex;
         justify-content: space-between;
@@ -12,10 +10,7 @@
         margin-left: 130px;
         margin-bottom: 30px;
         margin-top: 50px;
-        
-        
-       
-        .concert__search{
+        .artist__search{
             width: 300px;
             height: 40px;
             background-color: #cccccc;
@@ -43,7 +38,7 @@
         .btnQ{
             background: #444444;
             border-radius: 7px;
-            width: 120px;
+            width: 140px;
             height: 40px;
             box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
             display: flex;
@@ -69,23 +64,23 @@
         }  
         
     }
-    .calendar__space{
+    .artist__item__container{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin: 5% 1% 0% 2%;
+        row-gap: 30px;
+        column-gap: 30px;
+        
+    }
+    .spinner__box{
         display: flex;
         justify-content: center;
-        margin-top: 70px;
-        .fc{
-            min-width: 500px;
-            min-height: 300px;
-            width: 50%;
-            height: 500px;
+        .spinner{
+            
+            margin-top: 100px;
+            font-size: 30px;
             color: white;
         }
-        .fc-view-harness{
-            background-color: #444444 /* 달력의 전체 배경색을 회색으로 변경 */
-          }
-        .fc-button-group{display: none;}
-        
-        .fc-toolbar-chunk:nth-child(3){display: none;}
     }
-   
+
 }

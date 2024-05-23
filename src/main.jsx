@@ -24,6 +24,8 @@ import ArtistDetail from './pages/ArtistDetail'
 import BoardDetail from './pages/BoardDetail/BoardDetail.jsx'
 import FundEnroll from './pages/FundEnroll/FundEnroll.jsx'
 import ProudBoard from './pages/ProudBoard/ProudBoard.jsx'
+import ArtistList from './pages/ArtistList'
+import ArtistEnrollForm from './pages/ArtistEnrollForm'
 import UrlInterceptor from './core/UrlInterceptor.jsx'
 
 const router = createBrowserRouter([
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         element: <UrlInterceptor page={'login'}><MyPage/></UrlInterceptor>
       },
       {
-        path: '/concert',
+        path: '/concert/',
         element: <ConcertList/>
       },
       {
@@ -65,7 +67,7 @@ const router = createBrowserRouter([
         element: <UrlInterceptor page={'badAccess'}><FundEnroll/></UrlInterceptor>
       },
       {
-        path: '/concert/detail',
+        path: '/concert/detail/:id',
         element: <ConcertDetail/>
       },
       {
@@ -101,7 +103,7 @@ const router = createBrowserRouter([
         element: <ColoBoard/>
       },
       {
-        path:'/artist/detail',
+        path:'/artist/detail/:id',
         element: <ArtistDetail/>
       },
       {
@@ -111,6 +113,14 @@ const router = createBrowserRouter([
       {
         path: 'board/proud',
         element: <ProudBoard/>
+      },
+      {
+        path:'/artist',
+        element: <ArtistList/>
+      },
+      {
+        path:'/artist/enroll',
+        element: <ArtistEnrollForm/>
       }
     ],
   },
