@@ -23,7 +23,6 @@ function PaginationBar({pageInfo,list}) {
         return page;
     }
     useEffect(()=>{
-      
         list()
     },[currentPage])
 

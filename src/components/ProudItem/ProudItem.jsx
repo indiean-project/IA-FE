@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardPoint } from "../../recoil/boardPoint";
 import { ViewCount } from "../../apis/board";
+import { IoPrism } from "react-icons/io5";
 
 function ProudItem(props) {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ function ProudItem(props) {
                                         <label htmlFor="">{item.boardTitle}<span>[{item.replies}]</span></label>
                                     </div>
                                     <div className="proudItem__nickName">
-                                        {item.nickname}
+                                        {item.nickname}{item.userRole === '2' ? <IoPrism/> : item.userRole === '3' ? <IoPrism className="proudBoard__user__at"/> : boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad"/> : ""}
                                     </div>
                                     <div className="proudItem__item2">
                                         <div><MdOutlineRemoveRedEye/> {item.viewCount}</div>

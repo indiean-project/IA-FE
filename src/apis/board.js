@@ -44,3 +44,48 @@ export const BoardAmount = async(params) => {
         console.log(e);
     }
 }
+
+export const BoardDelete = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/delete", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const BoardSideBar = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/side/list", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const DetailBoard = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/detail", params.boardNo);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const ColoVote = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/colo/vote", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const SelectVote = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/colo/selectVote", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
