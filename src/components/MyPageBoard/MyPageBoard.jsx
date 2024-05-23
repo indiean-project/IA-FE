@@ -13,6 +13,7 @@ function MyPageBoard({ boardList }) {
 
     const navigate = useNavigate();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    // 카테고리 관련 정리 필요 (전부 자유게시판 양식으로 띄우고 있음)
 
     if (!boardList) {
         return <></>

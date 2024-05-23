@@ -78,6 +78,27 @@ export const getUserBoard = async(userNo) => {
     }
 }
 
+export const getUserFund = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/fund?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserRewardLog = async(userNo, fundNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/fund/reward?userNo=" + userNo
+                                        + "&fundNo=" + fundNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
 // 임시로 이미지 관련 주소 바꾸어서 이용함
 export const tempImg = async(params) => {
     try {

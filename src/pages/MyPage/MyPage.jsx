@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
-import { getUserBoard } from '../../apis/user';
+import { getUserBoard, getUserFund } from '../../apis/user';
 import MyPageDiv from '../../components/MyPageDiv';
 import MyPageProfile from '../../components/MyPageProfile';
 import MyPageBoard from '../../components/MyPageBoard';
@@ -13,9 +13,10 @@ import MyPageReport from '../../components/MyPageReport';
 import './MyPage.scss'
 
 function MyPage() {
-    const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+    const loginUser = useRecoilValue(loginUserState);
     const [profilePage, setProfilePage] = useState('main');
     const [boardList, setBoardList] = useState([]);
+    const [fundList, setFundList] = useState([]);
 
     useEffect(() => {
         const fetchUserBoard = async () => {
@@ -31,6 +32,20 @@ function MyPage() {
         fetchUserBoard();
     }, [loginUser.userNo]);
 
+    useEffect(() => {
+        const fetchUserFund = async () => {
+            try {
+                const fund = await getUserFund(loginUser.userNo);
+                console.log(fund);
+                setFundList(fund.data);
+            } catch (error) {
+                console.error("Failed to fetch user boards", error);
+            } 
+        };
+
+        fetchUserFund();
+    }, [loginUser.userNo]);
+
     return (
         <>
             <div className="myPage__container">
@@ -40,7 +55,7 @@ function MyPage() {
                     {profilePage === 'main' && <MyPageProfile />}
                     {profilePage === 'board' && <MyPageBoard boardList={boardList} />}
                     {profilePage === 'reply' && <MyPageReply />}
-                    {profilePage === 'fund' && <MyPageFund />}
+                    {profilePage === 'fund' && <MyPageFund fundList={fundList} />}
                     {profilePage === 'report' && <MyPageReport />}
                 </div>
             </div>
