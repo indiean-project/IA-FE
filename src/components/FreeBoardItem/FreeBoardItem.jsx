@@ -44,7 +44,7 @@ function FreeBoardItem(props) {
                             <tr key={index} onClick={()=>clickItem(item)}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                <td>{item.nickname}{item.userRole === '2' ? <IoPrism/> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at"/> : boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad"/> : ""}</td>
+                                <td>{item.nickname}{item.userRole === '2' ? <IoPrism/> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at"/> : item.userRole === '1' ? <IoPrism className="boardDetail__user__ad"/> : ""}</td>
                                 <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
                                 <td>{item.viewCount}</td>
                                 <td>{item.likeCount}</td>
