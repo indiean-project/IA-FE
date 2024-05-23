@@ -57,13 +57,17 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
         const result = await sendEmail({
             userId: storageId
         })
+        
         console.log(result);
-        setSendCode(result);
+
         if(result !== undefined) {
             toast.success('인증번호가 전송되었습니다.');    
         } else {
             toast.error('인증번호 전송에 실패했습니다.')
         }
+
+        setSendCode(result);
+
     }
 
     const confirmCertNum = (certNum) => {

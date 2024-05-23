@@ -1,10 +1,10 @@
-import { API } from "../core"
+import { API, imgAPI } from "../core"
 
 export const loginUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/login", params);
         return data;
-    } catch (e){
+    } catch (e) {
         console.log(e);
     }
 }
@@ -13,7 +13,7 @@ export const signUpUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp", params);
         return data;
-    } catch (e){
+    } catch (e) {
         console.log(e);
     }
 }
@@ -22,7 +22,7 @@ export const checkUserId = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp/checkId", params);
         return data;
-    } catch (e){
+    } catch (e) {
         console.log(e);
         return e;
     }
@@ -32,7 +32,7 @@ export const checkUserPwd = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp/checkPwd", params);
         return data;
-    } catch (e){
+    } catch (e) {
         console.log(e);
         return e;
     }
@@ -62,8 +62,46 @@ export const updateUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/myPage/update", params);
         return data;
-    } catch (e){
+    } catch (e) {
         console.log(e);
         return e;
+    }
+}
+
+export const userBoard = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/myPage/board", params);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+// 임시로 이미지 관련 주소 바꾸어서 이용함
+export const tempImg = async(params) => {
+    try {
+        const {data} = await imgAPI.post("/api/user/tempImg", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const imgDelete = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/imgDelete", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const imgMove = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/imgMove", params);
+        return data;
+    } catch (e) {
+        console.log(e);
     }
 }

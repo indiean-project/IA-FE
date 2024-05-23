@@ -13,6 +13,7 @@ export const loginUserState = atom({
     key: KEY,
     default: {
         userNo: '',
+        userRole: '',
         userId: '',
         userPwd: '',
         userName: '',
