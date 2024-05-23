@@ -11,8 +11,8 @@ function App() {
     <RecoilRoot>
       <ErrorInterceptor/>
       <img src={drum} id="background__drum"/>
-      <Layout/>
       <Toaster/>
+      <Layout/>
     </RecoilRoot>
   )
 }
