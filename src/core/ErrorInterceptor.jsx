@@ -17,7 +17,7 @@ function ErrorInterceptor() {
                         break;
                     case 'artist-001':
                         navigate.current('/error');
-                        break;
+                        break;                        
                 }
                 return Promise.reject(error);
             }

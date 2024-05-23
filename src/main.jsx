@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: <UrlInterceptor page={'login'}><MyPage/></UrlInterceptor>
       },
       {
-        path: '/concert/',
+        path: '/concert',
         element: <ConcertList/>
       },
       {
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         element: <FundDetail/>
       },
       {
-        path: 'funding/enroll',
+        path: '/funding/enroll',
         element: <UrlInterceptor page={'badAccess'}><FundEnroll/></UrlInterceptor>
       },
       {
