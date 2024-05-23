@@ -17,7 +17,10 @@ function ErrorInterceptor() {
                         break;
                     case 'artist-001':
                         navigate.current('/error');
-                        break;                        
+                        break;
+                    case 'concert-001':
+                        navigate.current('/error');
+                        break;
                 }
                 return Promise.reject(error);
             }

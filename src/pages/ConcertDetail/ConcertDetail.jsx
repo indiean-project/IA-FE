@@ -7,6 +7,7 @@ import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
 import { selectConcert } from '../../apis/concert/concertDetail';
 import { Share } from 'react-bootstrap-icons';
+import toast from 'react-hot-toast';
 
 function ConcertDetail() {
     const boardUrl = "concert";
@@ -20,7 +21,16 @@ function ConcertDetail() {
         setConcert(concertInfo)
 
     }
-    
+    const handleCopyClipBoard = async () => {
+
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            toast.success('클립보드에 복사되었습니다.!');
+        } catch (error) {
+            toast.error('클립보드에 복사실패.!');
+        }
+    };
+
 
     useEffect(() => {
 
@@ -50,7 +60,7 @@ function ConcertDetail() {
                                 <div className='concertInfo'>{concert.location}</div>
                             </li>
                             <li>
-                                
+
                                 <h2>공연기간</h2>
                                 <div className='concertInfo'>{concert.startDate}~{concert.endDate}</div>
                             </li>
@@ -74,14 +84,14 @@ function ConcertDetail() {
             <div className='concert__lineupTilte'>
                 <h2>LINE UP</h2>
                 <div className='btn__area'>
-                    <div>
+                    <div onClick={handleCopyClipBoard}>
                         <Share size={20} />
-                        <span className='btn1'>공유하기</span>
+                        <span className='share__btn'>공유하기</span>
                     </div>
                 </div>
             </div>
             <div className='line__up'>
-            { lineup !== undefined ? lineup.map((artist,idx) => {return<ArtistLineUp artist={artist} key={idx}/>}):""}
+                {lineup !== undefined ? lineup.map((artist, idx) => { return <ArtistLineUp artist={artist} key={idx} /> }) : ""}
             </div>
             <div className='concert__content__top'>
                 <div>
