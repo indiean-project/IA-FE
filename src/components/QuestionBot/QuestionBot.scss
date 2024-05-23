@@ -1,0 +1,13 @@
+.chatbot__container {
+    position: fixed;
+    display: none;
+    right: 10%; bottom: 18%;
+    width: 300px; 
+    height: 50%;
+    min-height: 300px; 
+    max-height: 500px;
+    background-color: gray;
+    cursor:pointer;
+    
+}
+.chatbot__container.operate { display: block; }
