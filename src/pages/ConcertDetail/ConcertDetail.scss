@@ -1,15 +1,18 @@
-.concertDetail__container{
+.concertDetail__container {
     margin-top: 13%;
     padding-bottom: 60px;
-    .concertDetail__top{
-       display: flex;
-       justify-content: space-around;
-       margin:0% 5% 0% 5%;
-        .concertDetail__title{
+
+    .concertDetail__top {
+        display: flex;
+        justify-content: space-around;
+        margin: 0% 5% 0% 5%;
+
+        .concertDetail__title {
             color: white;
             font-size: 30px
         }
-        .btn{
+
+        .btn {
             margin-top: 4%;
             background: #E3651D;
             border-radius: 7px;
@@ -20,67 +23,75 @@
             align-items: center;
             transition-duration: 0.2s;
         }
-        a{
+
+        a {
             text-decoration: none;
-                background-color: rgba(0, 0, 0, 0);
-                border-color: rgba(0, 0, 0, 0);
-                font-size: 20px;
-                font-weight: 400;
-                text-align: center;
-                color: #CECECE;
-                width: 100%;
-                padding-top: 3px;
+            background-color: rgba(0, 0, 0, 0);
+            border-color: rgba(0, 0, 0, 0);
+            font-size: 20px;
+            font-weight: 400;
+            text-align: center;
+            color: #CECECE;
+            width: 100%;
+            padding-top: 3px;
         }
-        .btn:hover{
+
+        .btn:hover {
             box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
             transition-duration: 0.2s;
-        }  
+        }
     }
-    .concertDetail__itemBox{
+
+    .concertDetail__itemBox {
         margin-top: 50px;
         display: flex;
         justify-content: center;
-        .concertDetail__item{
+
+        .concertDetail__item {
             display: flex;
-            justify-content:space-around;
-            
+            justify-content: space-around;
+
             background-color: rgba(12, 12, 12, 0.63);
             width: 1200px;
             height: 600px;
             border-radius: 5px;
-            .concertDetail__poster{
-                width:600px;
-                height:100%;
-                img{
-                    width:600px;
-                    height:100%;
+
+            .concertDetail__poster {
+                width: 600px;
+                height: 100%;
+
+                img {
+                    width: 600px;
+                    height: 100%;
                     border-radius: 7px 0px 0px 7px;
                 }
             }
-            .concertDetail__content{
+
+            .concertDetail__content {
                 color: white;
                 width: 600px;
                 height: 100%;
                 line-height: 230%;
                 text-align: center;
-                
-                ul{
+
+                ul {
                     list-style-type: none;
                     font-weight: normal;
-                    
-                    .concertInfo{
+
+                    .concertInfo {
                         font-size: 20px;
                         color: #999;
                     }
-                   
+
                 }
-                
-                .ticketlink{
+
+                .ticketlink {
                     display: flex;
                     justify-content: center;
                     margin-top: 50px;
                 }
-                .btn{      
+
+                .btn {
                     background: #E3651D;
                     border-radius: 7px;
                     width: 100px;
@@ -89,44 +100,49 @@
                     display: flex;
                     align-items: center;
                     transition-duration: 0.2s;
-                    a{
+
+                    a {
                         text-decoration: none;
-                            background-color: rgba(0, 0, 0, 0);
-                            border-color: rgba(0, 0, 0, 0);
-                            font-size: 15px;
-                            font-weight: 400;
-                            text-align: center;
-                            color: #CECECE;
-                            width: 100%;
-                            padding-top: 3px;
+                        background-color: rgba(0, 0, 0, 0);
+                        border-color: rgba(0, 0, 0, 0);
+                        font-size: 15px;
+                        font-weight: 400;
+                        text-align: center;
+                        color: #CECECE;
+                        width: 100%;
+                        padding-top: 3px;
                     }
                 }
-                .btn:hover{
+
+                .btn:hover {
                     box-shadow: 0px 0px 13.6px rgba(201, 196, 195, 0.25);
                     transition-duration: 0.2s;
                 }
-            } 
+            }
         }
     }
-    .concert__lineupTilte{
+
+    .concert__lineupTilte {
         display: flex;
         justify-content: space-between;
-        margin:3% 15% 2% 15%;
-        h2{
+        margin: 3% 15% 2% 15%;
+
+        h2 {
             color: white;
-            
+
         }
+
         .btn__area {
-           
-    
+
+
             width: 200px;
             display: flex;
-    
-    
+
+
             svg {
                 color: rgba(0, 0, 0, 0.6);
             }
-    
+
             div {
                 margin: 2%;
                 height: 40px;
@@ -139,22 +155,28 @@
                 justify-content: center;
                 color: rgba(0, 0, 0, 0.6);
                 cursor: pointer;
-    
+
                 .btn1 {
                     margin-left: 10%;
                 }
-    
+
             }
         }
     }
-   
-        
-   .concert__content__top{
-        margin-top: 5% ;
+
+    .line__up {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .concert__content__top {
+        margin-top: 5%;
         color: white;
         font-size: 20px;
         padding-left: 20%;
-        span{
+
+        span {
             margin: 0% 0% 0% 5%;
             text-align: center;
             cursor: pointer;
@@ -162,15 +184,18 @@
             width: 100px;
             font-size: 25px;
         }
-        .state__on{
+
+        .state__on {
             border-bottom: 2px solid #E3651D;
         }
-   }
-   .detail__content{
+    }
+
+    .detail__content {
         display: flex;
         justify-content: center;
-        .detail__content__item{
+
+        .detail__content__item {
             width: 100%;
         }
-   }
+    }
 }

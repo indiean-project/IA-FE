@@ -20,7 +20,7 @@ function ConcertDetail() {
         setConcert(concertInfo)
 
     }
-
+    
 
     useEffect(() => {
 
@@ -80,7 +80,9 @@ function ConcertDetail() {
                     </div>
                 </div>
             </div>
-            <ArtistLineUp lineup={lineup} />
+            <div className='line__up'>
+            { lineup !== undefined ? lineup.map((artist,idx) => {return<ArtistLineUp artist={artist} key={idx}/>}):""}
+            </div>
             <div className='concert__content__top'>
                 <div>
                     <span className={`${detailState === 'info' ? 'state__on' : ''}`} onClick={() => { setDetailState('info') }}>공연정보</span>

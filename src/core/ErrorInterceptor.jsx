@@ -15,6 +15,9 @@ function ErrorInterceptor() {
                     case 'fund-001':
                         navigate.current('/error');
                         break;
+                    case 'artist-001':
+                        navigate.current('/error');
+                        break;
                 }
                 return Promise.reject(error);
             }
