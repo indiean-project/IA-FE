@@ -45,7 +45,7 @@ function ArtistEnrollForm() {
         const result = await artistEnroll(artistFrom);
         const newImgUrl = await imgMove(bossImg)
         if (newImgUrl!= undefined&&newImgUrl.data.length > 0) {
-            imgEnrollResult = await imgEnroll({
+            await imgEnroll({
                 contentNo:  result.data,
                 imgUrlList: newImgUrl.data,
                 fabcTypeEnum: "ARTIST",
