@@ -71,3 +71,21 @@ export const DetailBoard = async(params) => {
         console.log(e);
     }
 }
+
+export const ColoVote = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/colo/vote", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const SelectVote = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/colo/selectVote", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}

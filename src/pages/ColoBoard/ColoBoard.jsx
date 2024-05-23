@@ -10,7 +10,7 @@ import { pageMove } from "../../apis/pagination";
 import { useRecoilState } from "recoil";
 import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
-import { BoardDelete, LikeCount } from "../../apis/board";
+import { BoardDelete, ColoVote, LikeCount, SelectVote } from "../../apis/board";
 import DOMPurify from "dompurify";
 import { loginUserState } from "../../recoil/LoginUser";
 import toast from "react-hot-toast";
@@ -33,6 +33,8 @@ function ColoBoard() {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const [modal, setModal] = useRecoilState(isModalActive);
     const [boardNo, setBoardNo] = useState();
+    const [coloState, setColoState] = useState([]);
+    const [rlType, setRlType] = useState([]);
 
     async function list() {
         const list = await pageMove({
@@ -41,7 +43,6 @@ function ColoBoard() {
             sort: sort,
             keyword: keyword
         });
-        console.log(list)
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
         replyBtn.length === 0 ? setReplyBtn(new Array(list.listDto.length).fill('close')) : ""
@@ -50,6 +51,7 @@ function ColoBoard() {
     useEffect(() => {
         location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
+        selVote();
     }, [likeState])
 
     function toggleReplyBtn(index) {
@@ -60,6 +62,21 @@ function ColoBoard() {
         })
     }
 
+    const selVote = async () => {
+        let stateList = [];
+        let vote = [];
+        const result = await SelectVote({
+            member: {
+                userNo: loginUser.userNo
+            }
+        })
+        result.data.map((item)=>{
+            stateList.push(""+item.coloNo);
+            vote.push(item.vote);
+        })
+        setColoState(stateList);
+        setRlType(vote);
+    }
     const likeCount = async (boardNo) => {
         const like = await LikeCount({
             contentNo: boardNo,
@@ -91,6 +108,20 @@ function ColoBoard() {
         navigate("/board/enroll", {state : {boardItem: item, boardCategory: "colo"}})
     }
 
+    const vote = async (rl, coloNo) => {
+        const result = await ColoVote({
+            boardColo: {
+                coloNo: coloNo
+            },
+            member: {
+                userNo: loginUser.userNo
+            },
+            vote: rl
+        });
+        result.status === "SUCCESS" ? list() : "";
+        selVote();
+    }
+
     return (
 
         <div className="coloBoard__container">
@@ -114,6 +145,8 @@ function ColoBoard() {
                     </div>
                     <hr />
                     {boardList != undefined && boardList.map((item, index) => {
+                        let rl = coloState.indexOf(item.coloNo) === -1 ? "" : rlType[coloState.indexOf(item.coloNo)];
+
                         return (
                             <div className="coloBoard__items__area" key={index}>
                                 <div className="coloBoard__item2">
@@ -130,6 +163,16 @@ function ColoBoard() {
                                     </div>
                                 </div>
                                 <ColoBar list={item} />
+                                <div className="coloBoard__rl__btn__box">
+                                    <div className="coloBoard__rl__btn__items">
+                                        <div className="coloBoard__rl__btn__item">
+                                            <button disabled={rl === "" ? false : rl === "RIGHT" ? true : false} onClick={()=>{ vote("LEFT", item.coloNo)}} className={rl == "" ? "coloBoard__rl__btn" : rl === "RIGHT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn" }><a>투표</a></button> {/*className={state == false ? "coloBoard__rl__btn" : "coloBoard__rl__btn__disable" }*/}
+                                        </div>
+                                        <div className="coloBoard__rl__btn__item">
+                                            <button disabled={rl === "" ? false : rl === "LEFT" ? true : false} onClick={()=>{ vote("RIGHT", item.coloNo)}} className={rl == "" ? "coloBoard__rl__btn" : rl === "LEFT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn" }><a>투표</a></button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <p className="coloBoard__content" dangerouslySetInnerHTML={createMarkUp(item.boardContent)}></p>
                                 <div className="coloBoard__item3">
                                     <div className="coloBoard__like" onClick={()=>likeCount(item.boardNo)}>

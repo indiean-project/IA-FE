@@ -163,7 +163,8 @@ function BoardEnrollForm() {
             imgEnroll({
                 contentNo: result.data[0],
                 imgUrlList: imgResult.data,
-                fabcTypeEnum: "BOARD"
+                fabcTypeEnum: "BOARD",
+                kcTypeEnum: "CONTENT"
             });
 
         }
