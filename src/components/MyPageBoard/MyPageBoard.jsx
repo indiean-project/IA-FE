@@ -39,7 +39,7 @@ function MyPageBoard({ boardList }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {boardList && boardList.map((item, index) => {
+                        {boardList.map((item, index) => {
                             return (
                                 <tr key={index} onClick={() => clickItem(item)}>
                                     <td className='userBoard__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
