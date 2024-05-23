@@ -41,6 +41,7 @@ function ColoBoard() {
             sort: sort,
             keyword: keyword
         });
+        console.log(list)
         setBoardList(list.listDto);
         setPageInfo(list.pageinfo);
         replyBtn.length === 0 ? setReplyBtn(new Array(list.listDto.length).fill('close')) : ""
@@ -75,6 +76,7 @@ function ColoBoard() {
         const result = await BoardDelete({boardNo: boardNo})
         result.status === "SUCCESS" ? toast.success("게시글이 성공적으로 삭제되었습니다.") : toast.error("게시글 삭제에 실패하였습니다.");
         result.status === "SUCCESS" ? window.scroll(0, 0) : "";
+        list();
     }
 
     const createMarkUp = (value) => {

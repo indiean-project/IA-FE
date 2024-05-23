@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import CommonReply from '../../components/CommonReply/CommonReply';
 import './BoardDetail.scss';
 import { MdThumbUp } from "react-icons/md";
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FreeBoardItem from '../../components/FreeBoardItem';
 import { pageMove } from '../../apis/pagination';
 import { cPage } from '../../recoil/page';
 import { useRecoilState } from 'recoil';
-import { BoardDelete, LikeCount } from '../../apis/board';
+import { BoardDelete, DetailBoard, LikeCount } from '../../apis/board';
 import DOMPurify from 'dompurify';
 import ProudItem from '../../components/ProudItem';
 import { boardPoint } from '../../recoil/boardPoint';
@@ -24,7 +24,6 @@ function BoardDetail() {
     const [boardList, setBoardList] = useState();
     let param = useParams().id;
     const [boardItem, setBoardItem] = useState([]);
-    const location = useLocation();
     const [category, setCategory] = useState();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
@@ -41,17 +40,18 @@ function BoardDetail() {
             page: currentPage,
             sort: 'boardNo',
             keyword: keyword
-        }
-        )
-        list.listDto.forEach((item) => {
-            item.boardNo === +param ? setBoardItem(item) : "";
         })
-        console.log(list);
         setPageInfo(list.pageinfo);
         setBoardList(list.listDto);
-
+    }
+    const detail = async () => {
+        const detail = await DetailBoard({
+            boardNo: param
+        })
+        setBoardItem(detail.data);
     }
     useEffect(() => {
+        detail();
         list();
         window.scrollTo(0, 0);
     }, [param])
@@ -64,7 +64,7 @@ function BoardDetail() {
                 userNo: loginUser.userNo
             }
         })
-        list();
+        detail();
     }
 
     function boardUpdate() {
@@ -75,7 +75,7 @@ function BoardDetail() {
             boardNo: boardItem.boardNo
         });
         result.status === "SUCCESS" ? toast.success("게시글이 성공적으로 삭제되었습니다.") : toast.error("게시글 삭제에 실패하였습니다.");
-        result.status === "SUCCESS" ? navigate("/board/free") : "";
+        result.status === "SUCCESS" && category === "자유게시판" ? navigate("/board/free") : result.status === "SUCCESS" && category === "아티스트 자랑" ? navigate("/board/proud") : "";
         setModal(false);
     }
 

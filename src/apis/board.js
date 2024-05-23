@@ -62,3 +62,12 @@ export const BoardSideBar = async(params) => {
         console.log(e);
     }
 }
+
+export const DetailBoard = async(params) => {
+    try {
+        const {data} = await API.post("/api/board/detail", params.boardNo);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
