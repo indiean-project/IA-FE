@@ -8,8 +8,13 @@ import { selectAllFund, selectSoonFund } from '../../apis/fund/fund';
 import { useInView } from 'react-intersection-observer';
 import moment from 'moment';
 import { now, shuffle } from 'lodash';
+import { useRecoilValue } from 'recoil';
+import { loginUserState } from '../../recoil/LoginUser';
+import { useNavigate } from 'react-router-dom';
 
 function FundList() {
+    const loginUser = useRecoilValue(loginUserState);
+    const navigate = useNavigate();
     const [fundList, setFundList] = useState([]);
     const [soonList, setSoonList] = useState([]);
     const keywordRef = useRef();
@@ -191,7 +196,7 @@ function FundList() {
                 <div className='fundList__hot'>
                     <div className='fundList__hot__header'>
                         <p>마감임박 펀딩 리워드를 확인해보세요!</p>
-                        <div className='fundList__form__btn'>
+                        <div className='fundList__form__btn' onClick={()=>navigate('enroll')}>
                             펀딩 신청하기
                         </div>
                     </div>
