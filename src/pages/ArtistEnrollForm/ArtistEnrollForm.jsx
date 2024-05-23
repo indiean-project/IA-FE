@@ -3,12 +3,17 @@ import FundInputBar from '../../components/FundInputBar';
 import { BsExclamationCircle } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
-import { imgDelete, tempImg } from '../../apis/imgFilter';
+import { imgDelete, tempImg,imgMove } from '../../apis/imgFilter';
 import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useRecoilValue } from 'recoil';
+import { artistEnroll } from '../../apis/artist/artist';
+import { imgEnroll } from '../../apis/imgUrl';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function ArtistEnrollForm() {
+    const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistFrom, setArtistFrom] = useState({
         userNo: loginUserInfo.userNo,
@@ -20,6 +25,39 @@ function ArtistEnrollForm() {
         instagram: '',
         youtube: ''
     })
+    const onClickSubmit = async () => {
+        if (artistFrom.artistName.trim() == '') {
+            toast.error("아티스트명을 입력해주세요");
+            return;
+        }
+        if (artistFrom.debutDate.trim() == '') {
+            toast.error("데뷔일 입력해주세요");
+            return;
+        }
+        if (artistFrom.musicCategory.trim() == '') {
+            toast.error("음악장르를 입력해주세요");
+            return;
+        }
+        if (artistFrom.artistInfo.trim() == '') {
+            toast.error("아티스트 소개를 입력해주세요");
+            return;
+        }
+        const result = await artistEnroll(artistFrom);
+        const newImgUrl = await imgMove(bossImg)
+        if (newImgUrl!= undefined&&newImgUrl.data.length > 0) {
+            imgEnrollResult = await imgEnroll({
+                contentNo:  result.data,
+                imgUrlList: newImgUrl.data,
+                fabcTypeEnum: "ARTIST",
+                kcTypeEnum:"KING"
+            });
+        }
+        toast.success('신청되셨습니다.')
+        navigate('/artist');
+        
+
+    }
+
     const onChangeArtistForm = (e) => {
         setArtistFrom({
             ...artistFrom,
@@ -60,7 +98,7 @@ function ArtistEnrollForm() {
     }
     useEffect(() => {
 
-    }, [bossImg,artistFrom])
+    }, [bossImg, artistFrom])
 
     return (
         <div className='artistEnrollForm'>
@@ -123,9 +161,7 @@ function ArtistEnrollForm() {
                 </div>
                 <div className='artistInfo__EnrollForm'>
                     <h1>아티스트 소개 입력</h1>
-                    <ArtistEditor onEditorChange={onEditorChange}
-                        imgList={artistInfoImgList}
-                        setImgList={setArtistInfoImgList} />
+                    <ArtistEditor onEditorChange={onEditorChange} />
                 </div>
                 <div className='linkList'>
                     <div className='artistEnrollFrom__item'>

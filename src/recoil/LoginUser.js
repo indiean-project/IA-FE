@@ -12,7 +12,7 @@ const {persistAtom} = recoilPersist({
 export const loginUserState = atom({
     key: KEY,
     default: {
-        userNo: '',
+        userNo: 50,
         userRole: '',
         userId: '',
         userPwd: '',

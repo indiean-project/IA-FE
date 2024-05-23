@@ -156,7 +156,7 @@
                 color: rgba(0, 0, 0, 0.6);
                 cursor: pointer;
 
-                .btn1 {
+                .share__btn {
                     margin-left: 10%;
                 }
 
@@ -193,9 +193,10 @@
     .detail__content {
         display: flex;
         justify-content: center;
+        
 
-        .detail__content__item {
-            width: 100%;
+        .detail__content_item {
+            width: 80%;
         }
     }
 }
