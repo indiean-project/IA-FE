@@ -135,7 +135,7 @@ function BoardDetail() {
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
                     <FreeBoardItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />
-                    : <ProudItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />}
+                    : category === "아티스트 자랑" ? <ProudItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} /> : ""}
             </div>
             {modal ? <ModalWindow>
                 <div className='boardDetail__modal'>

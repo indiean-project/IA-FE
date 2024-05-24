@@ -40,20 +40,29 @@ function FreeBoardItem(props) {
                         <th className='freeboarditem__thead__writer'>작성자</th>
                         <th className='freeboarditem__thead__enrolldate'>등록일</th>
                         <th className='freeboarditem__thead__count'>조회</th>
-                        <th className='freeboarditem__thead__like'>추천</th>
+                        {props.boardList[0].boardNo !== undefined ? <th className='freeboarditem__thead__like'>추천</th> : ""}
                     </tr>
                 </thead>
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={() => clickItem(item)}>
-                                <td>{item.boardNo}</td>
-                                <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                <td>{item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="freeBoard__user__ad" /> : ""}</td>
-                                <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
-                                <td>{item.viewCount}</td>
-                                <td>{item.likeCount}</td>
-                            </tr>
+                            item.boardNo !== undefined ?
+                                <tr key={index} onClick={() => clickItem(item)}>
+                                    <td>{item.boardNo}</td>
+                                    <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
+                                    <td>{item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="freeBoard__user__ad" /> : ""}</td>
+                                    <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
+                                    <td>{item.viewCount}</td>
+                                    <td>{item.likeCount}</td>
+                                </tr>
+                                :
+                                <tr key={index}>
+                                    <td>{item.noticeNo}</td>
+                                    <td className='freeboarditem__tbody__title'>{item.noticeTitle}</td>
+                                    <td>{item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="freeBoard__user__ad" /> : ""}</td>
+                                    <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
+                                    <td>{item.viewCount}</td>
+                                </tr>
                         )
                     })
 
