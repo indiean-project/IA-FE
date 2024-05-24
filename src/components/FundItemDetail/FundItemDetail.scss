@@ -157,8 +157,12 @@
             }
 
             .item__content {
-                min-height: 300px;
+                min-height: 100vh;
                 padding-left: 4%;
+                padding-right: 4%;
+                img{
+                    max-width: 100%;
+                }
             }
         }
     }

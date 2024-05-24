@@ -2,50 +2,42 @@ import './FundDetail.scss';
 import { useEffect, useRef, useState } from "react";
 import FundItemDetail from "../../components/FundItemDetail";
 import FundNav from "../../components/FundNav/FundNav";
+import { entries } from 'lodash';
 
 function FundDetail() {
     const fundNavRef = useRef([]);
-    const [changeNav, setChangeNav] = useState(0);
+    const changeNav = useRef(0);
     const navRef = useRef([])
-    const [refY, setRefY] = useState([
-    ]);
+    
     const onClickChangeNav = (idx) => {
-        if (idx != changeNav) {
-            fundNavRef.current[changeNav].style = 'background : rgba(12, 12, 12, 1)';
+        if (idx !== changeNav.current) {
+            fundNavRef.current[changeNav.current].style = 'background : rgba(12, 12, 12, 1)';
             fundNavRef.current[idx].style = 'background : rgba(63, 63, 63, 1)';
-            setChangeNav(idx);
+            changeNav.current = idx;
         }
     }
 
     useEffect(() => {
-        fundNavRef.current[changeNav].style = 'background : rgba(63, 63, 63, 1)';
-    }, [changeNav])
-    useEffect(() => {
-        setRefY([
-            (window.scrollY + navRef.current[0].getBoundingClientRect().top)-100,
-            (window.scrollY + navRef.current[1].getBoundingClientRect().top)-100,
-            (window.scrollY + navRef.current[2].getBoundingClientRect().top)-100,
-            (window.scrollY + navRef.current[3].getBoundingClientRect().top)-100,])
-    },[])
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll); //clean
+        const navHandle = entries => {
+            entries.map((entry) => {
+                if (entry.isIntersecting){
+                    // console.log(entry.target);
+                    // console.log(navRef.current.indexOf(entry.target))
+                    onClickChangeNav(navRef.current.indexOf(entry.target))
+                }
+            });
         }
-    })
 
-    const handleScroll = () => {
-        const scroll = window.scrollY;
-        if (scroll < refY[1]) {
-            onClickChangeNav(0);
-        } else if (refY[1] <= scroll && scroll < refY[2]) {
-            onClickChangeNav(1);
-        } else if (refY[2] <= scroll && scroll < refY[3]) {
-            onClickChangeNav(2);
-        } else if (scroll > refY[3]) {
-            onClickChangeNav(3);
-        }
-    }
+        const observer = new IntersectionObserver(navHandle)
+
+        navRef.current.forEach(nav => observer.observe(nav));
+
+        return () => observer.disconnect();
+    }, [])
+
+    useEffect(() => {
+        fundNavRef.current[changeNav.current].style = 'background : rgba(63, 63, 63, 1)';
+    }, [])
 
     const nav = [
         {
@@ -66,17 +58,15 @@ function FundDetail() {
         }
     ];
     const onClickNav = (idx) => {
-        navRef.current[idx].scrollIntoView({ behavior: "smooth" }); 
+        navRef.current[idx].scrollIntoView({ behavior: "smooth" });
     }
 
     return (
         <div className="fundDetail__container">
             <FundNav nav={nav}
                 onClickNav={onClickNav}
-                changeNav={changeNav}
-                setChangeNav={setChangeNav}
                 fundNavRef={fundNavRef}
-                onClickChangeNav={onClickChangeNav} />
+                 />
             <div className='fundDetail__main'>
                 <FundItemDetail nav={nav} navRef={navRef} />
             </div>

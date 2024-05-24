@@ -12,7 +12,7 @@ import FundPayment from '../FundPayment/FundPayment';
 import { isModalActive } from '../../recoil/IsModalActive';
 import toast from 'react-hot-toast';
 
-function FundItemDetail({ nav, navRef }) {
+function FundItemDetail({ nav, navRef, navHandle }) {
 
     const params = useParams().id;
     const loginUser = useRecoilValue(loginUserState);
@@ -142,7 +142,7 @@ function FundItemDetail({ nav, navRef }) {
             <div className='fundItemDetail__title' id={nav[0].id} ref={(e) => (navRef.current[0] = e)}>
                 <h1>{fund.fundTitle}</h1>
                 <div className='fundItemDetail__title__item1'>
-                    <FundMainImage />
+                    <FundMainImage imgList={fund.imgUrlList} />
                     <div className='fundItemDetail__title__content'>
                         <h4>목표금액</h4>
                         <div className='fundItemDetail__title__price'>
@@ -202,15 +202,15 @@ function FundItemDetail({ nav, navRef }) {
                     </div>
                     <div className='fundItemDetail__content__item' id={nav[2].id} ref={(e) => (navRef.current[2] = e)}>
                         <h3>예산</h3>
-                        <div className='item__content' dangerouslySetInnerHTML={createMarkUp(fund.budgetManage)}>
-
+                        <div className='item__content' >
+                                {fund.budgetManage}
                         </div>
                         <hr />
                     </div>
                     <div className='fundItemDetail__content__item' id={nav[3].id} ref={(e) => (navRef.current[3] = e)}>
                         <h3>일정</h3>
-                        <div className='item__content' dangerouslySetInnerHTML={createMarkUp(fund.schedule)}>
-
+                        <div className='item__content' >
+                                {fund.schedule}
                         </div>
                     </div>
                 </div>

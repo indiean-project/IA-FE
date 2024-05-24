@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './FundItem.scss';
 import { useNavigate } from 'react-router-dom';
+import defaultImg from '../../assets/logo/logo_white.png'
 
 function FundItem({ item }) {
 
@@ -30,13 +31,13 @@ function FundItem({ item }) {
     })
 
     useEffect(()=>{
-        imgUrl != null && console.log(imgUrl.substring(imgUrl.indexOf('public') - 1));
+
     },[fundListItem])
 
     return (
         <div className='fundItem__container' onClick={()=>onClickFundItem()}>
             <div className='fundItem__hover'>자세히 보기</div>
-            <img src={imgUrl != null && imgUrl.substring(imgUrl.indexOf('public') - 1)} />
+            <img src={imgUrl != null ? imgUrl.substring(imgUrl.indexOf('public') - 1) : defaultImg} />
             <div className='fundItem__category'>{fundType} &gt; 록</div>
             <div className='fundItem__title'>{fundTitle}</div>
             <div className='fundItem__content'>{fundDescription}</div>
