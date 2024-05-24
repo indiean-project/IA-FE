@@ -142,7 +142,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
             <div className='fundItemDetail__title' id={nav[0].id} ref={(e) => (navRef.current[0] = e)}>
                 <h1>{fund.fundTitle}</h1>
                 <div className='fundItemDetail__title__item1'>
-                    <FundMainImage imgList={fund.imgUrlList} />
+                    <FundMainImage imgItem={fund.imgUrlList} />
                     <div className='fundItemDetail__title__content'>
                         <h4>목표금액</h4>
                         <div className='fundItemDetail__title__price'>

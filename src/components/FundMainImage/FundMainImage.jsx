@@ -1,26 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import './FundMainImage.scss';
-function FundMainImage({ imgList }) {
-    const imgRef = useRef([]);
-    const [imgItem, setImgItem] = useState([])
+import defaultImg from '../../assets/logo/logo_white.png'
+function FundMainImage({ imgItem }) {
     const [imgNum, setImgNum] = useState(0);
+    const [imgList, setImgList] = useState(new Array(5));
 
-    useEffect(()=>{
-        console.log(imgList);
-
+    useEffect(() => {
     }, [])
 
     return (
         <div className='fundMainImage__container'>
-            {imgItem.length != 0 && <div className='fundMainImage__thumb'>
-                {imgItem.map((item, idx) => {
+            <div className='fundMainImage__thumb'>
+                {(imgItem != undefined? imgItem : imgList).map((item, idx) => {
                     return (
-                            <img key={idx} src={item.substring(item.indexOf('public') - 1)} onClick={() => setImgNum(idx)} />
+                            <img key={idx} src={item != null ? item.substring(item.indexOf('public') - 1) : defaultImg} onClick={() => setImgNum(idx)} />
                     );
                 })}
-            </div>}
+            </div>
             <div className='FundMainImage__main'>
-                {imgItem.length != 0 && <img src={imgItem[imgNum]} />}
+                {imgItem != undefined && <img src={imgItem.length != 0 ? imgItem[imgNum].substring(imgItem[imgNum].indexOf('public') - 1): defaultImg} />}
             </div>
         </div>
     );
