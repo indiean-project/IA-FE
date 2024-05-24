@@ -164,7 +164,7 @@ function FundEnrollForm({ nav, navRef }) {
         };
         const result = await fundEnroll(fund);
 
-        !Cimg && await imgEnroll({
+        Cimg != false && await imgEnroll({
             contentNo: result['data'],
             imgUrlList: Cimg['data'],
             fabcTypeEnum: 'FUND',

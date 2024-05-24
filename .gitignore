@@ -25,5 +25,5 @@ dist-ssr
 *.sln
 *.sw?
 
-/public/img/*
-/public/tempImg/*
+public/tempImg/*
+public/img/*
