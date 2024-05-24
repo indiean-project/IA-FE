@@ -1,13 +1,92 @@
 .chatbot__container {
     position: fixed;
     display: none;
-    right: 10%; bottom: 18%;
-    width: 300px; 
+    right: 10%;
+    bottom: 18%;
+    width: 300px;
     height: 50%;
-    min-height: 300px; 
+    min-height: 300px;
     max-height: 500px;
     background-color: gray;
-    cursor:pointer;
-    
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+
+    .chatbot__header {
+        background-color: black;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 10px 10px 0 0;
+
+        .logo {
+            height: 25px;
+        }
+
+        .qbot {
+            padding-top: 7px;
+            font-size: 18px;
+        }
+    }
+
+    .message__container {
+        flex-grow: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
+        .message {
+            display: flex;
+            align-items: center;
+            color: black;
+            font-size: 15px;
+            padding: 3px;
+            word-wrap: break-word;
+
+            &.bot {
+                text-align: left;
+                align-self: flex-start;
+            }
+
+            &.user {
+                text-align: right;
+                align-self: flex-end;
+            }
+
+            span {
+                border-radius: 5px;
+                padding: 5px;
+                background-color: white;
+            }
+        }
+    }
+
+    .chatbot__footer {
+        background-color: black;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        border-radius: 0 0 10px 10px;
+
+        #chatInput {
+            border-radius: 5px;
+            width:200px;
+        }
+
+        .inputButton {
+            margin-top: 5px;
+        }
+    }
 }
-.chatbot__container.operate { display: block; }
+
+.chatbot__container.operate {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
