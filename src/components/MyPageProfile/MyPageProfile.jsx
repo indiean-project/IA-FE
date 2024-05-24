@@ -116,19 +116,6 @@ function MyPageProfile() {
         </>
     );
 
-
 }
-export default MyPageProfile;
 
-// const result = await updateUser({
-//     userNo: editAccount.userNo,
-//     nickname: editAccount.nickname,
-//     userName: editAccount.userName,
-//     userPwd: editAccount.userPwd,
-//     phone: editAccount.phone,
-//     address: editAccount.address,
-//     userProfileImg: editAccount.userProfileImg,
-//     userContent: editAccount.userContent,
-//     userFavoriteArtist: editAccount.userFavoriteArtist,
-//     userFavoriteMusic: editAccount.userFavoriteMusic
-// })
+export default MyPageProfile;

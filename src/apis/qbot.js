@@ -1,8 +1,8 @@
-import API from "../core"
+import {API} from "../core";
 
-export const question = async(params) => {
+export const qEnroll = async(params) => {
     try {
-        const {data} = await API.post("/api/question", params);
+        const {data} = await API.post("/api/question/enroll", params);
         return data;
     } catch (e) {
         console.log(e);
