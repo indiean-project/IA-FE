@@ -2,18 +2,21 @@
     color: white;
     margin-right: 10%;
     width: 20%;
+
     .boardSidebar__box {
         top: 100px;
         width: 100%;
         position: sticky;
         padding-top: 30%;
         margin-bottom: 100px;
+
         .boardSidebar__label {
-            
+
             label {
                 font-weight: bold;
                 font-size: 17px;
                 margin-left: 10px;
+
                 svg {
                     color: red;
                     vertical-align: middle;
@@ -38,6 +41,7 @@
             padding-bottom: 5px;
             font-size: 13px;
             cursor: pointer;
+
             span {
                 color: red;
             }
@@ -53,8 +57,10 @@
             border: none;
             margin-bottom: 5%;
         }
+
         .community__list {
             margin-top: 15px;
+
             .community__list__item {
                 display: flex;
                 justify-content: space-between;
@@ -62,6 +68,7 @@
                 padding-bottom: 10px;
                 font-size: 13px;
             }
+
             a {
                 text-decoration: none;
                 color: white;

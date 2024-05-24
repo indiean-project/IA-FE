@@ -21,6 +21,9 @@ function ErrorInterceptor() {
                     case 'concert-001':
                         navigate.current('/error');
                         break;
+                    case 'board-001':
+                        navigate.current('/error')
+                        break;
                 }
                 return Promise.reject(error);
             }

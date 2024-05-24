@@ -31,6 +31,11 @@
             .boardDetail__user__ad {
                 color: purple;
             }
+
+            a {
+                text-decoration: none;
+                color: white;
+            }
         }
     }
 
@@ -53,6 +58,7 @@
 
         p {
             margin-top: 7%;
+
             img {
                 max-width: 1000px;
                 max-height: 1000px;
@@ -103,10 +109,12 @@
 .boardDetail__modal {
     color: white;
     margin-top: 2%;
+
     .boardDetail__modal__buttom {
         display: flex;
         justify-content: center;
         align-items: center;
+
         div {
             background: #444444;
             border-radius: 7px;

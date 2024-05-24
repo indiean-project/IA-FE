@@ -27,6 +27,7 @@ import ProudBoard from './pages/ProudBoard/ProudBoard.jsx'
 import ArtistList from './pages/ArtistList'
 import ArtistEnrollForm from './pages/ArtistEnrollForm'
 import UrlInterceptor from './core/UrlInterceptor.jsx'
+import NoticeBoard from './pages/NoticeBoard/NoticeBoard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
       {
         path:'/artist/enroll',
         element: <UrlInterceptor page={'artistBadAccess'}><ArtistEnrollForm/></UrlInterceptor>
+      },
+      {
+        path:'/notice',
+        element: <NoticeBoard/>
       }
     ],
   },

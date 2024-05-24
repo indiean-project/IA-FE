@@ -1,4 +1,4 @@
-.freeboard__container {
+.noticeboard__container {
     display: flex;
     justify-content: center;
 
@@ -8,18 +8,15 @@
     margin-right: 5%;
     margin-bottom: 5%;
     color: white;
-
-    .freeboard__box {
+    .noticeboard__box {
         background-color: rgba(12, 12, 12, 0.63);
         display: flex;
         justify-content: center;
         height: 100%;
         width: 100%;
-
-        .freeboard__items {
+        .noticeboard__items {
             width: 70%;
-
-            .freeboard__item {
+            .noticeboard__item {
                 flex: 1;
                 display: flex;
                 justify-content: space-between;
@@ -44,7 +41,7 @@
                     border: none;
                 }
 
-                .freeboard__btn {
+                .noticeboard__btn {
                     background: #444444;
                     border-radius: 7px;
                     width: 120px;
@@ -69,12 +66,12 @@
                     }
                 }
 
-                .freeboard__btn:hover {
+                .noticeboard__btn:hover {
                     box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
                     transition-duration: 0.2s;
                 }
 
-                .freeboard__category {
+                .noticeboard__category {
                     align-content: end;
                     color: rgba(255, 255, 255, 0.6);
                 }

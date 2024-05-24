@@ -7,7 +7,7 @@ import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import CommonReply from "../../components/CommonReply/CommonReply";
 import { useEffect, useState } from "react";
 import { pageMove } from "../../apis/pagination";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { cPage } from "../../recoil/page";
 import PaginationBar from "../../components/PaginationBar";
 import { BoardDelete, ColoVote, LikeCount, SelectVote } from "../../apis/board";
@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { IoPrism } from "react-icons/io5";
 import { isModalActive } from "../../recoil/IsModalActive";
 import ModalWindow from "../../components/ModalWindow";
+import FundInputBar from "../../components/FundInputBar";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -35,6 +36,7 @@ function ColoBoard() {
     const [boardNo, setBoardNo] = useState();
     const [coloState, setColoState] = useState([]);
     const [rlType, setRlType] = useState([]);
+    const setCpage = useSetRecoilState(cPage);
 
     async function list() {
         const list = await pageMove({
@@ -47,7 +49,7 @@ function ColoBoard() {
         setPageInfo(list.pageinfo);
         replyBtn.length === 0 ? setReplyBtn(new Array(list.listDto.length).fill('close')) : ""
     }
-    
+
     useEffect(() => {
         location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
@@ -70,8 +72,8 @@ function ColoBoard() {
                 userNo: loginUser.userNo
             }
         })
-        result.data.map((item)=>{
-            stateList.push(""+item.coloNo);
+        result.data.map((item) => {
+            stateList.push("" + item.coloNo);
             vote.push(item.vote);
         })
         setColoState(stateList);
@@ -88,9 +90,9 @@ function ColoBoard() {
         setLikeState(like.status);
         list();
     }
-    const boardDelete = async() => {
+    const boardDelete = async () => {
         setModal(false);
-        const result = await BoardDelete({boardNo: boardNo})
+        const result = await BoardDelete({ boardNo: boardNo })
         result.status === "SUCCESS" ? toast.success("게시글이 성공적으로 삭제되었습니다.") : toast.error("게시글 삭제에 실패하였습니다.");
         result.status === "SUCCESS" ? window.scroll(0, 0) : "";
         list();
@@ -101,11 +103,11 @@ function ColoBoard() {
     }
 
     function writerBtn() {
-        loginUser.userNo !== '' ? navigate("/board/enroll", {state: {category: category}}) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+        loginUser.userNo !== '' ? navigate("/board/enroll", { state: { category: category } }) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
     }
 
     function boardUpdate(item) {
-        navigate("/board/enroll", {state : {boardItem: item, boardCategory: "colo"}})
+        navigate("/board/enroll", { state: { boardItem: item, boardCategory: "colo" } })
     }
 
     const vote = async (rl, coloNo) => {
@@ -126,7 +128,7 @@ function ColoBoard() {
 
         <div className="coloBoard__container">
             <div className="coloBoard__box">
-                <BoardSidebar category={category}/>
+                <BoardSidebar category={category} />
                 <div className="coloBoard__items">
                     <div className="coloBoard__item1">
                         <div>
@@ -141,41 +143,58 @@ function ColoBoard() {
                     </div>
                     <div className='coloBoard__item1'>
                         <div className='coloBoard__category'>커뮤니티 &gt; {category}</div>
-                        <div className='coloBoard__btn'><a onClick={()=>{writerBtn()}}>글쓰기</a></div>
+                        <div className='coloBoard__btn'><a onClick={() => { writerBtn() }}>글쓰기</a></div>
                     </div>
                     <hr />
-                    {boardList != undefined && boardList.map((item, index) => {
+                    {boardList.length > 0 ? boardList.map((item, index) => {
                         let rl = coloState.indexOf(item.coloNo) === -1 ? "" : rlType[coloState.indexOf(item.coloNo)];
 
                         return (
                             <div className="coloBoard__items__area" key={index}>
                                 <div className="coloBoard__item2">
                                     <div>No.{item.boardNo}</div>
-                                    <div>{item.nickname}{item.userRole === '2' ? <IoPrism/> : item.userRole === '3' ? <IoPrism className="coloBoard__user__at"/> : boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad"/> : ""}</div>
-                                    <div>{item.updateDate === null ? item.enrollDate + " " : item.updateDate + "(수정됨) "}
-                                    {item.userNo === loginUser.userNo ? 
-                                        <>
-                                            <BsPencilSquare onClick={()=>{boardUpdate(item)}} /> <BsTrash onClick={()=>{setModal(true); setBoardNo(item.boardNo)}}/>
-                                        </>
-                                        :
-                                        ""
-                                    }
+                                    <div>
+                                        {item.nickname}{item.userRole === '2' ? <IoPrism /> :
+                                            item.userRole === '3' ? <IoPrism className="coloBoard__user__at" /> :
+                                                boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad" /> : ""}
+                                    </div>
+                                    <div>
+                                        {item.updateDate === null ? item.enrollDate + " " : item.updateDate + "(수정됨) "}
+                                        {item.userNo === loginUser.userNo ?
+                                            <>
+                                                <BsPencilSquare onClick={() => { boardUpdate(item) }} /> <BsTrash onClick={() => { setModal(true); setBoardNo(item.boardNo) }} />
+                                            </>
+                                            :
+                                            ""
+                                        }
                                     </div>
                                 </div>
                                 <ColoBar list={item} />
                                 <div className="coloBoard__rl__btn__box">
                                     <div className="coloBoard__rl__btn__items">
                                         <div className="coloBoard__rl__btn__item">
-                                            <button disabled={rl === "" ? false : rl === "RIGHT" ? true : false} onClick={()=>{ vote("LEFT", item.coloNo)}} className={rl == "" ? "coloBoard__rl__btn" : rl === "RIGHT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn" }><a>투표</a></button> {/*className={state == false ? "coloBoard__rl__btn" : "coloBoard__rl__btn__disable" }*/}
+                                            <button
+                                                disabled={rl === "" ? false : rl === "RIGHT" ? true : false}
+                                                onClick={() => { vote("LEFT", item.coloNo) }}
+                                                className={rl == "" ? "coloBoard__rl__btn" : rl === "RIGHT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn"}
+                                            >
+                                                <a>{rl == "" ? "투표" : rl === "RIGHT" ? "투표" : "취소"}</a>
+                                            </button>
                                         </div>
                                         <div className="coloBoard__rl__btn__item">
-                                            <button disabled={rl === "" ? false : rl === "LEFT" ? true : false} onClick={()=>{ vote("RIGHT", item.coloNo)}} className={rl == "" ? "coloBoard__rl__btn" : rl === "LEFT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn" }><a>투표</a></button>
+                                            <button
+                                                disabled={rl === "" ? false : rl === "LEFT" ? true : false}
+                                                onClick={() => { vote("RIGHT", item.coloNo) }}
+                                                className={rl == "" ? "coloBoard__rl__btn" : rl === "LEFT" ? "coloBoard__rl__btn__disable" : "coloBoard__rl__btn"}
+                                            >
+                                                <a>{rl == "" ? "투표" : rl === "LEFT" ? "투표" : "취소"}</a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                                 <p className="coloBoard__content" dangerouslySetInnerHTML={createMarkUp(item.boardContent)}></p>
                                 <div className="coloBoard__item3">
-                                    <div className="coloBoard__like" onClick={()=>likeCount(item.boardNo)}>
+                                    <div className="coloBoard__like" onClick={() => likeCount(item.boardNo)}>
                                         <div><MdThumbUp /></div>
                                         <div>{item.likeCount}</div>
                                     </div>
@@ -195,16 +214,23 @@ function ColoBoard() {
                             </div>
 
                         )
-                    })}
-                    <PaginationBar pageInfo={pageInfo} list={list} />
+                    }
+                    )
+                        : <div className='boardItem__none'>게시글이 존재하지 않습니다.</div>
+                    }
+                    {boardList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list} /> : ""}
+                    <div className='coloItem__input__area'>
+                        <FundInputBar width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
+                        <div className='coloItem__btn'><a onClick={() => { list(); setCpage(1); }}>검색</a></div>
+                    </div>
                 </div>
             </div>
             {modal ? <ModalWindow>
                 <div className='boardDetail__modal'>
                     정말로 삭제 하시겠습니까?
                     <div className='boardDetail__modal__buttom'>
-                        <div onClick={()=>{boardDelete()}}>예</div>
-                        <div onClick={()=>{setModal(false)}}>아니요</div>
+                        <div onClick={() => { boardDelete() }}>예</div>
+                        <div onClick={() => { setModal(false) }}>아니요</div>
                     </div>
                 </div>
             </ModalWindow> : ""}
