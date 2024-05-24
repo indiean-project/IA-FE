@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import CommonReply from '../../components/CommonReply/CommonReply';
 import './BoardDetail.scss';
 import { MdThumbUp } from "react-icons/md";
-import { useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import FreeBoardItem from '../../components/FreeBoardItem';
 import { pageMove } from '../../apis/pagination';
 import { cPage } from '../../recoil/page';
@@ -31,6 +31,11 @@ function BoardDetail() {
     const [modal, setModal] = useRecoilState(isModalActive);
     let like;
 
+    useEffect(() => {
+        detail();
+        list();
+        window.scrollTo(0, 0);
+    }, [param])
 
     const list = async () => {
         const url = "board/" + boardCategory + "/boardlist";
@@ -43,18 +48,15 @@ function BoardDetail() {
         })
         setPageInfo(list.pageinfo);
         setBoardList(list.listDto);
+
     }
+
     const detail = async () => {
         const detail = await DetailBoard({
             boardNo: param
         })
         setBoardItem(detail.data);
     }
-    useEffect(() => {
-        detail();
-        list();
-        window.scrollTo(0, 0);
-    }, [param])
 
     const likeCount = async () => {
         like = await LikeCount({
@@ -67,9 +69,6 @@ function BoardDetail() {
         detail();
     }
 
-    function boardUpdate() {
-        navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
-    }
     const boardDelete = async () => {
         const result = await BoardDelete({
             boardNo: boardItem.boardNo
@@ -83,11 +82,16 @@ function BoardDetail() {
         return { __html: DOMPurify.sanitize(value) };
     }
 
-    if (!boardItem) {
+    function boardUpdate() {
+        navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
+    }
+
+    if (!boardItem || boardItem.length < 1) {
         return <></>
     }
     return (
         <div className='boardDetail__container'>
+            {console.log(boardItem)}
             <div className='boardDetail__box'>
                 <div className='boardDetail__item'>
                     <div>No.{boardItem.boardNo}</div>
@@ -108,12 +112,12 @@ function BoardDetail() {
                     {boardItem.userNo === loginUser.userNo ?
                         <>
                             <div onClick={() => { boardUpdate() }}>수정</div>
-                            <div onClick={()=>{setModal(true)}}>삭제</div>
+                            <div onClick={() => { setModal(true) }}>삭제</div>
                         </>
                         :
                         ""
                     }
-                    <div>목록</div>
+                    <div><NavLink to={category === "자유게시판" ? "/board/free" : "/board/proud"}>목록</NavLink></div>
                     <div>신고</div>
                 </div>
             </div>
@@ -130,15 +134,15 @@ function BoardDetail() {
             <CommonReply />
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
-                    <FreeBoardItem pageInfo={pageInfo} boardList={boardList} list={list} />
-                    : <ProudItem pageInfo={pageInfo} boardList={boardList} list={list} />}
+                    <FreeBoardItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />
+                    : category === "아티스트 자랑" ? <ProudItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} /> : ""}
             </div>
             {modal ? <ModalWindow>
                 <div className='boardDetail__modal'>
                     정말로 삭제 하시겠습니까?
                     <div className='boardDetail__modal__buttom'>
-                        <div onClick={()=>{boardDelete()}}>예</div>
-                        <div onClick={()=>{setModal(false)}}>아니요</div>
+                        <div onClick={() => { boardDelete() }}>예</div>
+                        <div onClick={() => { setModal(false) }}>아니요</div>
                     </div>
                 </div>
             </ModalWindow> : ""}

@@ -41,7 +41,6 @@ function BoardEnrollForm() {
                 setColoTitle2(item.colRightTitle);
             }
         }
-        console.log(location.state);
     }, [location.state])
 
     const imageHandler = () => {
@@ -148,8 +147,6 @@ function BoardEnrollForm() {
                     }
                 }
         );
-        console.log(result);
-        console.log(location.state.boardItem);
 
         result.data[1] === 'COLO' && location.state.boardItem === undefined ? coloResult = await ColoEnroll({
             colLeftTitle: coloTitle1,
@@ -168,8 +165,6 @@ function BoardEnrollForm() {
             });
 
         }
-
-        console.log(result);
 
         if (success === 'SUCCESS') {
             if (category === "FREE") {
