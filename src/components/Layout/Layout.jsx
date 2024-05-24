@@ -3,6 +3,7 @@ import Header from "../Header";
 
 import './Layout.scss';
 import Footer from "../Footer";
+import QuestionBotIcon from "../QuestionBotIcon/QuestionBotIcon";
 
 function Layout() {
     return (
@@ -12,6 +13,7 @@ function Layout() {
                 <Outlet />
             </div>
             <Footer/>
+            <QuestionBotIcon />
         </>
     );
 }
