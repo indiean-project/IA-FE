@@ -6,8 +6,9 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    overflow: auto;
     .artist__img{
-        height:  95%;
+        object-fit: cover;
         img{
             border-radius: 7px;
             height:  100%;
@@ -23,4 +24,7 @@
             margin-left: 3px;
         }
     }
+}
+.artist__item__box::-webkit-scrollbar{
+    display: none;
 }

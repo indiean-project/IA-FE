@@ -22,6 +22,16 @@ function UrlInterceptor({ page, children }) {
                     navigate('/funding', { replace: true });
                 }
                 break;
+            case 'artistBadAccess':
+                if (loginUser.userRole == '' ) {
+                    toast.error('로그인 후 이용 가능합니다.');
+                    navigate('/artist', { replace: true });
+                }
+                if(loginUser.userRole == 'ARTIST'){
+                    toast.error('이미 등록되셨습니다.');
+                    navigate('/artist', { replace: true });
+                }
+                break;
         }
     }, [])
 

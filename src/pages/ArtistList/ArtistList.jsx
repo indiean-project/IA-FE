@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import './ArtistList.scss'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ArtistItem from '../../components/ArtistItem';
 import { PuffLoader } from 'react-spinners';
 import { useInView } from 'react-intersection-observer';
 import { selectArtist } from '../../apis/artist/artist';
-
+import { useRecoilValue } from "recoil";
+import { loginUserState } from "../../recoil/LoginUser";
+import toast from 'react-hot-toast';
 
 function ArtistList() {
+    const loginUser = useRecoilValue(loginUserState);
+    const navigate = useNavigate();
     const [ref, inView] = useInView();
     const [keyword, setKeyword] = useState('');
     const [artistList, setArtistList] = useState([]);
@@ -16,6 +20,18 @@ function ArtistList() {
         sort: 'createDate',
         size: 10
     })
+    const artistEnrollMove = () =>{
+        if(loginUser.userNo ===''){
+            toast.error('로그인 후 이용가능 합니다.')  
+            return    
+        }
+        if(loginUser.userRole=='ARTIST'){
+            toast.error('등록된 아티스트입니다.')
+            return
+        }
+        navigate('/artist/enroll')
+        
+    }
     const changeSort = (sortVal) => {
         setSelectItem({
             ...selectItem,
@@ -71,12 +87,12 @@ function ArtistList() {
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
-                <div className='btnQ'><NavLink to={"/artist/enroll"}>아티스트 등록</NavLink></div>
+                <div className='artistEnroll__btn'><NavLink onClick={artistEnrollMove}>아티스트 등록</NavLink></div>
             </div>
             <div className='artist__item__container'>
-                {artistList.length > 0 ? artistList.map((artist, idx) => {
+                {artistList!=undefined && artistList.length > 0 ? artistList.map((artist, idx) => {
                     return <ArtistItem artist={artist} key={idx} />
-                }) : '검색 결과가 없습니다.'
+                }) : ""
                 }
             </div>
             <div className='spinner__box'>

@@ -4,15 +4,16 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Share } from 'react-bootstrap-icons';
 import { BsInstagram, BsYoutube } from "react-icons/bs";
+import {handleCopyClipBoard} from '../../apis/common/copyClipBoard'
 import MusicBox from '../../components/MusicBox';
-import test from './10cm.jpg';
-import toast from 'react-hot-toast';
+import baseImg from '../../assets/logo/logo_white.png'
+
 
 
 function ArtistDetail() {
 
     const parama = useParams().id;
-    const [spotifyResults,setSpotifyResults] = useState([])
+    const [spotifyResults, setSpotifyResults] = useState([])
     const [artist, setArtist] = useState();
     const concertItem = async () => {
         const artistInfo = await artistItem(parama);
@@ -27,30 +28,21 @@ function ArtistDetail() {
         });
         const data = await response.json();
         setSpotifyResults(data.tracks.items);
-        
+
     };
     useEffect(() => {
         concertItem();
-        
+
     }, [])
     useEffect(() => {
         searchSpotify()
     }, [artist])
 
-    const handleCopyClipBoard = async () => {
-
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            toast.success('클립보드에 복사되었습니다.!');
-        } catch (error) {
-            toast.error('클립보드에 복사실패.!');
-        }
-    };
     const snsMove = (link) => {
         if (link === 'i') {
-            location.href = artist.instagramLink
+            window.open(artist.instagramLink);
         } else {
-            location.href = artist.youtubeLink
+            window.open(artist.youtubeLink);
         }
     }
 
@@ -70,7 +62,7 @@ function ArtistDetail() {
                     <div className='artist__title'>
                         <div className='title'>{artist.artistName}</div>
                         <div className='artist__picture'>
-                            <img src={test} />
+                            <img src={artist.titleUrl !== null?artist.titleUrl:baseImg} />
                         </div>
                         <div className='artist__info'>
                             <div className=''>데뷔<br />{artist.debutDate}</div>
@@ -79,21 +71,19 @@ function ArtistDetail() {
                     </div>
                     <div className='artist__content'>
                         <h2>아티스트 소개</h2>
-                        <div className='aritst__text'>
-                            <span dangerouslySetInnerHTML={{ __html: artist.artistInfo }}>
+                        <div className='aritst__text' dangerouslySetInnerHTML={{ __html: artist.artistInfo }}>
 
-                            </span>
                         </div>
                         <div className='sns__btn__area'>
-                            {artist.instagramLink === undefined ? <div className='sns__btn' onClick={() => { snsMove('i') }}><BsInstagram size={40} /></div> : ""}
-                            {artist.youtubeLink === undefined ? <div className='sns__btn' onClick={() => { snsMove('y') }}><BsYoutube size={40} /></div> : ""}
+                            {artist.instagramLink !== null ? <div className='sns__btn' onClick={() => { snsMove('i') }}><BsInstagram size={40} /></div> : ""}
+                            {artist.youtubeLink !== null ? <div className='sns__btn' onClick={() => { snsMove('y') }}><BsYoutube size={40} /></div> : ""}
                         </div>
                     </div>
                 </div>
                 <div className='musicList'>
-                    {spotifyResults.length>0?spotifyResults.map((result,idx)=>{
-                           return( <MusicBox music={result} key={idx}/>)
-                        }):<div className='notList'>등록된 음악이 없습니다.</div>
+                    {spotifyResults.length > 0 ? spotifyResults.map((result, idx) => {
+                        return (<MusicBox music={result} key={idx} />)
+                    }) : <div className='notList'>등록된 음악이 없습니다.</div>
                     }
                 </div>
 

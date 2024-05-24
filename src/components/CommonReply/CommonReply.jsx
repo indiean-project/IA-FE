@@ -17,11 +17,11 @@ function CommonReply(){
         }
       }, [])
       const clickOn = () =>{
-        loginUser.userId ===""?toast.error("로그인해주세요"):null
+        if(loginUser.userId ===""){
+            toast.error("로그인해주세요")
+        }
 
       }
-    
-    
     return(
         <>
            
@@ -30,7 +30,7 @@ function CommonReply(){
                         <div className='reply__input'>
                             <textarea type="text"  ref={inputRef} value={replyText} rows={6} onChange={(e)=>{setReplyText(e.target.value)}} />
                             <div className='Common__reply__btn__area'>
-                                <div className='btn'>등록</div>
+                                <div className='btn' onClick={clickOn}>등록</div>
                             </div>
                         </div>
                         <Reply></Reply>

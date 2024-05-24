@@ -1,7 +1,5 @@
 import './MusicBox.scss'
-import test2 from './그라데이션.jpg'
-import test3 from './봄이좋냐.jpg'
-import test4 from './서랍.jpg'
+
 
 function MusicBox({ music }) {
 

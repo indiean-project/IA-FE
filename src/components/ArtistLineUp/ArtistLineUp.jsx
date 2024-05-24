@@ -1,5 +1,4 @@
 import './ArtistLineUp.scss'
-import artistImg from './10cm.jpg';
 import { useNavigate } from 'react-router-dom';
 
 

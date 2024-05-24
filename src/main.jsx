@@ -121,7 +121,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/artist/enroll',
-        element: <ArtistEnrollForm/>
+        element: <UrlInterceptor page={'artistBadAccess'}><ArtistEnrollForm/></UrlInterceptor>
       },
       {
         path:'/notice',
