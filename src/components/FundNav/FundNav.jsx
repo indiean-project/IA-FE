@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './FundNav.scss';
-function FundNav({nav, onClickNav, changeNav, setChangeNav, fundNavRef, onClickChangeNav}) {
+function FundNav({nav, onClickNav, fundNavRef}) {
 
 
     return (
