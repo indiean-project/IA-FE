@@ -13,15 +13,20 @@ function FreeBoardItem(props) {
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     const setCpage = useSetRecoilState(cPage);
 
-    if(!props.boardList) {
-        return <></>
+    if (!props.boardList || props.boardList.length < 1) {
+        return <><div className='boardItem__none'>게시글이 존재하지 않습니다.</div>
+            <div className='freeboarditem__input__area'>
+                <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
+            </div>
+        </>
     }
 
     function clickItem(item) {
         const boardNo = item.boardNo;
         ViewCount(boardNo);
         setBoardCategory("free");
-        navigate("/board/detail/"+item.boardNo);
+        navigate("/board/detail/" + item.boardNo);
     }
 
     return (
@@ -41,22 +46,24 @@ function FreeBoardItem(props) {
                 <tbody>
                     {props.boardList.map((item, index) => {
                         return (
-                            <tr key={index} onClick={()=>clickItem(item)}>
+                            <tr key={index} onClick={() => clickItem(item)}>
                                 <td>{item.boardNo}</td>
                                 <td className='freeboarditem__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                <td>{item.nickname}{item.userRole === '2' ? <IoPrism/> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at"/> : item.userRole === '1' ? <IoPrism className="boardDetail__user__ad"/> : ""}</td>
+                                <td>{item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="freeBoard__user__ad" /> : ""}</td>
                                 <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
                                 <td>{item.viewCount}</td>
                                 <td>{item.likeCount}</td>
                             </tr>
                         )
-                    })}
+                    })
+
+                    }
                 </tbody>
             </table>
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
             <div className='freeboarditem__input__area'>
-                <FundInputBar width={"40%"} onChangeValue={(e)=>{props.setKeyword(e.target.value)}}/>
-                <div className='freeboarditem__btn'><a onClick={()=>{props.list(); setCpage(1);}}>검색</a></div>
+                <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
             </div>
         </div>
     )
