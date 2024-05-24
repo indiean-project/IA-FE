@@ -1,6 +1,7 @@
 import './ConcertItem.scss';
 import test from './test.jpg'
 import { useNavigate } from 'react-router-dom';
+import baseImg from '../../assets/logo/logo_white.png';
 const Concert = (props) => {
     const navigate = useNavigate();
     const handleDetailPost = ({ concert }) => {
@@ -16,7 +17,7 @@ const Concert = (props) => {
                     return(
                         <div className="concert__item" key={idx} onClick={()=>{handleDetailPost({concert})}}>
                             <div>
-                                <img src={test}/>
+                                <img src={concert.titleUrl!==null?concert.titleUrl:baseImg}/>
                                 <ul>
                                     <li className='concert__title'>{concert.concertTitle}</li>                            
                                     <li className='concert__location'>LOCATION:{concert.location}</li>

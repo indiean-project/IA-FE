@@ -4,16 +4,18 @@ import PaginationBar from '../../components/PaginationBar';
 import { NavLink } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { useRecoilState} from 'recoil';
-import {calendarList} from '../../apis/concert/calendarList'
+import { useRecoilState } from 'recoil';
+import { calendarList } from '../../apis/concert/calendarList'
 import { cPage } from '../../recoil/page'
 import { pageMove } from '../../apis/pagination'
 import { useEffect, useState } from 'react';
-
+import { loginUserState } from '../../recoil/LoginUser';
+import { useRecoilValue } from 'recoil';
+import toast from 'react-hot-toast';
 function ConcertList() {
-
-    const eventColor = ['blue', 'green', 'red', 'gray', 'black']
-    const [currentPage,setCurrentPage] = useRecoilState(cPage);
+    const loginUser = useRecoilValue(loginUserState);
+    const eventColor = ['blue', 'green', 'red', 'gray', 'black'];
+    const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [concertList, setConcertList] = useState([]);
     const [sort, setSort] = useState("createDate");
     const [keyword, setKeyword] = useState("");
@@ -28,29 +30,33 @@ function ConcertList() {
             sort: sort,
             keyword: keyword
         });
-        
+
         setConcertList(result.listDto)
         setPageInfo(result.pageinfo)
 
     }
-    const calendar = async() => {
-        
+    const questionMove = () => {
+        if (loginUser.userNo === '') {
+            toast.error('로그인 후 이용가능 합니다.')
+        }
+    }
+    const calendar = async () => {
+
         const currentCalendar = await calendarList();
-        
-        const eventList = currentCalendar.map((concert)=>{
-            let date = new Date(concert.endDate)
-            let endDate = new Date(date.setDate(date.getDate()+1)).toISOString().substring(0,10);
-            
-            return {title : concert.concertTitle, start: concert.startDate, end : endDate,color: eventColor[Math.floor(Math.random() * 6)]}
-        })
-        
-        setEvent(eventList);
+        if (currentCalendar !== null) {
+            const eventList = currentCalendar.map((concert) => {
+                let date = new Date(concert.endDate)
+                let endDate = new Date(date.setDate(date.getDate() + 1)).toISOString().substring(0, 10);
+
+                return { title: concert.concertTitle, start: concert.startDate, end: endDate, color: eventColor[Math.floor(Math.random() * 6)] }
+            })
+            setEvent(eventList);
+        }
+
     }
     useEffect(() => {
-
         calendar();
         list();
-
     }, [])
     useEffect(() => {
         list();
@@ -75,11 +81,11 @@ function ConcertList() {
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
-                <div className='btnQ'><NavLink>공연문의</NavLink></div>
+                <div className='question__btn'><NavLink onClick={questionMove}>공연문의</NavLink></div>
             </div>
             <ConcertItem concertList={concertList}></ConcertItem>
-            {concertList.length < 1? <div className='zero'>검색 결과가 없습니다.</div>:""}
-            <PaginationBar pageInfo={pageInfo} list={list}></PaginationBar>
+            {concertList.length < 1 ? <div className='zero'>검색 결과가 없습니다.</div> : ""}
+            {concertList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list}></PaginationBar> : ""}
             <div className='calendar__space'>
                 <FullCalendar
                     locale="kr"

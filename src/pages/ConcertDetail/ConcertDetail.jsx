@@ -7,10 +7,13 @@ import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
 import { selectConcert } from '../../apis/concert/concertDetail';
 import { Share } from 'react-bootstrap-icons';
-import toast from 'react-hot-toast';
+import { handleCopyClipBoard } from '../../apis/common/copyClipBoard'
+import baseImg from '../../assets/logo/logo_white.png';
+
 
 function ConcertDetail() {
     const boardUrl = "concert";
+
     const parama = useParams().id;
     const [concert, setConcert] = useState([]);
     const [detailState, setDetailState] = useState('info');
@@ -21,17 +24,6 @@ function ConcertDetail() {
         setConcert(concertInfo)
 
     }
-    const handleCopyClipBoard = async () => {
-
-        try {
-            await navigator.clipboard.writeText(window.location.href);
-            toast.success('클립보드에 복사되었습니다.!');
-        } catch (error) {
-            toast.error('클립보드에 복사실패.!');
-        }
-    };
-
-
     useEffect(() => {
 
         concertItem()
@@ -51,7 +43,7 @@ function ConcertDetail() {
             <div className='concertDetail__itemBox'>
                 <div className='concertDetail__item'>
                     <div className='concertDetail__poster'>
-                        <img src={poster} />
+                        <img src={concert.titleUrl !== null ? concert.titleUrl : baseImg} />
                     </div>
                     <div className='concertDetail__content'>
                         <ul>

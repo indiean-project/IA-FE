@@ -3,7 +3,7 @@ import FundInputBar from '../../components/FundInputBar';
 import { BsExclamationCircle } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
-import { imgDelete, tempImg,imgMove } from '../../apis/imgFilter';
+import { imgDelete, tempImg, imgMove } from '../../apis/imgFilter';
 import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useRecoilValue } from 'recoil';
@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function ArtistEnrollForm() {
+
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistFrom, setArtistFrom] = useState({
@@ -22,8 +23,8 @@ function ArtistEnrollForm() {
         musicCategory: '',
         artistInfo: '',
         artistStatus: 'N',
-        instagram: '',
-        youtube: ''
+        instagramLink: '',
+        youtubeLink: ''
     })
     const onClickSubmit = async () => {
         if (artistFrom.artistName.trim() == '') {
@@ -42,19 +43,27 @@ function ArtistEnrollForm() {
             toast.error("아티스트 소개를 입력해주세요");
             return;
         }
+        if (artistFrom.youtubeLink.indexOf('www.youtube.com') === -1 && artistFrom.youtubeLink.trim() != '') {
+            toast.error("잘못된 주소 입니다.");
+            return;
+        }
+        if (artistFrom.instagramLink.indexOf('www.instagram.com') === -1 && artistFrom.instagramLink.trim() != '') {
+            toast.error("잘못된 주소 입니다.");
+            return;
+        }
         const result = await artistEnroll(artistFrom);
         const newImgUrl = await imgMove(bossImg)
-        if (newImgUrl!= undefined&&newImgUrl.data.length > 0) {
+        if (newImgUrl != undefined && newImgUrl.data.length > 0) {
             await imgEnroll({
-                contentNo:  result.data,
+                contentNo: result.data,
                 imgUrlList: newImgUrl.data,
                 fabcTypeEnum: "ARTIST",
-                kcTypeEnum:"KING"
+                kcTypeEnum: "KING"
             });
         }
         toast.success('신청되셨습니다.')
         navigate('/artist');
-        
+
 
     }
 
@@ -88,7 +97,7 @@ function ArtistEnrollForm() {
             setBossImg(list);
         }
     }
-    const [artistInfoImgList, setArtistInfoImgList] = useState([]);
+
     const onEditorChange = (content) => {
         setArtistFrom({
             ...artistFrom,
@@ -167,7 +176,7 @@ function ArtistEnrollForm() {
                     <div className='artistEnrollFrom__item'>
                         <h3>Instagram Link</h3>
                         <FundInputBar width={"80%"}
-                            name={'instagram'}
+                            name={'instagramLink'}
                             value={artistFrom.instagram}
                             onChangeValue={onChangeArtistForm}
                         />
@@ -175,7 +184,7 @@ function ArtistEnrollForm() {
                     <div className='artistEnrollFrom__item'>
                         <h3>youtube Link</h3>
                         <FundInputBar width={"80%"}
-                            name={'youtube'}
+                            name={'youtubeLink'}
                             value={artistFrom.youtube}
                             onChangeValue={onChangeArtistForm}
                         />
