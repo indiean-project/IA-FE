@@ -1,6 +1,4 @@
 import './ArtistItem.scss'
-import IU from './iu.jpg'
-import chuu from './chuu.png'
 import { useNavigate } from 'react-router-dom'
 import baseImg from '../../assets/logo/logo_white.png'
 

@@ -1,6 +1,5 @@
 import { NavLink, useLocation, useParams } from 'react-router-dom';
 import './ConcertDetail.scss';
-import poster from './poster.jpg';
 import { useEffect, useState } from 'react';
 import ConcertInfo from '../../components/ConcertInfo';
 import CommonReply from '../../components/CommonReply/CommonReply';

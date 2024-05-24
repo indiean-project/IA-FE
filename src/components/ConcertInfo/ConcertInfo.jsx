@@ -1,5 +1,5 @@
 import './ConcertInfo.scss';
-import poster from '../../pages/ConcertDetail/poster.jpg';
+import poster from './poster.jpg';
 
 
 function ConcertInfo({ concertInfo }) {

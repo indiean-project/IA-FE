@@ -1,5 +1,4 @@
 import './ConcertItem.scss';
-import test from './test.jpg'
 import { useNavigate } from 'react-router-dom';
 import baseImg from '../../assets/logo/logo_white.png';
 const Concert = (props) => {
