@@ -121,6 +121,7 @@
             align-items: center;
             margin-bottom: 10px;
             .fundList__form__btn{
+                cursor: pointer;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -136,6 +137,14 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             place-items: center;
+        }
+        .fundList__not__found{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            height: 100px;
         }
     }
     .fundList__sort{

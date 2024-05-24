@@ -21,7 +21,7 @@ function NavBar(props) {
         props.onClickNavCheck()
         setCheckCommu(false);
         setAnimation('ulClose');
-        setCpage(1);
+        
 
     }
 
@@ -32,14 +32,14 @@ function NavBar(props) {
             </div>
             <hr />
             <ul>
-                <li><NavLink to={"/concert"} onClick={()=>onClickArrow()}>공연 정보</NavLink></li>
-                <li><NavLink to={"/artist"} onClick={()=>onClickArrow()}>아티스트 정보</NavLink></li>
-                <li><NavLink to={"/funding"} onClick={()=>onClickArrow()}>아티스트 펀딩</NavLink></li>
+                <li><NavLink to={"/concert"} onClick={()=>{onClickArrow() ,setCpage(1)}}>공연 정보</NavLink></li>
+                <li><NavLink to={"/artist"} onClick={()=>{onClickArrow(),setCpage(1) }}>아티스트 정보</NavLink></li>
+                <li><NavLink to={"/funding"} onClick={()=>{onClickArrow(),setCpage(1)}}>아티스트 펀딩</NavLink></li>
                 <li className="nav__item__box" onClick={() => onClickComm()}><div>커뮤니티</div>
                     <ul className={animaiton}>
-                        <li><NavLink to={"/board/proud"} onClick={()=>onClickArrow()}>아티스트 자랑하기</NavLink></li>
-                        <li><NavLink to={"/board/free"} onClick={()=>onClickArrow()}>자유게시판</NavLink></li>
-                        <li><NavLink to={"/board/colo"} onClick={()=>onClickArrow()}>콜로세움</NavLink></li>
+                        <li><NavLink to={"/board/proud"} onClick={()=>{onClickArrow(),setCpage(1)}}>아티스트 자랑하기</NavLink></li>
+                        <li><NavLink to={"/board/free"} onClick={()=>{onClickArrow(),setCpage(1)}}>자유게시판</NavLink></li>
+                        <li><NavLink to={"/board/colo"} onClick={()=>{onClickArrow(),setCpage(1)}}>콜로세움</NavLink></li>
                     </ul>
                 </li>
                 

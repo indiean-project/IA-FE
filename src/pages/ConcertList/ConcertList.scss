@@ -1,5 +1,5 @@
 .concert__list{
-
+    padding-bottom: 60px;
 
 
     .title{
@@ -84,7 +84,8 @@
             background-color: #444444 /* 달력의 전체 배경색을 회색으로 변경 */
           }
         .fc-button-group{display: none;}
-       
+        
+        .fc-toolbar-chunk:nth-child(3){display: none;}
     }
    
 }

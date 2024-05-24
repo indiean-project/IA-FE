@@ -1,0 +1,153 @@
+.artistEnrollForm {
+    margin-bottom: 5%;
+    .alert__area {
+        margin: 10% 0% 0% 10%;
+        color: white;
+        font-size: 30px;
+
+        svg {
+            margin: 2% 2% 0% 0%;
+        }
+    }
+
+    .artistEnrollForm__header {
+        display: flex;
+        justify-content: center;
+
+        h1 {
+            color: white;
+        }
+    }
+
+    .line__area {
+        display: flex;
+        justify-content: center;
+
+        hr {
+            background-color: rgba(255, 255, 255, 0.26);
+            margin: auto;
+            width: 80%;
+            height: 5px;
+            margin-top: 10px;
+        }
+    }
+
+    .artistEnrollForm__list__box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        h1 {
+            margin-bottom: 1%;
+        }
+
+        .artistEnrollForm__list {
+            margin-top: 7%;
+            width: 40%;
+
+        }
+
+        .artistEnrollFrom__img {
+            margin-top: 5%;
+            .artistEnrollForm__img__input {
+                height: 300px;
+                position: relative;
+                margin-right: 10px;
+                background: rgba(89, 89, 89, 0.4);
+                border: 2px dashed #ffffff98;
+                width: 100%;
+                aspect-ratio: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.2s;
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    object-fit: fill;
+                    height: 100%;
+                }
+
+                .delete__icon {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .delete__background {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0);
+                        transition: 0.2s;
+                    }
+                    svg{
+                        color: rgba(255, 255, 255, 0.534);
+                        transition: 0.2s;
+                        z-index: 5;
+                    }
+                }
+                .delete__icon:hover{
+                    .delete__background{
+                        background-color: rgba(0, 0, 0, 0.541);
+                    }
+                    svg{
+                        color: rgba(255, 255, 255, 0.74);
+                    }
+                }
+                svg {
+                    color: rgba(255, 255, 255, 0.17);
+                }
+            }
+            .artistEnrollForm__img__input:hover{
+                background: rgba(145, 145, 145, 0.4);
+            }
+        }
+
+    }
+    .artistInfo__EnrollForm{
+        margin: 2% 0% 0% 0%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .linkList{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        width: 50%;
+        margin: 0% 0% 0% 15%;
+    
+    }
+    .artistEnrollForm__submit{
+        margin-top: 2%;
+        display: flex;
+        justify-content: center;
+        .artistEnrollForm__submit__btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            width: 220px;
+            border-radius: 4px;
+            background-color: rgba(242, 97, 63, 1);
+            font-size: 25px;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .artistEnrollForm__submit__btn:hover{
+            background-color: rgb(240, 115, 87);
+            box-shadow: 0px 0px 10.1px rgba(227, 101, 29, 0.62);
+        }
+    }
+
+}

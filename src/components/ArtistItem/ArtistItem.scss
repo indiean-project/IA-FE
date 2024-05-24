@@ -1,0 +1,26 @@
+.artist__item__box{
+    background-color: rgba(12, 12, 12, 0.63);
+    width: 400px;
+    height: 250px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .artist__img{
+        height:  95%;
+        img{
+            border-radius: 7px;
+            height:  100%;
+            width: 230px;
+        }
+    }
+    ul{ 
+        margin-left: -5%;
+        list-style-type: none;
+        color: white;
+        line-height: 250%;
+        .artist__info{
+            margin-left: 3px;
+        }
+    }
+}

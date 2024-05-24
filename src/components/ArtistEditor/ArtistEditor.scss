@@ -1,0 +1,14 @@
+.artistEditor__container{
+    margin-bottom: 20px;
+    color: black;
+    .quill{
+        background-color: white;
+        width: 100%;
+        *{
+            color: black;
+        }
+        .ql-container {
+            height: 500px;
+        }
+    }
+}

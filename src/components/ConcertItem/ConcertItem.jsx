@@ -4,17 +4,14 @@ import { useNavigate } from 'react-router-dom';
 const Concert = (props) => {
     const navigate = useNavigate();
     const handleDetailPost = ({ concert }) => {
-        
-        navigate('/concert/detail', {
-                state:{
-                    concertNo : concert.concertNo
-                },
-        });    
+        const concertNo = concert.concertNo;
+        navigate('/concert/detail/'+concertNo);    
       };
+  
     return (
         <div>
             <div className='board__concert__list'>
-                {props.concertList.map((concert,idx)=>{
+                {props.concertList.length >0 ? props.concertList.map((concert,idx)=>{
                     
                     return(
                         <div className="concert__item" key={idx} onClick={()=>{handleDetailPost({concert})}}>
@@ -28,7 +25,7 @@ const Concert = (props) => {
                             </div> 
                         </div>
                     )
-                 })
+                 }):""
                 }
             </div>
         </div>     

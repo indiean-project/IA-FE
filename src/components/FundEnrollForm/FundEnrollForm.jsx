@@ -9,9 +9,13 @@ import { fundEnroll } from '../../apis/fund/fund';
 import { useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import moment from 'moment';
+import { imgEnroll } from '../../apis/imgUrl';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function FundEnrollForm({ nav, navRef }) {
     const loginUserInfo = useRecoilValue(loginUserState);
+    const navigate = useNavigate();
     const [fundForm, setFundForm] = useState({
         userNo: loginUserInfo.userNo,
         fundTitle: '',
@@ -70,7 +74,7 @@ function FundEnrollForm({ nav, navRef }) {
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
             let list = [...bossImg];
-            list[idx] = result.data;
+            list[idx] = result['data'];
             setBossImg(list);
         }
     }
@@ -145,9 +149,10 @@ function FundEnrollForm({ nav, navRef }) {
             bossImgList.push(item);
         })
 
-        // moveList.length > 0 && await imgMove(moveList);
-        // deleteList.length > 0 && await imgDelete(deleteList);
-        // await imgMove(bossImgList);
+        
+        deleteList.length > 0 && await imgDelete(deleteList);
+        let Cimg = moveList.length > 0 && await imgMove(moveList);
+        let Kimg = await imgMove(bossImgList);
         
         let paymentDate = new Date(fundForm.endDate);
         paymentDate.setDate(paymentDate.getDate() + 1);
@@ -158,8 +163,24 @@ function FundEnrollForm({ nav, navRef }) {
             paymentDate: moment(paymentDate).format('YYYY-MM-DD')
         };
         const result = await fundEnroll(fund);
-        console.log(fund);
-        console.log(result);
+
+        !Cimg && await imgEnroll({
+            contentNo: result['data'],
+            imgUrlList: Cimg['data'],
+            fabcTypeEnum: 'FUND',
+            kcTypeEnum: 'CONTENT'
+        });
+        const imgResult = await imgEnroll({
+            contentNo: result['data'],
+            imgUrlList: Kimg['data'],
+            fabcTypeEnum: 'FUND',
+            kcTypeEnum: 'KING'
+        })
+
+        if(result.status === 'SUCCESS' && imgResult.status === 'SUCCESS'){
+            toast.success('펀딩을 정상적으로 신청하였습니다.');
+            navigate('/funding', {replace: true});
+        }
     }
 
     useEffect(() => {
@@ -242,15 +263,15 @@ function FundEnrollForm({ nav, navRef }) {
                             return (
                                 <>
                                     {img != '' ?
-                                        <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                        <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)} key={idx} >
                                             <img src={'../public/tempImg/' + img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
                                             </div>
                                         </div>
-                                        : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)}>
-                                            <PlusSquareFill size={35} key={idx} />
+                                        : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)} key={idx} >
+                                            <PlusSquareFill size={35}/>
                                         </div>}
                                 </>
                             );

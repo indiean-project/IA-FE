@@ -82,10 +82,81 @@
                 padding-bottom: 1%;
                 width: 90%;
                 background-color: rgba(217, 217, 217, 0.06);
+
+                .coloBoard__rl__btn__box {
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+                    margin-top: 3%;
+                    .coloBoard__rl__btn__items {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 61%;
+                        .coloBoard__rl__btn__item {
+                            align-content: center;
+                            .coloBoard__rl__btn {
+                                background: #444444;
+                                border-radius: 7px;
+                                width: 100px;
+                                height: 40px;
+                                box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                                display: flex;
+                                align-items: center;
+                                transition-duration: 0.2s;
+                                margin-bottom: 1%;
+                                cursor: pointer;
+                                a {
+                                    text-decoration: none;
+                                    background-color: rgba(0, 0, 0, 0);
+                                    border-color: rgba(0, 0, 0, 0);
+                                    font-size: 17px;
+                                    font-weight: 400;
+                                    text-align: center;
+                                    color: #CECECE;
+                                    width: 100%;
+                                }
+                            }
+
+                            .coloBoard__rl__btn__disable {
+                                background: #3b3b3b;
+                                border-radius: 7px;
+                                width: 100px;
+                                height: 40px;
+                                box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+                                display: flex;
+                                align-items: center;
+                                transition-duration: 0.2s;
+                                margin-bottom: 1%;
+                                a {
+                                    text-decoration: none;
+                                    background-color: rgba(0, 0, 0, 0);
+                                    border-color: rgba(0, 0, 0, 0);
+                                    font-size: 17px;
+                                    font-weight: 400;
+                                    text-align: center;
+                                    color: #888888;
+                                    width: 100%;
+                                }
+                            }
+
+                            .coloBoard__rl__btn:hover {
+                                box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
+                                transition-duration: 0.2s;
+                            }
+
+                        }
+                    }
+                }
                 
                 .coloBoard__item2 {
                     display: flex;
                     padding: 2%;
+                    .coloBoard__user__at {
+                        color: red;
+                    }
+                    .coloBoard__user__ad {
+                        color: purple;
+                    }
                     div {
                         margin-right: 5%;
                         margin-bottom: 2%;
@@ -150,4 +221,30 @@
 }
 .displayNone {
     display: none;
+}
+.boardDetail__modal {
+    color: white;
+    margin-top: 2%;
+    .boardDetail__modal__buttom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div {
+            background: #444444;
+            border-radius: 7px;
+            width: 120px;
+            height: 40px;
+            box-shadow: 0px 4px 17.8px rgba(0, 0, 0, 0);
+            align-content: center;
+            transition-duration: 0.2s;
+            margin-bottom: 1%;
+            margin: 5%;
+            cursor: pointer;
+        }
+
+        div:hover {
+            box-shadow: 0px 0px 13.6px rgba(242, 97, 63, 0.25);
+            transition-duration: 0.2s;
+        }
+    }
 }
