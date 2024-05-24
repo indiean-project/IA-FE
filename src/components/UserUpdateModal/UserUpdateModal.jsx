@@ -3,7 +3,7 @@ import { isModalActive } from '../../recoil/IsModalActive';
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import './UserUpdateModal.scss';
 
-const UserUpdateModal = ({props, updateInfo, errorMsg}) => {
+const UserUpdateModal = ({updateInfo, errorMsg}) => {
 
     const setModal = useSetRecoilState(isModalActive);
 

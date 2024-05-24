@@ -10,7 +10,18 @@
     background-color: gray;
     border-radius: 10px;
     color: white;
-    cursor: pointer;
+    animation: fade-out 1s;
+    animation-fill-mode: forwards;
+
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
 
     .chatbot__header {
         background-color: black;
@@ -44,16 +55,22 @@
             color: black;
             font-size: 15px;
             padding: 3px;
-            word-wrap: break-word;
+            word-break: break-all;
 
             &.bot {
+                margin-right: 24px;
                 text-align: left;
                 align-self: flex-start;
             }
 
             &.user {
+                margin-left: 30px;
                 text-align: right;
                 align-self: flex-end;
+            }
+
+            p {
+                color: #f2613f
             }
 
             span {
@@ -64,6 +81,33 @@
         }
     }
 
+    .message__container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .options__container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 10px;
+        align-items: flex-end;
+        gap: 5px;
+
+        .option {
+            font-size: 13px;
+            width: 120px;
+            height: 25px;
+            padding: 6px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+    }
+
+
     .chatbot__footer {
         background-color: black;
         width: 100%;
@@ -71,12 +115,11 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        border-top: 1px solid #ccc;
         border-radius: 0 0 10px 10px;
 
         #chatInput {
             border-radius: 5px;
-            width:200px;
+            width: 200px;
         }
 
         .inputButton {
@@ -89,4 +132,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    animation: fade-in 1s;
+    animation-fill-mode: forwards;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
 }
