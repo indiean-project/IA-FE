@@ -48,7 +48,7 @@ function ProudItem(props) {
                                         <label htmlFor="">{item.boardTitle}<span>[{item.replies}]</span></label>
                                     </div>
                                     <div className="proudItem__nickName">
-                                        {item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="proudBoard__user__at" /> : boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad" /> : ""}
+                                        {item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="proudBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="boardDetail__user__ad" /> : ""}
                                     </div>
                                     <div className="proudItem__item2">
                                         <div><MdOutlineRemoveRedEye /> {item.viewCount}</div>
