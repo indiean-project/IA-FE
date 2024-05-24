@@ -68,9 +68,30 @@ export const updateUser = async(params) => {
     }
 }
 
-export const userBoard = async(params) => {
+export const getUserBoard = async(userNo) => {
     try {
-        const {data} = await API.post("/api/user/myPage/board", params);
+        const {data} = await API.get("/api/user/myPage/board?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserFund = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/fund?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserRewardLog = async(userNo, fundNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/fund/reward?userNo=" + userNo
+                                        + "&fundNo=" + fundNo);
         return data;
     } catch(e) {
         console.log(e);
