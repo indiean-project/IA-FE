@@ -8,41 +8,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { weeklyColo } from '../../apis/board';
 import { shuffle } from 'lodash';
 
-const testList = [
-    {
-        colLeftCount: 35,
-        colRightCount: 65,
-        boardTitle: '박혜성 VS 세발낙지',
-        colLeftTitle: '박혜성',
-        colRightTitle: '세발낙지',
-        colContent: '<p>나는 박혜성이다 안녕하소 반갑다</p><h1>뭘 봐 나는 박혜성이다<h2>'
-    },
-    {
-        colLeftCount: 35,
-        colRightCount: 65,
-        boardTitle: '박혜성 VS 세발낙지',
-        colLeftTitle: '박혜성',
-        colRightTitle: '세발낙지',
-        colContent: '<p>나는 박혜성이다 안녕하소 반갑다</p><h1>뭘 봐 나는 박혜성이다<h2>'
-    },
-    {
-        colLeftCount: 165,
-        colRightCount: 65,
-        boardTitle: '박혜성 VS 세발낙지',
-        colLeftTitle: '박혜성',
-        colRightTitle: '세발낙지',
-        colContent: '<p>나는 박혜성이다 안녕하소 반갑다</p><h1>뭘 봐 나는 박혜성이다<h2>'
-    },
-    {
-        colLeftCount: 35,
-        colRightCount: 25,
-        boardTitle: '박혜성 VS 세발낙지',
-        colLeftTitle: '박혜성',
-        colRightTitle: '세발낙지',
-        colContent: '<p>나는 박혜성이다 안녕하소 반갑다</p><h1>뭘 봐 나는 박혜성이다<h2>'
-    },
-];
-
 function MainColoList() {
     const [coloList, setColoList] = useState([]);
     const [openCheck, setOpenCheck] = useState([false, false, false, false]);
@@ -53,7 +18,6 @@ function MainColoList() {
 
     const getColoList = async()=>{
         const list = await weeklyColo();
-        console.log(list);
         setColoList(shuffle(list['data']).slice(5, list['data'].length -1));
     }
 
@@ -70,7 +34,7 @@ function MainColoList() {
         <div className='mainColoList__container'>
             <div className='mainColoList__header'>
                 <h1>금주의 이슈</h1>
-                <NavLink to={'#'}>이슈 더보기</NavLink>
+                <NavLink to={'/board/colo'}>이슈 더보기</NavLink>
             </div>
             <div className='mainColoList__box'>
                 {coloList.map((item, idx) => {

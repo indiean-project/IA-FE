@@ -1,0 +1,90 @@
+.mainArtistList__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+
+    .mainArtistList__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 1440px;
+        color: white;
+
+        a {
+            text-decoration: none;
+            color: rgba(206, 206, 206, 1);
+            transition: 0.2s;
+
+            &:hover {
+                color: white;
+            }
+        }
+
+    }
+
+    .mainArtistList__items {
+        display: flex;
+        width: 1440px;
+        justify-content: space-between;
+
+        .mainArtistList__item {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .mainArtistList__img {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    color: white;
+                    background-color: black;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    opacity: 0;
+                    transition: 0.2s;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: 0.4;
+                    }
+                }
+
+                img {
+                    width: 230px;
+                    height: 230px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            p {
+                color: white;
+                margin: 0;
+                margin-top: 20px;
+                font-size: 20px;
+            }
+        }
+
+        .mainArtistList__info {
+            width: 100%;
+            color: white;
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+    }
+}
