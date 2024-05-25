@@ -76,22 +76,6 @@ const router = createBrowserRouter([
        element: <AdminPage/> 
       },
       {
-        path: '/admin/fund',
-        element: <AdminFundingApproval/> 
-       }, 
-       {
-        path: '/admin/questions',
-        element: <AdminQuestionSection/> 
-       }, 
-       {
-        path: '/admin/report',
-        element: <AdminReportManagement/> 
-       }, 
-       {
-        path: '/admin/userAutority',
-        element: <AdminUserAutority/> 
-       },
-       {
         path: '/board/free',
         element: <FreeBoard/>
       },

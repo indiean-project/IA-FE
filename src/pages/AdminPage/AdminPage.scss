@@ -1,0 +1,48 @@
+.admin__container{
+    color: white;
+    width: 100%;
+    .admin__menu{
+        margin-top: 30px;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        div{
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(71, 71, 71);
+            border: 1px solid white;
+            height: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            &:hover{
+                background-color: rgb(95, 95, 95);
+            }
+        }
+    }
+    .admin__manage{
+        width: 100%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+.admin__table{
+    text-align: center;
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 98%;
+    tr, td, th {
+        border: 1px solid white;
+    }
+    tr{
+        height: 30px;
+    }
+    th, td{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    td {
+        font-size: 12px;
+    }
+}

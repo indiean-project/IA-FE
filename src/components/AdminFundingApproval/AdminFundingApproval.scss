@@ -1,0 +1,22 @@
+.adminFundingApproval__container{
+    width: 100%;
+    .adminFundingApproval__header{
+        margin: 15px;
+        display: flex;
+        justify-content: space-between;
+        .adminFundingApproval__search{
+            display: flex;
+            justify-content: space-between;
+            width: 410px;
+        }
+        .adminFundingApproval__sort{
+            display: flex;
+            align-items: center;
+            p{
+                margin: 0;
+                margin-right: 10px;
+            }
+        }
+    }
+    
+}
