@@ -89,3 +89,12 @@ export const SelectVote = async(params) => {
         console.log(e);
     }
 }
+
+export const weeklyColo = async() => {
+    try {
+        const {data} = await API.get("/api/board/colo/weekly");
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}

@@ -5,6 +5,8 @@ import './MainColoList.scss';
 import DOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { weeklyColo } from '../../apis/board';
+import { shuffle } from 'lodash';
 
 const testList = [
     {
@@ -42,9 +44,19 @@ const testList = [
 ];
 
 function MainColoList() {
-
+    const [coloList, setColoList] = useState([]);
     const [openCheck, setOpenCheck] = useState([false, false, false, false]);
-    //최근 인기 게시물 작업 완료 이후 작업 예정
+
+    useEffect(()=>{
+        getColoList();
+    },[])
+
+    const getColoList = async()=>{
+        const list = await weeklyColo();
+        console.log(list);
+        setColoList(shuffle(list['data']).slice(5, list['data'].length -1));
+    }
+
     const createMarkUp = (value) => {
         return { __html: DOMPurify.sanitize(value) };
     }
@@ -61,7 +73,7 @@ function MainColoList() {
                 <NavLink to={'#'}>이슈 더보기</NavLink>
             </div>
             <div className='mainColoList__box'>
-                {testList.map((item, idx) => {
+                {coloList.map((item, idx) => {
                     return (
                         <div className='mainColoList__item' key={idx}>
                             <div className='mainColoList__item__info' onClick={() => onClickDetail(idx)}>
@@ -69,7 +81,7 @@ function MainColoList() {
                             </div>
                             <ColoBar list={item} />
                             <AnimatePresence>
-                                {openCheck[idx] && <motion.div className='mainColoList__item__content' dangerouslySetInnerHTML={createMarkUp(item.colContent)}>
+                                {openCheck[idx] && <motion.div className='mainColoList__item__content' dangerouslySetInnerHTML={createMarkUp(item.boardContent)}>
                                 </motion.div>}
                             </AnimatePresence>
                         </div>
