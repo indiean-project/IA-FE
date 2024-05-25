@@ -56,10 +56,10 @@ function FreeBoardItem(props) {
                                     <td>{item.likeCount}</td>
                                 </tr>
                                 :
-                                <tr key={index}>
+                                <tr key={index} onClick={()=>{props.clickItem(item)}}>
                                     <td>{item.noticeNo}</td>
                                     <td className='freeboarditem__tbody__title'>{item.noticeTitle}</td>
-                                    <td>{item.nickname}{item.userRole === '2' ? <IoPrism /> : item.userRole === '3' ? <IoPrism className="freeBoard__user__at" /> : item.userRole === '1' ? <IoPrism className="freeBoard__user__ad" /> : ""}</td>
+                                    <td>{item.nickName}<IoPrism className="freeBoard__user__ad" /></td>
                                     <td>{item.updateDate === null ? item.enrollDate : item.updateDate}</td>
                                     <td>{item.viewCount}</td>
                                 </tr>

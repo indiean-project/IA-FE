@@ -89,3 +89,12 @@ export const SelectVote = async(params) => {
         console.log(e);
     }
 }
+
+export const DetailNotice = async(params) => {
+    try {
+        const {data} = await API.post("/api/notice/detail", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
