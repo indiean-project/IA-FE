@@ -129,6 +129,7 @@ function AdminFundingApproval() {
                         paddingLeft={'5px'}
                         value={standard.keyword}
                         onChangeValue={onChangeKeyword}
+                        name={'keyword'}
                     />
                     <SelectBar
                         list={searchCategory} onChangeValue={onChangeSearchStandard}
