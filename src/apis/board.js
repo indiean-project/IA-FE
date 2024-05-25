@@ -90,6 +90,15 @@ export const SelectVote = async(params) => {
     }
 }
 
+export const weeklyColo = async() => {
+    try {
+        const {data} = await API.get("/api/board/colo/weekly");
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export const DetailNotice = async(params) => {
     try {
         const {data} = await API.post("/api/notice/detail", params);

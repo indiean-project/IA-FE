@@ -43,3 +43,12 @@ export const spotifyGetAccessToken = async () => {
     const data = await response.json();
     return data.access_token;
   };
+
+  export const getHomeArtist = async () => {
+    try{
+        const {data} = await API.post('/api/artist/home');
+        return data
+    }catch(e){
+        console.log(e);
+    }
+  }
