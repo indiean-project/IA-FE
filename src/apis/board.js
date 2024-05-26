@@ -107,3 +107,30 @@ export const DetailNotice = async(params) => {
         console.log(e);
     }
 }
+
+export const NoticeEnroll = async(params) => {
+    try {
+        const {data} = await API.post("/api/notice/enroll", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const NoticeViewCount = async(params) => {
+    try {
+        const {data} = await API.post("/api/notice/viewCount", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const NoticeDelete = async(params) => {
+    try {
+        const {data} = await API.post("/api/notice/delete", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}

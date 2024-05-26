@@ -6,7 +6,8 @@ import { cPage } from '../../recoil/page';
 import { useEffect, useState } from 'react';
 import { pageMove } from '../../apis/pagination';
 import { loginUserState } from '../../recoil/LoginUser';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { NoticeViewCount } from '../../apis/board';
 
 function NoticeBoard() {
     const [boardList, setBoardList] = useState([]);
@@ -35,7 +36,7 @@ function NoticeBoard() {
 
     function clickItem(item) {
         const noticeNo = item.noticeNo;
-        // ViewCount(noticeNo);
+        NoticeViewCount(noticeNo);
         navigate("/notice/detail/" + noticeNo);
     }
 
@@ -57,7 +58,7 @@ function NoticeBoard() {
                     </div>
                     <div className='noticeboard__item'>
                         <div className='noticeboard__category'>커뮤니티 &gt; 공지사항</div>
-                        {loginUser.userRole === "ADMIN" ? <div className='noticeboard__btn'><a>글쓰기</a></div> : ""}
+                        {loginUser.userRole === "ADMIN" ? <div className='noticeboard__btn'><Link to={"enroll"}>글쓰기</Link></div> : ""}
                     </div>
                     <FreeBoardItem clickItem={clickItem} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
