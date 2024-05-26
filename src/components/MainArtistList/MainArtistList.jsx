@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import './MainArtistList.scss';
-import img from '/public/img/2024052583370.jpg';
+import img from '../../assets/default/defaultImg.png';
 import { useEffect, useState } from 'react';
 import { getHomeArtist } from '../../apis/artist/artist';
 

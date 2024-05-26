@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import './FundMainImage.scss';
-import defaultImg from '../../assets/logo/logo_white.png'
+import defaultImg from '../../assets/default/defaultImg.png'
 function FundMainImage({ imgItem }) {
     const [imgNum, setImgNum] = useState(0);
-    const [imgList, setImgList] = useState(new Array(5));
+    const defaultImgList = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg]
 
     useEffect(() => {
+        console.log(imgItem);
     }, [])
 
     return (
         <div className='fundMainImage__container'>
             <div className='fundMainImage__thumb'>
-                {(imgItem != undefined? imgItem : imgList).map((item, idx) => {
+                {(imgItem != undefined? imgItem : defaultImgList).map((item, idx) => {
                     return (
                             <img key={idx} src={item != null ? item.substring(item.indexOf('public') - 1) : defaultImg} onClick={() => setImgNum(idx)} />
                     );
