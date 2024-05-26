@@ -13,7 +13,7 @@ function App() {
       <ScrollTop/>
       <ErrorInterceptor/>
       <img src={drum} id="background__drum"/>
-      <Toaster/>
+      <Toaster position='bottom-center'/>
       <Layout/>
     </RecoilRoot>
   )

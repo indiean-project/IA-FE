@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FundInputBar from '../FundInputBar';
 import './FundEnrollForm.scss';
 import { PencilSquare, PlusSquareFill, Trash3, Trash3Fill, XCircleFill, XSquareFill } from 'react-bootstrap-icons';
@@ -16,6 +16,23 @@ import toast from 'react-hot-toast';
 function FundEnrollForm({ nav, navRef }) {
     const loginUserInfo = useRecoilValue(loginUserState);
     const navigate = useNavigate();
+    const refs = {
+        fundTitle: useRef(),
+        fundDescription: useRef(),
+        target: useRef(),
+        startDate: useRef(),
+        endDate: useRef(),
+        fundInfo: useRef(),
+        artistInfo: useRef(),
+        budgetInfo: useRef(),
+        scheduleInfo: useRef(),
+        bossImg: useRef(),
+        rewardList: useRef(),
+        rewardName: useRef(),
+        rewardPrice: useRef(),
+        rewardInfo: useRef(),
+        limitAmount: useRef(),
+    }
     const [fundForm, setFundForm] = useState({
         userNo: loginUserInfo.userNo,
         fundTitle: '',
@@ -44,10 +61,10 @@ function FundEnrollForm({ nav, navRef }) {
     const [bossImg, setBossImg] = useState(['', '', '', '', '']);
 
     const category = [
-        {label:'공연', value: 'CONCERT'},
-        {label:'굿즈', value: 'GOODS'},
-        {label:'앨범', value: 'ALBUM'},
-        {label:'팬미팅', value: 'FANMEETING'},
+        { label: '공연', value: 'CONCERT' },
+        { label: '굿즈', value: 'GOODS' },
+        { label: '앨범', value: 'ALBUM' },
+        { label: '팬미팅', value: 'FANMEETING' },
     ]
 
     const onChangeFundForm = (e) => {
@@ -93,13 +110,35 @@ function FundEnrollForm({ nav, navRef }) {
     }
     const onClickRewardSubmit = (check) => {
         if (check) {
+
+            if(rewardForm.rewardName === ''){
+                refs.rewardName.current.focus();
+                toast.error('리워드 이름을 작성해주세요.');
+                return;
+            }
+            if(rewardForm.rewardInfo === ''){
+                refs.rewardInfo.current.focus();
+                toast.error('리워드 설명을 작성해주세요.');
+                return;
+            }
+            if(rewardForm.rewardPrice === '' || rewardForm.rewardPrice === 0){
+                refs.rewardInfo.current.focus();
+                toast.error('리워드 금액을 입력하세요.');
+                return;
+            }
+            if(rewardForm.limitYn === 'Y' && rewardForm.limitAmount === '' || rewardForm.limitAmount === 0){
+                refs.limitAmount.current.focus();
+                toast.error('제한 수량을 입력하세요.');
+                return;
+            }
+
             let list = [...rewardList];
             list.push(rewardForm);
             setRewardList(list);
         }
         setRewardForm({
             rewardName: '',
-            rewardPrice: '',
+            rewardPrice: 0,
             rewardInfo: '',
             deliveryYn: 'N',
             limitYn: 'N',
@@ -127,33 +166,74 @@ function FundEnrollForm({ nav, navRef }) {
         }
     }
 
-    const onChangeCategory = (item)=>{
+    const onChangeCategory = (item) => {
         setFundForm({
             ...fundForm,
             category: item
         })
     }
 
-    const onClickSubmit = async()=>{
+    const onClickSubmit = async () => {
+        if (fundForm.category === '선택') {
+            window.scrollTo(0, 0);
+            toast.error('카테고리를 선택해주세요.')
+            return;
+        }
+        if (fundForm.fundTitle === '') {
+            refs.fundTitle.current.focus();
+            toast.error('제목을 입력해주세요.');
+            return;
+        }
+        if (fundForm.fundDescription === '') {
+            refs.fundDescription.current.focus();
+            toast.error('펀딩 설명을 입력해주세요.');
+            return;
+        }
+        if (fundForm.target === '' || fundForm.target === 0) {
+            refs.target.current.focus();
+            toast.error('펀딩 목표액을 입력해주세요.');
+            return;
+        }
+        if (fundForm.startDate === '' || fundForm.endDate === '') {
+            refs.startDate.current.focus();
+            toast.error('펀딩 기간을 입력해주세요.');
+            return;
+        }
+        if (bossImg.indexOf('') != -1) {
+            refs.bossImg.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('대표 이미지는 5장 전부 포함되어야합니다.');
+            return;
+        }
+        if(fundForm.fundInfo === ''){
+            refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('프로젝트 소개를 작성해주세요.');
+            return;
+        }
+        if(fundForm.artistInfo === ''){
+            refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('아티스트 소개를 작성해주세요.')
+            return;
+        }
+        if(rewardList.length === 0){
+            refs.rewardList.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('리워드를 1개 이상 등록해주세요.');
+            return;
+        }
+        if(fundForm.budgetInfo === ''){
+            refs.budgetInfo.current.focus();
+            toast.error('예산 운영 계획을 작성해주세요.');
+            return;
+        }
+        if(fundForm.scheduleInfo === ''){
+            refs.scheduleInfo.current.focus();
+            toast.error('일정을 작성해주세요.');
+            return;
+        }
+
         let moveList = new Array();
         let deleteList = new Array();
         let bossImgList = new Array();
 
-        fundInfoImgList.forEach((item)=>{
-            fundForm.fundInfo.indexOf(item) != -1? moveList.push(item) : deleteList.push(item);
-        })
-        artistInfoImgList.forEach((item)=>{
-            fundForm.artistInfo.indexOf(item) != -1? moveList.push(item) : deleteList.push(item);
-        })
-        bossImg.filter((item)=>item != '').forEach((item)=>{
-            bossImgList.push(item);
-        })
-
-        
-        deleteList.length > 0 && await imgDelete(deleteList);
-        let Cimg = moveList.length > 0 && await imgMove(moveList);
-        let Kimg = await imgMove(bossImgList);
-        
         let paymentDate = new Date(fundForm.endDate);
         paymentDate.setDate(paymentDate.getDate() + 1);
 
@@ -164,27 +244,44 @@ function FundEnrollForm({ nav, navRef }) {
         };
         const result = await fundEnroll(fund);
 
-        Cimg != false && await imgEnroll({
-            contentNo: result['data'],
-            imgUrlList: Cimg['data'],
-            fabcTypeEnum: 'FUND',
-            kcTypeEnum: 'CONTENT'
-        });
-        const imgResult = await imgEnroll({
-            contentNo: result['data'],
-            imgUrlList: Kimg['data'],
-            fabcTypeEnum: 'FUND',
-            kcTypeEnum: 'KING'
-        })
+        if (result.status === 'SUCCESS') {
+            fundInfoImgList.forEach((item) => {
+                fundForm.fundInfo.indexOf(item) != -1 ? moveList.push(item) : deleteList.push(item);
+            })
+            artistInfoImgList.forEach((item) => {
+                fundForm.artistInfo.indexOf(item) != -1 ? moveList.push(item) : deleteList.push(item);
+            })
+            bossImg.filter((item) => item != '').forEach((item) => {
+                bossImgList.push(item);
+            })
 
-        if(result.status === 'SUCCESS' && imgResult.status === 'SUCCESS'){
-            toast.success('펀딩을 정상적으로 신청하였습니다.');
-            navigate('/funding', {replace: true});
+            deleteList.length > 0 && await imgDelete(deleteList);
+            let Cimg = moveList.length > 0 && await imgMove(moveList);
+            let Kimg = await imgMove(bossImgList);
+
+            Cimg != false && await imgEnroll({
+                contentNo: result['data'],
+                imgUrlList: Cimg['data'],
+                fabcTypeEnum: 'FUND',
+                kcTypeEnum: 'CONTENT'
+            });
+            const imgResult = await imgEnroll({
+                contentNo: result['data'],
+                imgUrlList: Kimg['data'],
+                fabcTypeEnum: 'FUND',
+                kcTypeEnum: 'KING'
+            })
+            if (result.status === 'SUCCESS' && imgResult.status === 'SUCCESS') {
+                toast.success('펀딩을 정상적으로 신청하였습니다.');
+                navigate('/funding', { replace: true });
+            }
+        } else {
+            toast.error('펀딩 등록에 실패하였습니다.');
         }
     }
 
     useEffect(() => {
-        
+
     }, [bossImg, rewardList, fundForm])
 
     return (
@@ -206,17 +303,23 @@ function FundEnrollForm({ nav, navRef }) {
                         name={'fundTitle'}
                         value={fundForm.fundTitle}
                         onChangeValue={onChangeFundForm}
+                        placeholder={'프로젝트 제목을 작성해주세요.(30자 미만)'}
+                        inputRef={refs.fundTitle}
+                        maxlength={30}
                     />
                 </div>
                 <div className='fundEnrollForm__item'>
                     <div>
-                    <h3>프로젝트 설명</h3><p>*썸네일에 제목과 함께 노출되는 문구입니다.</p>
+                        <h3>프로젝트 설명</h3><p>*썸네일에 제목과 함께 노출되는 문구입니다.</p>
                     </div>
                     <FundInputBar width={"99%"}
                         paddingLeft={"5px"}
                         name={'fundDescription'}
                         value={fundForm.fundDescription}
                         onChangeValue={onChangeFundForm}
+                        placeholder={'프로젝트 설명을 작성해주세요.(100자 미만)'}
+                        inputRef={refs.fundDescription}
+                        maxlength={100}
                     />
                 </div>
                 <div className='fundEnrollForm__item'>
@@ -228,6 +331,9 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'target'}
                             value={fundForm.target}
                             onChangeValue={onChangeFundForm}
+                            placeholder={'목표 펀딩액을 작성해주세요.'}
+                            inputRef={refs.target}
+                            min={0}
                         />
                         <p>원</p>
                     </div>
@@ -237,6 +343,7 @@ function FundEnrollForm({ nav, navRef }) {
                 </div>
                 <div className='fundEnrollForm__item'>
                     <h3>펀딩 기간</h3>
+                    <p>*최소 1주일 이상</p>
                     <div className='fundEnrollForm__input'>
                         <FundInputBar width={"20%"}
                             type={'date'}
@@ -244,6 +351,8 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'startDate'}
                             value={fundForm.startDate}
                             onChangeValue={onChangeFundForm}
+                            min={moment(new Date()).format('YYYY-MM-DD')}
+                            inputRef={refs.startDate}
                         />
                         <p>부터</p>
                         <FundInputBar width={"20%"}
@@ -252,13 +361,16 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'endDate'}
                             value={fundForm.endDate}
                             onChangeValue={onChangeFundForm}
+                            min={moment(new Date().setDate(new Date(fundForm.startDate).getDate() + 7)).format('YYYY-MM-DD')}
+                            disabled={fundForm.startDate === '' && true}
+                            inputRef={refs.endDate}
                         />
                         <p>까지</p>
                     </div>
                 </div>
                 <div className='fundEnrollForm__item'>
-                    <h3>대표 사진</h3>
-                    <div className='fundEnrollForm__img'>
+                    <h3>대표 사진</h3><p>*첫번째 사진은 썸네일에 노출됩니다.</p>
+                    <div className='fundEnrollForm__img' id='bossImg' ref={refs.bossImg}>
                         {bossImg.map((img, idx) => {
                             return (
                                 <>
@@ -271,36 +383,36 @@ function FundEnrollForm({ nav, navRef }) {
                                             </div>
                                         </div>
                                         : <div className='fundEnrollForm__img__input' onClick={() => imageHandler(idx)} key={idx} >
-                                            <PlusSquareFill size={35}/>
+                                            <PlusSquareFill size={35} />
                                         </div>}
                                 </>
                             );
                         })}
                     </div>
                 </div>
-                <div className='fundEnrollForm__item'>
+                <div className='fundEnrollForm__item' ref={refs.fundInfo}>
                     <h3>프로젝트 소개</h3>
                     <FundEditor onEditorChange={onEditorChange}
-                                FACheck={'F'}
-                                imgList={fundInfoImgList}
-                                setImgList={setFundInfoImgList} />
+                        FACheck={'F'}
+                        imgList={fundInfoImgList}
+                        setImgList={setFundInfoImgList} />
                 </div>
             </div>
             <div id={nav[1].id} ref={(e) => (navRef.current[1] = e)} className='fundEnrollForm__artistForm form'>
                 <hr />
                 <h2>아티스트 소개</h2>
-                <div className='fundEnrollForm__item'>
+                <div className='fundEnrollForm__item' ref={refs.artistInfo}>
                     <h3>아티스트 소개</h3>
                     <FundEditor onEditorChange={onEditorChange}
-                                FACheck={'A'}
-                                imgList={artistInfoImgList}
-                                setImgList={setArtistInfoImgList} />
+                        FACheck={'A'}
+                        imgList={artistInfoImgList}
+                        setImgList={setArtistInfoImgList} />
                 </div>
             </div>
             <div id={nav[2].id} ref={(e) => (navRef.current[2] = e)} className='fundEnrollForm__rewardForm form'>
                 <hr />
                 <h2>리워드</h2>
-                <div className='fundEnrollForm__item'>
+                <div className='fundEnrollForm__item' ref={refs.rewardList}>
                     {rewardList.map((reward, idx) => {
                         return (
                             <div className='fundEnrollForm__reward' key={idx}>
@@ -334,6 +446,9 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'rewardName'}
                             value={rewardForm.rewardName}
                             onChangeValue={onChangeRewardForm}
+                            placeholder={'리워드명을 간단하게 입력해주세요.(10자 이하)'}
+                            maxlength={10}
+                            inputRef={refs.rewardName}
                         />
                     </div>
                     <div className='addform__item'>
@@ -343,6 +458,9 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'rewardInfo'}
                             value={rewardForm.rewardInfo}
                             onChangeValue={onChangeRewardForm}
+                            placeholder={'리워드 설명을 입력해주세요.(30자 이하)'}
+                            maxlength={30}
+                            inputRef={refs.rewardInfo}
                         />
                     </div>
                     <div className='addform__item'>
@@ -354,6 +472,9 @@ function FundEnrollForm({ nav, navRef }) {
                                 name={'rewardPrice'}
                                 value={rewardForm.rewardPrice}
                                 onChangeValue={onChangeRewardForm}
+                                placeholder={0}
+                                min={0}
+                                inputRef={refs.rewardPrice}
                             />
                             <p>원</p>
                         </div>
@@ -375,7 +496,9 @@ function FundEnrollForm({ nav, navRef }) {
                                 name={'limitAmount'}
                                 value={rewardForm.limitAmount}
                                 onChangeValue={onChangeRewardForm}
+                                placeholder={'0개'}
                                 disabled={rewardForm.limitYn === 'N'}
+                                inputRef={refs.limitAmount}
                             />
                         </div>
                     </div>
@@ -403,18 +526,18 @@ function FundEnrollForm({ nav, navRef }) {
                 <hr />
                 <h2>예산</h2>
                 <div className='fundEnrollForm__textarea'>
-                    <textarea name="budgetInfo" onChange={(e) => onChangeFundForm(e)} >{fundForm.budgetInfo}</textarea>
+                    <textarea name="budgetInfo" ref={refs.budgetInfo} onChange={(e) => onChangeFundForm(e)} maxLength={500} placeholder='예산 운영 계획을 500자 미만으로 입력해주세요.'>{fundForm.budgetInfo}</textarea>
                 </div>
             </div>
             <div id={nav[4].id} ref={(e) => (navRef.current[4] = e)} className='fundEnrollForm__scheduleForm form'>
                 <hr />
                 <h2>일정</h2>
                 <div className='fundEnrollForm__textarea'>
-                    <textarea name="scheduleInfo" onChange={(e) => onChangeFundForm(e)} >{fundForm.scheduleInfo}</textarea>
+                    <textarea name="scheduleInfo" ref={refs.scheduleInfo} onChange={(e) => onChangeFundForm(e)} maxLength={500} placeholder='예상 일정을 500자 미만으로 입력해주세요.' >{fundForm.scheduleInfo}</textarea>
                 </div>
             </div>
             <div className='fundEnrollForm__submit'>
-                <div className='fundEnrollForm__submit__btn' onClick={()=>onClickSubmit()}>신청서 제출</div>
+                <div className='fundEnrollForm__submit__btn' onClick={() => onClickSubmit()}>신청서 제출</div>
             </div>
         </div>
     );
