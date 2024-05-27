@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChatSquareDotsFill } from 'react-bootstrap-icons';
+import { ChatSquareDotsFill, QuestionLg } from 'react-bootstrap-icons';
 
 import QuestionBot from '../QuestionBot';
 
@@ -16,9 +16,9 @@ function QuestionBotIcon() {
 
     return (
         <>
-            <div className="chatbotIcon__container">
-                <ChatSquareDotsFill size={64} color="#F2613F" 
-                onClick={clickQBot} />
+            <div className="chatbotIcon__container" onClick={clickQBot}>
+                 <QuestionLg size={30}
+                 />
             </div>
             <QuestionBot activeQbot={activeQbot}/>
         </>

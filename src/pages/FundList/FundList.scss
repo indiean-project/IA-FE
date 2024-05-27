@@ -114,7 +114,6 @@
         }
     }
     .fundList__hot{
-        width: 94%;
         .fundList__hot__header{
             display: flex;
             justify-content: space-between;
@@ -137,6 +136,9 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             place-items: center;
+            .fundItem__container{
+                scale: 0.95;
+            }
         }
         .fundList__not__found{
             width: 100%;
@@ -197,10 +199,21 @@
     }
     .fundList__general{
         display: grid;
+        
+        grid-template-columns: repeat(4, 1fr);
+        place-items: center;
+        .fundItem__container{
+            scale: 0.95;
+        }
+    }
+    .fundList__search{
+        display: grid;
         width: 94%;
         grid-template-columns: repeat(4, 1fr);
-        row-gap: 30px;
         place-items: center;
+        .fundItem__container{
+            scale: 0.95;
+        }
     }
     .spinner{
         margin-top: 100px;
