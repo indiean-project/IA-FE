@@ -26,3 +26,11 @@ export const searchFundApprovalList = async(params) => {
         console.log(e);
     }
 }
+export const searchArtistList = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/concert/searchList");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}

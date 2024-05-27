@@ -1,0 +1,207 @@
+.concertEnrollForm {
+    margin-bottom: 5%;
+
+    .alert__area {
+        margin: 10% 0% 0% 10%;
+        color: white;
+        font-size: 30px;
+
+        svg {
+            margin: 2% 2% 0% 0%;
+        }
+    }
+
+    .concertEnrollForm__header {
+        display: flex;
+        justify-content: center;
+
+        h1 {
+            color: white;
+        }
+    }
+
+    .line__area {
+        display: flex;
+        justify-content: center;
+
+        hr {
+            background-color: rgba(255, 255, 255, 0.26);
+            margin: auto;
+            width: 80%;
+            height: 5px;
+            margin-top: 10px;
+        }
+    }
+
+    .concertEnrollForm__list__box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+
+        h1 {
+            margin-bottom: 1%;
+        }
+
+        .concertEnrollForm__list {
+            margin-top: 7%;
+            width: 40%;
+
+        }
+
+        .concertEnrollFrom__img {
+            margin-top: 5%;
+
+            .concertEnrollForm__img__input {
+                height: 300px;
+                position: relative;
+                margin-right: 10px;
+                background: rgba(89, 89, 89, 0.4);
+                border: 2px dashed #ffffff98;
+                width: 100%;
+                aspect-ratio: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.2s;
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    object-fit: fill;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .delete__icon {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .delete__background {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0);
+                        transition: 0.2s;
+                    }
+
+                    svg {
+                        color: rgba(255, 255, 255, 0.534);
+                        transition: 0.2s;
+                        z-index: 5;
+                    }
+                }
+
+                .delete__icon:hover {
+                    .delete__background {
+                        background-color: rgba(0, 0, 0, 0.541);
+                    }
+
+                    svg {
+                        color: rgba(255, 255, 255, 0.74);
+                    }
+                }
+
+                svg {
+                    color: rgba(255, 255, 255, 0.17);
+                }
+            }
+
+            .concertEnrollForm__img__input:hover {
+                background: rgba(145, 145, 145, 0.4);
+            }
+        }
+
+    }
+
+    .concertInfo__EnrollForm {
+        margin: 2% 0% 0% 0%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .concert__lineup {
+        margin: 2% 0% 0% 15%;
+        color: white;
+
+        .lineup__input__container {
+            background-color: rgba(204, 204, 204, 1);
+            border-radius: 4px;
+            border: 1px solid rgb(104, 104, 104);
+            height: 30px;
+            display: flex;
+            
+            align-items: center;
+            transition-duration: 0.2s;
+            width: 50%;
+           
+            .lineup__input {
+                height: 100%;
+                background: none;
+                border: none;
+                outline: none;
+                width: 100%;
+            }
+            
+        }
+        .lineup__input__container:focus-within{
+            box-shadow: inset 0px 0px 3.7px #F2613F;
+            transition-duration: 0.2s;
+        }
+    }
+
+    .linkList {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        width: 50%;
+        margin: 0% 0% 0% 15%;
+
+    }
+
+    .concertEnrollForm__submit {
+        margin-top: 2%;
+        display: flex;
+        justify-content: center;
+
+        .concertEnrollForm__submit__btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            width: 220px;
+            border-radius: 4px;
+            background-color: rgba(242, 97, 63, 1);
+            font-size: 25px;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .concertEnrollForm__submit__btn:hover {
+            background-color: rgb(240, 115, 87);
+            box-shadow: 0px 0px 10.1px rgba(227, 101, 29, 0.62);
+        }
+    }
+    ul{
+        list-style: none;
+        background-color: rgba(204, 204, 204, 1);
+        width: 46%;
+        border-radius: 0px 0px 4px 4px;
+        margin-top: 0px;
+    }
+    .on{
+        background-color: #f5f5f5;
+        color: red
+    }
+    
+}
