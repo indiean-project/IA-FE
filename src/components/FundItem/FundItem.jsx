@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './FundItem.scss';
 import { useNavigate } from 'react-router-dom';
-import defaultImg from '../../assets/logo/logo_white.png'
+import defaultImg from '../../assets/default/defaultImg.png'
 
 function FundItem({ item }) {
 

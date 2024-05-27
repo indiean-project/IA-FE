@@ -2,7 +2,7 @@ import { PlusSquareFill, Share } from 'react-bootstrap-icons';
 import FundMainImage from '../FundMainImage/FundMainImage';
 import './FundItemDetail.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { selectFundDetail } from '../../apis/fund/fund';
 import DOMPurify from 'dompurify';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -11,13 +11,14 @@ import moment from 'moment';
 import FundPayment from '../FundPayment/FundPayment';
 import { isModalActive } from '../../recoil/IsModalActive';
 import toast from 'react-hot-toast';
+import { handleCopyClipBoard } from '../../apis/common/copyClipBoard';
 
 function FundItemDetail({ nav, navRef, navHandle }) {
 
     const params = useParams().id;
     const loginUser = useRecoilValue(loginUserState);
     const [modal, setModal] = useRecoilState(isModalActive);
-
+    const navigate = useNavigate();
     const [fund, setFund] = useState({});
     const [day, setDay] = useState();
 
@@ -174,11 +175,11 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                     </div>
 
                     <div className='fundItemDetail__title__btn'>
-                        <div>
+                        <div onClick={handleCopyClipBoard}>
                             <Share size={20} />
                             <span>공유하기</span>
                         </div>
-                        <div>
+                        <div onClick={()=>navigate('/artist/detail/' + fund.artistNo)}>
                             <div>아티스트 페이지 방문</div>
                         </div>
                     </div>
