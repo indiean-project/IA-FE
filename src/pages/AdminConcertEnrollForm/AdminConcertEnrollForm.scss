@@ -137,11 +137,11 @@
             border: 1px solid rgb(104, 104, 104);
             height: 30px;
             display: flex;
-            
+
             align-items: center;
             transition-duration: 0.2s;
             width: 50%;
-           
+
             .lineup__input {
                 height: 100%;
                 background: none;
@@ -149,11 +149,44 @@
                 outline: none;
                 width: 100%;
             }
-            
+
         }
-        .lineup__input__container:focus-within{
+
+        .lineup__input__container:focus-within {
             box-shadow: inset 0px 0px 3.7px #F2613F;
             transition-duration: 0.2s;
+        }
+
+        .addLineup {
+            margin-top: 3%;
+            display: flex;
+
+            .add__artist__container {
+                margin: 0% 2% 0% 0%;
+                .add__artist {
+                    display: flex;
+
+                    span {
+                        margin-right: 20px;
+                        line-height: 200%;
+                    }
+
+                    .artist__delete__bnt {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 4px;
+                        font-size: 25px;
+                        font-weight: 900;
+                        cursor: pointer;
+                        transition: 0.2s;
+
+                    }
+                }
+
+            }
         }
     }
 
@@ -192,16 +225,18 @@
             box-shadow: 0px 0px 10.1px rgba(227, 101, 29, 0.62);
         }
     }
-    ul{
+
+    ul {
         list-style: none;
         background-color: rgba(204, 204, 204, 1);
         width: 46%;
         border-radius: 0px 0px 4px 4px;
         margin-top: 0px;
     }
-    .on{
+
+    .on {
         background-color: #f5f5f5;
         color: red
     }
-    
+
 }

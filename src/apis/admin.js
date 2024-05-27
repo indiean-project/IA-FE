@@ -34,3 +34,61 @@ export const searchArtistList = async(params) => {
         console.log(e);
     }
 }
+//admin user
+export const enrollUser = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/user/enroll");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+export const adminUserList = async(params) => {
+    try {
+        const {data} = await API.get("/api/admin/user/list");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+export const searchUserList = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/user/searchList");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+export const adminUserdelete = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/user/delete");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+//admin artist
+export const adminArtistList = async(params) => {
+    try {
+        const {data} = await API.get("/api/admin/artist/list");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+export const updateArtostStatus = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/artist/updateStatus");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+export const adminsearchArtistList = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/artist/searchList");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}

@@ -31,7 +31,7 @@ function AdminConcertEnrollForm() {
     })
     useEffect(() => {
         const handleClickOutside = (e) => {
-            
+
             if (
                 inputRef.current &&
                 !inputRef.current.contains(e.target)
@@ -43,7 +43,7 @@ function AdminConcertEnrollForm() {
             document.addEventListener('mousedown', handleClickOutside);
         };
     }, [inputRef]);
-    const [artistSearchVal, setArtistSearchVal] = useState()
+    const [artistSearchVal, setArtistSearchVal] = useState('')
     const [artistSearch, setArtistSearch] = useState(['a', 'b', 'c']);
     const [concertInfoImg, setConcertInfoImg] = useState([]);
     const onClickSubmit = async () => {
@@ -88,23 +88,28 @@ function AdminConcertEnrollForm() {
         setArtistSearch(artist)
     }
     const handleDropDownClick = (artist) => {
+
         let copyLineup = lineup
+        console.log(artist)
         setLineup(...copyLineup, artist);
         setIsDropbox(false);
         setSelected(-1);
+        setArtistSearchVal('')
     };
     useEffect(() => {
-        setIsDropbox(true)
-        //artistSearchList()
+        
+        if (artistSearchVal.trim() != '') {
+            //artistSearchList()
+        }
     }, [artistSearchVal])
     const onChangeLindupForm = (e) => {
 
     }
 
     const onChangeArtist = (e) => {
-        console.log('입력값 들어옴')
+        setIsDropbox(true);
         setArtistSearchVal(e.target.value);
-        
+
     }
     const [bossImg, setBossImg] = useState(['']);
     const imageDelete = async (img, idx) => {
@@ -140,6 +145,9 @@ function AdminConcertEnrollForm() {
     useEffect(() => {
 
     }, [bossImg, concertForm, lineup, selected])
+    const deleteArtist = () =>{
+        
+    }
     return (
         <div className='concertEnrollForm'>
             <div>
@@ -221,16 +229,27 @@ function AdminConcertEnrollForm() {
                         </div>
                         {isDrobBox && (
                             <ul>
-                                {artistSearch.map((artist, idx) =>( <ArtistTipLi
-                                            key={idx}
-                                            selected={selected}
-                                            setSelected={setSelected}
-                                            idx={idx}
-                                            onClick={() => handleDropDownClick(artist)}
-                                            item={artist}
-                                        />))}
+                                {artistSearch.map((artist, idx) => (<ArtistTipLi
+                                    key={idx}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                    idx={idx}
+                                    handleDropDownClick={handleDropDownClick}
+                                    item={artist}
+                                />))}
                             </ul>
                         )}
+                    </div>
+                    <div className='addLineup'>
+
+                        {<div className='add__artist__container'>
+                            <div className='add__artist'>
+                                <span>이름주루루루루루루루</span>
+                                <div className='artist__delete__bnt' onClick={()=>{()=>deleteArtist(idx)}}>
+                                    <XCircleFill size={35} />
+                                </div>
+                            </div>
+                        </div>}
                     </div>
                 </div>
                 <div className='linkList'>
