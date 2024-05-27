@@ -88,7 +88,21 @@
     .header__right__myPage {
         margin-right: 30px;
         display: flex;
-
+        align-items: center;
+        .header__right__img{
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            img{
+                object-fit: cover;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+            }
+            svg{
+                color: white;
+            }
+        }
         a {
             text-decoration: none;
             background-color: rgba(0, 0, 0, 0);
@@ -100,12 +114,13 @@
             width: 100%;
             padding-top: 3px;
         }
-
         .header__right__icon {
             margin-left: 10px;
-
+            display: flex;
+            align-items: center;
+            cursor: pointer;
             svg {
-                color: rgba(242, 96, 63, 0.911);
+                color: white;
                 transition-duration: 0.2s;
             }
         }

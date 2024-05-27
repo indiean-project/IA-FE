@@ -242,7 +242,7 @@ function FundList() {
                         })}
                 </div> :
                     <div><h3>총 {fundList.length}건의 검색 결과가 있습니다.</h3>
-                        <div className='fundList__general'>
+                        <div className='fundList__search'>
                             {fundList.map((item) => {
                                 return (
                                     <FundItem

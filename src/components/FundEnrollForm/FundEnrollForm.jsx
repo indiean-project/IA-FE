@@ -12,10 +12,13 @@ import moment from 'moment';
 import { imgEnroll } from '../../apis/imgUrl';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { createBrowserHistory } from 'history';
 
 function FundEnrollForm({ nav, navRef }) {
     const loginUserInfo = useRecoilValue(loginUserState);
     const navigate = useNavigate();
+    const history = createBrowserHistory();
+
     const refs = {
         fundTitle: useRef(),
         fundDescription: useRef(),
@@ -54,6 +57,32 @@ function FundEnrollForm({ nav, navRef }) {
         limitYn: 'N',
         limitAmount: ''
     })
+
+    //여기서부터 82번째줄 까지 페이지 이탈 임시 이미지 삭제 로직
+
+    useEffect(()=>{
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        bossImg.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+        await imgDelete(fundInfoImgList);
+        await imgDelete(artistInfoImgList);
+    };
+
+    useEffect(()=>{
+        return ()=>{
+            handleBeforeUnload();
+        }
+    }, [history])
+
+    
+
     const [rewardList, setRewardList] = useState([]);
     const [addReward, setAddReward] = useState(false);
     const [fundInfoImgList, setFundInfoImgList] = useState([]);
@@ -111,22 +140,22 @@ function FundEnrollForm({ nav, navRef }) {
     const onClickRewardSubmit = (check) => {
         if (check) {
 
-            if(rewardForm.rewardName === ''){
+            if (rewardForm.rewardName === '') {
                 refs.rewardName.current.focus();
                 toast.error('리워드 이름을 작성해주세요.');
                 return;
             }
-            if(rewardForm.rewardInfo === ''){
+            if (rewardForm.rewardInfo === '') {
                 refs.rewardInfo.current.focus();
                 toast.error('리워드 설명을 작성해주세요.');
                 return;
             }
-            if(rewardForm.rewardPrice === '' || rewardForm.rewardPrice === 0){
+            if (rewardForm.rewardPrice === '' || rewardForm.rewardPrice === 0) {
                 refs.rewardInfo.current.focus();
                 toast.error('리워드 금액을 입력하세요.');
                 return;
             }
-            if(rewardForm.limitYn === 'Y' && rewardForm.limitAmount === '' || rewardForm.limitAmount === 0){
+            if (rewardForm.limitYn === 'Y' && rewardForm.limitAmount === '' || rewardForm.limitAmount === 0) {
                 refs.limitAmount.current.focus();
                 toast.error('제한 수량을 입력하세요.');
                 return;
@@ -204,27 +233,27 @@ function FundEnrollForm({ nav, navRef }) {
             toast.error('대표 이미지는 5장 전부 포함되어야합니다.');
             return;
         }
-        if(fundForm.fundInfo === ''){
+        if (fundForm.fundInfo === '') {
             refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('프로젝트 소개를 작성해주세요.');
             return;
         }
-        if(fundForm.artistInfo === ''){
+        if (fundForm.artistInfo === '') {
             refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('아티스트 소개를 작성해주세요.')
             return;
         }
-        if(rewardList.length === 0){
+        if (rewardList.length === 0) {
             refs.rewardList.current.scrollIntoView({ behavior: "smooth" });
             toast.error('리워드를 1개 이상 등록해주세요.');
             return;
         }
-        if(fundForm.budgetInfo === ''){
+        if (fundForm.budgetInfo === '') {
             refs.budgetInfo.current.focus();
             toast.error('예산 운영 계획을 작성해주세요.');
             return;
         }
-        if(fundForm.scheduleInfo === ''){
+        if (fundForm.scheduleInfo === '') {
             refs.scheduleInfo.current.focus();
             toast.error('일정을 작성해주세요.');
             return;
