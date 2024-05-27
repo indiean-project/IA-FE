@@ -39,6 +39,7 @@ function ColoBoard() {
     const [rlType, setRlType] = useState([]);
     const setCpage = useSetRecoilState(cPage);
     const [modalType, setModalType] = useState("");
+    const [state, setState] = useState(1);
 
     async function list() {
         const list = await pageMove({
@@ -56,7 +57,7 @@ function ColoBoard() {
         location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
         selVote();
-    }, [likeState])
+    }, [likeState, state])
 
     function toggleReplyBtn(index) {
         setReplyBtn((prevState) => {
@@ -210,7 +211,7 @@ function ColoBoard() {
                                     <div className="coloBoard__report__btn" onClick={()=>{setModal(true); setBoardNo(item.boardNo); setModalType("신고");}}>신고</div>
                                 </div>
                                 <div className={replyBtn[index] === 'close' ? 'displayNone' : ''}>
-                                    <CommonReply type={"게시글"} contentNo={item.boardNo}  />
+                                    <CommonReply state={state} setState={setState} type={"게시글"} contentNo={item.boardNo}  />
 
                                 </div>
                             </div>

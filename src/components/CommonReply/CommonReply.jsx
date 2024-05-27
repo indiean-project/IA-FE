@@ -6,11 +6,12 @@ import { loginUserState } from '../../recoil/LoginUser';
 import toast from 'react-hot-toast';
 import { BoardReplyEnroll, BoardReplyList } from '../../apis/reply/reply';
 
-function CommonReply({ type, contentNo }) {
+function CommonReply({ type, contentNo, setState, state }) {
     const inputRef = useRef(null);
     const loginUser = useRecoilValue(loginUserState);
     const [replyText, setReplyText] = useState('');
     const [replyList, setReplyList] = useState();
+    const [replyState, setReplyState] = useState(1);
 
     useEffect(() => {
         if (loginUser.userId === "") {
@@ -18,7 +19,7 @@ function CommonReply({ type, contentNo }) {
             inputRef.current.readOnly = true;
         }
         reply();
-    }, [])
+    }, [replyState])
 
     const clickOn = async () => {
         if (loginUser.userId === "") {
@@ -37,6 +38,8 @@ function CommonReply({ type, contentNo }) {
         if (result.status === "SUCCESS") {
             toast.success("댓글이 등록되었습니다.");
             setReplyText("");
+            setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
+            
             reply();
         }
     }
@@ -44,7 +47,6 @@ function CommonReply({ type, contentNo }) {
     const reply = async () => {
         const result = type === "게시글" ? await BoardReplyList(contentNo) : "";
         setReplyList(result.data);
-        console.log(result.data);
     }
     return (
         <>
@@ -56,7 +58,7 @@ function CommonReply({ type, contentNo }) {
                             <div className='btn' onClick={clickOn}>등록</div>
                         </div>
                     </div>
-                    <Reply replyList={replyList}></Reply>
+                    <Reply replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
                 </div>
             </div>
         </>

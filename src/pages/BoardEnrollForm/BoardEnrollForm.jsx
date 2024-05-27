@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { boardPoint } from '../../recoil/boardPoint';
 import { loginUserState } from '../../recoil/LoginUser';
+import { createBrowserHistory } from 'history';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
@@ -48,6 +49,21 @@ function BoardEnrollForm() {
             setByte(byte);
         }
     }, [location.state])
+
+    useEffect(()=>{
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+    
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        imgList.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+    };
+
+
 
     const imageHandler = () => {
         const input = document.createElement('input');
