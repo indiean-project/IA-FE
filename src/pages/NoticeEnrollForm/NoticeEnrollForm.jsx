@@ -15,7 +15,7 @@ function NoticeEnrollForm() {
     const [title, setTitle] = useState('');
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const location = useLocation();
-    const [noticeItem, setNoticeItem] = useState();
+    const [byte, setByte] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,6 +76,11 @@ function NoticeEnrollForm() {
 
     const handleChange = (content) => {
         setContent(content);
+        let byte = 0;
+        for (let i = 0; i < content.length; i++) {
+            content.charCodeAt(i) > 127 ? byte += 3 : byte++;
+        }
+        setByte(byte);
     };
 
     return (
@@ -94,6 +99,7 @@ function NoticeEnrollForm() {
                         onChange={handleChange}
                         ref={quillRef}
                     />
+                    <div className='boardEnrollForm__byte'><div>byte : {byte} / 4000</div></div>
                     <div className='boardEnrollForm__items'>
                         <button onClick={enroll}>등록</button>
                     </div>

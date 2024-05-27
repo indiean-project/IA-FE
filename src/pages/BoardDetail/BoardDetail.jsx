@@ -132,7 +132,7 @@ function BoardDetail() {
                     <div>{boardItem.likeCount}</div>
                 </div>
             </div>
-            <CommonReply />
+            <CommonReply type={"게시글"} contentNo={boardItem.boardNo} />
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
                     <FreeBoardItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />

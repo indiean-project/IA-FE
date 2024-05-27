@@ -8,6 +8,8 @@ import { pageMove } from '../../apis/pagination';
 import { loginUserState } from '../../recoil/LoginUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { NoticeViewCount } from '../../apis/board';
+import { isModalActive } from '../../recoil/IsModalActive';
+import QuestionForm from '../../components/QuestionForm';
 
 function NoticeBoard() {
     const [boardList, setBoardList] = useState([]);
@@ -18,6 +20,7 @@ function NoticeBoard() {
     const [pageInfo, setPageInfo] = useState();
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
+    const [modal, setModal] = useRecoilState(isModalActive);
 
     const list = async () => {
         const list = await pageMove({
@@ -43,7 +46,7 @@ function NoticeBoard() {
     return (
         <div className='noticeboard__container'>
             <div className='noticeboard__box'>
-                <NoticeSidebar />
+                <NoticeSidebar setModal={setModal} />
                 <div className='noticeboard__items'>
                     <div className='noticeboard__item'>
                         <div>
@@ -63,6 +66,7 @@ function NoticeBoard() {
                     <FreeBoardItem clickItem={clickItem} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
             </div>
+            {modal ? <QuestionForm/> : ""}
         </div>
     )
 } export default NoticeBoard;

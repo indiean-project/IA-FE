@@ -24,6 +24,7 @@ function BoardEnrollForm() {
     const navigate = useNavigate();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+    const [byte, setByte] = useState(0);
 
     useEffect(() => {
         const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
@@ -40,6 +41,11 @@ function BoardEnrollForm() {
                 setColoTitle1(item.colLeftTitle);
                 setColoTitle2(item.colRightTitle);
             }
+            let byte = 0;
+            for (let i = 0; i < item.boardContent.length; i++) {
+                item.boardContent.charCodeAt(i) > 127 ? byte += 3 : byte++;
+            }
+            setByte(byte);
         }
     }, [location.state])
 
@@ -91,6 +97,11 @@ function BoardEnrollForm() {
 
     const handleChange = (content) => {
         setContent(content);
+        let byte = 0;
+        for (let i = 0; i < content.length; i++) {
+            content.charCodeAt(i) > 127 ? byte += 3 : byte++;
+        }
+        setByte(byte);
     };
 
     const enroll = async () => {
@@ -106,7 +117,7 @@ function BoardEnrollForm() {
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
             return
-        } else if (content.substring(4, content.length - 4).trim() === "") {
+        } else if (content.substring(3, content.length - 4).trim() === "" || content.substring(3, content.length - 4).trim() === "<br>") {
             toast.error("내용을 입력해주세요.");
             return
         }
@@ -116,7 +127,19 @@ function BoardEnrollForm() {
                 toast.error("콜로세움 게시판은 투표를 만들어야 작성 가능합니다.");
                 return
             }
+            if (byte > 500) {
+                toast.error("글자수가 넘어갔습니다.");
+                return
+            }
+        } else {
+            if (byte > 4000) {
+                toast.error("글자수가 넘어갔습니다.");
+                return
+            }
         }
+
+        
+
         trimTitle = title.trim();
 
         imgList.forEach((item) => {
@@ -210,6 +233,7 @@ function BoardEnrollForm() {
                         onChange={handleChange}
                         ref={quillRef}
                     />
+                    <div className='boardEnrollForm__byte'><div>byte : {byte} / {category==="COLO" ? 500 : 4000}</div></div>
                     <div className='boardEnrollForm__items'>
                         <button className={category === 'COLO' ? 'displayNone' : ''} onClick={imageHandler}>이미지 첨부</button>
                         <button className={category === 'COLO' ? '' : 'displayNone'} onClick={voteState}>투표</button>

@@ -1,5 +1,5 @@
 import "./ProudItem.scss";
-import img from "./10cm.jpg";
+import img from "../../assets/default/defaultImg.png";
 import { MdThumbUp, MdOutlineRemoveRedEye } from "react-icons/md";
 import PaginationBar from "../PaginationBar";
 import { useEffect } from "react";
