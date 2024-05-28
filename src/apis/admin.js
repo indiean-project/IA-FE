@@ -11,7 +11,7 @@ export const adminUser = async() => {
 
 export const updateFundStatus = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/fund/updateStatus");
+        const {data} = await API.post("/api/admin/fund/updateStatus", params);
         return data;
     } catch (e){
         console.log(e);
@@ -20,7 +20,7 @@ export const updateFundStatus = async(params) => {
 
 export const searchFundApprovalList = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/fund/searchList");
+        const {data} = await API.post("/api/admin/fund/searchList", params);
         return data;
     } catch (e){
         console.log(e);

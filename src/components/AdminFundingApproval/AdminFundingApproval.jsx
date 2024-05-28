@@ -73,18 +73,18 @@ function AdminFundingApproval() {
         } else {
             toast.error('처리 실패');
         }
+        getList();
     }
 
-    const onClickSearch = async() => {
-        //backEnd 작업 후 활성화 시켜주세요.
+    const onClickSearch = async() => {     
 
-        // const list = await searchFundApprovalList(standard);
-        // if (list.status === 'SUCCESS'){
-        //     setFundingRequest(list.data);
-        //     toast.success('총' + list.data.length + '건의 검색 결과');
-        // } else {
-        //     toast.error('검색 실패');
-        // }
+        const list = await searchFundApprovalList(standard);
+        if (list.status === 'SUCCESS'){
+            setFundingRequest(list.data);
+            toast.success('총' + list.data.length + '건의 검색 결과');
+        } else {
+            toast.error('검색 실패');
+        }
     }
 
     return (
