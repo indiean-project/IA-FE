@@ -35,6 +35,12 @@
         margin: 8px;
         font-size: 10px;
         font-weight: 100;
+        display: flex;
+        justify-content: space-between;
+        .fundItem__artistName{
+            font-size: 12px;
+            color: rgb(255, 232, 232);
+        }
     }
 
     .fundItem__title {

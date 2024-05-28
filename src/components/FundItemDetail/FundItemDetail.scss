@@ -174,6 +174,17 @@
         top: 20%;
         margin-left: 59px;
         width: 400px;
+        .fundItemDetail__reward__close{
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 7px;
+            width: 100%;
+            height: 100px;
+            align-items: center;
+            justify-content: center;
+            color: rgb(224, 222, 222);
+            font-size: 20px;
+        }
 
         .fundItemDetail__reward__item {
             background-color: rgba(255, 255, 255, 0.15);
@@ -185,6 +196,28 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                position: relative;
+                .reward__delete__item{
+                    right: 0;
+                    position: absolute;
+                    margin-right: 1%;
+                    background-color: rgba(255, 255, 255, 0.418);
+                    border-radius: 5px;
+                    height: 89%;
+                    width: 79%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    opacity: 0;
+                    transition: 0.2s;
+                    svg{
+                        color: rgba(255, 255, 255, 0.623);
+                    }
+                    &:hover{
+                        opacity: 1;
+                    }
+                }
 
                 svg {
                     color: rgba(255, 255, 255, 0.42);

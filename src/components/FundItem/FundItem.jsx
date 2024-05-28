@@ -6,7 +6,7 @@ import defaultImg from '../../assets/default/defaultImg.png'
 function FundItem({ item }) {
 
     const [fundListItem, setFundListItem] = useState({});
-    const { endDate, fundDescription, fundInfo, fundNo, fundTitle, fundType, rate, revenue, startDate, target, userNo, imgUrl } = fundListItem;
+    const { endDate, fundDescription, fundInfo, fundNo, fundTitle, fundType, rate, revenue, startDate, target, userNo, imgUrl, artistName } = fundListItem;
     const [day, setDay] = useState(0);
     const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ function FundItem({ item }) {
         <div className='fundItem__container' onClick={()=>onClickFundItem()}>
             <div className='fundItem__hover'>자세히 보기</div>
             <img src={imgUrl != null ? imgUrl.substring(imgUrl.indexOf('public') - 1) : defaultImg} />
-            <div className='fundItem__category'>{fundType}</div>
+            <div className='fundItem__category'><div>{fundType}</div><div className='fundItem__artistName'>{artistName}</div></div>
             <div className='fundItem__title'>{fundTitle}</div>
             <div className='fundItem__content'>{fundDescription}</div>
             <div className='fundItem__info'>
