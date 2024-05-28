@@ -18,6 +18,7 @@ import { IoPrism } from "react-icons/io5";
 import { isModalActive } from "../../recoil/IsModalActive";
 import ModalWindow from "../../components/ModalWindow";
 import FundInputBar from "../../components/FundInputBar";
+import ReportModal from "../../components/ReportModal";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -37,6 +38,8 @@ function ColoBoard() {
     const [coloState, setColoState] = useState([]);
     const [rlType, setRlType] = useState([]);
     const setCpage = useSetRecoilState(cPage);
+    const [modalType, setModalType] = useState("");
+    const [state, setState] = useState(1);
 
     async function list() {
         const list = await pageMove({
@@ -54,7 +57,7 @@ function ColoBoard() {
         location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
         selVote();
-    }, [likeState])
+    }, [likeState, state])
 
     function toggleReplyBtn(index) {
         setReplyBtn((prevState) => {
@@ -156,13 +159,13 @@ function ColoBoard() {
                                     <div>
                                         {item.nickname}{item.userRole === '2' ? <IoPrism /> :
                                             item.userRole === '3' ? <IoPrism className="coloBoard__user__at" /> :
-                                                boardItem.userRole === '1' ? <IoPrism className="boardDetail__user__ad" /> : ""}
+                                                item.userRole === '1' ? <IoPrism className="coloBoard__user__ad" /> : ""}
                                     </div>
                                     <div>
                                         {item.updateDate === null ? item.enrollDate + " " : item.updateDate + "(수정됨) "}
                                         {item.userNo === loginUser.userNo ?
                                             <>
-                                                <BsPencilSquare onClick={() => { boardUpdate(item) }} /> <BsTrash onClick={() => { setModal(true); setBoardNo(item.boardNo) }} />
+                                                <BsPencilSquare onClick={() => { boardUpdate(item) }} /> <BsTrash onClick={() => { setModal(true); setBoardNo(item.boardNo); setModalType("삭제"); }} />
                                             </>
                                             :
                                             ""
@@ -203,12 +206,12 @@ function ColoBoard() {
                                 <div className="coloBoard__item4">
 
                                     <div className="coloBoard__reply__btn" onClick={() => toggleReplyBtn(index)}>
-                                        {replyBtn[index] === 'close' ? '∧' : '∨'} 댓글({item.replies})</div>
+                                        {replyBtn[index] === 'close' ? '∨' : '∧'} 댓글({item.replies})</div>
 
-                                    <div className="coloBoard__report__btn">신고</div>
+                                    <div className="coloBoard__report__btn" onClick={()=>{setModal(true); setBoardNo(item.boardNo); setModalType("신고");}}>신고</div>
                                 </div>
                                 <div className={replyBtn[index] === 'close' ? 'displayNone' : ''}>
-                                    <CommonReply />
+                                    <CommonReply state={state} setState={setState} type={"게시글"} contentNo={item.boardNo}  />
 
                                 </div>
                             </div>
@@ -225,7 +228,7 @@ function ColoBoard() {
                     </div>
                 </div>
             </div>
-            {modal ? <ModalWindow>
+            {modal && modalType === "삭제" ? <ModalWindow>
                 <div className='boardDetail__modal'>
                     정말로 삭제 하시겠습니까?
                     <div className='boardDetail__modal__buttom'>
@@ -233,7 +236,8 @@ function ColoBoard() {
                         <div onClick={() => { setModal(false) }}>아니요</div>
                     </div>
                 </div>
-            </ModalWindow> : ""}
+            </ModalWindow> : modal && modalType === "신고" ? <ReportModal contentNo={boardNo} brType={"BOARD"} setModal={setModal}/>
+            : ""}
         </div>
 
     )

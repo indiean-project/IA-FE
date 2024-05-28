@@ -16,6 +16,7 @@ import { IoPrism } from "react-icons/io5";
 import toast from 'react-hot-toast';
 import { isModalActive } from '../../recoil/IsModalActive';
 import ModalWindow from '../../components/ModalWindow';
+import ReportModal from '../../components/ReportModal';
 
 function BoardDetail() {
     const [pageInfo, setPageInfo] = useState();
@@ -29,6 +30,7 @@ function BoardDetail() {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
     const [modal, setModal] = useRecoilState(isModalActive);
+    const [modalType, setModalType] = useState("");
     let like;
 
     useEffect(() => {
@@ -91,7 +93,6 @@ function BoardDetail() {
     }
     return (
         <div className='boardDetail__container'>
-            {console.log(boardItem)}
             <div className='boardDetail__box'>
                 <div className='boardDetail__item'>
                     <div>No.{boardItem.boardNo}</div>
@@ -112,13 +113,13 @@ function BoardDetail() {
                     {boardItem.userNo === loginUser.userNo ?
                         <>
                             <div onClick={() => { boardUpdate() }}>수정</div>
-                            <div onClick={() => { setModal(true) }}>삭제</div>
+                            <div onClick={() => { setModal(true); setModalType("삭제") }}>삭제</div>
                         </>
                         :
                         ""
                     }
                     <div><NavLink to={category === "자유게시판" ? "/board/free" : "/board/proud"}>목록</NavLink></div>
-                    <div>신고</div>
+                    <div onClick={()=>{setModal(true); setModalType("신고")}}>신고</div>
                 </div>
             </div>
             <div className='boardDetaill__title'>
@@ -131,13 +132,13 @@ function BoardDetail() {
                     <div>{boardItem.likeCount}</div>
                 </div>
             </div>
-            <CommonReply />
+            <CommonReply type={"게시글"} contentNo={boardItem.boardNo} />
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
                     <FreeBoardItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />
                     : category === "아티스트 자랑" ? <ProudItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} /> : ""}
             </div>
-            {modal ? <ModalWindow>
+            {modal && modalType === "삭제" ? <ModalWindow>
                 <div className='boardDetail__modal'>
                     정말로 삭제 하시겠습니까?
                     <div className='boardDetail__modal__buttom'>
@@ -145,7 +146,8 @@ function BoardDetail() {
                         <div onClick={() => { setModal(false) }}>아니요</div>
                     </div>
                 </div>
-            </ModalWindow> : ""}
+            </ModalWindow> : 
+            modal && modalType === "신고" ? <ReportModal contentNo={boardItem.boardNo} brType={"BOARD"} setModal={setModal}/> : ""}
         </div>
     )
 } export default BoardDetail;

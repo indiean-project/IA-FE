@@ -44,3 +44,39 @@ export const adminQuestion = async(params) => {
         console.log(e);
     }
 }
+
+export const adminReportList = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/report/reportList");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+
+export const updateReportStatus = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/report/updateStatus");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+
+export const searchReportList = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/report/searchList");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+
+export const selectBoardNo = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/report/selectBoardNo");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
