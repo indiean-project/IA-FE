@@ -1,7 +1,9 @@
 .userReport__container {
-    grid-area: board;
+    grid-area: report;
     width: 100%;
     margin-top:15px;
+
+    &.question { margin-bottom: 30px; }
 
     .userReport__table {
         width: 90%;
@@ -11,24 +13,19 @@
             th {
                 height: 30px;
             }
-
-            .userReport__thead__no {
-                width: 9%;
-            }
-
             .userReport__thead__title {
                 width: 46%;
-            }
-
-            .userReport__thead__writer {
-                width: 18%;
             }
 
             .userReport__thead__enrolldate {
                 width: 11%;
             }
 
-            .userReport__thead__count {
+            .userReport__thead__ansYN {
+                width: 8%;
+            }
+
+            .userReport__thead__ansdate {
                 width: 11%;
             }
 

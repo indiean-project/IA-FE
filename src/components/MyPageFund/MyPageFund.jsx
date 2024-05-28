@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import './MyPageFund.scss';
 import { getUserRewardLog } from '../../apis/user';
 import { loginUserState } from '../../recoil/LoginUser';
 import MyPageRewardLog from '../MyPageRewardLog';
+import './MyPageFund.scss';
 
 function MyPageFund({ fundList }) {
 
