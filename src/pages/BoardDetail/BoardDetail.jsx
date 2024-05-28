@@ -76,7 +76,7 @@ function BoardDetail() {
             boardNo: boardItem.boardNo
         });
         result.status === "SUCCESS" ? toast.success("게시글이 성공적으로 삭제되었습니다.") : toast.error("게시글 삭제에 실패하였습니다.");
-        result.status === "SUCCESS" && category === "자유게시판" ? navigate("/board/free") : result.status === "SUCCESS" && category === "아티스트 자랑" ? navigate("/board/proud") : "";
+        result.status === "SUCCESS" && boardItem.contentTypeNo === 1 ? navigate("/board/free") : result.status === "SUCCESS" && boardItem.contentTypeNo === 2 ? navigate("/board/proud") : "";
         setModal(false);
     }
 
@@ -84,8 +84,8 @@ function BoardDetail() {
         return { __html: DOMPurify.sanitize(value) };
     }
 
-    function boardUpdate() {
-        navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
+    const boardUpdate = () => {
+        navigate("/board/enroll", { state: { boardItem: boardItem } })
     }
 
     if (!boardItem || boardItem.length < 1) {
@@ -108,7 +108,7 @@ function BoardDetail() {
             </div>
             <hr className='boardDetail__hr' />
             <div className='boardDetail__box'>
-                <div>{category}</div>
+                <div>{boardItem.contentTypeNo === 1 ? "자유게시판" : "아티스트 자랑"}</div>
                 <div className='boardDetail__item'>
                     {boardItem.userNo === loginUser.userNo ?
                         <>

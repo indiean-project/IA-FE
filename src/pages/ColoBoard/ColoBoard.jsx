@@ -19,6 +19,7 @@ import { isModalActive } from "../../recoil/IsModalActive";
 import ModalWindow from "../../components/ModalWindow";
 import FundInputBar from "../../components/FundInputBar";
 import ReportModal from "../../components/ReportModal";
+import { boardPoint } from "../../recoil/boardPoint";
 
 function ColoBoard() {
     const [replyBtn, setReplyBtn] = useState([]);
@@ -40,6 +41,7 @@ function ColoBoard() {
     const setCpage = useSetRecoilState(cPage);
     const [modalType, setModalType] = useState("");
     const [state, setState] = useState(1);
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     async function list() {
         const list = await pageMove({
@@ -54,6 +56,7 @@ function ColoBoard() {
     }
 
     useEffect(() => {
+        setBoardCategory("colo");
         location.state !== null ? location.state.state === "SUCCESS" ? window.scrollTo(0, 0) : "" : "";
         list();
         selVote();
@@ -106,7 +109,7 @@ function ColoBoard() {
     }
 
     function writerBtn() {
-        loginUser.userNo !== '' ? navigate("/board/enroll", { state: { category: category } }) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+        loginUser.userNo !== '' ? navigate("/board/enroll") : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
     }
 
     function boardUpdate(item) {

@@ -28,16 +28,14 @@ function BoardEnrollForm() {
     const [byte, setByte] = useState(0);
 
     useEffect(() => {
-        const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
-        setCategory(categoryState);
-        if (location.state.boardItem !== undefined) {
+        if (location.state !== null) {
             const item = location.state.boardItem;
             setTitle(item.boardTitle);
             setContent(item.boardContent);
-            location.state.boardCategory === "free" ? setCategory("FREE") :
-                location.state.boardCategory === "proud" ? setCategory("PROUD") :
-                    location.state.boardCategory === "colo" ? setCategory("COLO") : "";
-            if (location.state.boardCategory === "colo") {
+            boardCategory === "free" ? setCategory("FREE") :
+                boardCategory === "proud" ? setCategory("PROUD") :
+                    boardCategory === "colo" ? setCategory("COLO") : "";
+            if (boardCategory === "colo") {
                 setVoteInput("open");
                 setColoTitle1(item.colLeftTitle);
                 setColoTitle2(item.colRightTitle);
@@ -50,11 +48,11 @@ function BoardEnrollForm() {
         }
     }, [location.state])
 
-    useEffect(()=>{
+    useEffect(() => {
         window.addEventListener('beforeunload', handleBeforeUnload);
-        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     })
-    
+
     const handleBeforeUnload = async (e) => {
         let list = new Array();
         imgList.forEach((item) => {
@@ -111,16 +109,32 @@ function BoardEnrollForm() {
         'link', 'image'
     ];
 
-    const handleChange = (content) => {
-        if (content.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "") === "") {
-            content = "";
+    const handleChange = (text) => {
+        let num = 0;
+
+        if (text.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "") === "") {
+            text = "";
         }
-        setContent(content);
-        let byte = 0;
-        for (let i = 0; i < content.length; i++) {
-            content.charCodeAt(i) > 127 ? byte += 3 : byte++;
+
+        for (let i = 0; i < text.length; i++) {
+            text.charCodeAt(i) > 127 ? num += 3 : num++;
         }
-        setByte(byte);
+        setByte(num);
+
+        if (category === 'COLO') {
+            if (byte >= 500 && content.length < text.length) {
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
+                setContent(content);
+                return;
+            }
+        } else {
+            if (byte >= 4000 && content.length < text.length) {
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
+                setContent(content);
+                return;
+            }
+        }
+        setContent(text);
     };
 
     const enroll = async () => {
@@ -133,8 +147,6 @@ function BoardEnrollForm() {
         let success;
         let colstate;
 
-        
-
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
             return
@@ -144,22 +156,21 @@ function BoardEnrollForm() {
         }
 
         if (category === 'COLO') {
-            if (coloTitle1 === '' && coloTitle2 === '') {
+            if (coloTitle1.trim() === "" || coloTitle2.trim() === "") {
                 toast.error("콜로세움 게시판은 투표를 만들어야 작성 가능합니다.");
                 return
             }
             if (byte > 500) {
-                toast.error("글자수가 넘어갔습니다.");
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
                 return
             }
         } else {
             if (byte > 4000) {
-                toast.error("글자수가 넘어갔습니다.");
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
                 return
             }
         }
 
-        
 
         trimTitle = title.trim();
 
@@ -173,7 +184,7 @@ function BoardEnrollForm() {
         if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
 
         result = await BoardEnroll(
-            location.state.boardItem !== undefined ? {
+            location.state !== null ? {
                 boardNo: location.state.boardItem.boardNo,
                 boardContent: content,
                 boardTitle: trimTitle,
@@ -236,7 +247,7 @@ function BoardEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
-                    <select value={category} onChange={(e) => { setCategory(e.target.value) }} disabled={location.state.boardItem !== undefined ? true : false}>
+                    <select value={category} onChange={(e) => { setCategory(e.target.value) }} disabled={location.state !== null}>
                         <option value="FREE">자유 게시판</option>
                         <option value="PROUD">아티스트 자랑하기</option>
                         <option value="COLO">콜로세움</option>
@@ -254,7 +265,7 @@ function BoardEnrollForm() {
                         onChange={handleChange}
                         ref={quillRef}
                     />
-                    <div className='boardEnrollForm__byte'><div>byte : {byte} / {category==="COLO" ? 500 : 4000}</div></div>
+                    <div className='boardEnrollForm__byte'><div>byte : {byte} / {category === "COLO" ? 500 : 4000}</div></div>
                     <div className='boardEnrollForm__items'>
                         <button className={category === 'COLO' ? 'displayNone' : ''} onClick={imageHandler}>이미지 첨부</button>
                         <button className={category === 'COLO' ? '' : 'displayNone'} onClick={voteState}>투표</button>
@@ -262,10 +273,10 @@ function BoardEnrollForm() {
                     </div>
                     <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'displayNone'}>
                         <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }}
-                            value={coloTitle1} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
+                            value={coloTitle1} readOnly={location.state !== null} /></div>
 
                         <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }}
-                            value={coloTitle2} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
+                            value={coloTitle2} readOnly={location.state !== null} /></div>
                     </div>
                 </div>
             </div>
