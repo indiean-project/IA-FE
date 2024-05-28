@@ -238,11 +238,30 @@ function FundEnrollForm({ nav, navRef }) {
             toast.error('프로젝트 소개를 작성해주세요.');
             return;
         }
+        let num = 0;
+        for (let i = 0; i < fundForm.fundInfo.length; i++) {
+            fundForm.fundInfo.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        if (num > 4000){
+            refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('입력 가능한 글자 수를 초과하였습니다.');
+            return;
+        }
+        num = 0;
         if (fundForm.artistInfo === '') {
             refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('아티스트 소개를 작성해주세요.')
             return;
         }
+        for (let i = 0; i < fundForm.artistInfo.length; i++) {
+            fundForm.artistInfo.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        if (num > 4000){
+            refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
+            toast.error('입력 가능한 글자 수를 초과하였습니다.');
+            return;
+        }
+        
         if (rewardList.length === 0) {
             refs.rewardList.current.scrollIntoView({ behavior: "smooth" });
             toast.error('리워드를 1개 이상 등록해주세요.');
