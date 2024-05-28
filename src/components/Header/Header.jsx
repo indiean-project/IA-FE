@@ -1,8 +1,8 @@
 import './Header.scss';
 import logo_orange from '../../assets/logo/logo_orange.png';
-import { List } from 'react-bootstrap-icons';
+import { List, PersonCircle } from 'react-bootstrap-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NavBar from '../NavBar';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
@@ -53,9 +53,12 @@ function Header() {
                     :
                     <div className='header__right'>
                         <div className='header__right__myPage'>
+                            <div className='header__right__img'>
+                                {loginUser.userProfileImg === null? <PersonCircle size={25}/> : <img src={'img/user/'+loginUser.userNo+'/'+loginUser.userProfileImg}/>}
+                            </div>
                             <NavLink to={"/myPage"}>{loginUser.nickname}</NavLink>
                             <div className='header__right__icon' onClick={logout}>
-                                <GrLogout size={25}/>
+                                <GrLogout size={21}/>
                             </div>
                         </div>
                     </div>
