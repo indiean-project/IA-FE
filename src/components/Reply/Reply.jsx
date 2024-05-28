@@ -6,12 +6,14 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useEffect, useState } from 'react';
 import { isModalActive } from '../../recoil/IsModalActive';
+import { deleteConcertReply } from '../../apis/concert/concertDetail';
 import ReportModal from '../ReportModal';
 import ModalWindow from '../ModalWindow';
 import { BoardReplyDelete, BoardReplyUpdate } from '../../apis/reply/reply';
 import toast from 'react-hot-toast';
 
 function Reply({ type, replyList, setReplyState, replyState }) {
+    
     const loginUser = useRecoilValue(loginUserState);
     const [modal, setModal] = useRecoilState(isModalActive);
     const [modalType, setModalType] = useState("");
@@ -22,11 +24,15 @@ function Reply({ type, replyList, setReplyState, replyState }) {
 
     const replyDelete = async () => {
         setModal(false);
-        const result = type === "게시글" ? await BoardReplyDelete(contentNo) : "";
+        console.log(contentNo);
+        const result = type === "게시글" ? await BoardReplyDelete(contentNo) : await deleteConcertReply(contentNo);
         if (result.status === "SUCCESS") {
             toast.success("댓글이 삭제되었습니다.");
             setReplyState(replyState === 1 ? 0 : 1);
-        };
+        }else{
+            toast.error("댓글이 삭제에 실패했습니다.");
+            setReplyState(replyState === 1 ? 0 : 1);
+        }
         
     }
 

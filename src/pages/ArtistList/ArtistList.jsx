@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";
 import toast from 'react-hot-toast';
 
+
 function ArtistList() {
     const loginUser = useRecoilValue(loginUserState);
     const navigate = useNavigate();

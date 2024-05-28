@@ -31,3 +31,13 @@ export const addConcertReply = async(parama)=>{
     }
 
 }
+export const deleteConcertReply = async(parama)=>{
+    try {
+        const {data} = await API.post('/api/concert/deleteReply',parama);
+        
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+
+}
