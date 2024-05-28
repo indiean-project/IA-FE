@@ -78,6 +78,16 @@ export const getUserBoard = async(userNo) => {
     }
 }
 
+export const getUserReply = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/reply?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
 export const getUserFund = async(userNo) => {
     try {
         const {data} = await API.get("/api/user/myPage/fund?userNo=" + userNo);
@@ -92,6 +102,26 @@ export const getUserRewardLog = async(userNo, fundNo) => {
     try {
         const {data} = await API.get("/api/user/myPage/fund/reward?userNo=" + userNo
                                         + "&fundNo=" + fundNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserQuestion = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/question?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserReport = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/report?userNo=" + userNo);
         return data;
     } catch(e) {
         console.log(e);

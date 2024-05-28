@@ -58,12 +58,12 @@ function MyPageProfile() {
             setLoginUser(editAccount);
             setUpdateInfo(true);
 
-            // const usedImages = new Set(Object.values(editAccount));
             const usedImage = editAccount.userProfileImg;
             const response = await imgMove({
                 userNo: loginUser.userNo,
                 userProfileImg: usedImage
             });
+            console.log(response);
             const unusedImages = tempImgUrls.filter(img => img !== usedImage);
 
             console.log(usedImage);

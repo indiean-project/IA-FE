@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
-import { getUserBoard, getUserFund } from '../../apis/user';
+import { getUserReply, getUserBoard, getUserFund, getUserQuestion, getUserReport } from '../../apis/user';
 import MyPageDiv from '../../components/MyPageDiv';
 import MyPageProfile from '../../components/MyPageProfile';
 import MyPageBoard from '../../components/MyPageBoard';
@@ -16,7 +16,9 @@ function MyPage() {
     const loginUser = useRecoilValue(loginUserState);
     const [profilePage, setProfilePage] = useState('main');
     const [boardList, setBoardList] = useState([]);
+    const [replyList, setReplyList] = useState([]);
     const [fundList, setFundList] = useState([]);
+    const [questionList, setQuestionList] = useState([]);
     const [reportList, setReportList] = useState([]);
 
     useEffect(() => {
@@ -27,10 +29,24 @@ function MyPage() {
                 setBoardList(board.data);
             } catch (error) {
                 console.error("Failed to fetch user boards", error);
-            } 
+            }
         };
 
         fetchUserBoard();
+    }, [loginUser.userNo]);
+
+    useEffect(() => {
+        const fetchUserReply = async () => {
+            try {
+                const reply = await getUserReply(loginUser.userNo);
+                console.log(reply);
+                setReplyList(reply.data);
+            } catch (error) {
+                console.error("Failed to fetch user replies", error);
+            }
+        };
+
+        fetchUserReply();
     }, [loginUser.userNo]);
 
     useEffect(() => {
@@ -40,26 +56,30 @@ function MyPage() {
                 console.log(fund);
                 setFundList(fund.data);
             } catch (error) {
-                console.error("Failed to fetch user boards", error);
-            } 
+                console.error("Failed to fetch user fund", error);
+            }
         };
 
         fetchUserFund();
     }, [loginUser.userNo]);
 
     useEffect(() => {
-        const fetchUserReport = async () => {
+        const fetchUserQuestionReportstatus = async () => {
             try {
-                const report = await getUserReport(loginUser.userNo);
-                console.log(report);
-                setFundList(report.data);
+                const questionLog = await getUserQuestion(loginUser.userNo, selectQuestion.questionNo);
+                const reportLog = await getUserReport(loginUser.userNo);
+                console.log(questionLog);
+                console.log(reportLog);
+                setQuestionList(questionLog.data);
+                setReportList(reportLog.data);
             } catch (error) {
-                console.error("Failed to fetch user boards", error);
-            } 
-        };
+                console.error("Failed to fetch user question & report", error);
+            }
 
-        fetchUserReport();
-    }, [loginUser.userNo]);
+        };
+        fetchUserQuestionReportstatus();
+    }, [loginUser.userNo, questionList, reportList]);
+
 
     return (
         <>
@@ -69,9 +89,9 @@ function MyPage() {
                     <MyPageDiv onPage={profilePage} setProfilePage={setProfilePage} />
                     {profilePage === 'main' && <MyPageProfile />}
                     {profilePage === 'board' && <MyPageBoard boardList={boardList} />}
-                    {profilePage === 'reply' && <MyPageReply />}
+                    {profilePage === 'reply' && <MyPageReply replyList={replyList} />}
                     {profilePage === 'fund' && <MyPageFund fundList={fundList} />}
-                    {profilePage === 'report' && <MyPageReport reportList={reportList} />}
+                    {profilePage === 'report' && <MyPageReport questionList={questionList} reportList={reportList} />}
                 </div>
             </div>
         </>
