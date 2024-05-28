@@ -6,7 +6,7 @@ function ArtistTipLi({selected, item ,idx,setSelected,handleDropDownClick}) {
     
     return (
         
-            <li className={onOff?"on":""} onClick={()=>handleDropDownClick(item)} onMouseOver={()=>setSelected(idx)} >{item}</li>
+            <li className={onOff?"classLi on":"classLi"} onClick={()=>handleDropDownClick(item)} onMouseOver={()=>setSelected(idx)} >{item}</li>
         
     )
 } 
