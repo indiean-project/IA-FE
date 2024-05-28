@@ -66,7 +66,7 @@ function CommonReply({ type, contentNo, setState, state }) {
                             <div className='btn' onClick={clickOn}>등록</div>
                         </div>
                     </div>
-                    <Reply replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
+                    <Reply type={type} replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
                 </div>
             </div>
         </>
