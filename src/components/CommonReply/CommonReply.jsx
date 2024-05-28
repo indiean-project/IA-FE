@@ -18,6 +18,7 @@ function CommonReply({ type, contentNo, setState, state }) {
             inputRef.current.placeholder = "로그인이 필요합니다.";
             inputRef.current.readOnly = true;
         }
+        
         reply();
     }, [replyState])
 
@@ -38,7 +39,7 @@ function CommonReply({ type, contentNo, setState, state }) {
         if (result.status === "SUCCESS") {
             toast.success("댓글이 등록되었습니다.");
             setReplyText("");
-            setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
+            
             
             reply();
         }
@@ -47,6 +48,7 @@ function CommonReply({ type, contentNo, setState, state }) {
     const reply = async () => {
         const result = type === "게시글" ? await BoardReplyList(contentNo) : "";
         setReplyList(result.data);
+        setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
     }
     return (
         <>

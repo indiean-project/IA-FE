@@ -8,7 +8,7 @@ import { pageMove } from '../../apis/pagination';
 import { loginUserState } from '../../recoil/LoginUser';
 import { Link, useNavigate } from 'react-router-dom';
 import { NoticeViewCount } from '../../apis/board';
-import { isModalActive } from '../../recoil/IsModalActive';
+import { isQuestionFormActive } from '../../recoil/IsModalActive';
 import QuestionForm from '../../components/QuestionForm';
 
 function NoticeBoard() {
@@ -20,7 +20,7 @@ function NoticeBoard() {
     const [pageInfo, setPageInfo] = useState();
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
-    const [modal, setModal] = useRecoilState(isModalActive);
+    const [modal, setModal] = useRecoilState(isQuestionFormActive);
 
     const list = async () => {
         const list = await pageMove({
