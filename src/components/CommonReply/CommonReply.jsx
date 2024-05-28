@@ -5,8 +5,10 @@ import { useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import toast from 'react-hot-toast';
 import { BoardReplyEnroll, BoardReplyList } from '../../apis/reply/reply';
+import { concertReply, addConcertReply } from '../../apis/concert/concertDetail';
 
 function CommonReply({ type, contentNo, setState, state }) {
+    
     const inputRef = useRef(null);
     const loginUser = useRecoilValue(loginUserState);
     const [replyText, setReplyText] = useState('');
@@ -35,7 +37,15 @@ function CommonReply({ type, contentNo, setState, state }) {
                 boardNo: contentNo
             },
             replyContent: replyText
-        }) : "";
+        }) : await addConcertReply({
+            member: {
+                userNo: loginUser.userNo
+            },
+            concert: {
+                concertNo: contentNo
+            },
+            replyContent: replyText
+        });
         if (result.status === "SUCCESS") {
             toast.success("댓글이 등록되었습니다.");
             setReplyText("");
@@ -46,7 +56,7 @@ function CommonReply({ type, contentNo, setState, state }) {
     }
 
     const reply = async () => {
-        const result = type === "게시글" ? await BoardReplyList(contentNo) : "";
+        const result = type === "게시글" ? await BoardReplyList(contentNo) : await concertReply(contentNo);
         setReplyList(result.data);
         setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
     }

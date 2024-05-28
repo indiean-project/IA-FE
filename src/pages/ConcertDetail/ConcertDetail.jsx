@@ -6,8 +6,8 @@ import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
 import { selectConcert } from '../../apis/concert/concertDetail';
 import { Share } from 'react-bootstrap-icons';
-import { handleCopyClipBoard } from '../../apis/common/copyClipBoard'
-import baseImg from '../../assets/logo/logo_white.png';
+import { handleCopyClipBoard } from '../../apis/common/copyClipBoard';
+import baseImg from '../../assets/default/defaultImg.png';
 
 
 function ConcertDetail() {
@@ -24,7 +24,7 @@ function ConcertDetail() {
 
     }
     useEffect(() => {
-
+        
         concertItem()
     }, [])
 
@@ -92,7 +92,7 @@ function ConcertDetail() {
             </div>
             <div className='detail__content'>
                 <div className='detail__content_item'>
-                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply />}
+                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply type={'concert'} contentNo={concert.concertNo}/>}
                 </div>
             </div>
         </div>
