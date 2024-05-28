@@ -8,7 +8,6 @@ import { useRecoilState } from "recoil";
 import { pageMove } from "../../apis/pagination";
 import { loginUserState } from "../../recoil/LoginUser";
 import toast from "react-hot-toast";
-import { boardPoint } from "../../recoil/boardPoint";
 
 function ProudBoard() {
     const [boardList, setBoardList] = useState([]);
@@ -20,7 +19,6 @@ function ProudBoard() {
     const category = "아티스트 자랑";
     const navigate = useNavigate();
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
-    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     async function list() {
         const list = await pageMove({
@@ -33,12 +31,11 @@ function ProudBoard() {
         setPageInfo(list.pageinfo);
     }
     useEffect(() => {
-        setBoardCategory("proud");
         list();
     }, [sort])
 
     function writerBtn() {
-        loginUser.userNo !== '' ? navigate("/board/enroll") : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+        loginUser.userNo !== '' ? navigate("/board/enroll", { state: { category: category } }) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
     }
 
     return (

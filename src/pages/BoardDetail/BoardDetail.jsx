@@ -85,7 +85,7 @@ function BoardDetail() {
     }
 
     const boardUpdate = () => {
-        navigate("/board/enroll", { state: { boardItem: boardItem } })
+        navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
     }
 
     if (!boardItem || boardItem.length < 1) {
@@ -108,7 +108,7 @@ function BoardDetail() {
             </div>
             <hr className='boardDetail__hr' />
             <div className='boardDetail__box'>
-                <div>{boardItem.contentTypeNo === 1 ? "자유게시판" : "아티스트 자랑"}</div>
+                <div>{category}</div>
                 <div className='boardDetail__item'>
                     {boardItem.userNo === loginUser.userNo ?
                         <>

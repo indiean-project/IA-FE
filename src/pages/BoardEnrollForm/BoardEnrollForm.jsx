@@ -28,14 +28,16 @@ function BoardEnrollForm() {
     const [byte, setByte] = useState(0);
 
     useEffect(() => {
-        if (location.state !== null) {
+        const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
+        setCategory(categoryState);
+        if (location.state.boardItem !== undefined) {
             const item = location.state.boardItem;
             setTitle(item.boardTitle);
             setContent(item.boardContent);
-            boardCategory === "free" ? setCategory("FREE") :
-                boardCategory === "proud" ? setCategory("PROUD") :
-                    boardCategory === "colo" ? setCategory("COLO") : "";
-            if (boardCategory === "colo") {
+            location.state.boardCategory === "free" ? setCategory("FREE") :
+                location.state.boardCategory === "proud" ? setCategory("PROUD") :
+                    location.state.boardCategory === "colo" ? setCategory("COLO") : "";
+            if (location.state.boardCategory === "colo") {
                 setVoteInput("open");
                 setColoTitle1(item.colLeftTitle);
                 setColoTitle2(item.colRightTitle);
@@ -184,7 +186,7 @@ function BoardEnrollForm() {
         if (deleteList !== "") imgDelete(deleteList);   // 에디터에 해당 이미지가 없을 시 tempImg에서 해당 이미지 삭제
 
         result = await BoardEnroll(
-            location.state !== null ? {
+            location.state.boardItem !== undefined ? {
                 boardNo: location.state.boardItem.boardNo,
                 boardContent: content,
                 boardTitle: trimTitle,
@@ -247,7 +249,7 @@ function BoardEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>커뮤니티 글쓰기</label>
                 <div>
-                    <select value={category} onChange={(e) => { setCategory(e.target.value) }} disabled={location.state !== null}>
+                    <select value={category} onChange={(e) => { setCategory(e.target.value) }} disabled={location.state.boardItem !== undefined ? true : false}>
                         <option value="FREE">자유 게시판</option>
                         <option value="PROUD">아티스트 자랑하기</option>
                         <option value="COLO">콜로세움</option>
@@ -273,10 +275,10 @@ function BoardEnrollForm() {
                     </div>
                     <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'displayNone'}>
                         <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }}
-                            value={coloTitle1} readOnly={location.state !== null} /></div>
+                            value={coloTitle1} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
 
                         <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }}
-                            value={coloTitle2} readOnly={location.state !== null} /></div>
+                            value={coloTitle2} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
                     </div>
                 </div>
             </div>

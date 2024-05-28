@@ -21,7 +21,6 @@ function FreeBoard() {
     const category = "자유게시판";
     const navigate = useNavigate();
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
-    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     async function list() {
         const list = await pageMove({
@@ -34,12 +33,11 @@ function FreeBoard() {
         setPageInfo(list.pageinfo);
     }
     useEffect(() => {
-        setBoardCategory("free")
         list();
     }, [sort])
 
     function writerBtn() {
-        loginUser.userNo !== '' ? navigate("/board/enroll") : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
+        loginUser.userNo !== '' ? navigate("/board/enroll", { state: { category: category } }) : (toast.error("로그인 후 글쓰기가 가능합니다."), navigate("/login"));
     }
 
     return (
