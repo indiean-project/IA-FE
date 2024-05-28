@@ -28,12 +28,19 @@
                 border-right: 2px solid;
                 width: 150px;
             }
-            
+            .reply__inputBar{
+                width: 600px;
+            }
             .report{
                 cursor: pointer;
                 text-align: right;
             }
-           
+            .reply__btn {
+                width: 70px;
+                height: 25px;
+                font-size: 15px;
+                margin-left: 5px;
+            }
         }
     }
         

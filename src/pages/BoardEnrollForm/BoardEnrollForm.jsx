@@ -50,11 +50,11 @@ function BoardEnrollForm() {
         }
     }, [location.state])
 
-    useEffect(()=>{
+    useEffect(() => {
         window.addEventListener('beforeunload', handleBeforeUnload);
-        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     })
-    
+
     const handleBeforeUnload = async (e) => {
         let list = new Array();
         imgList.forEach((item) => {
@@ -111,13 +111,32 @@ function BoardEnrollForm() {
         'link', 'image'
     ];
 
-    const handleChange = (content) => {
-        setContent(content);
-        let byte = 0;
-        for (let i = 0; i < content.length; i++) {
-            content.charCodeAt(i) > 127 ? byte += 3 : byte++;
+    const handleChange = (text) => {
+        let num = 0;
+
+        if (text.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "") === "") {
+            text = "";
         }
-        setByte(byte);
+
+        for (let i = 0; i < text.length; i++) {
+            text.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        setByte(num);
+
+        if (category === 'COLO') {
+            if (byte >= 500 && content.length < text.length) {
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
+                setContent(content);
+                return;
+            }
+        } else {
+            if (byte >= 4000 && content.length < text.length) {
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
+                setContent(content);
+                return;
+            }
+        }
+        setContent(text);
     };
 
     const enroll = async () => {
@@ -133,28 +152,27 @@ function BoardEnrollForm() {
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
             return
-        } else if (content.substring(3, content.length - 4).trim() === "" || content.substring(3, content.length - 4).trim() === "<br>") {
+        } else if (content.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim() === "") {
             toast.error("내용을 입력해주세요.");
             return
         }
 
         if (category === 'COLO') {
-            if (coloTitle1 === '' && coloTitle2 === '') {
+            if (coloTitle1.trim() === "" || coloTitle2.trim() === "") {
                 toast.error("콜로세움 게시판은 투표를 만들어야 작성 가능합니다.");
                 return
             }
             if (byte > 500) {
-                toast.error("글자수가 넘어갔습니다.");
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
                 return
             }
         } else {
             if (byte > 4000) {
-                toast.error("글자수가 넘어갔습니다.");
+                toast.error("입력 가능한 글자수를 초과하였습니다.");
                 return
             }
         }
 
-        
 
         trimTitle = title.trim();
 
@@ -249,7 +267,7 @@ function BoardEnrollForm() {
                         onChange={handleChange}
                         ref={quillRef}
                     />
-                    <div className='boardEnrollForm__byte'><div>byte : {byte} / {category==="COLO" ? 500 : 4000}</div></div>
+                    <div className='boardEnrollForm__byte'><div>byte : {byte} / {category === "COLO" ? 500 : 4000}</div></div>
                     <div className='boardEnrollForm__items'>
                         <button className={category === 'COLO' ? 'displayNone' : ''} onClick={imageHandler}>이미지 첨부</button>
                         <button className={category === 'COLO' ? '' : 'displayNone'} onClick={voteState}>투표</button>

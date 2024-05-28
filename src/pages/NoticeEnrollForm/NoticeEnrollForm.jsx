@@ -27,6 +27,19 @@ function NoticeEnrollForm() {
 
 
     const enroll = async () => {
+        if (title.trim() === "") {
+            toast.error("제목을 입력해주세요.");
+            return
+        } else if (content.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim() === "") {
+            toast.error("내용을 입력해주세요.");
+            return
+        }
+
+        if (byte > 4000) {
+            toast.error("입력 가능한 글자수를 초과하였습니다.");
+            return
+        }
+        
         const result = await NoticeEnroll(
             location.state !== null ?
                 {
@@ -44,10 +57,9 @@ function NoticeEnrollForm() {
                     noticeTitle: title,
                     noticeContent: content
                 })
-                console.log(result)
         if (result.status === "SUCCESS") {
             toast.success("등록되었습니다.");
-            navigate("/notice/detail/"+result.data);
+            navigate("/notice/detail/" + result.data);
         }
     }
 
@@ -74,13 +86,25 @@ function NoticeEnrollForm() {
         'link'
     ];
 
-    const handleChange = (content) => {
-        setContent(content);
-        let byte = 0;
-        for (let i = 0; i < content.length; i++) {
-            content.charCodeAt(i) > 127 ? byte += 3 : byte++;
+    const handleChange = (text) => {
+        let num = 0;
+
+        if (text.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "") === "") {
+            text = "";
         }
-        setByte(byte);
+
+        for (let i = 0; i < text.length; i++) {
+            text.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        setByte(num);
+
+        if (byte >= 4000 && content.length < text.length) {
+            toast.error("입력 가능한 글자수를 초과하였습니다.");
+            setContent(content);
+            return;
+        }
+
+        setContent(text);
     };
 
     return (

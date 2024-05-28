@@ -29,6 +29,12 @@ function CommonReply({ type, contentNo, setState, state }) {
             toast.error("로그인해주세요");
             return;
         }
+
+        if (replyText.trim() === "") {
+            toast.error("내용을 입력해주세요.");
+            return
+        }
+
         const result = type === "게시글" ? await BoardReplyEnroll({
             member: {
                 userNo: loginUser.userNo
@@ -70,7 +76,7 @@ function CommonReply({ type, contentNo, setState, state }) {
                             <div className='btn' onClick={clickOn}>등록</div>
                         </div>
                     </div>
-                    <Reply replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
+                    <Reply type={type} replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
                 </div>
             </div>
         </>

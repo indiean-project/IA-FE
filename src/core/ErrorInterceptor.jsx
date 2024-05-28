@@ -22,7 +22,10 @@ function ErrorInterceptor() {
                         navigate.current('/error');
                         break;
                     case 'board-001':
-                        navigate.current('/error')
+                        navigate.current('/error');
+                        break;
+                    case 'board-002':
+                        navigate.current('/error');
                         break;
                 }
                 return Promise.reject(error);
