@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import './FundInputBar.scss';
 
 function FundInputBar({width, type, paddingLeft, name, value, onChangeValue, disabled, inputRef, placeholder, max, maxlength, min}) {
-
+    
     const style = {
         width: width,
         paddingLeft: paddingLeft

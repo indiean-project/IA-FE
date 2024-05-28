@@ -9,14 +9,16 @@
     overflow: auto;
     .artist__img{
         object-fit: cover;
+        height:  100%;
+        width: 230px;
         img{
             border-radius: 7px;
             height:  100%;
-            width: 230px;
+            width: 230px;            
         }
     }
-    ul{ 
-        margin-left: -5%;
+    ul{
+        overflow: auto;        
         list-style-type: none;
         color: white;
         line-height: 250%;

@@ -1,0 +1,27 @@
+
+.adminUserAuthority__header{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    .adminUserAuthority__search{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 500px;
+    }
+    .adminUserAuthority__sort{
+        display: flex;
+        align-items: center;
+        p{
+            margin: 0;
+            margin-right: 10px;
+        }
+    }
+}
+button{
+    font-size: 12px;
+    font-weight: 100;
+    border-radius: 3px;
+    height: 20px;    
+    width: 70px;
+}
