@@ -17,6 +17,7 @@ function MyPage() {
     const [profilePage, setProfilePage] = useState('main');
     const [boardList, setBoardList] = useState([]);
     const [fundList, setFundList] = useState([]);
+    const [reportList, setReportList] = useState([]);
 
     useEffect(() => {
         const fetchUserBoard = async () => {
@@ -46,6 +47,20 @@ function MyPage() {
         fetchUserFund();
     }, [loginUser.userNo]);
 
+    useEffect(() => {
+        const fetchUserReport = async () => {
+            try {
+                const report = await getUserReport(loginUser.userNo);
+                console.log(report);
+                setFundList(report.data);
+            } catch (error) {
+                console.error("Failed to fetch user boards", error);
+            } 
+        };
+
+        fetchUserReport();
+    }, [loginUser.userNo]);
+
     return (
         <>
             <div className="myPage__container">
@@ -56,7 +71,7 @@ function MyPage() {
                     {profilePage === 'board' && <MyPageBoard boardList={boardList} />}
                     {profilePage === 'reply' && <MyPageReply />}
                     {profilePage === 'fund' && <MyPageFund fundList={fundList} />}
-                    {profilePage === 'report' && <MyPageReport />}
+                    {profilePage === 'report' && <MyPageReport reportList={reportList} />}
                 </div>
             </div>
         </>
