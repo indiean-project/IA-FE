@@ -1,3 +1,5 @@
+import AdminUserAuthorityArtisttable from "../AdminUserAuthorityArtisttable/AdminUserAuthorityArtisttable";
+import AdminUserAutorityUsertable from "../AdminUserAutorityUsertable/AdminUserAutorityUsertable";
 
 
 function AdminUserAutority(){
@@ -20,8 +22,9 @@ function AdminUserAutority(){
     */
 
     return(
-        <div>
-            
+        <div className="adminUserAuthority__container">
+            <AdminUserAutorityUsertable/>
+            <AdminUserAuthorityArtisttable/>
         </div>
     );
 

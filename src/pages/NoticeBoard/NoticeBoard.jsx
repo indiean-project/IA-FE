@@ -6,6 +6,10 @@ import { cPage } from '../../recoil/page';
 import { useEffect, useState } from 'react';
 import { pageMove } from '../../apis/pagination';
 import { loginUserState } from '../../recoil/LoginUser';
+import { Link, useNavigate } from 'react-router-dom';
+import { NoticeViewCount } from '../../apis/board';
+import { isQuestionFormActive } from '../../recoil/IsModalActive';
+import QuestionForm from '../../components/QuestionForm';
 
 function NoticeBoard() {
     const [boardList, setBoardList] = useState([]);
@@ -15,6 +19,8 @@ function NoticeBoard() {
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [pageInfo, setPageInfo] = useState();
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+    const navigate = useNavigate();
+    const [modal, setModal] = useRecoilState(isQuestionFormActive);
 
     const list = async () => {
         const list = await pageMove({
@@ -31,10 +37,16 @@ function NoticeBoard() {
         list();
     }, [sort])
 
+    function clickItem(item) {
+        const noticeNo = item.noticeNo;
+        NoticeViewCount(noticeNo);
+        navigate("/notice/detail/" + noticeNo);
+    }
+
     return (
         <div className='noticeboard__container'>
             <div className='noticeboard__box'>
-                <NoticeSidebar />
+                <NoticeSidebar setModal={setModal} />
                 <div className='noticeboard__items'>
                     <div className='noticeboard__item'>
                         <div>
@@ -49,11 +61,12 @@ function NoticeBoard() {
                     </div>
                     <div className='noticeboard__item'>
                         <div className='noticeboard__category'>커뮤니티 &gt; 공지사항</div>
-                        {loginUser.userRole === "ADMIN" ? <div className='noticeboard__btn'><a>글쓰기</a></div> : ""}
+                        {loginUser.userRole === "ADMIN" ? <div className='noticeboard__btn'><Link to={"enroll"}>글쓰기</Link></div> : ""}
                     </div>
-                    <FreeBoardItem setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
+                    <FreeBoardItem clickItem={clickItem} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
             </div>
+            {modal ? <QuestionForm/> : ""}
         </div>
     )
 } export default NoticeBoard;
