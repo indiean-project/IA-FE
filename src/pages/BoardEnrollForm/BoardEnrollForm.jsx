@@ -112,6 +112,9 @@ function BoardEnrollForm() {
     ];
 
     const handleChange = (content) => {
+        if (content.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "") === "") {
+            content = "";
+        }
         setContent(content);
         let byte = 0;
         for (let i = 0; i < content.length; i++) {
@@ -130,10 +133,12 @@ function BoardEnrollForm() {
         let success;
         let colstate;
 
+        
+
         if (title.trim() === "") {
             toast.error("제목을 입력해주세요.");
             return
-        } else if (content.substring(3, content.length - 4).trim() === "" || content.substring(3, content.length - 4).trim() === "<br>") {
+        } else if (content.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim() === "") {
             toast.error("내용을 입력해주세요.");
             return
         }
