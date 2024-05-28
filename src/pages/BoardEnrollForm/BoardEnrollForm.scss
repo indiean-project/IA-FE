@@ -10,6 +10,11 @@
     .boardEnrollForm__box {
         width: 90%;
 
+        .boardEnrollForm__byte {
+            display: flex;
+            justify-content: end;
+        }
+
         label {
             font-size: 25px;
         }

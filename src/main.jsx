@@ -28,6 +28,8 @@ import ArtistList from './pages/ArtistList'
 import ArtistEnrollForm from './pages/ArtistEnrollForm'
 import UrlInterceptor from './core/UrlInterceptor.jsx'
 import NoticeBoard from './pages/NoticeBoard/NoticeBoard.jsx'
+import NoticeDetail from './pages/NoticeDetail/NoticeDetail.jsx'
+import NoticeEnrollForm from './pages/NoticeEnrollForm/NoticeEnrollForm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -110,6 +112,14 @@ const router = createBrowserRouter([
       {
         path:'/notice',
         element: <NoticeBoard/>
+      },
+      {
+        path:'/notice/detail/:id',
+        element: <NoticeDetail/>
+      },
+      {
+        path:'/notice/enroll',
+        element: <NoticeEnrollForm/>
       }
     ],
   },
