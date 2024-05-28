@@ -1,6 +1,6 @@
 import './ConcertItem.scss';
 import { useNavigate } from 'react-router-dom';
-import baseImg from '../../assets/logo/logo_white.png';
+import baseImg from '../../assets/default/defaultImg.png';
 const Concert = (props) => {
     const navigate = useNavigate();
     const handleDetailPost = ({ concert }) => {

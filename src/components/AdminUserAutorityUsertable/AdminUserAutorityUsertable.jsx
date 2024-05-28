@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './AdminUserAutorityUsertable.scss';
 import FundInputBar from "../FundInputBar";
 import SelectBar from "../SelectBar/SelectBar";
-import { enrollUser, adminUserList, adminUserdelete,searchUserList } from '../../apis/admin';
+import { enrollUser, adminUserList, adminUserdelete, searchUserList } from '../../apis/admin';
 import toast from 'react-hot-toast';
 
 function AdminUserAutorityUsertable() {
@@ -58,6 +58,12 @@ function AdminUserAutorityUsertable() {
             searchValue: item
         })
     }
+    const onChangeUserRole = (item) => {
+        setNewUserContent({
+            ...newUsercontent,
+            userRole: item
+        })
+    }
     const onChangeNewUsercontent = (e) => {
         setNewUserContent({
             ...newUsercontent,
@@ -71,6 +77,7 @@ function AdminUserAutorityUsertable() {
             sortValue: item
         })
     }
+    
     const [newUsercontent, setNewUserContent] = useState({
         userNo: '',
         userId: '',
@@ -87,6 +94,11 @@ function AdminUserAutorityUsertable() {
     useEffect(() => {
 
     }, [newUsercontent])
+    const roleCategory = [
+        { label: 'ADMIN', value: 'ADMIN' },
+        { label: 'USER', value: 'USER' },
+        { label: 'ARTIST', value: 'ARTIST' },
+    ]
     const searchCategory = [
         { label: '전체', value: 'all' },
         { label: '일반', value: 'USER' },
@@ -143,7 +155,8 @@ function AdminUserAutorityUsertable() {
             createDate: '2024-05-28'
         },
     ]
-    const onClickSearch = async() => {
+    const onClickSearch = async () => {
+        console.log(newUsercontent)
         //backEnd 작업 후 활성화 시켜주세요.
 
         // const list = await searchUserList(standard);
@@ -169,7 +182,7 @@ function AdminUserAutorityUsertable() {
                     <SelectBar
                         list={searchCategory} onChangeValue={onChangeSearchStandard}
                     />
-                    <button>검색</button>
+                    <button onClick={onClickSearch}>검색</button>
                 </div>
                 <div className="adminUserAuthority__sort">
                     <p>정렬</p>
@@ -221,10 +234,9 @@ function AdminUserAutorityUsertable() {
                                     value={newUsercontent.address}
                                     onChangeValue={onChangeNewUsercontent}
                                     name={'address'} /></th>
-                                <th><FundInputBar
-                                    value={newUsercontent.userRole}
-                                    onChangeValue={onChangeNewUsercontent}
-                                    name={'userRole'} /></th>
+                                <th><SelectBar
+                                    list={roleCategory} onChangeValue={onChangeUserRole}
+                                /></th>
                                 <th><div><button onClick={() => contnetEnrollBtn()}>수정</button><button onClick={() => setEditingContent(null)}>취소</button></div></th>
                             </tr>
                         )
