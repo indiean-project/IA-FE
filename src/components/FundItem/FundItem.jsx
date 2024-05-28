@@ -38,7 +38,7 @@ function FundItem({ item }) {
         <div className='fundItem__container' onClick={()=>onClickFundItem()}>
             <div className='fundItem__hover'>자세히 보기</div>
             <img src={imgUrl != null ? imgUrl.substring(imgUrl.indexOf('public') - 1) : defaultImg} />
-            <div className='fundItem__category'>{fundType} &gt; 록</div>
+            <div className='fundItem__category'>{fundType}</div>
             <div className='fundItem__title'>{fundTitle}</div>
             <div className='fundItem__content'>{fundDescription}</div>
             <div className='fundItem__info'>

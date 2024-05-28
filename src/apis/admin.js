@@ -26,3 +26,21 @@ export const searchFundApprovalList = async(params) => {
         console.log(e);
     }
 }
+
+export const updateQuestion = async(params) => {
+    try {
+        const {data} = await API.post("/api/admin/question/updateQuestion");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
+
+export const adminQuestion = async(params) => {
+    try {
+        const {data} = await API.get("/api/admin/question/list");
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
