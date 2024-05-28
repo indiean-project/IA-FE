@@ -1,4 +1,4 @@
-import { PlusSquareFill, Share } from 'react-bootstrap-icons';
+import { PlusSquareFill, Share, Trash3Fill, XCircleFill, XSquareFill } from 'react-bootstrap-icons';
 import FundMainImage from '../FundMainImage/FundMainImage';
 import './FundItemDetail.scss';
 import { useEffect, useRef, useState } from 'react';
@@ -64,7 +64,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
     }, [fund])
 
     const counting = (count, goal, peopleCount) => {
-        if(peopleCount === 0){
+        if (peopleCount === 0) {
             setPrice(0);
             setRate(0);
             setPeople(0);
@@ -87,13 +87,13 @@ function FundItemDetail({ nav, navRef, navHandle }) {
 
     const onClickReward = (reward, num) => {
         let list = [...orderList];
-        const idx = list.findIndex(e=> e.rewardNo === reward.rewardNo);
+        const idx = list.findIndex(e => e.rewardNo === reward.rewardNo);
         if (num === null) {
             list[idx] = {
                 ...list[idx],
                 amount: parseInt(list[idx].amount) + 1
             }
-        } else if(num === '') {
+        } else if (num === '') {
             list[idx] = {
                 ...list[idx],
                 amount: 0
@@ -106,13 +106,13 @@ function FundItemDetail({ nav, navRef, navHandle }) {
         }
         setOrderList(list);
         let total = 0;
-        list.map((item)=>{
+        list.map((item) => {
             total += item.amount * item.rewardPrice;
         })
         setTotalPrice(total);
     }
     useEffect(() => {
-        
+
     }, [orderList])
 
     //XSS 공격 방지를 위해 DOMpurify 라이브러리 사용
@@ -121,12 +121,12 @@ function FundItemDetail({ nav, navRef, navHandle }) {
         return { __html: DOMPurify.sanitize(value) };
     }
 
-    const onClickPayment = ()=>{
-        if(loginUser.userId === ''){
+    const onClickPayment = () => {
+        if (loginUser.userId === '') {
             toast.error("펀딩은 로그인 후 이용 가능합니다.");
             return;
         }
-        if(totalPrice === 0){
+        if (totalPrice === 0) {
             toast.error("리워드를 1개 이상 선택해주세요.");
             return;
         }
@@ -139,7 +139,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
 
     return (
         <div className='fundItemDetail__container'>
-            {modal && <FundPayment reward={orderList} totalPrice={totalPrice} fundNo={params}/>}
+            {modal && <FundPayment reward={orderList} totalPrice={totalPrice} fundNo={params} />}
             <div className='fundItemDetail__title' id={nav[0].id} ref={(e) => (navRef.current[0] = e)}>
                 <h1>{fund.fundTitle}</h1>
                 <div className='fundItemDetail__title__item1'>
@@ -179,7 +179,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                             <Share size={20} />
                             <span>공유하기</span>
                         </div>
-                        <div onClick={()=>navigate('/artist/detail/' + fund.artistNo)}>
+                        <div onClick={() => navigate('/artist/detail/' + fund.artistNo)}>
                             <div>아티스트 페이지 방문</div>
                         </div>
                     </div>
@@ -204,70 +204,74 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                     <div className='fundItemDetail__content__item' id={nav[2].id} ref={(e) => (navRef.current[2] = e)}>
                         <h3>예산</h3>
                         <div className='item__content' >
-                                {fund.budgetManage}
+                            {fund.budgetManage}
                         </div>
                         <hr />
                     </div>
                     <div className='fundItemDetail__content__item' id={nav[3].id} ref={(e) => (navRef.current[3] = e)}>
                         <h3>일정</h3>
                         <div className='item__content' >
-                                {fund.schedule}
+                            {fund.schedule}
                         </div>
                     </div>
                 </div>
                 <div className='fundItemDetail__reward'>
-                    <div className='fundItemDetail__reward__item'>
-                        {fund.rewardList != null && fund.rewardList.map((item, idx) => {
-                            return (
-                                <div className='reward__option__item' key={item.rewardNo}  >
-                                    <PlusSquareFill size={35} onClick={() => onClickReward(item, null)} />
-                                    <div className='reward__option__item__content'>
-                                        <div className='reward__option__item__header'>
-                                            <div className='reward__title'>{item.rewardName}</div>
-                                            <div className='reward__price'>{item.rewardPrice
-                                                .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
-                                        </div>
-                                        <div className='reward__info'>
-                                            {item.rewardInfo}
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                        }
-                    </div>
-                    <div className='fundItemDetail__reward__item'>
-                        {orderList.filter(item => item.amount != 0).map((item, idx) => {
-                            return (
-                                <div className='reward__option__item' key={item.rewardNo}>
-                                    <div className='reward__option__item__amount'>
-                                        <input type="number" value={item.amount} onChange={(e) => onClickReward(item, e.target.value)} />
-                                    </div>
-                                    <div className='slash'>/</div>
-                                    <div className='reward__option__item__content'>
-                                        <div className='reward__option__item__header'>
-                                            <div className='reward__title'>{item.rewardName}</div>
-                                            <div className='reward__price'>{item.rewardPrice
-                                                .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
-                                        </div>
-                                        <div className='reward__info'>
-                                            {item.rewardInfo}
+                    {day <= -1 ? <div className='fundItemDetail__reward__close'>마감된 펀딩입니다.</div> :
+                        <><div className='fundItemDetail__reward__item'>
+                            {fund.rewardList != null && fund.rewardList.map((item, idx) => {
+                                return (
+                                    <div className='reward__option__item' key={item.rewardNo}  >
+                                        <PlusSquareFill size={35} onClick={() => onClickReward(item, null)} />
+                                        <div className='reward__option__item__content'>
+                                            <div className='reward__option__item__header'>
+                                                <div className='reward__title'>{item.rewardName}</div>
+                                                <div className='reward__price'>{item.rewardPrice
+                                                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
+                                            </div>
+                                            <div className='reward__info'>
+                                                {item.rewardInfo}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
-                        <div className='reward__select__box'>
-                            <h5>펀딩 성공 시 마감 익일 자동 결제됩니다.</h5>
-                            <div className='reward__select__price'>
-                                <h4>합계</h4><h3>{totalPrice
-                                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3><h4>원</h4>
-                            </div>
-                            <div className='reward__select__btn' onClick={()=>onClickPayment()}>
-                                펀딩 신청하기
-                            </div>
+                                );
+                            })
+                            }
                         </div>
-                    </div>
+                            <div className='fundItemDetail__reward__item'>
+                                {orderList.filter(item => item.amount != 0).map((item, idx) => {
+                                    return (
+                                        <div className='reward__option__item' key={item.rewardNo}>
+                                            <div className='reward__option__item__amount'>
+                                                <input type="number" value={item.amount} onChange={(e) => onClickReward(item, e.target.value)} />
+                                            </div>
+                                            <div className='slash'>/</div>
+                                            <div className='reward__option__item__content'>
+                                                <div className='reward__option__item__header'>
+                                                    <div className='reward__title'>{item.rewardName}</div>
+                                                    <div className='reward__price'>{item.rewardPrice
+                                                        .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
+                                                </div>
+                                                <div className='reward__info'>
+                                                    {item.rewardInfo}
+                                                </div>
+                                            </div>
+                                            <div className='reward__delete__item' onClick={()=>onClickReward(item, 0)}>
+                                                <XSquareFill size={30} />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                                <div className='reward__select__box'>
+                                    <h5>펀딩 성공 시 마감 익일 자동 결제됩니다.</h5>
+                                    <div className='reward__select__price'>
+                                        <h4>합계</h4><h3>{totalPrice
+                                            .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3><h4>원</h4>
+                                    </div>
+                                    <div className='reward__select__btn' onClick={() => onClickPayment()}>
+                                        펀딩 신청하기
+                                    </div>
+                                </div>
+                            </div></>}
                 </div>
             </div>
 
