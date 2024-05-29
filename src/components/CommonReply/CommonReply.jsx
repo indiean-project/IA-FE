@@ -71,7 +71,7 @@ function CommonReply({ type, contentNo, setState, state }) {
             <div className='Common__reply__box'>
                 <div className='Common__reply__content'>
                     <div className='reply__input'>
-                        <textarea type="text" ref={inputRef} value={replyText} rows={6} onChange={(e) => { setReplyText(e.target.value) }} />
+                        <textarea type="text" ref={inputRef} value={replyText} rows={6} maxLength={1000} onChange={(e) => { setReplyText(e.target.value) }} />
                         <div className='Common__reply__btn__area'>
                             <div className='btn' onClick={clickOn}>등록</div>
                         </div>

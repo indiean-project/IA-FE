@@ -87,7 +87,7 @@ function Reply({ type, replyList, setReplyState, replyState }) {
                             </thead>
                             <tbody>
                                 <tr>
-                                    {replyIdx !== index? <td className='text' colSpan={2}>{item.replyContent}</td> : <td className='text' colSpan={2}><input className='reply__inputBar' type="text" value={updateContent} onChange={(e)=>{setUpdateContent(e.target.value)}} /><button className='reply__btn' onClick={()=>{updateReply(item)}}>수정</button></td>}{(loginUser.userId !== "") && (loginUser.nickname !== item.nickName) ? <td className='report' onClick={() => { setModalType("신고"); setModal(true); setReplyItem(item) }}> 신고</td> : <td></td>}
+                                    {replyIdx !== index? <td className='text' colSpan={2}>{item.replyContent}</td> : <td className='text' colSpan={2}><input className='reply__inputBar' type="text" maxLength={1000} value={updateContent} onChange={(e)=>{setUpdateContent(e.target.value)}} /><button className='reply__btn' onClick={()=>{updateReply(item)}}>수정</button></td>}{(loginUser.userId !== "") && (loginUser.nickname !== item.nickName) ? <td className='report' onClick={() => { setModalType("신고"); setModal(true); setReplyItem(item) }}> 신고</td> : <td></td>}
                                 </tr>
                                 <tr>
                                     <td colSpan={3}><hr></hr></td>
