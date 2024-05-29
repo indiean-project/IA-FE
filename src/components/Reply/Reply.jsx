@@ -12,6 +12,7 @@ import { BoardReplyDelete, BoardReplyUpdate } from '../../apis/reply/reply';
 import toast from 'react-hot-toast';
 
 function Reply({ type, replyList, setReplyState, replyState }) {
+    const [replyIdx,setReplyIdx] = useState(-1);
     const loginUser = useRecoilValue(loginUserState);
     const [modal, setModal] = useRecoilState(isModalActive);
     const [modalType, setModalType] = useState("");
@@ -48,7 +49,7 @@ function Reply({ type, replyList, setReplyState, replyState }) {
         }) : "";
         if (result.status === "SUCCESS") {
             toast.success("댓글이 수정되었습니다.")
-            setUpdateState(updateState ? false : true);
+            setReplyIdx(-1);
             setReplyState(replyState === 1 ? 0 : 1);
         };
     }
@@ -67,12 +68,12 @@ function Reply({ type, replyList, setReplyState, replyState }) {
                         <table key={index}>
                             <thead>
                                 <tr>
-                                    <td className='title'>{item.nickName}</td><td>&nbsp; {item.createDate} {loginUser.userNo === item.userNo ? <><BsPencilSquare className='pointer' onClick={() => {setUpdateState(updateState ? false : true); setUpdateContent(item.replyContent)}} /> <BsTrash className='pointer' onClick={() => { setModalType("삭제"); setModal(true); setContentNo(item.replyNo) }} /></> : ""}</td>
+                                    <td className='title'>{item.nickName}</td><td>&nbsp; {item.createDate} {loginUser.userNo === item.userNo ? <><BsPencilSquare className='pointer' onClick={() => {setReplyIdx(index === replyIdx ? -1 : index); setUpdateContent(item.replyContent)}} /> <BsTrash className='pointer' onClick={() => { setModalType("삭제"); setModal(true); setContentNo(item.replyNo) }} /></> : ""}</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    {updateState ? <td className='text' colSpan={2}>{item.replyContent}</td> : <td className='text' colSpan={2}><input className='reply__inputBar' type="text" value={updateContent} onChange={(e)=>{setUpdateContent(e.target.value)}} /><button className='reply__btn' onClick={()=>{updateReply(item.replyNo)}}>수정</button></td>}{loginUser.userId !== "" ? <td className='report' onClick={() => { setModalType("신고"); setModal(true); setContentNo(item.replyNo) }}> 신고</td> : <td></td>}
+                                    {replyIdx !== index? <td className='text' colSpan={2}>{item.replyContent}</td> : <td className='text' colSpan={2}><input className='reply__inputBar' type="text" value={updateContent} onChange={(e)=>{setUpdateContent(e.target.value)}} /><button className='reply__btn' onClick={()=>{updateReply(item.replyNo)}}>수정</button></td>}{loginUser.userId !== "" ? <td className='report' onClick={() => { setModalType("신고"); setModal(true); setContentNo(item.replyNo) }}> 신고</td> : <td></td>}
                                 </tr>
                                 <tr>
                                     <td colSpan={3}><hr></hr></td>
