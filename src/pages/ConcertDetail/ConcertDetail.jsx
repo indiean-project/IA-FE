@@ -6,13 +6,21 @@ import CommonReply from '../../components/CommonReply/CommonReply';
 import ArtistLineUp from '../../components/ArtistLineUp';
 import { selectConcert } from '../../apis/concert/concertDetail';
 import { Share } from 'react-bootstrap-icons';
-import { handleCopyClipBoard } from '../../apis/common/copyClipBoard'
-import baseImg from '../../assets/logo/logo_white.png';
+import { handleCopyClipBoard } from '../../apis/common/copyClipBoard';
+import baseImg from '../../assets/default/defaultImg.png';
+import { isQuestionFormActive } from '../../recoil/IsModalActive';
+import toast from 'react-hot-toast';
+import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { loginUserState } from '../../recoil/LoginUser';
+import QuestionForm from '../../components/QuestionForm';
+
 
 
 function ConcertDetail() {
+    const loginUser = useRecoilValue(loginUserState);
+    const [isModalOpen, setIsModalOpen] = useRecoilState(isQuestionFormActive);
     const boardUrl = "concert";
-
     const parama = useParams().id;
     const [concert, setConcert] = useState([]);
     const [detailState, setDetailState] = useState('info');
@@ -24,9 +32,12 @@ function ConcertDetail() {
 
     }
     useEffect(() => {
-
+        
         concertItem()
     }, [])
+    const openQuestion = () =>{
+        loginUser.userId ==='' ?toast.error('로그인 후 이용가능합니다.'):setIsModalOpen(true); 
+    }
 
 
     return (
@@ -37,7 +48,7 @@ function ConcertDetail() {
                 <div className='concertDetail__title'>
                     <h1>{concert.concertTitle}</h1>
                 </div>
-                <div className='btn'><NavLink>수정요청</NavLink></div>
+                <div className='btn' onClick={openQuestion}><NavLink>수정요청</NavLink></div>
             </div>
             <div className='concertDetail__itemBox'>
                 <div className='concertDetail__item'>
@@ -92,9 +103,10 @@ function ConcertDetail() {
             </div>
             <div className='detail__content'>
                 <div className='detail__content_item'>
-                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply />}
+                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply type={'concert'} contentNo={concert.concertNo}/>}
                 </div>
             </div>
+            {isModalOpen && <QuestionForm />}
         </div>
     )
 }

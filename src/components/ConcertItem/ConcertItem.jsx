@@ -17,7 +17,7 @@ const Concert = (props) => {
                         <div className="concert__item" key={idx} onClick={()=>{handleDetailPost({concert})}}>
                             <div>
                                 <img src={concert.titleUrl!==null?concert.titleUrl:baseImg}/>
-                                <ul>
+                                <ul className='concertUl'>
                                     <li className='concert__title'>{concert.concertTitle}</li>                            
                                     <li className='concert__location'>LOCATION:{concert.location}</li>
                                     <li className='concert__date'>{concert.startDate}~{concert.endDate}</li>                   

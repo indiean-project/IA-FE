@@ -12,8 +12,14 @@ import { useEffect, useState } from 'react';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useRecoilValue } from 'recoil';
 import toast from 'react-hot-toast';
+import QuestionForm from '../../components/QuestionForm';
+import { isQuestionFormActive } from '../../recoil/IsModalActive';
+
+
+
 function ConcertList() {
     const loginUser = useRecoilValue(loginUserState);
+    const [isModalOpen, setIsModalOpen] = useRecoilState(isQuestionFormActive);
     const eventColor = ['blue', 'green', 'red', 'gray', 'black'];
     const [currentPage, setCurrentPage] = useRecoilState(cPage);
     const [concertList, setConcertList] = useState([]);
@@ -38,7 +44,9 @@ function ConcertList() {
     const questionMove = () => {
         if (loginUser.userNo === '') {
             toast.error('로그인 후 이용가능 합니다.')
+            return
         }
+        setIsModalOpen(true);
     }
     const calendar = async () => {
 
@@ -86,6 +94,7 @@ function ConcertList() {
             <ConcertItem concertList={concertList}></ConcertItem>
             {concertList.length < 1 ? <div className='zero'>검색 결과가 없습니다.</div> : ""}
             {concertList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list}></PaginationBar> : ""}
+            <h1>이달의 공연</h1>
             <div className='calendar__space'>
                 <FullCalendar
                     locale="kr"
@@ -95,7 +104,7 @@ function ConcertList() {
                     events={event}
                 />
             </div>
-
+            {isModalOpen && <QuestionForm />}
         </div>
 
     );

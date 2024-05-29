@@ -47,7 +47,7 @@ function AdminUserAuthorityArtisttable() {
         { label: '아이디', value: 'userId' },
     ]
     const sortCategory = [
-        { label: '요청일', value: 'createDate' },
+        { label: '등록순', value: 'artistNo' },
         { label: '처리상태', value: 'fundStatus' },
     ]
     const onClickManageBtn = async (artistNo, artistStatus) => {

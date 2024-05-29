@@ -11,9 +11,10 @@ import { artistEnroll } from '../../apis/artist/artist';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 function ArtistEnrollForm() {
-
+    const history = createBrowserHistory();
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistForm, setArtistForm] = useState({
@@ -26,6 +27,25 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
+    
+    useEffect(()=>{
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        bossImg.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+    };
+
+    useEffect(()=>{
+        return ()=>{
+            handleBeforeUnload();
+        }
+    }, [history])
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
