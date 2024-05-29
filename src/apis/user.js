@@ -9,6 +9,24 @@ export const loginUser = async(params) => {
     }
 }
 
+export const findUserId = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/userId", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const findUserPwd = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/userPwd", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export const signUpUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp", params);

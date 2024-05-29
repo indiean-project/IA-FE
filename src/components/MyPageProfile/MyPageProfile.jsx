@@ -34,7 +34,8 @@ function MyPageProfile() {
         userProfileImg: loginUser.userProfileImg,
         userContent: loginUser.userContent,
         userFavoriteArtist: loginUser.userFavoriteArtist,
-        userFavoriteMusic: loginUser.userFavoriteMusic
+        userFavoriteMusic: loginUser.userFavoriteMusic,
+        socialstatus: loginUser.socialstatus
     });
 
     const onChangeUserInfo = (e) => {

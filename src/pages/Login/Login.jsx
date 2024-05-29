@@ -10,17 +10,6 @@ import './Login.scss';
 
 function Login() {
 
-    // const navigate = useNavigate(); 
-    // const loginUser = useRecoilValue(loginUserState);
-
-    // if (loginUser.data) {
-    //     navigate("/");
-    //     // toast.error("이미 로그인 되어있습니다.");
-    //     <ModalWindow>
-    //         <p>이미 로그인 되어있습니다.</p>
-    //     </ModalWindow>
-    // }
-
     return(
         <>
             <div className="loginForm__container">
