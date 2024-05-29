@@ -20,7 +20,7 @@ export const BoardReplyEnroll = async(params) => {
 
 export const BoardReplyDelete = async(params) => {
     try {
-        const {data} = await API.post("/api/reply/delete", params);
+        const {data} = await API.post("/api/reply/delete", params.replyNo);
         return data;
     } catch (e) {
         console.log(e);
