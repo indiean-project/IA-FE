@@ -137,12 +137,6 @@ function ColoBoard() {
                         <div>
                             <label>{category}</label>
                         </div>
-                        <div>
-                            <select name="" id="">
-                                <option value="boardNo">최신순</option>
-                                <option value="">인기순</option>
-                            </select>
-                        </div>
                     </div>
                     <div className='coloBoard__item1'>
                         <div className='coloBoard__category'>커뮤니티 &gt; {category}</div>
