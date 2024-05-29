@@ -16,122 +16,36 @@ function AdminQuestionSection() {
 
     const [questionList, setQuestionList] = useState([]);
     const [check, setCheck] = useState([]);
-    const test = [
-        {
-            questionNo: 1,
-            userNo: 1,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 2,
-            userNo: 2,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 3,
-            userNo: 3,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 4,
-            userNo: 4,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 5,
-            userNo: 5,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 6,
-            userNo: 6,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 7,
-            userNo: 7,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 8,
-            userNo: 8,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-        {
-            questionNo: 9,
-            userNo: 9,
-            userId: 'comet2667@naver.com',
-            userName: '박혜성',
-            questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-            questionDate: '2024-05-16',
-            ansDate: '',
-            ansContent: '',
-            ansYn: 'N',
-        },
-    ]
+    // const test = [
+    //     {
+    //         questionNo: 1,
+    //         userNo: 1,
+    //         userId: 'comet2667@naver.com',
+    //         userName: '박혜성',
+    //         questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
+    //         questionDate: '2024-05-16',
+    //         ansDate: '',
+    //         ansContent: '',
+    //         ansYn: 'N',
+    //     },      
+    // ]
 
     useEffect(() => {
         getList();
     }, [])
 
     const getList = async()=>{
-        // const list = await adminQuestion();  //연동 완료되면 해당 함수 활성화 후 test를 해당 함수 리턴 값으로
+        const list = await adminQuestion();  //연동 완료되면 해당 함수 활성화 후 test를 해당 함수 리턴 값으로
         let checkList = new Array();
-        let questionList = new Array();
-        for (let i = 0; i < test.length; i++) {
-            checkList.push(false);
-            questionList.push(test[i])
+        console.log(list)
+        if(list.status === 'SUCCESS'){
+            for (let i = 0; i < list.data.length; i++) {
+                checkList.push(false);
+            }
+            setCheck(checkList);
+            setQuestionList(list.data)
         }
-        setCheck(checkList);
-        setQuestionList(questionList)
+            
     }
 
     const searchCategory = [

@@ -36,7 +36,7 @@ export const updateQuestion = async(params) => {
     }
 }
 
-export const adminQuestion = async(params) => {
+export const adminQuestion = async() => {
     try {
         const {data} = await API.get("/api/admin/question/list");
         return data;
