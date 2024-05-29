@@ -6,21 +6,29 @@ import { ReportEnroll } from "../../apis/report/report";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";
 
-function ReportModal(props) {
+function ReportModal({replyItem, brType, setModal}) {
     const [reportType, setReportType] = useState("");
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     const report = async () => {
-        const result = await ReportEnroll({
+        
+        const result = brType === "REPLY" ? await ReportEnroll({
             member: {
                 userNo: loginUser.userNo,
             },
             reportTypeNo: reportType,
-            contentNo: props.contentNo,
-            brType: props.brType
-        })
+            contentNo: replyItem.replyNo,
+            brType: brType
+        }) : await ReportEnroll({
+            member: {
+                userNo: loginUser.userNo,
+            },
+            reportTypeNo: reportType,
+            contentNo: replyItem.concertReplyNo,
+            brType: brType
+        });
         if(result.status === "SUCCESS") {
-            props.setModal(false);
+            setModal(false);
             toast.success("신고가 접수 되었습니다.");
         }
     }
@@ -60,7 +68,7 @@ function ReportModal(props) {
                 <div className='report__select__box'>
                     <div className='report__select__btn'>
                         <div onClick={()=>{reportType !== "" ? report() : toast.error("신고 항목을 선택 해 주세요.")}}>신고</div>
-                        <div onClick={()=>{props.setModal(false)}}>취소</div>
+                        <div onClick={()=>{setModal(false)}}>취소</div>
                     </div>
                 </div>
             </div>

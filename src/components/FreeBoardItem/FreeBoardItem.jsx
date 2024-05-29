@@ -16,7 +16,7 @@ function FreeBoardItem(props) {
     if (!props.boardList || props.boardList.length < 1) {
         return <><div className='boardItem__none'>게시글이 존재하지 않습니다.</div>
             <div className='freeboarditem__input__area'>
-                <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
                 <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
             </div>
         </>
@@ -71,7 +71,7 @@ function FreeBoardItem(props) {
             </table>
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
             <div className='freeboarditem__input__area'>
-                <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
                 <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
             </div>
         </div>

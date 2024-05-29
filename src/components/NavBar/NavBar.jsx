@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import './NavBar.scss';
 import { useEffect, useState } from "react";
 import { ArrowLeft } from "react-bootstrap-icons";
@@ -10,6 +10,7 @@ function NavBar(props) {
 
     const [checkCommu, setCheckCommu] = useState(false);
     const [animaiton, setAnimation] = useState('ulClose');
+    const navigate = useNavigate();
     const {pathname} = useLocation();
     
     const setCpage = useSetRecoilState(cPage);
@@ -31,6 +32,11 @@ function NavBar(props) {
         setAnimation('ulClose');
     }
 
+    const onClickNavigate = (url)=>{
+        setCpage(1);
+        navigate(url);
+    }
+
     return (
         <div className={props.navCheck.class + ' nav__container'}>
             <div className="nav__header">
@@ -38,18 +44,18 @@ function NavBar(props) {
             </div>
             <hr />
             <ul>
-                <li><NavLink to={"/concert"} onClick={()=>{setCpage(1)}}>공연 정보</NavLink></li>
-                <li><NavLink to={"/artist"} onClick={()=>{setCpage(1) }}>아티스트 정보</NavLink></li>
-                <li><NavLink to={"/funding"} onClick={()=>{setCpage(1)}}>아티스트 펀딩</NavLink></li>
+                <li onClick={()=>onClickNavigate("/concert")}><p>공연 정보</p></li>
+                <li onClick={()=>onClickNavigate("/artist")}><p>아티스트 정보</p></li>
+                <li onClick={()=>onClickNavigate("/funding")}><p>아티스트 펀딩</p></li>
                 <li className="nav__item__box" onClick={() => onClickComm()}><div>커뮤니티</div>
                     <ul className={animaiton}>
-                        <li><NavLink to={"/board/proud"} onClick={()=>{setCpage(1)}}>아티스트 자랑하기</NavLink></li>
-                        <li><NavLink to={"/board/free"} onClick={()=>{setCpage(1)}}>자유게시판</NavLink></li>
-                        <li><NavLink to={"/board/colo"} onClick={()=>{setCpage(1)}}>콜로세움</NavLink></li>
+                        <li onClick={()=>onClickNavigate("/board/proud")}><p>아티스트 자랑하기</p></li>
+                        <li onClick={()=>onClickNavigate("/board/free")}><p>자유게시판</p></li>
+                        <li onClick={()=>onClickNavigate("/board/colo")}><p>콜로세움</p></li>
                     </ul>
                 </li>
                 
-                <li><NavLink to={"/notice"}>공지사항</NavLink></li>
+                <li onClick={()=>onClickNavigate("/notice")}><p>공지사항</p></li>
             </ul>            
             </div>
     );

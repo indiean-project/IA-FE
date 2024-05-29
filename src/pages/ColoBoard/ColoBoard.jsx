@@ -223,7 +223,7 @@ function ColoBoard() {
                     }
                     {boardList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list} /> : ""}
                     <div className='coloItem__input__area'>
-                        <FundInputBar width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
+                        <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
                         <div className='coloItem__btn'><a onClick={() => { list(); setCpage(1); }}>검색</a></div>
                     </div>
                 </div>

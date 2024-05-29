@@ -11,9 +11,10 @@ import { artistEnroll } from '../../apis/artist/artist';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 function ArtistEnrollForm() {
-
+    const history = createBrowserHistory();
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistForm, setArtistForm] = useState({
@@ -26,6 +27,25 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
+    
+    useEffect(()=>{
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        bossImg.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+    };
+
+    useEffect(()=>{
+        return ()=>{
+            handleBeforeUnload();
+        }
+    }, [history])
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
@@ -125,6 +145,7 @@ function ArtistEnrollForm() {
                             <h1>아티스트 명</h1>
                             <FundInputBar width={"60%"}
                                 name={'artistName'}
+                                maxlength={50}
                                 value={artistForm.artistName}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -142,6 +163,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
+                                maxlength={100}
                                 value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -177,6 +199,7 @@ function ArtistEnrollForm() {
                         <h3>Instagram Link</h3>
                         <FundInputBar width={"80%"}
                             name={'instagramLink'}
+                            maxlength={100}
                             value={artistForm.instagram}
                             onChangeValue={onChangeArtistForm}
                         />
@@ -187,6 +210,7 @@ function ArtistEnrollForm() {
                             name={'youtubeLink'}
                             value={artistForm.youtube}
                             onChangeValue={onChangeArtistForm}
+                            maxlength={100}
                         />
                     </div>
                 </div>

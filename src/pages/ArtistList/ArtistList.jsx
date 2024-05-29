@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";
 import toast from 'react-hot-toast';
 
+
 function ArtistList() {
     const loginUser = useRecoilValue(loginUserState);
     const navigate = useNavigate();
@@ -41,6 +42,11 @@ function ArtistList() {
     const [loadingCheck, setLoadingCheck] = useState(false);
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
+            if(keyword.trim()===""){
+                setKeyword('')
+                toast.error('검색어를 입력해주세요')
+                return
+            }
             setSelectItem({
                 ...selectItem,
                 keyword: keyword
@@ -77,7 +83,7 @@ function ArtistList() {
         <div className='artist__list__container'>
             <div className='title'>
                 <h1>ARTIST LIST</h1>
-                <input className='artist__search' type="text" name="keyword" value={keyword} placeholder='검색어를 입력하세요' onChange={(e) => { setKeyword(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
+                <input className='artist__search' type="text" name="keyword" maxLength={50} value={keyword} placeholder='검색어를 입력하세요' onChange={(e) => { setKeyword(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
             </div>
             <div className='btn__area'>
                 <div>
