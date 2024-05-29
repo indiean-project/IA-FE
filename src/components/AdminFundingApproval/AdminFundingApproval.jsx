@@ -10,7 +10,8 @@ function AdminFundingApproval() {
     const [standard, setStandard] = useState({
         searchValue: 'all',
         sortValue: 'createDate',
-        keyword: ''
+        keyword: '',
+        ad: 'ASC'
     })
 
     // 아래 주석 처리한 함수들은 backEnd 작업 후 활성화 하시면 됩니다.
@@ -101,9 +102,11 @@ function AdminFundingApproval() {
                     <SelectBar
                         list={searchCategory} onChangeValue={onChangeSearchStandard}
                     />
-                    <button>검색</button>
+                    <button onClick={() => onClickSearch()}>검색</button>
                 </div>
                 <div className="adminFundingApproval__sort">
+                    <button>오름차순</button>
+                    <button>내림차순</button>
                     <p>정렬</p>
                     <SelectBar
                         list={sortCategory} onChangeValue={onChangeSortStandard}
