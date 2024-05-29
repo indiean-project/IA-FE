@@ -42,7 +42,7 @@ function MyPage() {
                 console.log(reply);
                 setReplyList(reply.data);
             } catch (error) {
-                console.error("Failed to fetch user replies", error);
+                console.error("Failed to fetch user replies", error);   
             }
         };
 
@@ -66,7 +66,7 @@ function MyPage() {
     useEffect(() => {
         const fetchUserQuestionReportstatus = async () => {
             try {
-                const questionLog = await getUserQuestion(loginUser.userNo, selectQuestion.questionNo);
+                const questionLog = await getUserQuestion(loginUser.userNo);
                 const reportLog = await getUserReport(loginUser.userNo);
                 console.log(questionLog);
                 console.log(reportLog);
@@ -78,7 +78,7 @@ function MyPage() {
 
         };
         fetchUserQuestionReportstatus();
-    }, [loginUser.userNo, questionList, reportList]);
+    }, [loginUser.userNo]);
 
 
     return (

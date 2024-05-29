@@ -4,14 +4,14 @@ import { useRecoilState } from 'recoil';
 
 // import PaginationBar from '../PaginationBar';
 // import FundInputBar from '../FundInputBar';
-// import { ViewCount } from '../../apis/board';
-// import { boardPoint } from '../../recoil/boardPoint';
+import { ViewCount } from '../../apis/board';
+import { boardPoint } from '../../recoil/boardPoint';
 
 import './MyPageReply.scss';
 
 function MyPageReply( {replyList} ) {
     const navigate = useNavigate();
-    // const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     // 카테고리 관련 정리 필요 (전부 자유게시판 양식으로 띄우고 있음)
 
     if (!replyList) {
@@ -21,32 +21,36 @@ function MyPageReply( {replyList} ) {
     function clickItem(item) {
         const boardNo = item.boardNo;
         ViewCount(boardNo);
-        setBoardCategory("free");
-        navigate("/board/detail/" + item.boardNo);
+        setBoardCategory(item.contentType);
+        if(boardCategory === "자유게시판" || boardCategory === "자랑게시판") {
+            navigate("/board/detail/" + item.boardNo);    
+        } else if(boardCategory === "콜로세움") {
+            navigate("/board/colo/");
+            // navigate("/board/colo/" + item.boardNo);
+        } else if(boardCategory === "전용게시판") {
+            navigate("/board/");
+        }
+        
     }
 
     return (
         <>
-            <div className='userBoard__container'>
-                <table className='userBoard__table'>
+            <div className='userReply__container'>
+                <table className='userReply__table'>
                     <thead>
                         <tr>
-                            <th className='userBoard__thead__title'>제목</th>
-                            <th className='userBoard__thead__writer'>작성자</th>
-                            <th className='userBoard__thead__updatedate'>수정일</th>
-                            <th className='userBoard__thead__count'>조회</th>
-                            <th className='userBoard__thead__like'>추천</th>
+                            <th className='userReply__thead__content'>댓글 내용</th>
+                            <th className='userReply__thead__type'>게시판 유형</th>
+                            <th className='userReply__thead__createdate'>작성일</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {boardList.map((item, index) => {
+                        {replyList.map((item, index) => {
                             return (
                                 <tr key={index} onClick={() => clickItem(item)}>
-                                    <td className='userBoard__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                    <td>{item.nickname}</td>
-                                    <td>{item.updateDate}</td>
-                                    <td>{item.viewCount}</td>
-                                    <td>{item.likeCount}</td>
+                                    <td className='userReply__tbody__title'>{item.replyContent}</td>
+                                    <td>{item.contentType}</td>
+                                    <td>{item.createDate}</td>
                                 </tr>
                             )
                         })}

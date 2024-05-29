@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
 
-import { getUserQuestion, getUserReport } from '../../apis/user';
-import { loginUserState } from '../../recoil/LoginUser';
 import './MyPageReport.scss';
 
 
 function MyPageReport({ questionList, reportList }) {
 
-    const loginUser = useRecoilValue(loginUserState);
     const [selectQuestion, setSelectQuestion] = useState(null);
+
+    useEffect(() => {
+        console.log("Selected Question No:", selectQuestion ? selectQuestion.questionNo : null);
+    }, [selectQuestion]); // selectQuestion 값이 변하면 새로 렌더링
+
+    if (!questionList || !reportList) {
+        return <></>
+    }
+    function clickItem(questionNo) {
+        setSelectQuestion(questionNo === (selectQuestion ? selectQuestion.questionNo : null) ? null : questionNo);
+        console.log(questionNo);
+        console.log(selectQuestion);
+    }
 
     return (
         <>
@@ -25,21 +34,24 @@ function MyPageReport({ questionList, reportList }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {questionList.map((item, index) => {
-                            <tr key={index} onClick={() => clickItem(item)}>
-                                <td className='userQuestion__tbody__title'>{item.questionContent}</td>
-                                <td>{item.enrollDate}</td>
-                                <td>{item.ansYn}</td>
-                                <td>{item.ansDate}</td>
-                            </tr>
-                            {
-                                selectQuestion && selectQuestion.ansyn == "Y" && (
-                                    <tr><td colSpan={4}>
-                                        <div className='userQuestion__answer'>{item.ansContent}</div>
-                                    </td></tr>
-                                )
-                            }
-                        })}
+                        {questionList.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <tr onClick={() => clickItem(item.questionNo)}>
+                                    <td className='userQuestion__tbody__title'>{item.questionContent}</td>
+                                    <td>{item.questionDate}</td>
+                                    <td>{item.ansYn}</td>
+                                    <td>{item.ansDate}</td>
+                                </tr>
+                                {
+                                    selectQuestion !== "null" && selectQuestion === item.questionNo 
+                                    && item.ansYn === "Y" && (
+                                        <tr><td colSpan={4}>
+                                            <div className='userQuestion__answer'>{item.ansContent}</div>
+                                        </td></tr>  
+                                    )
+                                }
+                            </React.Fragment>
+                        ))}
                     </tbody>
                 </table>
             </div >

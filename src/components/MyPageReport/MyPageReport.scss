@@ -42,6 +42,14 @@
                 font-size: 15px;
                 padding-top: 1%;
                 padding-bottom: 1%;
+
+                .userQuestion__answer {
+                    width: 100%;
+                    height: auto;
+                    margin : 10px;
+                    background-color: #cccccc;
+                    color : black;
+                }
             }
         }
 
@@ -52,10 +60,6 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             max-width: 100px;
-        }
-        .userQuestion__answer {
-            width: 95%;
-            background-color: #cccccc;
         }
     }
 
