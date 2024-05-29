@@ -112,7 +112,7 @@ function NoticeEnrollForm() {
             <div className='boardEnrollForm__box'>
                 <label>공지사항 글쓰기</label>
                 <div>
-                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} value={title} />
+                    <input maxLength={30} type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} value={title} />
                 </div>
                 <div>
                     <ReactQuill

@@ -256,7 +256,7 @@ function BoardEnrollForm() {
                     </select>
                 </div>
                 <div>
-                    <input type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} value={title} />
+                    <input maxLength={30} type="text" placeholder='제목을 입력하세요.' onChange={(e) => { setTitle(e.target.value) }} value={title} />
                 </div>
                 <div>
                     <ReactQuill
@@ -274,10 +274,10 @@ function BoardEnrollForm() {
                         <button onClick={enroll}>등록</button>
                     </div>
                     <div className={voteInput === 'open' ? 'boardEnrollForm__insert__vote' : 'displayNone'}>
-                        <div><label>항목1</label><input type="text" onChange={(e) => { setColoTitle1(e.target.value) }}
+                        <div><label>항목1</label><input maxLength={30} type="text" onChange={(e) => { setColoTitle1(e.target.value) }}
                             value={coloTitle1} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
 
-                        <div><label>항목2</label><input type="text" onChange={(e) => { setColoTitle2(e.target.value) }}
+                        <div><label>항목2</label><input maxLength={30} type="text" onChange={(e) => { setColoTitle2(e.target.value) }}
                             value={coloTitle2} readOnly={location.state.boardItem !== undefined ? true : false} /></div>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ function ProudItem(props) {
         return <>
             <div className='boardItem__none'>게시글이 존재하지 않습니다.</div>
             <div className='proudItem__input__area'>
-                <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
                 <div className='ProudItem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
             </div>
         </>
@@ -62,7 +62,7 @@ function ProudItem(props) {
                     <PaginationBar pageInfo={props.pageInfo} list={props.list} />
                 </div>
                 <div className='proudItem__input__area'>
-                    <FundInputBar width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
+                    <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
                     <div className='ProudItem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
                 </div>
             </div>
