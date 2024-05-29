@@ -41,11 +41,11 @@ function ArtistEnrollForm() {
         await imgDelete(list);
     };
 
-    useEffect(()=>{
-        return ()=>{
-            handleBeforeUnload();
-        }
-    }, [history])
+    // useEffect(()=>{
+    //     return ()=>{
+    //         handleBeforeUnload();
+    //     }
+    // }, [history])
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
@@ -163,7 +163,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
-                                maxlength={100}
+                                maxlength={50}
                                 value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />

@@ -6,7 +6,7 @@ import { Share } from 'react-bootstrap-icons';
 import { BsInstagram, BsYoutube } from "react-icons/bs";
 import {handleCopyClipBoard} from '../../apis/common/copyClipBoard'
 import MusicBox from '../../components/MusicBox';
-import baseImg from '../../assets/logo/logo_white.png'
+import baseImg from '../../assets/default/defaultImg.png';
 
 
 
