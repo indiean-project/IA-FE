@@ -145,6 +145,7 @@ function ArtistEnrollForm() {
                             <h1>아티스트 명</h1>
                             <FundInputBar width={"60%"}
                                 name={'artistName'}
+                                maxlength={50}
                                 value={artistForm.artistName}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -162,6 +163,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
+                                maxlength={100}
                                 value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -197,6 +199,7 @@ function ArtistEnrollForm() {
                         <h3>Instagram Link</h3>
                         <FundInputBar width={"80%"}
                             name={'instagramLink'}
+                            maxlength={100}
                             value={artistForm.instagram}
                             onChangeValue={onChangeArtistForm}
                         />
@@ -207,6 +210,7 @@ function ArtistEnrollForm() {
                             name={'youtubeLink'}
                             value={artistForm.youtube}
                             onChangeValue={onChangeArtistForm}
+                            maxlength={100}
                         />
                     </div>
                 </div>
