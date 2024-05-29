@@ -1,0 +1,2 @@
+import AdminUserAuthorityArtisttable from "./AdminUserAuthorityArtisttable";
+export default AdminUserAuthorityArtisttable;

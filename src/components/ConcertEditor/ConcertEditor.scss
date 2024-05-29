@@ -1,5 +1,6 @@
-.fundEditor__container{
+.concertEditor__container{
     margin-bottom: 10px;
+    width: 700px;
     color: black;
     .quill{
         background-color: white;
@@ -10,12 +11,5 @@
         .ql-container {
             height: 700px;
         }
-    }
-    .byteCheck{
-        margin-top: 10px;
-        width: 97%;
-        color: white;
-        display: flex;
-        justify-content: end;
     }
 }

@@ -11,12 +11,13 @@ import { artistEnroll } from '../../apis/artist/artist';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 function ArtistEnrollForm() {
-
+    const history = createBrowserHistory();
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
-    const [artistFrom, setArtistFrom] = useState({
+    const [artistForm, setArtistForm] = useState({
         userNo: loginUserInfo.userNo,
         artistName: '',
         debutDate: '',
@@ -26,32 +27,51 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
+    
+    useEffect(()=>{
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        bossImg.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+    };
+
+    useEffect(()=>{
+        return ()=>{
+            handleBeforeUnload();
+        }
+    }, [history])
     const onClickSubmit = async () => {
-        if (artistFrom.artistName.trim() == '') {
+        if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
             return;
         }
-        if (artistFrom.debutDate.trim() == '') {
+        if (artistForm.debutDate.trim() == '') {
             toast.error("데뷔일 입력해주세요");
             return;
         }
-        if (artistFrom.musicCategory.trim() == '') {
+        if (artistForm.musicCategory.trim() == '') {
             toast.error("음악장르를 입력해주세요");
             return;
         }
-        if (artistFrom.artistInfo.trim() == '') {
+        if (artistForm.artistInfo.trim() == '') {
             toast.error("아티스트 소개를 입력해주세요");
             return;
         }
-        if (artistFrom.youtubeLink.indexOf('www.youtube.com') === -1 && artistFrom.youtubeLink.trim() != '') {
+        if (artistForm.youtubeLink.indexOf('www.youtube.com') === -1 && artistForm.youtubeLink.trim() != '') {
             toast.error("잘못된 주소 입니다.");
             return;
         }
-        if (artistFrom.instagramLink.indexOf('www.instagram.com') === -1 && artistFrom.instagramLink.trim() != '') {
+        if (artistForm.instagramLink.indexOf('www.instagram.com') === -1 && artistForm.instagramLink.trim() != '') {
             toast.error("잘못된 주소 입니다.");
             return;
         }
-        const result = await artistEnroll(artistFrom);
+        const result = await artistEnroll(artistForm);
         const newImgUrl = await imgMove(bossImg)
         if (newImgUrl != undefined && newImgUrl.data.length > 0) {
             await imgEnroll({
@@ -68,8 +88,8 @@ function ArtistEnrollForm() {
     }
 
     const onChangeArtistForm = (e) => {
-        setArtistFrom({
-            ...artistFrom,
+        setArtistForm({
+            ...artistForm,
             [e.target.name]: e.target.value
         })
     }
@@ -99,15 +119,15 @@ function ArtistEnrollForm() {
     }
 
     const onEditorChange = (content) => {
-        setArtistFrom({
-            ...artistFrom,
+        setArtistForm({
+            ...artistForm,
             artistInfo: content
         })
 
     }
     useEffect(() => {
 
-    }, [bossImg, artistFrom])
+    }, [bossImg, artistForm])
 
     return (
         <div className='artistEnrollForm'>
@@ -125,7 +145,7 @@ function ArtistEnrollForm() {
                             <h1>아티스트 명</h1>
                             <FundInputBar width={"60%"}
                                 name={'artistName'}
-                                value={artistFrom.artistName}
+                                value={artistForm.artistName}
                                 onChangeValue={onChangeArtistForm}
                             />
                         </div>
@@ -134,7 +154,7 @@ function ArtistEnrollForm() {
                             <FundInputBar width={"40%"}
                                 name={'debutDate'}
                                 type={'date'}
-                                value={artistFrom.debutDate}
+                                value={artistForm.debutDate}
                                 onChangeValue={onChangeArtistForm}
                             />
                         </div>
@@ -142,7 +162,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
-                                value={artistFrom.musicCategory}
+                                value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />
                         </div>
@@ -177,7 +197,7 @@ function ArtistEnrollForm() {
                         <h3>Instagram Link</h3>
                         <FundInputBar width={"80%"}
                             name={'instagramLink'}
-                            value={artistFrom.instagram}
+                            value={artistForm.instagram}
                             onChangeValue={onChangeArtistForm}
                         />
                     </div>
@@ -185,7 +205,7 @@ function ArtistEnrollForm() {
                         <h3>youtube Link</h3>
                         <FundInputBar width={"80%"}
                             name={'youtubeLink'}
-                            value={artistFrom.youtube}
+                            value={artistForm.youtube}
                             onChangeValue={onChangeArtistForm}
                         />
                     </div>

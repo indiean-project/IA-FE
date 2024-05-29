@@ -1,15 +1,11 @@
-import ReactQuill, { Quill } from 'react-quill';
+import './ConcertEditor.scss';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './FundEditor.scss';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { tempImg } from '../../apis/imgFilter';
-import toast from 'react-hot-toast';
-
-function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
-
+function ConcertEditor({onEditorChange, imgList, setImgList}){
     const [content, setContent] = useState('');
     const quillRef = useRef();
-    const [contentByte, setContentByte] = useState(0);
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -22,7 +18,7 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
             let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
-            // setContent(prevContent => prevContent + imgTag);
+            setContent(prevContent => prevContent + imgTag);
             setImgList(imgList => [...imgList, result.data]);
         }
     }
@@ -33,23 +29,11 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
         'link', 'image'
     ];
 
-    const handleChange = (text) => {
-        let num = 0;
-        for (let i = 0; i < text.length; i++) {
-            text.charCodeAt(i) > 127 ? num += 3 : num++;
-        }
-        setContentByte(num);
-        if (contentByte >= 4000 && content.length < text.length) {
-            toast.error('입력 가능한 글자수를 초과하였습니다.')
-            console.log(quillRef.current)
-            setContent(content);
-            return;
-        }
-        setContent(text);
+    const handleChange = (content) => {
+        setContent(content);
     };
-
-    useEffect(() => {
-        onEditorChange(content, FACheck);
+    useEffect(()=>{
+        onEditorChange(content);
     }, [content])
 
     const modules = useMemo(() => {
@@ -71,7 +55,7 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
         }
     }, [])
     return (
-        <div className='fundEditor__container'>
+        <div className='concertEditor__container'>
             <ReactQuill
                 theme="snow"
                 modules={modules}
@@ -80,8 +64,6 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
                 onChange={handleChange}
                 ref={quillRef}
             />
-            <div className='byteCheck'>byte : {contentByte} / 4000</div>
         </div>
     );
-}
-export default FundEditor;
+}export default ConcertEditor

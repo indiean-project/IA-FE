@@ -1,6 +1,6 @@
 import './ArtistItem.scss'
 import { useNavigate } from 'react-router-dom'
-import baseImg from '../../assets/logo/logo_white.png'
+import baseImg from '../../assets/default/defaultImg.png'
 
 function ArtistItem({ artist }) {
     const navigate = useNavigate();
