@@ -40,7 +40,7 @@ function ProudItem(props) {
                         return (
                             <div className="proudItem__items" key={index} onClick={() => { clickItem(item) }}>
                                 <div className="proudItem__img__area">
-                                    <img src={img} alt="" />
+                                    <img src={item.imgUrl !== null ? item.imgUrl : img} alt="" />
                                 </div>
                                 <div className="proudItem__item1">
                                     <div className="proudItem__title">
