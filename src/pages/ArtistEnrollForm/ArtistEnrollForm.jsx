@@ -15,7 +15,7 @@ import { tempImgState } from '../../recoil/tempImgStorage';
 
 
 function ArtistEnrollForm() {
-   
+
     const [bossImg, setBossImg] = useState(['']);
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
@@ -29,11 +29,11 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
-    const [tempImgStorage,setTempImgStorage] =useRecoilState(tempImgState)
-    
-    useEffect(()=>{
+    const [tempImgStorage, setTempImgStorage] = useRecoilState(tempImgState)
+
+    useEffect(() => {
         window.addEventListener('beforeunload', handleBeforeUnload);
-        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     })
 
     const handleBeforeUnload = async (e) => {
@@ -44,16 +44,15 @@ function ArtistEnrollForm() {
         await imgDelete(list);
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         let bList = [...bossImg]
         setTempImgStorage({
             ...tempImgStorage,
-            ["bossImg"] : bList
+            ["bossImg"]: bList
         }
-    )
-
-
+        )
     }, [bossImg])
+
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");

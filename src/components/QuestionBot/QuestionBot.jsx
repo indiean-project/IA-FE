@@ -118,14 +118,15 @@ function QuestionBot({ activeQbot }) {
                         </button>
                     ))}
                 </div>
-                </div>
                 <div className="chatbot__footer">
                     <input type="text" id="chatInput" name="chatInput" placeholder="입력" />
                     <div className="inputButton" onClick={handleSendMessage}>
                         <SendFill size={24} color="#F2613F" />
+                    </div>
                 </div>
+                {isModalOpen && <QuestionForm />}
             </div>
-            {isModalOpen && <QuestionForm />}
+
         </>
     )
 }
