@@ -34,7 +34,8 @@ function MyPageProfile() {
         userProfileImg: loginUser.userProfileImg,
         userContent: loginUser.userContent,
         userFavoriteArtist: loginUser.userFavoriteArtist,
-        userFavoriteMusic: loginUser.userFavoriteMusic
+        userFavoriteMusic: loginUser.userFavoriteMusic,
+        socialstatus: loginUser.socialstatus
     });
 
     const onChangeUserInfo = (e) => {
@@ -58,12 +59,12 @@ function MyPageProfile() {
             setLoginUser(editAccount);
             setUpdateInfo(true);
 
-            // const usedImages = new Set(Object.values(editAccount));
             const usedImage = editAccount.userProfileImg;
             const response = await imgMove({
                 userNo: loginUser.userNo,
                 userProfileImg: usedImage
             });
+            console.log(response);
             const unusedImages = tempImgUrls.filter(img => img !== usedImage);
 
             console.log(usedImage);

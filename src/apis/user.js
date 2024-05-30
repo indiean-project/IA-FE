@@ -9,6 +9,34 @@ export const loginUser = async(params) => {
     }
 }
 
+export const findUserId = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/userId", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const findEmail = async(params) => {
+    try {
+        const {data} = await API.get("/api/user/find/sendEmail?userId="+ params.userId);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const updatePwd = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/updatePwd", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export const signUpUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp", params);
@@ -78,6 +106,16 @@ export const getUserBoard = async(userNo) => {
     }
 }
 
+export const getUserReply = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/reply?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
 export const getUserFund = async(userNo) => {
     try {
         const {data} = await API.get("/api/user/myPage/fund?userNo=" + userNo);
@@ -92,6 +130,26 @@ export const getUserRewardLog = async(userNo, fundNo) => {
     try {
         const {data} = await API.get("/api/user/myPage/fund/reward?userNo=" + userNo
                                         + "&fundNo=" + fundNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserQuestion = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/question?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const getUserReport = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/report?userNo=" + userNo);
         return data;
     } catch(e) {
         console.log(e);
