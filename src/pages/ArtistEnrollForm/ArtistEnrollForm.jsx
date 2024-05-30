@@ -51,7 +51,7 @@ function ArtistEnrollForm() {
             ["bossImg"] : bList
         }
     )
-    console.log(tempImgStorage);
+
 
     }, [bossImg])
     const onClickSubmit = async () => {
