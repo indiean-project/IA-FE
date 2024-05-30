@@ -11,6 +11,7 @@ import { useRecoilState } from 'recoil';
 import { boardPoint } from '../../recoil/boardPoint';
 import { loginUserState } from '../../recoil/LoginUser';
 import { createBrowserHistory } from 'history';
+import { tempImgState } from '../../recoil/tempImgStorage';
 
 function BoardEnrollForm() {
     const [content, setContent] = useState('');
@@ -26,6 +27,7 @@ function BoardEnrollForm() {
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const [byte, setByte] = useState(0);
+    const [tempImgStorage, setTempImgStorage] = useRecoilState(tempImgState);
 
     useEffect(() => {
         const categoryState = location.state.category === "자유게시판" ? "FREE" : location.state.category === "콜로세움" ? "COLO" : "PROUD";
@@ -49,6 +51,15 @@ function BoardEnrollForm() {
             setByte(byte);
         }
     }, [location.state])
+
+    useEffect(()=>{
+        let bList = [];
+        let cList = [...imgList];
+        setTempImgStorage({
+            bossImg: bList,
+            contentImg: cList
+        })
+    }, [imgList])
 
     useEffect(() => {
         window.addEventListener('beforeunload', handleBeforeUnload);
