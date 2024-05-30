@@ -324,6 +324,7 @@ function FundEnrollForm({ nav, navRef }) {
                 fabcTypeEnum: 'FUND',
                 kcTypeEnum: 'KING'
             })
+            console.log(result);
             if (result.status === 'SUCCESS' && imgResult.status === 'SUCCESS') {
                 toast.success('펀딩을 정상적으로 신청하였습니다.');
                 navigate('/funding', { replace: true });

@@ -21,7 +21,7 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
             const formData = new FormData();
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
-            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="${result.data}" alt="${result.data}"/>`;
             setContent(prevContent => prevContent + imgTag);
             setImgList(imgList => [...imgList, result.data]);
         }
