@@ -3,6 +3,7 @@
     background-color: #242424;
     z-index: 999;
     position:fixed;
+    width:100%; 
     top:50%;
     left:50%; 
     padding:10px;  
@@ -19,7 +20,8 @@
     }
 
     .findPwdModal__inputPwd {
-        
+        margin-bottom:20px;
+
         .inputPwd,
         .certPwd {
             width: 60%;
@@ -28,11 +30,19 @@
             border-radius: 10px;
             padding-left: 35px;
         }
+        .pwdIcon {
+            position: absolute;
+            width: 23px;
+            height: 23px;
+            opacity: 0.2;
+            margin-left: 5px;
+            margin-top: 5.5px;
+        }
 
         .inputPwd.good, .certPwd.good {
             border: 2px solid greenyellow;
         }
-        .inputPwd.bad, .certPwd.badd {
+        .inputPwd.bad, .certPwd.bad {
             border: 2px solid red;
         }
 

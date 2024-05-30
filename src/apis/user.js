@@ -18,9 +18,19 @@ export const findUserId = async(params) => {
     }
 }
 
-export const findUserPwd = async(params) => {
+export const findEmail = async(params) => {
     try {
-        const {data} = await API.post("/api/user/find/userPwd", params);
+        const {data} = await API.get("/api/user/find/sendEmail?userId="+ params.userId);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const updatePwd = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/updatePwd", params);
         return data;
     } catch (e) {
         console.log(e);

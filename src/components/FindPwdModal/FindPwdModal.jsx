@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import { useSetRecoilState } from "recoil";
 
 import ModalWindow from "../ModalWindow";
-import { checkUserPwd, updateUser } from '../../apis/user';
+import { checkUserPwd, updatePwd } from '../../apis/user';
 import { isModalActive } from "../../recoil/IsModalActive";
-import { logo_white } from "../../assets/logo/logo_white.png";
-import { passwordIcon } from "../../assets/passwordLock.png";
+import logo_white from "../../assets/logo/logo_white.png";
+import  passwordIcon  from "../../assets/passwordLock.png";
 import './FindPwdModal.scss';
-function FindPwdModal() {
+import toast from 'react-hot-toast';
+
+function FindPwdModal( { userIdStorage } ) {
 
     const [isDuplicatePwd, setIsDuplicatePwd] = useState('');
     const [inputPwdAccount, setInputPwdAccount] = useState('')
@@ -40,12 +43,12 @@ function FindPwdModal() {
         checkPwd(inputPwdAccount);
     }
 
-    const certPwd = (confirmPwd) => {
+    const certPwd = async (confirmPwd) => {
         if (confirmPwd === '') {
             setIsConfirmPwd('');
             return;
         }
-        setIsConfirmPwd(confirmPwd === inputPwd.val() ? 'good' : 'bad');
+        setIsConfirmPwd(confirmPwd === inputPwdAccount ? 'good' : 'bad');
     }
     const onChangeCertPwd = (e) => {
         setConfirmPwd(e.target.value);
@@ -55,12 +58,22 @@ function FindPwdModal() {
     }
 
     const pwdUpload = async() => {
-        const result = await updateUser({
-            userPwd: inputPwdAccount
-        });
-        console.log(result);
-        if (result.status == "SUCCESS") {
+        if (isDuplicatePwd === 'good' && isConfirmPwd === 'good') {
+            const result = await updatePwd({
+                userId: userIdStorage,
+                userPwd: inputPwdAccount
+            });
+            console.log(result);
+            if (result.status == "SUCCESS") {
+                toast.success("비밀번호 수정이 완료되었습니다.");
+                setModal(false);
+            } else {
+                toast.error("비밀번호 수정에 실패했습니다.")
+            }    
+        } else {
+            toast.error("비밀번호 수정에 실패하였습니다.");
         }
+        
     }
 
     return (

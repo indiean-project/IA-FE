@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
-import { findUserPwd, sendEmail } from '../../apis/user';
+import { findEmail } from '../../apis/user';
+import { isModalActive } from '../../recoil/IsModalActive';
+import FindPwdModal from '../FindPwdModal';
+
 import './FindUserPwd.scss';
 import toast from 'react-hot-toast';
-import { isModalActive } from '../../recoil/IsModalActive';
+
 
 function FindUserPwd() {
 
     const [sendCode, setSendCode] = useState('');
+    const [userIdStorage, setUserIdStorage] = useState('');
     const [isModalOpen, setIsModalOpen] = useRecoilState(isModalActive);
 
     const [returnInfo, setReturnInfo] = useState({
@@ -32,36 +36,32 @@ function FindUserPwd() {
         if(inputAccount.userId === '') {
             toast.error('아이디 입력이 필요합니다.')
         } else {
-            const result = await sendEmail({
+            const result = await findEmail({
                 userId: inputAccount.userId
             })
             console.log(result);
     
-            if(result !== undefined) {
-                toast.success('인증번호가 전송되었습니다.');    
+            if(result === "User ID does not exist") {
+                toast.error('존재하지 않는 아이디입니다.');
+            } else if(result === undefined) {
+                toast.error('인증번호 발송에 실패했습니다.')
             } else {
-                toast.error('인증번호 전송에 실패했습니다.')
+                toast.success('인증번호가 전송되었습니다.');  
             }
             setSendCode(result);
         }
     }
-    // 아이디 중복이 있는지 확인을 받고 메일을 보낼 수 있게 해야함
 
-    const clickVerifyBtn = async () => {
-        console.log(inputAccount);
-        const result = await findUserPwd({
-            userId: inputAccount.userId
-        })
-        console.log(result);
-
-        if (result) {
+    const clickVerifyBtn = () => {
+        if (isCertNum === "good") {
+            setUserIdStorage(inputAccount.userId);
             setIsModalOpen(true);
-            setReturnInfo(result['data']);
         } else {
-            toast.error('없는 계정 이메일입니다.')
+            toast.error("인증번호가 다릅니다.");
+            console.log(error);
         }
-        console.log(returnInfo);
-    }
+    }   
+
     // 인증번호 관련 색상 분류로 인증 받고 넘어갈 수 있게
 
     const [isCertNum, setIsCertNum] = useState('');
@@ -84,8 +84,8 @@ function FindUserPwd() {
     }
 
     useEffect(() => {
-        console.log(returnInfo);
-    }, [returnInfo])
+        console.log();
+    }, [])
 
     return (
         <div className="find__box">
@@ -102,10 +102,10 @@ function FindUserPwd() {
                     <input type="text" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
                         name="certNum" value={certNum} placeholder="인증번호를 입력하세요"
                         onChange={onCertNum} onBlur={onBlurCertNum} />
-                    <div className="btn-verifyId" onClick={() => clickVerifyBtn()}>인증 확인</div>
+                    <div className="btn-verifyCode" onClick={() => clickVerifyBtn()}>인증 확인</div>
                 </div>
             </div>
-            {isModalOpen && <FindPwdModal />}
+            {isModalOpen && <FindPwdModal userIdStorage={userIdStorage} />}
         </div>
     )
 
