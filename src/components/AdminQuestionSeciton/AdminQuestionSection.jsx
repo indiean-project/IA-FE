@@ -179,8 +179,8 @@ function AdminQuestionSection() {
                                                 </div>
                                             </div>
                                             {item.ansContent === '' || item.ansContent === null ? 
-                                            <><button onClick={() => onClickAnsUpdate(item)}>답변 등록</button><button onClick={() => onClickCloseViewCheck(idx)}>닫기</button></> :
-                                            <></>}
+                                            <><button onClick={() => onClickAnsUpdate(item)}>답변 등록</button><button onClick={() => onClickCloseViewCheck(idx)}>닫기</button></> 
+                                            :<><button onClick={() => onClickCloseViewCheck(idx)}>닫기</button></>}
                                         </div>
                                     </td>
                                 </tr>}
