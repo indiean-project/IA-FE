@@ -6,15 +6,17 @@ import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
 import { imgDelete, tempImg, imgMove } from '../../apis/imgFilter';
 import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
 import { loginUserState } from '../../recoil/LoginUser';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { artistEnroll } from '../../apis/artist/artist';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { tempImgState } from '../../recoil/tempImgStorage';
+
 
 function ArtistEnrollForm() {
-    const history = createBrowserHistory();
+   
+    const [bossImg, setBossImg] = useState(['']);
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistForm, setArtistForm] = useState({
@@ -27,6 +29,7 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
+    const [tempImgStorage,setTempImgStorage] =useRecoilState(tempImgState)
     
     useEffect(()=>{
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -42,10 +45,15 @@ function ArtistEnrollForm() {
     };
 
     useEffect(()=>{
-        return ()=>{
-            handleBeforeUnload();
+        let bList = [...bossImg]
+        setTempImgStorage({
+            ...tempImgStorage,
+            ["bossImg"] : bList
         }
-    }, [history])
+    )
+    console.log(tempImgStorage);
+
+    }, [bossImg])
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
@@ -93,7 +101,6 @@ function ArtistEnrollForm() {
             [e.target.name]: e.target.value
         })
     }
-    const [bossImg, setBossImg] = useState(['']);
     const imageDelete = async (img, idx) => {
         let list = new Array();
         list.push(img);
@@ -163,7 +170,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
-                                maxlength={100}
+                                maxlength={50}
                                 value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />

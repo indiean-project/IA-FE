@@ -28,7 +28,7 @@ function ConcertList() {
     const [event, setEvent] = useState();
     const [pageInfo, setPageInfo] = useState();
     const list = async () => {
-        console.log(keyword)
+        
         const currentBoard = 'concert/concertList'
         const result = await pageMove({
             url: currentBoard,
