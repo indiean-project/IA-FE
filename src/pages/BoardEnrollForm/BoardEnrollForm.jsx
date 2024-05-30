@@ -88,7 +88,7 @@ function BoardEnrollForm() {
 
             const result = await tempImg(formData); // 이미지 임시 저장
 
-            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="${result.data}" alt="${result.data}"/>`;
 
             setContent(prevContent => prevContent + imgTag);
 

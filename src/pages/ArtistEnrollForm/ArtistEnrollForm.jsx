@@ -183,7 +183,7 @@ function ArtistEnrollForm() {
                                 <>
                                     {img != '' ?
                                         <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
-                                            <img src={'../public/tempImg/' + img} />
+                                            <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />

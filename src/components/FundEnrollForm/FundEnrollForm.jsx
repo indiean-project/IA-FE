@@ -324,6 +324,7 @@ function FundEnrollForm({ nav, navRef }) {
                 fabcTypeEnum: 'FUND',
                 kcTypeEnum: 'KING'
             })
+            console.log(result);
             if (result.status === 'SUCCESS' && imgResult.status === 'SUCCESS') {
                 toast.success('펀딩을 정상적으로 신청하였습니다.');
                 navigate('/funding', { replace: true });
@@ -429,7 +430,7 @@ function FundEnrollForm({ nav, navRef }) {
                                 <>
                                     {img != '' ?
                                         <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)} key={idx} >
-                                            <img src={'../public/tempImg/' + img} />
+                                            <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
