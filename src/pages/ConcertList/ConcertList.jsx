@@ -28,7 +28,7 @@ function ConcertList() {
     const [event, setEvent] = useState();
     const [pageInfo, setPageInfo] = useState();
     const list = async () => {
-
+        console.log(keyword)
         const currentBoard = 'concert/concertList'
         const result = await pageMove({
             url: currentBoard,
@@ -71,6 +71,12 @@ function ConcertList() {
     }, [sort])
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
+            if(keyword.trim() ===""){
+                setKeyword('');
+                toast.error("검색어를 입력해주세요")
+                return
+            }
+            
             list();
         }
     }
@@ -79,7 +85,7 @@ function ConcertList() {
         <div className='concert__list'>
             <div className='title'>
                 <h1>CONCERT LIST</h1>
-                <input className='concert__search' type="text" name="keyword" placeholder='검색어를 입력하세요' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
+                <input className='concert__search' type="text" name="keyword" maxLength={50} placeholder='검색어를 입력하세요' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} onKeyPress={(e) => { handleKeyEnter(e) }} />
             </div>
             <div className='btn__area'>
                 <div>

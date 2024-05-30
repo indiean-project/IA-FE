@@ -22,7 +22,7 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
             let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
-            // setContent(prevContent => prevContent + imgTag);
+            setContent(prevContent => prevContent + imgTag);
             setImgList(imgList => [...imgList, result.data]);
         }
     }
@@ -41,7 +41,6 @@ function FundEditor({ onEditorChange, FACheck, imgList, setImgList }) {
         setContentByte(num);
         if (contentByte >= 4000 && content.length < text.length) {
             toast.error('입력 가능한 글자수를 초과하였습니다.')
-            console.log(quillRef.current)
             setContent(content);
             return;
         }

@@ -6,16 +6,18 @@ import FundEditor from '../FundEditor/FundEditor';
 import { imgDelete, imgMove, tempImg } from '../../apis/imgFilter';
 import SelectBar from '../SelectBar/SelectBar';
 import { fundEnroll } from '../../apis/fund/fund';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import moment from 'moment';
 import { imgEnroll } from '../../apis/imgUrl';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { createBrowserHistory } from 'history';
+import { tempImgState } from '../../recoil/tempImgStorage';
 
 function FundEnrollForm({ nav, navRef }) {
     const loginUserInfo = useRecoilValue(loginUserState);
+    const [tempImgStorage, setTempImgStorage] = useRecoilState(tempImgState);
     const navigate = useNavigate();
     const history = createBrowserHistory();
 
@@ -58,11 +60,13 @@ function FundEnrollForm({ nav, navRef }) {
         limitAmount: ''
     })
 
+
+
     //여기서부터 82번째줄 까지 페이지 이탈 임시 이미지 삭제 로직
 
-    useEffect(()=>{
+    useEffect(() => {
         window.addEventListener('beforeunload', handleBeforeUnload);
-        return ()=> window.removeEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     })
 
     const handleBeforeUnload = async (e) => {
@@ -74,14 +78,6 @@ function FundEnrollForm({ nav, navRef }) {
         await imgDelete(fundInfoImgList);
         await imgDelete(artistInfoImgList);
     };
-
-    useEffect(()=>{
-        return ()=>{
-            handleBeforeUnload();
-        }
-    }, [history])
-
-    
 
     const [rewardList, setRewardList] = useState([]);
     const [addReward, setAddReward] = useState(false);
@@ -95,6 +91,15 @@ function FundEnrollForm({ nav, navRef }) {
         { label: '앨범', value: 'ALBUM' },
         { label: '팬미팅', value: 'FANMEETING' },
     ]
+
+    useEffect(()=>{
+        let bList = [...bossImg];
+        let cList = [...fundInfoImgList, ...artistInfoImgList];
+        setTempImgStorage({
+            bossImg: bList,
+            contentImg: cList
+        })
+    }, [bossImg, fundInfoImgList, artistInfoImgList])
 
     const onChangeFundForm = (e) => {
         setFundForm({
@@ -242,7 +247,7 @@ function FundEnrollForm({ nav, navRef }) {
         for (let i = 0; i < fundForm.fundInfo.length; i++) {
             fundForm.fundInfo.charCodeAt(i) > 127 ? num += 3 : num++;
         }
-        if (num > 4000){
+        if (num > 4000) {
             refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('입력 가능한 글자 수를 초과하였습니다.');
             return;
@@ -256,12 +261,12 @@ function FundEnrollForm({ nav, navRef }) {
         for (let i = 0; i < fundForm.artistInfo.length; i++) {
             fundForm.artistInfo.charCodeAt(i) > 127 ? num += 3 : num++;
         }
-        if (num > 4000){
+        if (num > 4000) {
             refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('입력 가능한 글자 수를 초과하였습니다.');
             return;
         }
-        
+
         if (rewardList.length === 0) {
             refs.rewardList.current.scrollIntoView({ behavior: "smooth" });
             toast.error('리워드를 1개 이상 등록해주세요.');
