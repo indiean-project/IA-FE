@@ -429,7 +429,7 @@ function FundEnrollForm({ nav, navRef }) {
                                 <>
                                     {img != '' ?
                                         <div className='fundEnrollForm__img__input' onClick={() => imageDelete(img, idx)} key={idx} >
-                                            <img src={'../public/tempImg/' + img} />
+                                            <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
