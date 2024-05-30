@@ -29,7 +29,7 @@ export const searchFundApprovalList = async(params) => {
 
 export const updateQuestion = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/question/updateQuestion");
+        const {data} = await API.post("/api/admin/question/updateQuestion",params);
         return data;
     } catch (e){
         console.log(e);
@@ -43,6 +43,16 @@ export const adminQuestion = async() => {
     } catch (e){
         console.log(e);
     }
+}
+
+export const searchQuestionApprovalList = async(params) =>{
+    try {
+        const {data} = await API.post("/api/admin/question/questionSearchList", params);
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+
 }
 export const searchArtistList = async(params) => {
     try {

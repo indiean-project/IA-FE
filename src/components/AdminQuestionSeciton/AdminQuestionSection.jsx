@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import './AdminQuestionSection.scss';
 import FundInputBar from '../FundInputBar';
 import SelectBar from '../SelectBar/SelectBar';
-import { adminQuestion, updateQuestion } from '../../apis/admin';
+import { adminQuestion, updateQuestion, searchQuestionApprovalList } from '../../apis/admin';
+import toast from 'react-hot-toast';
 
 function AdminQuestionSection() {
 
@@ -15,20 +16,7 @@ function AdminQuestionSection() {
     const [ans, setAns] = useState('');
 
     const [questionList, setQuestionList] = useState([]);
-    const [check, setCheck] = useState([]);
-    // const test = [
-    //     {
-    //         questionNo: 1,
-    //         userNo: 1,
-    //         userId: 'comet2667@naver.com',
-    //         userName: '박혜성',
-    //         questionContent: '이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?이거는 어떻게하나요? 저거는 어떤가요?',
-    //         questionDate: '2024-05-16',
-    //         ansDate: '',
-    //         ansContent: '',
-    //         ansYn: 'N',
-    //     },      
-    // ]
+    const [check, setCheck] = useState([]);   
 
     useEffect(() => {
         getList();
@@ -67,6 +55,7 @@ function AdminQuestionSection() {
         })
     }
 
+    
     const onChangeSearchStandard = (item) => {
         setStandard({
             ...standard,
@@ -105,10 +94,23 @@ function AdminQuestionSection() {
             ansContent: ans,    //답변 내용
             questionNo: item.questionNo //업데이트할 문의 번호
         });
+        console.log(result)
         if (result.status === 'SUCCESS') {
             toast.success('처리가 완료되었습니다.');
         } else {
             toast.error('처리 실패');
+        } 
+        getList();
+      
+    }
+    const onClickSearch = async() => {     
+        console.log(standard);
+        const list = await searchQuestionApprovalList(standard);
+        if (list.status === 'SUCCESS'){
+            setQuestionList(list.data);
+            toast.success('총' + list.data.length + '건의 검색 결과');
+        } else {
+            toast.error('검색 실패');
         }
     }
 
@@ -126,7 +128,7 @@ function AdminQuestionSection() {
                     <SelectBar
                         list={searchCategory} onChangeValue={onChangeSearchStandard}
                     />
-                    <button>검색</button>
+                    <button onClick={()=> onClickSearch()}>검색</button>
                 </div>
                 <div className="adminFundingApproval__sort">
                     <p>정렬</p>
@@ -149,6 +151,7 @@ function AdminQuestionSection() {
                 </thead>
                 <tbody>
                     {questionList.map((item, idx) => {
+                        console.log(item)
                         return (
                             <>
                                 <tr key={item.questionNo}  className='question__item'>
@@ -157,7 +160,7 @@ function AdminQuestionSection() {
                                     <td onClick={() => onClickViewCheck(idx)}>{item.questionContent.substring(0, 35) + '...'}</td>
                                     <td>{item.questionDate}</td>
                                     <td>{item.ansYn}</td>
-                                    <td>{item.ansDate}</td>
+                                    <td>{item.answerDate}</td>
                                 </tr>
                                 {check[idx] && <tr>
                                     <td colSpan={6}>
