@@ -1,0 +1,23 @@
+.find__divs {
+    display : flex;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+    font-size:16px;
+    font-weight: bold;
+    .state {
+        margin: 0 auto;
+        width: 120px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #cccccc;
+        background-color: gray;
+        cursor:pointer;
+    }
+
+    .state.active {
+        background-color: black;
+    }
+}

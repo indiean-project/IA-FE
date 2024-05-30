@@ -14,7 +14,8 @@
         width: 100%;
         display: grid;
         grid-template-columns: repeat(4, 25%);
-        grid-template-rows: 50px 30px 350px 350px 40px;
+        // grid-template-rows: 50px 30px 350px 350px 40px;
+        grid-template-rows: auto;
         color: white;
 
         &.main {
@@ -53,8 +54,7 @@
             grid-template-areas:
                 "headh2 headh2 headh2 headh2"
                 "myPage__divs myPage__divs myPage__divs myPage__divs"
-                "report report report report"
-                "report report report report"
+                "question question question question"
                 "report report report report"
         }
 
