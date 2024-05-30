@@ -30,6 +30,7 @@ function QuestionForm() {
     }
     const questionUpload = async() => {
         const result = await qEnroll(editQuestion); 
+        console.log(editQuestion);
         console.log(result);
         if(result) {
             toast.success("문의 등록 성공");
@@ -53,7 +54,7 @@ function QuestionForm() {
                         id="questionContent" name="questionContent" />
                 </div>
                 <div className="questionForm__footer">
-                    <div className="btn-questionForm apply" onClick={() => questionUpload()}>등록</div>
+                    <div className="btn-questionForm apply" onClick={questionUpload}>등록</div>
                     <div className="btn-questionForm cancel" onClick={() => modalClose()}>취소</div>
                 </div>
             </div>

@@ -55,15 +55,15 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
         }
     }
 
-    const handleDoubleClick = () => {
+    const handleClick = () => {
         document.getElementById('profileImgInput').click();
     }
 
     return (
         <>
             <div className="profile__img">
-                <div className="showImg">
-                    <img src={selectProfileImg || logo_black} onDoubleClick={handleDoubleClick} />
+                <div className="showImg" onClick={handleClick}>
+                    <img src={selectProfileImg || logo_black} />
                     <input type="file" accept="image/*" id="profileImgInput"
                         onChange={imageUpload} />
                 </div>

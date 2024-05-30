@@ -25,7 +25,7 @@
 
     .chatbot__header {
         background-color: black;
-        width: 100%;
+        width: 100%;    
         height: 40px;
         display: flex;
         justify-content: space-evenly;
@@ -48,6 +48,7 @@
         display: flex;
         flex-direction: column;
         padding: 10px;
+        position: relative;
 
         .message {
             display: flex;
@@ -86,12 +87,17 @@
     }
 
     .options__container {
+        width:50%;
+        background-color: #cccccc;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         padding: 10px;
         align-items: flex-end;
         gap: 5px;
+        position: absolute;
+        right: 0; // 메시지 컨테이너의 오른쪽에 배치
+        bottom: 40px; // 메시지 컨테이너의 하단에 배치
 
         .option {
             font-size: 13px;
@@ -104,6 +110,9 @@
             border-radius: 5px;
             cursor: pointer;
             text-align: center;
+        }
+        .option__btn {
+            cursor: pointer;
         }
     }
 
@@ -125,6 +134,7 @@
         .inputButton {
             margin-top: 5px;
         }
+
     }
 }
 
