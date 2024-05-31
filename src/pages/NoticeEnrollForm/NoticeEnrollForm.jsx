@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import "./NoticeEnrollForm.scss";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { tempImg } from "../../apis/user";
+import { tempImg } from "../../apis/imgFilter";
 import { NoticeEnroll } from "../../apis/board";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";

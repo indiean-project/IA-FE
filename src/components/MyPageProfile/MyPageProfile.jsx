@@ -3,7 +3,9 @@ import { useRecoilState } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
-import { updateUser, imgDelete, imgMove } from '../../apis/user';
+// import { updateUser, imgDelete, imgMove } from '../../apis/user';
+import { updateUser, userImgEnroll } from '../../apis/user';
+import { imgDelete, imgMove } from '../../apis/imgFilter';
 import UserProfile from '../UserProfile';
 import UserTextInfo from '../UserTextInfo';
 import UserFavorite from '../UserFavorite';
@@ -60,19 +62,32 @@ function MyPageProfile() {
             setUpdateInfo(true);
 
             const usedImage = editAccount.userProfileImg;
-            const response = await imgMove({
+            console.log(usedImage);
+
+            let newImg;
+            // 사용자가 이미지를 변경했는지 확인
+            if (loginUser.userProfileImg !== usedImage) {
+                // 기존 이미지 삭제 요청
+                if (loginUser.userProfileImg) {
+                    await imgDelete([loginUser.userProfileImg]);
+                }
+
+                // 새로운 이미지 이동 요청
+                const response = await imgMove([usedImage]);
+                newImg = response.data[0];
+                console.log(response);
+
+            }
+
+            const response = await userImgEnroll({
                 userNo: loginUser.userNo,
-                userProfileImg: usedImage
+                userProfileImg: newImg
             });
             console.log(response);
+
             const unusedImages = tempImgUrls.filter(img => img !== usedImage);
 
-            console.log(usedImage);
             console.log(unusedImages);
-
-            // if (usedImages.size > 0) {
-            //     await imgMove(Array.from(usedImages));
-            // }
 
             if (unusedImages.length > 0) {
                 await imgDelete(unusedImages);
