@@ -132,7 +132,7 @@ export const adminReportList = async(params) => {
 
 export const updateReportStatus = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/report/updateStatus");
+        const {data} = await API.post("/api/admin/report/updateStatus", params);
         return data;
     } catch (e){
         console.log(e);
@@ -141,7 +141,7 @@ export const updateReportStatus = async(params) => {
 
 export const searchReportList = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/report/searchList");
+        const {data} = await API.post("/api/admin/report/searchList", params);
         return data;
     } catch (e){
         console.log(e);

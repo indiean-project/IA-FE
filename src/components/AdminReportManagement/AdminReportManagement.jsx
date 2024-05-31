@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { adminReportList, searchReportList, selectBoardNo, updateReportStatus } from "../../apis/admin";
+import { get } from "lodash";
 
 
 function AdminReportManagement() {
@@ -17,66 +18,27 @@ function AdminReportManagement() {
     })
 
 
-    // 아래 주석 처리한 함수들은 backEnd 작업 후 활성화 하시면 됩니다.
-    // 단, test에 기재해놓은 데이터 형식에 맞춰 dto 반환해주셔야 합니다.
+    useEffect(() => {
+        list();
+    }, []);
 
-    // useEffect(()=>{
-    //     list();
-    // }, []);
-
-    // const list = async () => {
-    //     const result = await adminReportList();
-    //     result.status === "SUCCESS" ? setReportList(result.data) : "";
-    // }
+    const list = async () => {
+        const result = await adminReportList();
+        result.status === "SUCCESS" ? setReportList(result.data) : "";
+    }
 
 
-    const test = [
-        {
-            reportNo: 1,
-            nickname: '옥암동불꽃낙지0',              // dto에서 변환 필요!
-            brType: 'B',
-            contentNo: 1,
-            reportTypeNo: 1,
-            reportDate: '2024-05-22',
-            solveNo: 'N'
-        },
-        {
-            reportNo: 2,
-            nickname: '옥암동불꽃낙지1',
-            brType: 'B',
-            contentNo: 5,
-            reportTypeNo: 2,
-            reportDate: '2024-05-24',
-            solveNo: 'N'
-        },
-        {
-            reportNo: 3,
-            nickname: '옥암동불꽃낙지2',
-            brType: 'B',
-            contentNo: 3,
-            reportTypeNo: 3,
-            reportDate: '2024-05-19',
-            solveNo: 'N'
-        },
-        {
-            reportNo: 4,
-            nickname: '옥암동불꽃낙지3',
-            brType: 'R',
-            contentNo: 1,
-            reportTypeNo: 4,
-            reportDate: '2024-05-26',
-            solveNo: 'N'
-        },
-        {
-            reportNo: 5,
-            nickname: '옥암동불꽃낙지4',
-            brType: 'R',
-            contentNo: 3,
-            reportTypeNo: 5,
-            reportDate: '2024-05-25',
-            solveNo: 'N'
-        }
-    ]
+    // const test = [
+    //     {
+    //         reportNo: 1,
+    //         nickname: '옥암동불꽃낙지0',              // dto에서 변환 필요!
+    //         brType: 'B',
+    //         contentNo: 1,
+    //         reportTypeNo: 1,
+    //         reportDate: '2024-05-22',
+    //         solveNo: 'N'
+    //     },        
+    // ]
 
     const searchCategory = [
         { label: '전체', value: 'all' },
@@ -87,7 +49,7 @@ function AdminReportManagement() {
         { label: '신고일', value: 'reportDate' },
         { label: '유형', value: 'brType' },
         { label: '신고타입', value: 'reportTypeNo' },
-        { label: '처리상태', value: 'solveNo' },
+        { label: '처리상태', value: 'solveYn' },
     ]
 
     const onChangeKeyword = (e) => {
@@ -112,36 +74,38 @@ function AdminReportManagement() {
     }
 
     const moveContent = async (contentNo, brType) => {
-        //backEnd 작업 후 활성화 시켜주세요.
-        
-        // if (brType === "B") {
-        //     navigate("/board/detail/" + contentNo)
-        // } else {     // 댓글일 경우 join하여 게시글 번호 뽑아와야 함.
-        //     const result = await selectBoardNo(contentNo);
-        //     result.status === "SUCCESS" ? navigate("/board/detail/" + result.data) : toast.error("처리 실패");
-        // }
+
+        if (brType === "B") {
+            navigate("/board/detail/" + contentNo)
+        } else {     // 댓글일 경우 join하여 게시글 번호 뽑아와야 함.
+            const result = await selectBoardNo(contentNo);
+            result.status === "SUCCESS" ? navigate("/board/detail/" + result.data) : toast.error("처리 실패");
+        }
     }
 
-    const updateState = async (reportNo) => {
-        //backEnd 작업 후 활성화 시켜주세요.
+    const updateState = async (reportNo, solveYn) => {
 
-        // const result = await updateReportStatus(reportNo);
-        // if (result.status === "SUCCESS") {
-        //     toast.success("처리 완료");
-        // } else {
-        //     toast.error("처리 실패");
-        // }
+        const result = await updateReportStatus({
+            reportNo: reportNo,
+            solveYn, solveYn
+        });
+        if (result.status === "SUCCESS") {
+            toast.success("처리 완료");
+        } else {
+            toast.error("처리 실패");
+        }
+        list();
     }
 
-    const onClickSearch = async() => {
-        //backEnd 작업 후 활성화 시켜주세요.
+    const onClickSearch = async () => {
 
-        // const list = await searchReportList(standard);
-        // if (list.status === 'SUCCESS'){
-        //     setReportList(list.data);
-        // } else {
-        //     toast.error('검색 실패');
-        // }
+        const list = await searchReportList(standard);
+        if (list.status === 'SUCCESS') {
+            setReportList(list.data);
+        } else {
+            toast.error('검색 실패');
+        }
+       
     }
 
     return (
@@ -158,7 +122,7 @@ function AdminReportManagement() {
                     <SelectBar
                         list={searchCategory} onChangeValue={onChangeSearchStandard}
                     />
-                    <button onClick={()=>{onClickSearch()}}>검색</button>
+                    <button onClick={() => { onClickSearch() }}>검색</button>
                 </div>
                 <div className="adminReportManagement__sort">
                     <p>정렬</p>
@@ -181,22 +145,27 @@ function AdminReportManagement() {
                     </tr>
                 </thead>
                 <tbody>
-                    {test.map((item, index) => {
+                    {reportList.map((item, index) => {
                         return (
                             <tr key={index}>
                                 <td>{item.reportNo}</td>
-                                <td>{item.nickname}</td>
-                                <td>{item.brType === "B" ? "게시글" : "댓글"}</td>
-                                <td className="adminReportManagement__contentType" onClick={()=>{moveContent(item.contentNo, item.brType)}}>{item.contentNo}</td>
+                                <td>{item.nickName}</td>
+                                <td>{item.brType}</td>
+                                <td className="adminReportManagement__contentType" onClick={() => { moveContent(item.contentNo, item.brType) }}>{item.contentNo}</td>
                                 <td>
                                     {item.reportTypeNo === 1 ? "허위사실유포" :
-                                    item.reportTypeNo === 2 ? "명예훼손" :
-                                    item.reportTypeNo === 3 ? "욕설" :
-                                    item.reportTypeNo === 4 ? "광고" : "기타"}
+                                        item.reportTypeNo === 2 ? "명예훼손" :
+                                            item.reportTypeNo === 3 ? "욕설" :
+                                                item.reportTypeNo === 4 ? "광고" : "기타"}
                                 </td>
                                 <td>{item.reportDate}</td>
-                                <td>{item.solveNo}</td>
-                                <td><button onClick={()=>{updateState(item.reportNo)}} disabled={item.solveNo === "Y"}>{item.solveNo === "N" ? "처리" : "완료"}</button></td>
+                                <td>{item.solveYn}</td>                               
+                                <td>{item.solveYn=== 'N' ? 
+                                <div><button onClick={() => updateState(item.reportNo, 'N')}>접수 요청</button></div> 
+                                : <div><button onClick={() => updateState(item.reportNo, 'N')}>접수 완료</button></div> 
+                                }</td>
+                           
+                            
                             </tr>
                         )
                     })}
