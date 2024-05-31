@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
-import './MyPageFund.scss';
 import { getUserRewardLog } from '../../apis/user';
 import { loginUserState } from '../../recoil/LoginUser';
 import MyPageRewardLog from '../MyPageRewardLog';
+import './MyPageFund.scss';
 
 function MyPageFund({ fundList }) {
 
@@ -30,7 +30,7 @@ function MyPageFund({ fundList }) {
     }, [loginUser.userNo, selectFund]);
 
     useEffect(() => {
-        console.log("Selected Fund No:", selectFund ? selectFund.fundNo : null);
+        console.log("Selected Question No:", selectFund ? selectFund.fundNo : null);
     }, [selectFund]); // selectFundNo 값이 변하면 새로 렌더링
 
     if (!fundList) {

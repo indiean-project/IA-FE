@@ -1,0 +1,75 @@
+.findPwdModal__container {
+    color:white;
+    background-color: #242424;
+    z-index: 999;
+    position:fixed;
+    width:100%; 
+    top:50%;
+    left:50%; 
+    padding:10px;  
+    text-align: center;
+    transform:translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .findPwdModal__header {
+        .logo { height : 25px }
+
+        h2 { margin : 0;}
+    }
+
+    .findPwdModal__inputPwd {
+        margin-bottom:20px;
+
+        .inputPwd,
+        .certPwd {
+            width: 60%;
+            height: 30px;
+            background-color: #cccccc;
+            border-radius: 10px;
+            padding-left: 35px;
+        }
+        .pwdIcon {
+            position: absolute;
+            width: 23px;
+            height: 23px;
+            opacity: 0.2;
+            margin-left: 5px;
+            margin-top: 5.5px;
+        }
+
+        .inputPwd.good, .certPwd.good {
+            border: 2px solid greenyellow;
+        }
+        .inputPwd.bad, .certPwd.bad {
+            border: 2px solid red;
+        }
+
+    }
+    .findPwdModal__footer {
+        border-top: 1px solid white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+
+        .btn-findPwdModal {
+            color:white;
+            font-size:18px; font-weight: bold;
+            width: 70px; height: 40px;
+            margin: 0 auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.apply {
+                background-color: #0066FF;
+            }
+            &.cancel {
+                background-color: #FF0000;
+            }
+        }
+    }
+}

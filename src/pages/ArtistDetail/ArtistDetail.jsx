@@ -6,18 +6,28 @@ import { Share } from 'react-bootstrap-icons';
 import { BsInstagram, BsYoutube } from "react-icons/bs";
 import {handleCopyClipBoard} from '../../apis/common/copyClipBoard'
 import MusicBox from '../../components/MusicBox';
-import baseImg from '../../assets/logo/logo_white.png'
+import baseImg from '../../assets/default/defaultImg.png';
+import { useRecoilState } from 'recoil';
+import { loginUserState } from '../../recoil/LoginUser';
+import { useRecoilValue } from 'recoil';
+import { isQuestionFormActive } from '../../recoil/IsModalActive';
+import QuestionForm from '../../components/QuestionForm';
+import DOMPurify from 'dompurify';
 
 
 
 function ArtistDetail() {
-
+    const [isModalOpen, setIsModalOpen] = useRecoilState(isQuestionFormActive);
+    const loginUser = useRecoilValue(loginUserState);
     const parama = useParams().id;
     const [spotifyResults, setSpotifyResults] = useState([])
     const [artist, setArtist] = useState();
     const concertItem = async () => {
         const artistInfo = await artistItem(parama);
         setArtist(artistInfo);
+    }
+    const createMarkUp = (value) => {
+        return { __html: DOMPurify.sanitize(value) };
     }
     const searchSpotify = async () => {
         const accessToken = await spotifyGetAccessToken();
@@ -45,6 +55,9 @@ function ArtistDetail() {
             window.open(artist.youtubeLink);
         }
     }
+    const openQuestion = () =>{
+        loginUser.userId ==='' ?toast.error('로그인 후 이용가능합니다.'):setIsModalOpen(true); 
+    }
 
     if (artist != null)
         return (
@@ -54,7 +67,7 @@ function ArtistDetail() {
                         <Share size={20} />
                         <span className='btn1'>공유하기</span>
                     </div>
-                    <div>
+                    <div onClick={openQuestion}>
                         <span className='btn2'>수정요청</span>
                     </div>
                 </div>
@@ -71,7 +84,7 @@ function ArtistDetail() {
                     </div>
                     <div className='artist__content'>
                         <h2>아티스트 소개</h2>
-                        <div className='aritst__text' dangerouslySetInnerHTML={{ __html: artist.artistInfo }}>
+                        <div className='aritst__text' dangerouslySetInnerHTML={createMarkUp(artist.artistInfo)}>
 
                         </div>
                         <div className='sns__btn__area'>
@@ -86,7 +99,7 @@ function ArtistDetail() {
                     }) : <div className='notList'>등록된 음악이 없습니다.</div>
                     }
                 </div>
-
+                {isModalOpen && <QuestionForm />}
             </div>
         )
 } export default ArtistDetail

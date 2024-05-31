@@ -76,7 +76,7 @@ function BoardDetail() {
             boardNo: boardItem.boardNo
         });
         result.status === "SUCCESS" ? toast.success("게시글이 성공적으로 삭제되었습니다.") : toast.error("게시글 삭제에 실패하였습니다.");
-        result.status === "SUCCESS" && category === "자유게시판" ? navigate("/board/free") : result.status === "SUCCESS" && category === "아티스트 자랑" ? navigate("/board/proud") : "";
+        result.status === "SUCCESS" && boardItem.contentTypeNo === 1 ? navigate("/board/free") : result.status === "SUCCESS" && boardItem.contentTypeNo === 2 ? navigate("/board/proud") : "";
         setModal(false);
     }
 
@@ -84,7 +84,7 @@ function BoardDetail() {
         return { __html: DOMPurify.sanitize(value) };
     }
 
-    function boardUpdate() {
+    const boardUpdate = () => {
         navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
     }
 
@@ -119,7 +119,7 @@ function BoardDetail() {
                         ""
                     }
                     <div><NavLink to={category === "자유게시판" ? "/board/free" : "/board/proud"}>목록</NavLink></div>
-                    <div onClick={()=>{setModal(true); setModalType("신고")}}>신고</div>
+                    {loginUser.userNo === "" || boardItem.userNo === loginUser.userNo ? "" : <div onClick={()=>{setModal(true); setModalType("신고")}}>신고</div>}
                 </div>
             </div>
             <div className='boardDetaill__title'>

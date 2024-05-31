@@ -5,8 +5,10 @@ import { useRecoilValue } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import toast from 'react-hot-toast';
 import { BoardReplyEnroll, BoardReplyList } from '../../apis/reply/reply';
+import { concertReply, addConcertReply } from '../../apis/concert/concertDetail';
 
 function CommonReply({ type, contentNo, setState, state }) {
+    
     const inputRef = useRef(null);
     const loginUser = useRecoilValue(loginUserState);
     const [replyText, setReplyText] = useState('');
@@ -27,6 +29,12 @@ function CommonReply({ type, contentNo, setState, state }) {
             toast.error("로그인해주세요");
             return;
         }
+
+        if (replyText.trim() === "") {
+            toast.error("내용을 입력해주세요.");
+            return
+        }
+
         const result = type === "게시글" ? await BoardReplyEnroll({
             member: {
                 userNo: loginUser.userNo
@@ -35,7 +43,15 @@ function CommonReply({ type, contentNo, setState, state }) {
                 boardNo: contentNo
             },
             replyContent: replyText
-        }) : "";
+        }) : await addConcertReply({
+            member: {
+                userNo: loginUser.userNo
+            },
+            concert: {
+                concertNo: contentNo
+            },
+            replyContent: replyText
+        });
         if (result.status === "SUCCESS") {
             toast.success("댓글이 등록되었습니다.");
             setReplyText("");
@@ -46,7 +62,7 @@ function CommonReply({ type, contentNo, setState, state }) {
     }
 
     const reply = async () => {
-        const result = type === "게시글" ? await BoardReplyList(contentNo) : "";
+        const result = type === "게시글" ? await BoardReplyList(contentNo) : await concertReply(contentNo);
         setReplyList(result.data);
         setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
     }
@@ -55,12 +71,12 @@ function CommonReply({ type, contentNo, setState, state }) {
             <div className='Common__reply__box'>
                 <div className='Common__reply__content'>
                     <div className='reply__input'>
-                        <textarea type="text" ref={inputRef} value={replyText} rows={6} onChange={(e) => { setReplyText(e.target.value) }} />
+                        <textarea type="text" ref={inputRef} value={replyText} rows={6} maxLength={1000} onChange={(e) => { setReplyText(e.target.value) }} />
                         <div className='Common__reply__btn__area'>
                             <div className='btn' onClick={clickOn}>등록</div>
                         </div>
                     </div>
-                    <Reply replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
+                    <Reply type={type} replyState={replyState} setReplyState={setReplyState} replyList={replyList}></Reply>
                 </div>
             </div>
         </>

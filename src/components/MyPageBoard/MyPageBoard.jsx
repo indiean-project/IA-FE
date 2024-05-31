@@ -22,7 +22,7 @@ function MyPageBoard({ boardList }) {
     function clickItem(item) {
         const boardNo = item.boardNo;
         ViewCount(boardNo);
-        setBoardCategory("free");
+        setBoardCategory(item.contentType);
         navigate("/board/detail/" + item.boardNo);
     }
 
@@ -33,7 +33,7 @@ function MyPageBoard({ boardList }) {
                     <thead>
                         <tr>
                             <th className='userBoard__thead__title'>제목</th>
-                            <th className='userBoard__thead__writer'>작성자</th>
+                            <th className='userBoard__thead__type'>게시판 유형</th>
                             <th className='userBoard__thead__updatedate'>수정일</th>
                             <th className='userBoard__thead__count'>조회</th>
                             <th className='userBoard__thead__like'>추천</th>
@@ -44,7 +44,7 @@ function MyPageBoard({ boardList }) {
                             return (
                                 <tr key={index} onClick={() => clickItem(item)}>
                                     <td className='userBoard__tbody__title'>{item.boardTitle}<span>[{item.replies}]</span></td>
-                                    <td>{item.nickname}</td>
+                                    <td>{item.contentType}</td>
                                     <td>{item.updateDate}</td>
                                     <td>{item.viewCount}</td>
                                     <td>{item.likeCount}</td>

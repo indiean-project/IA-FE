@@ -3,7 +3,7 @@ import { loginUser } from '../../apis/user';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import LoginModal from '../LoginModal';
 import loginicon from '../../assets/loginicon.png';
@@ -88,14 +88,15 @@ function LoginForm() {
                     <button className="btn-signup" onClick={onSignUp}>회원가입</button>
                 </div>
                 <br />
-                <a href="">아이디/비밀번호 찾기</a>
+                <NavLink to={"/find"}>
+                    <div className="loginForm__find">아이디/비밀번호 찾기</div>    
+                </NavLink>
             </div>
             {isModalOpen && <LoginModal/>}
         </>    
     )
 }
 export default LoginForm;
-
 
             // setIsModalOpen({
             //     ...isModalActive,

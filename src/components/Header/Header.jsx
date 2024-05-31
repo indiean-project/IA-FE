@@ -54,7 +54,7 @@ function Header() {
                     <div className='header__right'>
                         <div className='header__right__myPage'>
                             <div className='header__right__img'>
-                                {loginUser.userProfileImg === null? <PersonCircle size={25}/> : <img src={'img/user/'+loginUser.userNo+'/'+loginUser.userProfileImg}/>}
+                                {loginUser.userProfileImg === null? <PersonCircle size={25}/> : <img src={loginUser.userProfileImg}/>}
                             </div>
                             <NavLink to={"/myPage"}>{loginUser.nickname}</NavLink>
                             <div className='header__right__icon' onClick={logout}>

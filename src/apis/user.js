@@ -9,6 +9,34 @@ export const loginUser = async(params) => {
     }
 }
 
+export const findUserId = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/userId", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const findEmail = async(params) => {
+    try {
+        const {data} = await API.get("/api/user/find/sendEmail?userId="+ params.userId);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const updatePwd = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/find/updatePwd", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export const signUpUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp", params);
@@ -78,6 +106,16 @@ export const getUserBoard = async(userNo) => {
     }
 }
 
+export const getUserReply = async(userNo) => {
+    try {
+        const {data} = await API.get("/api/user/myPage/reply?userNo=" + userNo);
+        return data;
+    } catch(e) {
+        console.log(e);
+        return e;
+    }
+}
+
 export const getUserFund = async(userNo) => {
     try {
         const {data} = await API.get("/api/user/myPage/fund?userNo=" + userNo);
@@ -99,30 +137,22 @@ export const getUserRewardLog = async(userNo, fundNo) => {
     }
 }
 
-// 임시로 이미지 관련 주소 바꾸어서 이용함
-export const tempImg = async(params) => {
+export const getUserQuestion = async(userNo) => {
     try {
-        const {data} = await imgAPI.post("/api/user/tempImg", params);
+        const {data} = await API.get("/api/user/myPage/question?userNo=" + userNo);
         return data;
-    } catch (e) {
+    } catch(e) {
         console.log(e);
+        return e;
     }
 }
 
-export const imgDelete = async(params) => {
+export const getUserReport = async(userNo) => {
     try {
-        const {data} = await API.post("/api/user/imgDelete", params);
+        const {data} = await API.get("/api/user/myPage/report?userNo=" + userNo);
         return data;
-    } catch (e) {
+    } catch(e) {
         console.log(e);
-    }
-}
-
-export const imgMove = async(params) => {
-    try {
-        const {data} = await API.post("/api/user/imgMove", params);
-        return data;
-    } catch (e) {
-        console.log(e);
+        return e;
     }
 }

@@ -1,6 +1,7 @@
 import './ArtistItem.scss'
 import { useNavigate } from 'react-router-dom'
 import baseImg from '../../assets/default/defaultImg.png'
+import { useEffect } from 'react';
 
 function ArtistItem({ artist }) {
     const navigate = useNavigate();
@@ -8,10 +9,14 @@ function ArtistItem({ artist }) {
         navigate('/artist/detail/' + artistNo);
     }
 
+    useEffect(()=>{
+        console.log(artist);
+    },[])
+    
     return (
         <div className="artist__item__box" onClick={() => { handleDetailPost(artist.artistNo) }}>
             <div className='artist__img'>
-                <img src={artist.titleUrl != null?artist.titleUrl:baseImg} />
+                <img src={artist.imgUrl != null?artist.imgUrl:baseImg} />
             </div>
             <ul>
                 <li className='artist__title'>이름 </li>

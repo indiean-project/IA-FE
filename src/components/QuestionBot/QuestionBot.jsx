@@ -13,6 +13,7 @@ function QuestionBot({ activeQbot }) {
 
     const [check, setCheck] = useState('');
     const [isModalOpen, setIsModalOpen] = useRecoilState(isQuestionFormActive);
+    const [optionBtn, setOptionBtn] = useState([]);
 
     const [messages, setMessages] = useState([
         { text: 'INDIE:안 에 오신걸 환영해요!', sender: 'bot' }
@@ -25,7 +26,7 @@ function QuestionBot({ activeQbot }) {
     const handleOptionClick = (index, option) => {
         setMessages((prevMessages) => [
             ...prevMessages,
-            { text: (index+1)+'. '+option, sender: 'user' },
+            { text: (index + 1) + '. ' + option, sender: 'user' },
             getBotResponse(option)
         ]);
     };
@@ -43,6 +44,15 @@ function QuestionBot({ activeQbot }) {
         }
     };
 
+    function toggleReplyBtn(index) {
+        setReplyBtn((prevState) => {
+            const state = [...prevState];
+            state[index] = state[index] === 'close' ? 'open' : 'close';
+            return state
+        })
+    }
+
+
     const getBotResponse = (userMessage) => {
         switch (userMessage) {
             case '자유 문의':
@@ -51,19 +61,20 @@ function QuestionBot({ activeQbot }) {
                 return {
                     text: (
                         <>
-                            공지사항을 선택하셨습니다. 최신 공지를 확인하세요.<br/>
+                            공지사항을 선택하셨습니다. 최신 공지를 확인하세요.<br />
                             <NavLink to={"/notice"}>공지사항</NavLink>
                         </>
                     ), sender: 'bot'
                 };
             case '문의 작성':
-                return { 
+                return {
                     text: (
                         <>
-                            다음과 같이 문의 작성이 가능한 페이지로 안내드리겠습니다.<br/>
+                            다음과 같이 문의 작성이 가능한 페이지로 안내드리겠습니다.<br />
                             <p onClick={openQuestion}>* 문의 작성 폼</p>
                         </>
-                    ), sender: 'bot' };
+                    ), sender: 'bot'
+                };
             case '아티스트 조회':
                 return { text: '아티스트 조회를 선택하셨습니다. 조회할 아티스트의 이름을 입력해주세요.', sender: 'bot' };
             case '음악 추천':
@@ -113,8 +124,9 @@ function QuestionBot({ activeQbot }) {
                         <SendFill size={24} color="#F2613F" />
                     </div>
                 </div>
+                {isModalOpen && <QuestionForm />}
             </div>
-            {isModalOpen && <QuestionForm />}
+
         </>
     )
 }

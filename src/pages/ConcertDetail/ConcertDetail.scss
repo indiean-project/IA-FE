@@ -197,6 +197,8 @@
 
         .detail__content_item {
             width: 80%;
+            display: flex;
+            justify-content: center;
         }
     }
 }

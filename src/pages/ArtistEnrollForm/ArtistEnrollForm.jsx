@@ -6,14 +6,17 @@ import { PlusSquareFill, XCircleFill } from 'react-bootstrap-icons';
 import { imgDelete, tempImg, imgMove } from '../../apis/imgFilter';
 import ArtistEditor from '../../components/ArtistEditor/ArtistEditor';
 import { loginUserState } from '../../recoil/LoginUser';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { artistEnroll } from '../../apis/artist/artist';
 import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { tempImgState } from '../../recoil/tempImgStorage';
+
 
 function ArtistEnrollForm() {
 
+    const [bossImg, setBossImg] = useState(['']);
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
     const [artistForm, setArtistForm] = useState({
@@ -26,6 +29,30 @@ function ArtistEnrollForm() {
         instagramLink: '',
         youtubeLink: ''
     })
+    const [tempImgStorage, setTempImgStorage] = useRecoilState(tempImgState)
+
+    useEffect(() => {
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    })
+
+    const handleBeforeUnload = async (e) => {
+        let list = new Array();
+        bossImg.forEach((item) => {
+            if (item != '') list.push(item);
+        })
+        await imgDelete(list);
+    };
+
+    useEffect(() => {
+        let bList = [...bossImg]
+        setTempImgStorage({
+            ...tempImgStorage,
+            ["bossImg"]: bList
+        }
+        )
+    }, [bossImg])
+
     const onClickSubmit = async () => {
         if (artistForm.artistName.trim() == '') {
             toast.error("아티스트명을 입력해주세요");
@@ -73,7 +100,6 @@ function ArtistEnrollForm() {
             [e.target.name]: e.target.value
         })
     }
-    const [bossImg, setBossImg] = useState(['']);
     const imageDelete = async (img, idx) => {
         let list = new Array();
         list.push(img);
@@ -125,6 +151,7 @@ function ArtistEnrollForm() {
                             <h1>아티스트 명</h1>
                             <FundInputBar width={"60%"}
                                 name={'artistName'}
+                                maxlength={50}
                                 value={artistForm.artistName}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -142,6 +169,7 @@ function ArtistEnrollForm() {
                             <h1>음악 장르</h1>
                             <FundInputBar width={"60%"}
                                 name={'musicCategory'}
+                                maxlength={50}
                                 value={artistForm.musicCategory}
                                 onChangeValue={onChangeArtistForm}
                             />
@@ -154,7 +182,7 @@ function ArtistEnrollForm() {
                                 <>
                                     {img != '' ?
                                         <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
-                                            <img src={'../public/tempImg/' + img} />
+                                            <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
@@ -177,6 +205,7 @@ function ArtistEnrollForm() {
                         <h3>Instagram Link</h3>
                         <FundInputBar width={"80%"}
                             name={'instagramLink'}
+                            maxlength={100}
                             value={artistForm.instagram}
                             onChangeValue={onChangeArtistForm}
                         />
@@ -187,6 +216,7 @@ function ArtistEnrollForm() {
                             name={'youtubeLink'}
                             value={artistForm.youtube}
                             onChangeValue={onChangeArtistForm}
+                            maxlength={100}
                         />
                     </div>
                 </div>

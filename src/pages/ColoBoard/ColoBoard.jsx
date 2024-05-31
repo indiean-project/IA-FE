@@ -137,12 +137,6 @@ function ColoBoard() {
                         <div>
                             <label>{category}</label>
                         </div>
-                        <div>
-                            <select name="" id="">
-                                <option value="boardNo">최신순</option>
-                                <option value="">인기순</option>
-                            </select>
-                        </div>
                     </div>
                     <div className='coloBoard__item1'>
                         <div className='coloBoard__category'>커뮤니티 &gt; {category}</div>
@@ -208,10 +202,10 @@ function ColoBoard() {
                                     <div className="coloBoard__reply__btn" onClick={() => toggleReplyBtn(index)}>
                                         {replyBtn[index] === 'close' ? '∨' : '∧'} 댓글({item.replies})</div>
 
-                                    <div className="coloBoard__report__btn" onClick={()=>{setModal(true); setBoardNo(item.boardNo); setModalType("신고");}}>신고</div>
+                                    {loginUser.userNo === "" || item.userNo === loginUser.userNo ? "" : <div className="coloBoard__report__btn" onClick={() => { setModal(true); setBoardNo(item.boardNo); setModalType("신고"); }}>신고</div>}
                                 </div>
                                 <div className={replyBtn[index] === 'close' ? 'displayNone' : ''}>
-                                    <CommonReply state={state} setState={setState} type={"게시글"} contentNo={item.boardNo}  />
+                                    <CommonReply state={state} setState={setState} type={"게시글"} contentNo={item.boardNo} />
 
                                 </div>
                             </div>
@@ -223,7 +217,7 @@ function ColoBoard() {
                     }
                     {boardList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list} /> : ""}
                     <div className='coloItem__input__area'>
-                        <FundInputBar width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
+                        <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
                         <div className='coloItem__btn'><a onClick={() => { list(); setCpage(1); }}>검색</a></div>
                     </div>
                 </div>
@@ -236,8 +230,8 @@ function ColoBoard() {
                         <div onClick={() => { setModal(false) }}>아니요</div>
                     </div>
                 </div>
-            </ModalWindow> : modal && modalType === "신고" ? <ReportModal contentNo={boardNo} brType={"BOARD"} setModal={setModal}/>
-            : ""}
+            </ModalWindow> : modal && modalType === "신고" ? <ReportModal contentNo={boardNo} brType={"BOARD"} setModal={setModal} />
+                : ""}
         </div>
 
     )
