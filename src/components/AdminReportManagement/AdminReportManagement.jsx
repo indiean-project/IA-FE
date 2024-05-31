@@ -42,8 +42,9 @@ function AdminReportManagement() {
 
     const searchCategory = [
         { label: '전체', value: 'all' },
-        { label: '신고번호', value: 'reportNo' },
+        { label: '신고타입', value: 'reportTypeNo' },
         { label: '유형', value: 'brType' },
+        { label: '처리상태', value: 'solveYn'}
     ]
     const sortCategory = [
         { label: '신고일', value: 'reportDate' },
