@@ -119,7 +119,7 @@ function BoardDetail() {
                         ""
                     }
                     <div><NavLink to={category === "자유게시판" ? "/board/free" : "/board/proud"}>목록</NavLink></div>
-                    <div onClick={()=>{setModal(true); setModalType("신고")}}>신고</div>
+                    {loginUser.userNo === "" || boardItem.userNo === loginUser.userNo ? "" : <div onClick={()=>{setModal(true); setModalType("신고")}}>신고</div>}
                 </div>
             </div>
             <div className='boardDetaill__title'>

@@ -6,12 +6,11 @@ import { ReportEnroll } from "../../apis/report/report";
 import { useRecoilState } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";
 
-function ReportModal({replyItem, brType, setModal}) {
+function ReportModal({contentNo, replyItem, brType, setModal}) {
     const [reportType, setReportType] = useState("");
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
 
     const report = async () => {
-        
         const result = brType === "REPLY" ? await ReportEnroll({
             member: {
                 userNo: loginUser.userNo,
@@ -19,12 +18,19 @@ function ReportModal({replyItem, brType, setModal}) {
             reportTypeNo: reportType,
             contentNo: replyItem.replyNo,
             brType: brType
-        }) : await ReportEnroll({
+        }) : brType === "CONCERTREPLY" ? await ReportEnroll({
             member: {
                 userNo: loginUser.userNo,
             },
             reportTypeNo: reportType,
             contentNo: replyItem.concertReplyNo,
+            brType: brType
+        }) : await ReportEnroll({
+            member: {
+                userNo: loginUser.userNo,
+            },
+            reportTypeNo: reportType,
+            contentNo: contentNo,
             brType: brType
         });
         if(result.status === "SUCCESS") {
