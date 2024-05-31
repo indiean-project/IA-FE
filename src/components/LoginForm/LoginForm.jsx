@@ -59,8 +59,6 @@ function LoginForm() {
         }
         console.log(loginUserInfo);
         console.log(isModalOpen);
-
-        console.log(loginUserState);
     }
 
     const onSignUp = () => {
@@ -97,8 +95,3 @@ function LoginForm() {
     )
 }
 export default LoginForm;
-
-            // setIsModalOpen({
-            //     ...isModalActive,
-            //     default:true
-            // }); => default 항목이 LoginUser처럼 여러값이 아니라면 굳이 spread 연산자 ... 쓸 필요 X
