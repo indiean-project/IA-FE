@@ -66,7 +66,7 @@ function ArtistEnrollForm() {
             toast.error("음악장르를 입력해주세요");
             return;
         }
-        if (artistForm.artistInfo.trim() == '') {
+        if (artistForm.artistInfo.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim()  == '') {
             toast.error("아티스트 소개를 입력해주세요");
             return;
         }

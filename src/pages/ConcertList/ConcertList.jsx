@@ -91,7 +91,7 @@ function ConcertList() {
                 <div>
                     <select name="sort" id="select-id" value={sort} onChange={(e) => { setSort(e.target.value), setCurrentPage(1) }}>
                         <option value="createDate">최신순</option>
-                        <option value="endDate">마감순</option>
+                        <option value="endDate">종료일 순</option>
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
