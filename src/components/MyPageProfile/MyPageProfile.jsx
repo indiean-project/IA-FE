@@ -3,8 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
-// import { updateUser, imgDelete, imgMove } from '../../apis/user';
-import { updateUser, userImgEnroll } from '../../apis/user';
+import { updateUser } from '../../apis/user';
 import { imgDelete, imgMove } from '../../apis/imgFilter';
 import UserProfile from '../UserProfile';
 import UserTextInfo from '../UserTextInfo';
@@ -53,53 +52,73 @@ function MyPageProfile() {
 
     const onClickUpdate = async () => {
         console.log(editAccount);
-        const result = await updateUser(editAccount);
-        console.log(result);
-        setIsModalOpen(true);
 
-        if (result.status == "SUCCESS") {
-            setLoginUser(editAccount);
-            setUpdateInfo(true);
+        const newImg = editAccount.userProfileImg;
 
-            const usedImage = editAccount.userProfileImg;
+        let usedImage = newImg;
+
+        // 이미지가 변경됐으면...
+        if (loginUser.userProfileImg !== newImg) {
+            // 기존 이미지가 존재한다면 삭제함
+            if (loginUser.userProfileImg) {
+                await imgDelete([loginUser.userProfileImg]);
+            }
+
+            const imgResponse = await imgMove([newImg]);
+            usedImage = imgResponse.data[0];
+            console.log(newImg);
             console.log(usedImage);
 
-            let newImg;
-            // 사용자가 이미지를 변경했는지 확인
-            if (loginUser.userProfileImg !== usedImage) {
-                // 기존 이미지 삭제 요청
-                if (loginUser.userProfileImg) {
-                    await imgDelete([loginUser.userProfileImg]);
+            // 변경된 이미지를 포함하여 새로운 editAccount 객체 생성
+            const updateAccount = {
+                ...editAccount,
+                userProfileImg: usedImage,
+            }
+
+            const result = await updateUser(updateAccount);
+            console.log(result);
+
+            if (result.status == "SUCCESS") {
+                setLoginUser(updateAccount);
+                setIsModalOpen(true);
+                setUpdateInfo(true);
+                console.log(loginUser);
+                console.log(loginUserState);
+                const unusedImages = tempImgUrls.filter(img => img !== usedImage);
+    
+                console.log(unusedImages);
+    
+                if (unusedImages.length > 0) {
+                    await imgDelete(unusedImages);
                 }
-
-                // 새로운 이미지 이동 요청
-                const response = await imgMove([usedImage]);
-                newImg = response.data[0];
-                console.log(response);
-
-            }
-
-            const response = await userImgEnroll({
-                userNo: loginUser.userNo,
-                userProfileImg: newImg
-            });
-            console.log(response);
-
-            const unusedImages = tempImgUrls.filter(img => img !== usedImage);
-
-            console.log(unusedImages);
-
-            if (unusedImages.length > 0) {
-                await imgDelete(unusedImages);
-            }
-
-        } else {
-            if (result.response?.data?.name == "HAS_NICKNAME" ||
-                result.response?.data?.name == "HAS_PHONE") {
-                setErrorMsg(result.response?.data?.name);
-                setUpdateInfo(false);
             } else {
-                setUpdateInfo(false); // 기본적으로 실패한 경우 false로 설정
+                if (result.response?.data?.name == "HAS_NICKNAME" ||
+                    result.response?.data?.name == "HAS_PHONE") {
+                    setErrorMsg(result.response?.data?.name);
+                    setUpdateInfo(false);
+                } else {
+                    setUpdateInfo(false); // 기본적으로 실패한 경우 false로 설정
+                }
+            }
+        } else {
+            // 이미지가 변경되지 않은 경우
+            const result = await updateUser(editAccount);
+            console.log(result);
+
+            if (result.status == "SUCCESS") {
+                setLoginUser(editAccount);
+                setIsModalOpen(true);
+                setUpdateInfo(true);
+                console.log(loginUser);
+                console.log(loginUserState);
+            } else {
+                if (result.response?.data?.name === "HAS_NICKNAME" ||
+                    result.response?.data?.name === "HAS_PHONE") {
+                    setErrorMsg(result.response?.data?.name);
+                    setUpdateInfo(false);
+                } else {
+                    setUpdateInfo(false); // 기본적으로 실패한 경우 false로 설정
+                }
             }
         }
     }
