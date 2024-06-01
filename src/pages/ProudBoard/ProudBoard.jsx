@@ -58,7 +58,7 @@ function ProudBoard() {
                         <div className='proudBoard__category'>커뮤니티 &gt; {category}</div>
                         <div className='proudBoard__btn'><a onClick={() => { writerBtn() }}>글쓰기</a></div>
                     </div>
-                    <ProudItem setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list} />
+                    <ProudItem keyword={keyword} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list} />
                 </div>
             </div>
         </div>

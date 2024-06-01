@@ -63,7 +63,7 @@ function NoticeBoard() {
                         <div className='noticeboard__category'>커뮤니티 &gt; 공지사항</div>
                         {loginUser.userRole === "ADMIN" ? <div className='noticeboard__btn'><Link to={"enroll"}>글쓰기</Link></div> : ""}
                     </div>
-                    <FreeBoardItem clickItem={clickItem} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
+                    <FreeBoardItem clickItem={clickItem} keyword={keyword} setKeyword={setKeyword} boardList={boardList} pageInfo={pageInfo} list={list}/>
                 </div>
             </div>
             {modal ? <QuestionForm/> : ""}
