@@ -102,15 +102,21 @@ function FundEnrollForm({ nav, navRef }) {
     }, [bossImg, fundInfoImgList, artistInfoImgList])
 
     const onChangeFundForm = (e) => {
+        if (e.target.name === 'target' && parseInt(e.target.value) >= 1000000000){
+            return;
+        }
         setFundForm({
             ...fundForm,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.name === 'target' ? e.target.value.replace(/[^0-9.]/g, '') : fundForm[e.target.name] === '' ? e.target.value.trim() : e.target.value
         })
     }
     const onChangeRewardForm = (e) => {
+        if (e.target.name === 'rewardPrice' && parseInt(e.target.value) >= 1000000){
+            return;
+        }
         setRewardForm({
             ...rewardForm,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.name === 'rewardPrice' || e.target.name === 'limitAmount' ? e.target.value.replace(/[^0-9.]/g, '') : rewardForm[e.target.value] === '' ? e.target.value.trim() : e.target.value
         })
     }
 
@@ -145,12 +151,12 @@ function FundEnrollForm({ nav, navRef }) {
     const onClickRewardSubmit = (check) => {
         if (check) {
 
-            if (rewardForm.rewardName === '') {
+            if (rewardForm.rewardName.trim() === '') {
                 refs.rewardName.current.focus();
                 toast.error('리워드 이름을 작성해주세요.');
                 return;
             }
-            if (rewardForm.rewardInfo === '') {
+            if (rewardForm.rewardInfo.trim() === '') {
                 refs.rewardInfo.current.focus();
                 toast.error('리워드 설명을 작성해주세요.');
                 return;
@@ -213,19 +219,24 @@ function FundEnrollForm({ nav, navRef }) {
             toast.error('카테고리를 선택해주세요.')
             return;
         }
-        if (fundForm.fundTitle === '') {
+        if (fundForm.fundTitle.trim() === '') {
             refs.fundTitle.current.focus();
             toast.error('제목을 입력해주세요.');
             return;
         }
-        if (fundForm.fundDescription === '') {
+        if (fundForm.fundDescription.trim() === '') {
             refs.fundDescription.current.focus();
             toast.error('펀딩 설명을 입력해주세요.');
             return;
         }
-        if (fundForm.target === '' || fundForm.target === 0) {
+        if (fundForm.target === '' || fundForm.target == 0) {
             refs.target.current.focus();
             toast.error('펀딩 목표액을 입력해주세요.');
+            return;
+        }
+        if (fundForm.target <= 100000) {
+            refs.target.current.focus();
+            toast.error('펀딩 목표액은 100,000원 이상 등록 가능합니다.');
             return;
         }
         if (fundForm.startDate === '' || fundForm.endDate === '') {
@@ -238,7 +249,7 @@ function FundEnrollForm({ nav, navRef }) {
             toast.error('대표 이미지는 5장 전부 포함되어야합니다.');
             return;
         }
-        if (fundForm.fundInfo === '') {
+        if (fundForm.fundInfo.trim() === '') {
             refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('프로젝트 소개를 작성해주세요.');
             return;
@@ -253,7 +264,7 @@ function FundEnrollForm({ nav, navRef }) {
             return;
         }
         num = 0;
-        if (fundForm.artistInfo === '') {
+        if (fundForm.artistInfo.trim() === '') {
             refs.artistInfo.current.scrollIntoView({ behavior: "smooth" });
             toast.error('아티스트 소개를 작성해주세요.')
             return;
@@ -272,12 +283,12 @@ function FundEnrollForm({ nav, navRef }) {
             toast.error('리워드를 1개 이상 등록해주세요.');
             return;
         }
-        if (fundForm.budgetInfo === '') {
+        if (fundForm.budgetInfo.trim() === '') {
             refs.budgetInfo.current.focus();
             toast.error('예산 운영 계획을 작성해주세요.');
             return;
         }
-        if (fundForm.scheduleInfo === '') {
+        if (fundForm.scheduleInfo.trim() === '') {
             refs.scheduleInfo.current.focus();
             toast.error('일정을 작성해주세요.');
             return;
@@ -380,7 +391,7 @@ function FundEnrollForm({ nav, navRef }) {
                     <h3>목표 펀딩 금액</h3>
                     <div className='fundEnrollForm__input'>
                         <FundInputBar width={"30%"}
-                            type={'number'}
+                            type={'text'}
                             paddingLeft={"5px"}
                             name={'target'}
                             value={fundForm.target}
@@ -415,7 +426,7 @@ function FundEnrollForm({ nav, navRef }) {
                             name={'endDate'}
                             value={fundForm.endDate}
                             onChangeValue={onChangeFundForm}
-                            min={moment(new Date().setDate(new Date(fundForm.startDate).getDate() + 7)).format('YYYY-MM-DD')}
+                            min={moment(new Date(fundForm.startDate).setDate(new Date(fundForm.startDate).getDate() + 7)).format('YYYY-MM-DD')}
                             disabled={fundForm.startDate === '' && true}
                             inputRef={refs.endDate}
                         />
@@ -521,7 +532,7 @@ function FundEnrollForm({ nav, navRef }) {
                         <p>리워드 금액</p>
                         <div className='addform__item__price'>
                             <FundInputBar width={"30%"}
-                                type={'number'}
+                                type={'text'}
                                 paddingLeft={"5px"}
                                 name={'rewardPrice'}
                                 value={rewardForm.rewardPrice}
@@ -545,7 +556,7 @@ function FundEnrollForm({ nav, navRef }) {
                                 'addform__item__btn__disabled'
                             } onClick={() => onClickRewardBtn(true, 'Y')}>제한</div>
                             <FundInputBar width={"70px"}
-                                type={'number'}
+                                type={'text'}
                                 paddingLeft={"5px"}
                                 name={'limitAmount'}
                                 value={rewardForm.limitAmount}
