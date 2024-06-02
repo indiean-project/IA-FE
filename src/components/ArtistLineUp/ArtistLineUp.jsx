@@ -1,14 +1,15 @@
 import './ArtistLineUp.scss'
 import { useNavigate } from 'react-router-dom';
+import baseImg from '../../assets/default/defaultImg.png';
 
 
 
 function ArtistLineUp({ artist }) {
     
-
+    console.log(artist)
     const navigate = useNavigate()
-    const handleOnClick = (artist) => {
-        if (artist.artistNo !== '') {
+    const handleOnClick = () => {
+        if (artist.artistNo !== 0) {
 
             handleArtistPost()
         } else {
@@ -22,7 +23,7 @@ function ArtistLineUp({ artist }) {
 
     return (
         <div className='artist_box'>
-            <div className='artist__picture'><div className={`${artist.artistNo !== null ? "clickOn" : ""}`} onClick={() => { handleOnClick() }}><img src={artistImg} /></div></div>
+            <div className='artist__picture'><div className={`${artist.artistNo !== 0 ? "clickOn" : ""}`} onClick={() => { handleOnClick() }}><img src={artist.titleUrl !== null?artist.titleUrl:baseImg}/></div></div>
             <span className='artist__name'>{artist.artistName}</span>
         </div>
     )

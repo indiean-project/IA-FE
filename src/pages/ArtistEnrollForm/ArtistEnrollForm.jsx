@@ -181,7 +181,7 @@ function ArtistEnrollForm() {
                             return (
                                 <>
                                     {img != '' ?
-                                        <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                        <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)} key={inx}>
                                             <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
