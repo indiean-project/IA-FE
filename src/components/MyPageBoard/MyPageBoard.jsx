@@ -23,7 +23,9 @@ function MyPageBoard({ boardList }) {
         const boardNo = item.boardNo;
         ViewCount(boardNo);
         setBoardCategory(item.contentType);
-        navigate("/board/detail/" + item.boardNo);
+        if(boardCategory === "자유게시판" || boardCategory === "자랑게시판") {
+            navigate("/board/detail/" + item.boardNo);    
+        }
     }
 
     return (

@@ -4,6 +4,7 @@ import { checkUserId, checkUserPwd } from '../../apis/user';
 import loginicon from '../../assets/loginicon.png';
 import passwordIcon from '../../assets/passwordLock.png';
 
+import toast from 'react-hot-toast';
 import './SignUpForm1.scss';
 
 function SignUpForm1({ onNextPage }) {
@@ -25,8 +26,9 @@ function SignUpForm1({ onNextPage }) {
         });
         console.log(idResult);
 
-        if (idResult.response && idResult.response.status === 400)  {
+        if (idResult.response && idResult.response.data.code === "account-003")  {
             setIsDuplicateId('bad');
+            toast.error(idResult.response.data.message);
         } else {
             if(idResult.status === "SUCCESS") 
                 setIsDuplicateId('good');
@@ -54,6 +56,10 @@ function SignUpForm1({ onNextPage }) {
         console.log(pwdResult);
 
         setIsDuplicatePwd(pwdRegExp? 'good' : 'bad');
+
+        if(pwdResult.response && pwdResult.response.status === 400) {
+            toast.error("유효하지 않은 비밀번호 입니다.");
+        }
     }
     const onChangePwdAccount = (e) => {
         setInputPwdAccount(e.target.value);
@@ -97,132 +103,3 @@ function SignUpForm1({ onNextPage }) {
 
 export default SignUpForm1;
 
-// import { debounce } from 'lodash';
-
-    // const onChangeIdAccount = (e) => {
-    //     clearTimeout(timeoutId);
-
-    //     const inputValue = e.target.value;
-    //     setInputIdAccount(inputValue);
-
-    //     clearTimeout(timeoutId);
-    //     timeoutId = setTimeout( checkId(inputValue), 1000 );
-    //     timeoutId = setTimeout(() => {
-    //         checkId(inputValue); // 입력이 멈춘 후 checkId 호출
-    //     }, 1500);
-    //     입력이 변경될 때마다 setTimeout 설정
-    //     clearTimeout(timeoutId);
-    //     setInputIdAccount(inputValue);
-    // };
-
-        // const onChangePwdAccount = (e) => {
-    //     clearTimeout(timeoutPwd);
-    //     const inputValue = e.target.value;
-    //     setInputPwdAccount(inputValue);
-
-    //     clearTimeout(timeoutPwd);
-    //     timeoutPwd = setTimeout( checkPwd(inputValue), 1000); // 입력이 멈춘 후 checkPwd 호출
-
-    //     timeoutPwd = setTimeout(() => {
-    //         checkPwd(inputValue); // 입력이 멈춘 후 checkPwd 호출
-    //     }, 1500);
-    //     입력이 변경될 때마다 setTimeout 설정
-    //     clearTimeout(timeoutPwd);
-    //     setInputPwdAccount(inputValue);
-    // };
-
-    // const delayIdInput = debounce(checkId, 500);
-    // const onChangeIdAccount = (e) => {
-    //     setInputIdAccount(e.target.value);
-    //     // checkId();
-    //     delayIdInput(e.target.value);
-    // };
-    // const delayPwdInput = debounce(checkPwd, 500);
-    // const onChangePwdAccount = (e) => {
-    //     setInputPwdAccount(e.target.value);
-    //     // checkPwd();
-    //     delayPwdInput(e.target.value);
-    // };
-
-        // } else if (idResult.response.errors.code === "Email") {
-            //     setIsDuplicateId('bad');
-            // } else if (idResult.status === "SUCCESS") {
-            //     setIsDuplicateId('good');
-
-    // const onChangeAccount = async(e) => {
-    //      setInputAccount({
-    //         ...inputAccount,
-    //         [e.target.name] : e.target.value
-    //      })
-
-    //      console.log(inputAccount);
-    //      console.log(inputAccount.userId);
-
-    //      const result = await checkUserInfo({
-    //         userId: inputAccount.userId,
-    //         userPwd: inputAccount.userPwd
-    //     });
-    //     console.log(result);
-
-    //     if(result.userId === null) {
-    //         setIsDuplicate('good');
-    //     } else {
-    //         setIsDuplicate('bad');
-    //     }
-    //     if(result.userPwd === null) {
-    //         setIsDuplicate('good');
-    //     } else {
-    //         setIsDuplicate('bad');
-    //     }
-
-    // }
-
-    // useEffect(() => {
-    //     console.log(inputAccount);
-    //     console.log(inputAccount.userId);
-
-    //     const fetchData = async () => {
-    //         const result = await checkUserInfo({
-    //             userId: inputAccount.userId,
-    //             userPwd: inputAccount.userPwd
-    //         });
-    //         console.log(result);
-
-    //         if (result.userId) {
-    //             setIsDuplicate('good');
-    //         } else {
-    //             setIsDuplicate('bad');
-    //         }
-    //         if (result.userPwd === null) {
-    //             setIsDuplicate('good');
-    //         } else {
-    //             setIsDuplicate('bad');
-    //         }
-    //     };
-
-    //     fetchData();
-
-    // }, [inputAccount]);
-
-    // useEffect(() => {
-    //     const timer = setTimeout(async () => {
-    //         console.log(inputAccount);
-    //         const result = await checkUserInfo({
-    //             userId: inputAccount.userId,
-    //             userPwd: inputAccount.userPwd
-    //         });
-    //         console.log(result);
-    //         // if (result.userId === '') {
-    //         //     setIsDuplicate('good');
-    //         // } else {
-    //         //     setIsDuplicate('bad');
-    //         // }
-    //         // if (result.userPwd === null) {
-    //         //     setIsDuplicate('good');
-    //         // } else {
-    //         //     setIsDuplicate('bad');
-    //         // }
-    //     }, 500);
-
-    //     return () => clearTimeout(timer);
-    // }, [inputAccount]);    

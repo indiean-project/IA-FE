@@ -49,7 +49,7 @@ function LoginForm() {
         //     alert(result.message);
         // } else if (result.status === 400 && result.code === "account-002") {
         //     alert(result.message);
-        if(result === undefined) {
+        if(result === undefined || result.data.deleteYn === "Y") {
             toast.error('로그인 정보가 올바르지 않습니다.');
             // alert(result.message);
         // } else if(result !== '') { 

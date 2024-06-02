@@ -7,7 +7,7 @@ import { deleteUser, updateUser } from '../../apis/user';
 import { imgDelete, imgMove } from '../../apis/imgFilter';
 import UserProfile from '../UserProfile';
 import UserTextInfo from '../UserTextInfo';
-import UserFavorite from '../UserFavorite';
+// import UserFavorite from '../UserFavorite';
 import UserUpdateModal from '../UserUpdateModal';
 import UserDeleteModal from '../UserDeleteModal';
 
@@ -164,11 +164,11 @@ function MyPageProfile() {
                 doEdit={doEdit}
                 onChangeUserInfo={onChangeUserInfo}
                 onDoEdit={onDoEdit} />
-            <UserFavorite
+            {/* <UserFavorite
                 editAccount={editAccount}
                 doEdit={doEdit}
                 onChangeUserInfo={onChangeUserInfo}
-                onDoEdit={onDoEdit} />
+                onDoEdit={onDoEdit} /> */}
             <div className="myPage__buttons">
                 <button className="btn-update" onClick={onClickUpdate} >정보 수정</button>
                 <button className="btn-delete" onClick={onClickDelete} >회원 탈퇴</button>
