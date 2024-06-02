@@ -5,13 +5,14 @@ import { loginUserState } from '../../recoil/LoginUser';
 import { tempImg } from '../../apis/imgFilter';
 import toast from 'react-hot-toast';
 
-import logo_black from '../../assets/logo/logo_black.png';
+import logo_black from '../../assets/default/defaultImg.png';
 import './UserProfile.scss';
 
 function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTempImg }) {
 
     const loginUser = useRecoilValue(loginUserState);
     const [selectProfileImg, setSelectProfileImg] = useState(loginUser.userProfileImg);
+    const [byte, setByte] = useState(0);
 
     useEffect(() => {
         console.log(selectProfileImg);
@@ -24,6 +25,16 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
     // useEffect(() => {
     //     console.log(selectProfileImg);
     // }, [selectProfileImg]);
+
+    useEffect(() => {
+        let byte = 0;
+        if (editAccount.userContent != null) {
+            for (let i = 0; i < editAccount.userContent.length; i++) {
+                editAccount.userContent.charCodeAt(i) > 127 ? byte += 3 : byte++;
+            }
+        }
+        setByte(byte);
+    }, [editAccount])
 
     const imageUpload = async (e) => {
         const file = e.target.files[0];
@@ -52,7 +63,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
             } catch (error) {
                 toast.error("이미지 업로드에 실패했습니다");
             }
-            
+
         }
     }
 
@@ -75,6 +86,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
                     onChange={(e) => onChangeUserInfo(e)}
                     readOnly={doEdit !== "userContent"}
                     onDoubleClick={() => onDoEdit("userContent")} />
+                <div className="profile__form__byte"><div>byte : {byte} / 300 </div></div>
             </div>
         </>
     )

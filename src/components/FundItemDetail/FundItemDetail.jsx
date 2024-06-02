@@ -45,6 +45,11 @@ function FundItemDetail({ nav, navRef, navHandle }) {
 
     const getFundDetail = async () => {
         const detail = await selectFundDetail(params);
+        if(detail.data.fundStatus != 'APPROVAL' && loginUser.userRole != 'ADMIN'){
+            toast.error('잘못된 접근입니다.');
+            navigate('/funding', {replace: true});
+            return;
+        }
         setFund(detail['data']);
         counting(detail['data'].revenue, detail['data'].target, detail['data'].people);
     }

@@ -4,14 +4,16 @@ import { FaFireFlameCurved } from "react-icons/fa6";
 import { MdPeopleAlt, MdThumbUp } from "react-icons/md";
 import { BoardAmount, BoardSideBar, ViewCount } from '../../apis/board';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { boardPoint } from '../../recoil/boardPoint';
+import { cPage } from '../../recoil/page';
 function BoardSidebar({ category }) {
     const [amountList, setAmountList] = useState([]);
     const [likeList, setLikeList] = useState([]);
     const [viewList, setViewList] = useState([]);
     const navigate = useNavigate();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
+    const setCpage = useSetRecoilState(cPage);
 
     const boardAmount = async () => {
         const amount = await BoardAmount();
@@ -66,19 +68,19 @@ function BoardSidebar({ category }) {
                     <label>커뮤니티 <MdPeopleAlt className='boardSidebar__community' /></label>
                 </div>
                 <div className='community__list'>
-                    <NavLink to={"/board/free"}>
+                    <NavLink to={"/board/free"} onClick={()=>{setCpage(1)}}>
                         <div className='community__list__item'>
                             <div>자유게시판</div>
                             <div>{amountList[0]}</div>
                         </div>
                     </NavLink>
-                    <NavLink to={"/board/proud"}>
+                    <NavLink to={"/board/proud"} onClick={()=>{setCpage(1)}}>
                         <div className='community__list__item'>
                             <div>아티스트 자랑</div>
                             <div>{amountList[1]}</div>
                         </div>
                     </NavLink>
-                    <NavLink to={"/board/colo"}>
+                    <NavLink to={"/board/colo"} onClick={()=>{setCpage(1)}}>
                         <div className='community__list__item'>
                             <div>콜로세움</div>
                             <div>{amountList[2]}</div>

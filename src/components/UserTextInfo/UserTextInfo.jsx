@@ -2,31 +2,42 @@ import { PencilSquare } from 'react-bootstrap-icons';
 
 import './UserTextInfo.scss';
 
-function UserTextInfo({editAccount, doEdit, onChangeUserInfo, onDoEdit}) {
+function UserTextInfo({ editAccount, doEdit, onChangeUserInfo, onDoEdit }) {
 
     return (
         <>
             <div className="text__info">
-                <div>
-                    <input type="text" value={editAccount.nickname} id="nickname" name="nickname"
-                        readOnly={doEdit !== "nickname"} onChange={(e) => onChangeUserInfo(e)} />
-                    <button type="button" onClick={() => onDoEdit("nickname")} ><PencilSquare /></button>
+                <div className="text__container">
+                    <div className="text__box">
+                        <input type="text" value={editAccount.nickname} id="nickname" name="nickname"
+                            readOnly={doEdit !== "nickname"} onChange={(e) => onChangeUserInfo(e)} />
+                        <button type="button" onClick={() => onDoEdit("nickname")} ><PencilSquare /></button>
+                    </div>
                     <br /><br />
-                    <input type="text" value={editAccount.userName} id="userName" name="userName"
-                        readOnly={doEdit !== "userName"} onChange={(e) => onChangeUserInfo(e)} />
-                    <button type="button" onClick={() => onDoEdit("userName")}><PencilSquare /></button>
+                    <div className="text__box">
+                        <input type="text" value={editAccount.userName} id="userName" name="userName"
+                            readOnly={doEdit !== "userName"} onChange={(e) => onChangeUserInfo(e)} />
+                        <button type="button" onClick={() => onDoEdit("userName")}><PencilSquare /></button>
+                    </div>
                     <br /><br />
-                    <input type="password" value={editAccount.userPwd} id="userPwd" name="userPwd"
-                        readOnly={doEdit !== "userPwd"} onChange={(e) => onChangeUserInfo(e)} />
-                    <button type="button" onClick={() => onDoEdit("userPwd")}><PencilSquare /></button>
+                    <div className="text__box">
+                        <input type="password" value={editAccount.userPwd} id="userPwd" name="userPwd"
+                            readOnly={doEdit !== "userPwd"} onChange={(e) => onChangeUserInfo(e)} />
+                        <button type="button" onClick={() => onDoEdit("userPwd")}><PencilSquare /></button>
+                    </div>
                     <br /><br />
-                    <input type="text" value={editAccount.phone} id="phone" name="phone"
-                        readOnly={doEdit !== "phone"} onChange={(e) => onChangeUserInfo(e)} />
-                    <button type="button" onClick={() => onDoEdit("phone")}><PencilSquare /></button>
+                    <div className="text__box">
+                        <input type="text" value={editAccount.phone} id="phone" name="phone"
+                            readOnly={doEdit !== "phone"} onChange={(e) => onChangeUserInfo(e)} />
+                        <button type="button" onClick={() => onDoEdit("phone")}><PencilSquare /></button>
+                    </div>
                     <br /><br />
-                    <input type="text" value={editAccount.address} id="address" name="address"
-                        readOnly={doEdit !== "address"} onChange={(e) => onChangeUserInfo(e)} />
-                    <button type="button" onClick={() => onDoEdit("address")}><PencilSquare /></button>
+                    <div className="text__box">
+                        <input type="text" value={editAccount.address} id="address" name="address"
+                            readOnly={doEdit !== "address"} onChange={(e) => onChangeUserInfo(e)}
+                            placeholder="주소 입력란" />
+                        <button type="button" onClick={() => onDoEdit("address")}><PencilSquare /></button>
+                    </div>
                 </div>
             </div>
         </>

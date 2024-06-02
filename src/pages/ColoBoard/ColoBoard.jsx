@@ -127,6 +127,15 @@ function ColoBoard() {
         selVote();
     }
 
+    function searchKeyword() {
+        if (keyword.trim() === '') {
+            toast.error("키워드를 입력 해 주세요.");
+            return
+        }
+        list();
+        setCpage(1);
+    }
+
     return (
 
         <div className="coloBoard__container">
@@ -218,7 +227,7 @@ function ColoBoard() {
                     {boardList.length > 0 ? <PaginationBar pageInfo={pageInfo} list={list} /> : ""}
                     <div className='coloItem__input__area'>
                         <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { setKeyword(e.target.value) }} />
-                        <div className='coloItem__btn'><a onClick={() => { list(); setCpage(1); }}>검색</a></div>
+                        <div className='coloItem__btn'><a onClick={() => { searchKeyword() }}>검색</a></div>
                     </div>
                 </div>
             </div>

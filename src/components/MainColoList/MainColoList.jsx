@@ -6,7 +6,7 @@ import DOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { weeklyColo } from '../../apis/board';
-import { shuffle } from 'lodash';
+import { indexOf, shuffle } from 'lodash';
 
 function MainColoList() {
     const [coloList, setColoList] = useState([]);
@@ -18,7 +18,8 @@ function MainColoList() {
 
     const getColoList = async()=>{
         const list = await weeklyColo();
-        setColoList(shuffle(list['data']).slice(5, list['data'].length -1));
+        console.log(list);
+        setColoList(shuffle(list['data']));
     }
 
     const createMarkUp = (value) => {
@@ -37,7 +38,7 @@ function MainColoList() {
                 <NavLink to={'/board/colo'}>이슈 더보기</NavLink>
             </div>
             <div className='mainColoList__box'>
-                {coloList.map((item, idx) => {
+                {coloList.filter((item)=>coloList.indexOf(item) < 4).map((item, idx) => {
                     return (
                         <div className='mainColoList__item' key={idx}>
                             <div className='mainColoList__item__info' onClick={() => onClickDetail(idx)}>

@@ -12,7 +12,6 @@ import './MyPageReply.scss';
 function MyPageReply( {replyList} ) {
     const navigate = useNavigate();
     const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
-    // 카테고리 관련 정리 필요 (전부 자유게시판 양식으로 띄우고 있음)
 
     if (!replyList) {
         return <></>
@@ -24,11 +23,11 @@ function MyPageReply( {replyList} ) {
         setBoardCategory(item.contentType);
         if(boardCategory === "자유게시판" || boardCategory === "자랑게시판") {
             navigate("/board/detail/" + item.boardNo);    
-        } else if(boardCategory === "콜로세움") {
-            navigate("/board/colo/");
-            // navigate("/board/colo/" + item.boardNo);
-        } else if(boardCategory === "전용게시판") {
-            navigate("/board/");
+        // } else if(boardCategory === "콜로세움") {
+        //     navigate("/board/colo/");
+        //     // navigate("/board/colo/" + item.boardNo);
+        // } else if(boardCategory === "전용게시판") {
+        //     navigate("/board/");
         }
         
     }

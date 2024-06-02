@@ -19,6 +19,7 @@ function ArtistEnrollForm() {
     const [bossImg, setBossImg] = useState(['']);
     const navigate = useNavigate()
     const loginUserInfo = useRecoilValue(loginUserState);
+    const [contentByte, setContentByte] = useState(0);
     const [artistForm, setArtistForm] = useState({
         userNo: loginUserInfo.userNo,
         artistName: '',
@@ -76,6 +77,10 @@ function ArtistEnrollForm() {
         }
         if (artistForm.instagramLink.indexOf('www.instagram.com') === -1 && artistForm.instagramLink.trim() != '') {
             toast.error("잘못된 주소 입니다.");
+            return;
+        }
+        if(contentByte > 4000){
+            toast.error("아티스트 소개 글자수를 초과하였습니다.");
             return;
         }
         const result = await artistEnroll(artistForm);
@@ -198,7 +203,7 @@ function ArtistEnrollForm() {
                 </div>
                 <div className='artistInfo__EnrollForm'>
                     <h1>아티스트 소개 입력</h1>
-                    <ArtistEditor onEditorChange={onEditorChange} />
+                    <ArtistEditor onEditorChange={onEditorChange} contentByte={contentByte} setContentByte={setContentByte} />
                 </div>
                 <div className='linkList'>
                     <div className='artistEnrollFrom__item'>

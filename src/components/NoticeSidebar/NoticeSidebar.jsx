@@ -2,6 +2,7 @@ import { useRecoilState } from 'recoil';
 import './NoticeSidebar.scss';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function NoticeSidebar(props) {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
