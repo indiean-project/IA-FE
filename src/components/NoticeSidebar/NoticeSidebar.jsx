@@ -21,6 +21,14 @@ function NoticeSidebar(props) {
         
     }
 
+    const questionMove = () => {
+        if(loginUser.userNo === '') {
+            toast.error('로그인 후 이용가능 합니다.');
+            return
+        }
+        props.setModal(true)
+    }
+
     return (
         <div className="noticeSidebar__container">
             <div className='noticeSidebar__box'>
@@ -29,7 +37,7 @@ function NoticeSidebar(props) {
                 <div className='noticeSidebar__label'>
                     <label>고객지원</label>
                 </div>
-                    <div className='noticeSidebar__post' onClick={()=>{props.setModal(true)}}>1:1 문의</div>
+                    <div className='noticeSidebar__post' onClick={()=>{questionMove()}}>1:1 문의</div>
                     <div className='noticeSidebar__post' onClick={()=>{artistEnrollMove()}}>아티스트 신청하기</div>
             </div>
         </div>
