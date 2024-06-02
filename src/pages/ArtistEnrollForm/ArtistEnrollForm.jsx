@@ -67,7 +67,7 @@ function ArtistEnrollForm() {
             toast.error("음악장르를 입력해주세요");
             return;
         }
-        if (artistForm.artistInfo.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim()  == '') {
+        if (artistForm.artistInfo.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim() == '') {
             toast.error("아티스트 소개를 입력해주세요");
             return;
         }
@@ -79,22 +79,28 @@ function ArtistEnrollForm() {
             toast.error("잘못된 주소 입니다.");
             return;
         }
-        if(contentByte > 4000){
+        if (contentByte > 4000) {
             toast.error("아티스트 소개 글자수를 초과하였습니다.");
             return;
         }
         const result = await artistEnroll(artistForm);
-        const newImgUrl = await imgMove(bossImg)
-        if (newImgUrl != undefined && newImgUrl.data.length > 0) {
-            await imgEnroll({
-                contentNo: result.data,
-                imgUrlList: newImgUrl.data,
-                fabcTypeEnum: "ARTIST",
-                kcTypeEnum: "KING"
-            });
+        if (result !== undefined && result.status == "FAIL") {
+            toast.error("이미 심사중입니다.")
+            return
         }
-        toast.success('신청되셨습니다.')
-        navigate('/artist');
+        if (result !== undefined && result.status == "SUCCESS") {
+            const newImgUrl = await imgMove(bossImg)
+            if (newImgUrl != undefined && newImgUrl.data.length > 0) {
+                await imgEnroll({
+                    contentNo: result.data,
+                    imgUrlList: newImgUrl.data,
+                    fabcTypeEnum: "ARTIST",
+                    kcTypeEnum: "KING"
+                });
+            }
+            toast.success('신청되셨습니다.')
+            navigate('/artist');
+        }
 
 
     }

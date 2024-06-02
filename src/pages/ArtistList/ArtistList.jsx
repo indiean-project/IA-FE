@@ -24,11 +24,10 @@ function ArtistList() {
     const [comfiramationVal, setComfiramation] = useState(null);
     const comfiramation = async () => {
         const comfiramationList = await artistConfirmation(loginUser.userNo)
-        console.log(comfiramationList)
         setComfiramation(comfiramationList)
     }
     const artistEnrollMove = async () => {
-        comfiramation()
+        
         if (loginUser.userNo === '') {
             toast.error('로그인 후 이용가능 합니다.')
             return
@@ -83,6 +82,7 @@ function ArtistList() {
     }, [selectItem])
     useEffect(() => {
         list()
+        comfiramation()
     }, [])
 
 

@@ -89,8 +89,8 @@ function ArtistDetail() {
 
                         </div>
                         <div className='sns__btn__area'>
-                            {artist.instagramLink !== null ? <div className='sns__btn' onClick={() => { snsMove('i') }}><BsInstagram size={40} /></div> : ""}
-                            {artist.youtubeLink !== null ? <div className='sns__btn' onClick={() => { snsMove('y') }}><BsYoutube size={40} /></div> : ""}
+                            {artist.instagramLink !== "" ? <div className='sns__btn' onClick={() => { snsMove('i') }}><BsInstagram size={40} /></div> : ""}
+                            {artist.youtubeLink !== "" ? <div className='sns__btn' onClick={() => { snsMove('y') }}><BsYoutube size={40} /></div> : ""}
                         </div>
                     </div>
                 </div>
