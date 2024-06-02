@@ -44,11 +44,13 @@
                 padding-bottom: 1%;
 
                 .userQuestion__answer {
-                    width: 100%;
+                    width: 90%;
+                    padding : 10px;
                     height: auto;
-                    margin : 10px;
+                    margin: 10px auto;
                     background-color: #cccccc;
                     color : black;
+                    border-radius: 10px;
                 }
             }
         }
@@ -61,6 +63,7 @@
             white-space: nowrap;
             max-width: 100px;
         }
+
     }
 
     .userQuestion__input__area {

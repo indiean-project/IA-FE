@@ -26,15 +26,20 @@ function SignUpForm1({ onNextPage }) {
         });
         console.log(idResult);
 
-        if (idResult.response && idResult.response.data.code === "account-003")  {
-            setIsDuplicateId('bad');
-            toast.error(idResult.response.data.message);
+        if (idResult.response) {
+            if (idResult.response.data.code === "account-003") {
+                setIsDuplicateId('bad');
+                toast.error(idResult.response.data.message);
+            } else if (idResult.response.data.errors[0].code === "Pattern") {
+                setIsDuplicateId('bad');
+                toast.error(idResult.response.data.errors[0].defaultMessage);
+            }
         } else {
             if(idResult.status === "SUCCESS") 
                 setIsDuplicateId('good');
-        }
-            
+        }       
     };
+    
     const onChangeIdAccount = (e) => {
         setInputIdAccount(e.target.value);
     }

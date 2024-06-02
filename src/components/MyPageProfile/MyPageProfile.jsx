@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
-import { deleteUser, updateUser } from '../../apis/user';
+import { deleteUser, updateUser, checkUserPwd } from '../../apis/user';
 import { imgDelete, imgMove } from '../../apis/imgFilter';
 import UserProfile from '../UserProfile';
 import UserTextInfo from '../UserTextInfo';
@@ -62,6 +62,14 @@ function MyPageProfile() {
 
         let usedImage = newImg;
 
+        const pwdResult = await checkUserPwd ({
+            userPwd : editAccount.userPwd
+        });
+
+        if(pwdResult.response && pwdResult.response.status === 400) {
+            toast.error("유효하지 않은 비밀번호 입니다.");
+        }
+
         // 이미지가 변경됐으면...
         if (loginUser.userProfileImg !== newImg) {
             // 기존 이미지가 존재한다면 삭제함
@@ -97,7 +105,8 @@ function MyPageProfile() {
                 }
             } else {
                 if (result.response?.data?.name == "HAS_NICKNAME" ||
-                    result.response?.data?.name == "HAS_PHONE") {
+                    result.response?.data?.name == "HAS_PHONE" ||
+                    result.response?.data?.name == "INVALID_PASSWORD") {
                     setErrorMsg(result.response?.data?.name);
                     setUpdateInfo(false);
                 } else {
@@ -115,7 +124,9 @@ function MyPageProfile() {
                 setUpdateInfo(true);
             } else {
                 if (result.response?.data?.name === "HAS_NICKNAME" ||
-                    result.response?.data?.name === "HAS_PHONE") {
+                    result.response?.data?.name === "HAS_PHONE" ||
+                    result.response?.data?.name == "INVALID_PASSWORD") {
+                    setIsModalOpen(true);
                     setErrorMsg(result.response?.data?.name);
                     setUpdateInfo(false);
                 } else {
@@ -133,7 +144,7 @@ function MyPageProfile() {
     const onDeleteUser = async () => {
         const result = await deleteUser({
             userNo : loginUser.userNo,
-            deleteYn : "Y"
+            deleteYn : "Y",
         })
         console.log(result);
         if (result.status === "SUCCESS") {
@@ -160,6 +171,7 @@ function MyPageProfile() {
                 onAddTempImg={onAddTempImg}
                 onDoEdit={onDoEdit} />
             <UserTextInfo
+                loginUser = {loginUser}
                 editAccount={editAccount}
                 doEdit={doEdit}
                 onChangeUserInfo={onChangeUserInfo}

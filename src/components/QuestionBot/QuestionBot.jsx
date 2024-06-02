@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { isQuestionFormActive } from '../../recoil/IsModalActive';
-import { MusicPlayerFill, SendFill } from 'react-bootstrap-icons';
+import { ChevronUp, ChevronDown, MusicPlayerFill, SendFill } from 'react-bootstrap-icons';
 import logo_white from '../../assets/logo/logo_white.png';
 import QuestionForm from '../QuestionForm';
 
@@ -13,7 +13,7 @@ function QuestionBot({ activeQbot }) {
 
     const [check, setCheck] = useState('');
     const [isModalOpen, setIsModalOpen] = useRecoilState(isQuestionFormActive);
-    const [optionBtn, setOptionBtn] = useState([]);
+    const [optionsVisible, setOptionsVisible] = useState(false);
 
     const [messages, setMessages] = useState([
         { text: 'INDIE:안 에 오신걸 환영해요!', sender: 'bot' }
@@ -44,13 +44,6 @@ function QuestionBot({ activeQbot }) {
         }
     };
 
-    function toggleReplyBtn(index) {
-        setReplyBtn((prevState) => {
-            const state = [...prevState];
-            state[index] = state[index] === 'close' ? 'open' : 'close';
-            return state
-        })
-    }
 
 
     const getBotResponse = (userMessage) => {
@@ -88,6 +81,10 @@ function QuestionBot({ activeQbot }) {
         setIsModalOpen(true);
     }
 
+    const toggleOptions = () => {
+        setOptionsVisible(prevState => !prevState);
+    }
+
     useEffect(() => {
         if (activeQbot) {
             setCheck('operate');
@@ -111,19 +108,25 @@ function QuestionBot({ activeQbot }) {
                         </div>
                     ))}
                 </div>
-                <div className="options__container">
-                    {options.map((option, index) => (
-                        <button key={index} className="option" onClick={() => handleOptionClick(index, option)}>
-                            {index + 1}. {option}
-                        </button>
-                    ))}
+                <div className="options__toggle" onClick={toggleOptions}>
+                    {optionsVisible ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
                 </div>
-                <div className="chatbot__footer">
+                {optionsVisible && (
+                    <div className="options__container">
+                        {options.map((option, index) => (
+                            <button key={index} className="option" onClick={() => handleOptionClick(index, option)}>
+                                {index + 1}. {option}
+                            </button>
+                        ))}
+                    </div>
+                )}
+
+                {/* <div className="chatbot__footer">
                     <input type="text" id="chatInput" name="chatInput" placeholder="입력" />
                     <div className="inputButton" onClick={handleSendMessage}>
                         <SendFill size={24} color="#F2613F" />
                     </div>
-                </div>
+                </div> */}
                 {isModalOpen && <QuestionForm />}
             </div>
 

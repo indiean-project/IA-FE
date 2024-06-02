@@ -43,6 +43,7 @@ export const signUpUser = async(params) => {
         return data;
     } catch (e) {
         console.log(e);
+        return e;
     }
 }
 

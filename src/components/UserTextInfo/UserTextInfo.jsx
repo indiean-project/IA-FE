@@ -2,7 +2,7 @@ import { PencilSquare } from 'react-bootstrap-icons';
 
 import './UserTextInfo.scss';
 
-function UserTextInfo({ editAccount, doEdit, onChangeUserInfo, onDoEdit }) {
+function UserTextInfo({ loginUser, editAccount, doEdit, onChangeUserInfo, onDoEdit }) {
 
     return (
         <>
@@ -22,8 +22,10 @@ function UserTextInfo({ editAccount, doEdit, onChangeUserInfo, onDoEdit }) {
                     <br /><br />
                     <div className="text__box">
                         <input type="password" value={editAccount.userPwd} id="userPwd" name="userPwd"
-                            readOnly={doEdit !== "userPwd"} onChange={(e) => onChangeUserInfo(e)} />
-                        <button type="button" onClick={() => onDoEdit("userPwd")}><PencilSquare /></button>
+                            readOnly={doEdit !== "userPwd" || loginUser.socialStatus !== 'N'} 
+                            onChange={(e) => onChangeUserInfo(e)} disabled={loginUser.socialStatus !== 'N'} />
+                        <button type="button" onClick={() => onDoEdit("userPwd")} 
+                            disabled={loginUser.socialStatus !== 'N'}><PencilSquare /></button>
                     </div>
                     <br /><br />
                     <div className="text__box">

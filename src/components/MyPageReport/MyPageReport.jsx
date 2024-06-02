@@ -15,7 +15,7 @@ function MyPageReport({ questionList, reportList }) {
         return <></>
     }
     function clickItem(questionNo) {
-        setSelectQuestion(questionNo === (selectQuestion ? selectQuestion.questionNo : null) ? null : questionNo);
+        setSelectQuestion(selectQuestion === questionNo ? null : questionNo);
         console.log(questionNo);
         console.log(selectQuestion);
     }
@@ -46,7 +46,17 @@ function MyPageReport({ questionList, reportList }) {
                                     selectQuestion !== "null" && selectQuestion === item.questionNo 
                                     && item.ansYn === "Y" && (
                                         <tr><td colSpan={4}>
+                                            <h4>문의사항</h4>
+                                            <div className='userQuestion__answer'>{item.questionContent}</div>
+                                            <h4>답변내역</h4>
                                             <div className='userQuestion__answer'>{item.ansContent}</div>
+                                        </td></tr>  
+                                    )
+                                    || selectQuestion !== "null" && selectQuestion === item.questionNo 
+                                    && item.ansYn === "N" && (
+                                        <tr><td colSpan={4}>
+                                            <h4>문의사항</h4>
+                                            <div className='userQuestion__answer'>{item.questionContent}</div>
                                         </td></tr>  
                                     )
                                 }
