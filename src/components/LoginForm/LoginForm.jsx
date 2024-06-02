@@ -41,7 +41,7 @@ function LoginForm() {
         const result = await loginUser({
             userId: inputAccount.userId,
             userPwd: inputAccount.userPwd,
-            // socialStatus : 'N'
+            socialStatus : "N"
         });
 
         console.log(result);
@@ -49,7 +49,8 @@ function LoginForm() {
         //     alert(result.message);
         // } else if (result.status === 400 && result.code === "account-002") {
         //     alert(result.message);
-        if(result === undefined || result.data.deleteYn === "Y") {
+        if(result === undefined || result.data.deleteYn === "Y" 
+            || result.data.socialStatus !== "N") {
             toast.error('로그인 정보가 올바르지 않습니다.');
             // alert(result.message);
         // } else if(result !== '') { 

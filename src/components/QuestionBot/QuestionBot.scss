@@ -86,8 +86,11 @@
         display: none;
     }
 
+    .options__toggle {
+        margin-left : 10px;
+    }
     .options__container {
-        width:50%;
+        width:40%;
         background-color: #cccccc;
         display: flex;
         flex-direction: column;
@@ -98,7 +101,7 @@
         position: absolute;
         right: 0; // 메시지 컨테이너의 오른쪽에 배치
         bottom: 40px; // 메시지 컨테이너의 하단에 배치
-
+        border-radius: 5px;
         .option {
             font-size: 13px;
             width: 120px;

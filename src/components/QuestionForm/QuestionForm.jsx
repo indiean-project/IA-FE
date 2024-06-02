@@ -31,6 +31,14 @@ function QuestionForm() {
         })
     }
     const questionUpload = async() => {
+        if(byte > 4000) {
+            toast.error("입력 가능한 글자 수를 초과하였습니다.");
+            return;
+        } else if (byte === 0) {
+            toast.error("글이 입력되지 않았습니다.");
+            return;
+        }
+    
         const result = await qEnroll(editQuestion); 
         console.log(editQuestion);
         console.log(result);
@@ -38,12 +46,7 @@ function QuestionForm() {
             toast.success("문의 등록 성공");
             setModal(false);
         } else {
-            toast.error("문의 등록 실패");
-            if(byte > 4000) {
-                toast.error("입력 가능한 글자 수를 초과하였습니다.");
-            } else {
-                toast.error("문의 등록 실패");
-            }
+            toast.error("문의 등록 실패.");
         }
     }
     

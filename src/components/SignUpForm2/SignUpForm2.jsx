@@ -98,7 +98,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 socialStatus: storageSocial
             })
             console.log(result);
-            if (result.response && result.response.data.name === "HAS_PHONE") {
+            if (result.response && result.response.data.name == "HAS_PHONE") {
                 toast.error("동일 전화번호 계정이 있습니다! 중복 가입은 불가능합니다.");
             } else {
                 onNextPage();
@@ -113,7 +113,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 socialStatus: storageSocial
             })
             console.log(result);
-            if (result.response && result.response.data.name === "HAS_PHONE") {
+            if (result.response && result.response.data.name == "HAS_PHONE") {
                 toast.error("동일 전화번호 계정이 있습니다! 중복 가입은 불가능합니다.");
             } else {
                 onNextPage();
