@@ -11,8 +11,9 @@ import { imgEnroll } from '../../apis/imgUrl';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ConcertEditor from '../../components/ConcertEditor';
-import { searchArtistList } from '../../apis/admin'
+import { searchArtistList } from '../../apis/artist/artist';
 import ArtistTipLi from '../../components/ArtistTipLi';
+import moment from 'moment';
 
 function AdminConcertEnrollForm() {
     const navigate = useNavigate()
@@ -26,9 +27,27 @@ function AdminConcertEnrollForm() {
         endDate: '',
         concertInfo: '',
         concertPrice: '',
+        runtime: '',
         location: '',
         ticketUrl: ''
     })
+    const test = [
+        {
+            artistName: '첫번째',
+            artistNo: 1,
+            concertNo: ''
+        },
+        {
+            artistName: '두번째',
+            artistNo: 2,
+            concertNo: ''
+        },
+        {
+            artistName: '세번째',
+            artistNo: 3,
+            concertNo: ''
+        }
+    ]
     useEffect(() => {
         const handleClickOutside = (e) => {
 
@@ -44,26 +63,35 @@ function AdminConcertEnrollForm() {
         };
     }, [inputRef]);
     const [artistSearchVal, setArtistSearchVal] = useState('')
-    const [artistSearch, setArtistSearch] = useState(['a', 'b', 'c']);
+    const [artistSearch, setArtistSearch] = useState(test);
     const [concertInfoImg, setConcertInfoImg] = useState([]);
     const onClickSubmit = async () => {
-        // if (artistFrom.artistName.trim() == '') {
-        //     toast.error("아티스트명을 입력해주세요");
+        // if (concertForm.concertTitle.trim() == '') {
+        //     toast.error("콘서트 타이틀을 입력해주세요");
         //     return;
         // }
-        // if (artistFrom.debutDate.trim() == '') {
-        //     toast.error("데뷔일 입력해주세요");
+        // if (concertForm.startDate === ''|| concertForm.endDate ==='') {
+        //     toast.error("콘서트 기간을 입력해주세요");
         //     return;
         // }
-        // if (artistFrom.musicCategory.trim() == '') {
-        //     toast.error("음악장르를 입력해주세요");
+        // if (concertForm.location.trim() == '') {
+        //     toast.error("장소를 입력해주세요");
         //     return;
         // }
-        // if (artistFrom.artistInfo.trim() == '') {
-        //     toast.error("아티스트 소개를 입력해주세요");
+        // if (concertForm.concertInfo.trim() == '') {
+        //     toast.error("콘서트 소개를 입력해주세요");
         //     return;
         // }
-        // const result = await artistEnroll(artistFrom);
+        // let num = 0;
+        // for (let i = 0; i < fundForm.fundInfo.length; i++) {
+        //     fundForm.fundInfo.charCodeAt(i) > 127 ? num += 3 : num++;
+        // }
+        // if (num > 4000) {
+        //     refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
+        //     toast.error('입력 가능한 글자 수를 초과하였습니다.');
+        //     return;
+        // }
+        // const result = await concertEnroll(concertForm);
         // const newImgUrl = await imgMove(bossImg)
         // if (newImgUrl != undefined && newImgUrl.data.length > 0) {
         //     await imgEnroll({
@@ -77,31 +105,33 @@ function AdminConcertEnrollForm() {
         // navigate('/concert');
     }
     const onChangeConcertForm = (e) => {
+        if (e.target.name === 'concertPrice' && parseInt(e.target.value) >= 1000000) {
+            return;
+        }
         setConcertForm({
             ...concertForm,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.name === 'concertPrice' ? e.target.value.replace(/[^0-9.]/g, '') : concertForm[e.target.name] === '' ? e.target.value.trim() : e.target.value
+
         })
     }
-    const artistSearchList = async () => {
-        const artist = await searchArtistList()
+    const artistSearchList = async (text) => {
+        const artist = await searchArtistList(text)
         setIsDropbox(true);
         setArtistSearch(artist)
     }
     const handleDropDownClick = (artist) => {
 
-        let copyLineup = lineup
-        console.log(artist)
-        setLineup(...copyLineup, artist);
+        setLineup([...lineup, artist])
         setIsDropbox(false);
         setSelected(-1);
         setArtistSearchVal('')
     };
-    useEffect(() => {
-        
-        if (artistSearchVal.trim() != '') {
-            //artistSearchList()
+    
+    const searchTextList = (e) => {
+        if (e.target.value.trim() !== '') {
+            artistSearchList(e.target.value)
         }
-    }, [artistSearchVal])
+    }
     const onChangeLindupForm = (e) => {
 
     }
@@ -135,6 +165,17 @@ function AdminConcertEnrollForm() {
             setBossImg(list);
         }
     }
+    const undefindeArtist = (unknown) => {
+        let unknownArtist = {
+            artistName: unknown,
+            artistNo: 2,
+            concertNo: ''
+        }
+        setLineup([...lineup, unknownArtist])
+        setIsDropbox(false);
+        setSelected(-1);
+        setArtistSearchVal('')
+    }
     const onEditorChange = (content) => {
         setConcertForm({
             ...concertForm,
@@ -145,8 +186,11 @@ function AdminConcertEnrollForm() {
     useEffect(() => {
 
     }, [bossImg, concertForm, lineup, selected])
-    const deleteArtist = () =>{
-        
+    const deleteArtist = (point) => {
+        let array = lineup
+        setLineup(array.filter((_, idx) => {
+            return idx !== point
+        }))
     }
     return (
         <div className='concertEnrollForm'>
@@ -166,6 +210,7 @@ function AdminConcertEnrollForm() {
                                 name={'concertTitle'}
                                 value={concertForm.concertTitle}
                                 onChangeValue={onChangeConcertForm}
+                                maxlength={100}
                             />
                         </div>
                         <div className='concertEnrollFrom__item'>
@@ -175,6 +220,7 @@ function AdminConcertEnrollForm() {
                                 type={'date'}
                                 value={concertForm.startDate}
                                 onChangeValue={onChangeConcertForm}
+                                min={moment(new Date()).format('YYYY-MM-DD')}
                             />
                         </div>
                         <div className='concertEnrollFrom__item'>
@@ -184,14 +230,27 @@ function AdminConcertEnrollForm() {
                                 type={'date'}
                                 value={concertForm.endDate}
                                 onChangeValue={onChangeConcertForm}
+                                min={moment(new Date(concertForm.startDate)).format('YYYY-MM-DD')}
                             />
                         </div>
                         <div className='concertEnrollFrom__item'>
                             <h1>콘서트 가격</h1>
                             <FundInputBar width={"60%"}
+                                type={'text'}
                                 name={'concertPrice'}
                                 value={concertForm.concertPrice}
                                 onChangeValue={onChangeConcertForm}
+                                min={0}
+                            />
+                        </div>
+                        <div className='concertEnrollFrom__item'>
+                            <h1>콘서트 러닝타임</h1>
+                            <FundInputBar width={"60%"}
+                                type={'text'}
+                                name={'runtime'}
+                                value={concertForm.runtime}
+                                onChangeValue={onChangeConcertForm}
+                                maxlength={10}
                             />
                         </div>
                     </div>
@@ -202,7 +261,7 @@ function AdminConcertEnrollForm() {
                                 <>
                                     {img != '' ?
                                         <div className='concertEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
-                                            <img src={'../public/tempImg/' + img} />
+                                            <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
                                                 <XCircleFill size={35} />
@@ -225,31 +284,39 @@ function AdminConcertEnrollForm() {
                     <h1>라인업 등록</h1>
                     <div>
                         <div className='lineup__input__container'>
-                            <input className='lineup__input' value={artistSearchVal} placeholder='뮤지션 이름을 입력하세요' onChange={(e) => { onChangeArtist(e) }}></input>
+                            <input className='lineup__input' value={artistSearchVal} placeholder='뮤지션 이름을 입력하세요' onChange={(e) => { onChangeArtist(e), searchTextList(e) }}></input>
                         </div>
                         {isDrobBox && (
                             <ul>
-                                {artistSearch.map((artist, idx) => (<ArtistTipLi
+                                {artistSearch && artistSearch.map((artist, idx) => (<ArtistTipLi
                                     key={idx}
                                     selected={selected}
                                     setSelected={setSelected}
                                     idx={idx}
                                     handleDropDownClick={handleDropDownClick}
-                                    item={artist}
+                                    artist={artist}
                                 />))}
+                                <li className='undefined__artist' onClick={() => undefindeArtist(artistSearchVal)} >검색기록에 존재하지 않는 {artistSearchVal}를 등록하시겠습니까?</li>
                             </ul>
                         )}
+
                     </div>
                     <div className='addLineup'>
 
-                        {<div className='add__artist__container'>
-                            <div className='add__artist'>
-                                <span>이름주루루루루루루루</span>
-                                <div className='artist__delete__bnt' onClick={()=>{()=>deleteArtist(idx)}}>
-                                    <XCircleFill size={35} />
-                                </div>
-                            </div>
-                        </div>}
+                        {(lineup != "") && (
+                            lineup.map((artist, idx) => {
+                                return (
+                                    <div className='add__artist__container'>
+                                        <div className='add__artist'>
+                                            <span>{artist.artistName}</span>
+                                            <div className='artist__delete__bnt' onClick={() => deleteArtist(idx)}>
+                                                <XCircleFill size={35} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        )}
                     </div>
                 </div>
                 <div className='linkList'>

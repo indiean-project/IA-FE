@@ -62,3 +62,12 @@ export const artistConfirmation = async (params) =>{
         console.log(e);
     }
 }
+export const searchArtistList = async(params) => {
+    
+    try {
+        const {data} = await API.post("/api/artist/searchList",params);
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}

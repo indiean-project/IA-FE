@@ -1,12 +1,11 @@
 
 import './ArtistTipLi.scss';
 
-function ArtistTipLi({selected, item ,idx,setSelected,handleDropDownClick}) {
+function ArtistTipLi({selected, artist ,idx,setSelected,handleDropDownClick}) {
     const onOff = selected === idx? true :false;
-    
     return (
         
-            <li className={onOff?"classLi on":"classLi"} onClick={()=>handleDropDownClick(item)} onMouseOver={()=>setSelected(idx)} >{item}</li>
+            <li className={onOff?"classLi on":"classLi"} onClick={()=>handleDropDownClick(artist)} onMouseOver={()=>setSelected(idx)} >{artist.artistName}</li>
         
     )
 } 
