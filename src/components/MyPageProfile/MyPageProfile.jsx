@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { loginUserState } from '../../recoil/LoginUser';
 import { isModalActive } from '../../recoil/IsModalActive';
@@ -17,6 +17,7 @@ import './MyPageProfile.scss';
 
 function MyPageProfile() {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
+    const resetUserInfo = useResetRecoilState(loginUserState);
     const [doEdit, setDoEdit] = useState(null);
     const [updateInfo, setUpdateInfo] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -148,7 +149,7 @@ function MyPageProfile() {
         })
         console.log(result);
         if (result.status === "SUCCESS") {
-            setLoginUser('');
+            resetUserInfo(); 
             toast.success("회원 탈퇴에 성공하셨습니다. 그동안 이용해주셔서 감사합니다.");
             navigate("/");
         } else {

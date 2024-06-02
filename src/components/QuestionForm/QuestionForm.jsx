@@ -50,12 +50,15 @@ function QuestionForm() {
         }
     }
     
-    useEffect(() =>  {
+    useEffect(() => {
         let byte = 0;
         for (let i = 0; i < editQuestion.questionContent.length; i++) {
             editQuestion.questionContent.charCodeAt(i) > 127? byte +=3 : byte++;
         }
         setByte(byte);
+        if (byte > 4000) {
+            toast.error("입력 가능한 글자수를 초과하였습니다.");
+        }
     }, [editQuestion])
 
     return (

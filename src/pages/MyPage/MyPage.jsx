@@ -33,7 +33,7 @@ function MyPage() {
         };
 
         fetchUserBoard();
-    }, [loginUser.userNo]);
+    }, [loginUser.userNo, setBoardList]);
 
     useEffect(() => {
         const fetchUserReply = async () => {
@@ -47,7 +47,7 @@ function MyPage() {
         };
 
         fetchUserReply();
-    }, [loginUser.userNo]);
+    }, [loginUser.userNo, setReplyList]);
 
     useEffect(() => {
         const fetchUserFund = async () => {
@@ -61,7 +61,7 @@ function MyPage() {
         };
 
         fetchUserFund();
-    }, [loginUser.userNo]);
+    }, [loginUser.userNo, setFundList]);
 
     useEffect(() => {
         const fetchUserQuestionReportstatus = async () => {
@@ -78,7 +78,7 @@ function MyPage() {
 
         };
         fetchUserQuestionReportstatus();
-    }, [loginUser.userNo]);
+    }, [loginUser.userNo, setQuestionList, setReportList]);
 
 
     return (
