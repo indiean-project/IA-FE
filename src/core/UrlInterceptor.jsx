@@ -32,6 +32,11 @@ function UrlInterceptor({ page, children }) {
                     navigate('/artist', { replace: true });
                 }
                 break;
+            case 'notAdmin':
+                if (loginUser.userRole !== 'ADMIN') {
+                    toast.error('잘못된 접근방식입니다.');
+                    navigate('/notice', {replace: true});
+                }
         }
     }, [])
 

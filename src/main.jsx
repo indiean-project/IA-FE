@@ -121,7 +121,7 @@ const router = createHashRouter([
       },
       {
         path:'/notice/enroll',
-        element: <NoticeEnrollForm/>
+        element: <UrlInterceptor page={'notAdmin'}><NoticeEnrollForm/></UrlInterceptor>
       },
       {
         path:'/admin/concertEnrollForm',
