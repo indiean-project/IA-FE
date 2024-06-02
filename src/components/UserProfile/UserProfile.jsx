@@ -12,6 +12,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
 
     const loginUser = useRecoilValue(loginUserState);
     const [selectProfileImg, setSelectProfileImg] = useState(loginUser.userProfileImg);
+    const [byte, setByte] = useState(0);
 
     useEffect(() => {
         console.log(selectProfileImg);
@@ -24,6 +25,14 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
     // useEffect(() => {
     //     console.log(selectProfileImg);
     // }, [selectProfileImg]);
+
+    useEffect(() =>  {
+        let byte = 0;
+        for (let i = 0; i < editAccount.userContent.length; i++) {
+            editAccount.userContent.charCodeAt(i) > 127? byte +=3 : byte++;
+        }
+        setByte(byte);
+    }, [editAccount])
 
     const imageUpload = async (e) => {
         const file = e.target.files[0];
@@ -75,6 +84,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
                     onChange={(e) => onChangeUserInfo(e)}
                     readOnly={doEdit !== "userContent"}
                     onDoubleClick={() => onDoEdit("userContent")} />
+                <div className="profile__form__byte"><div>byte : {byte} / 300 </div></div>
             </div>
         </>
     )

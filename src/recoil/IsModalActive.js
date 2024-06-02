@@ -1,10 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-// const KEY = 'modalActive';
-// const {persistAtom} = recoilPersist({
-//     key: KEY,
-// });
 const {persistAtom} = recoilPersist();
 
 // 모든 모달을 하나의 키로 관리하여 동일 항목에서 똑같은 모달창 오픈시 문제 발생

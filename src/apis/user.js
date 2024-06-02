@@ -45,7 +45,7 @@ export const signUpUser = async(params) => {
         console.log(e);
     }
 }
-// return e.response.data;
+
 export const checkUserId = async(params) => {
     try {
         const {data} = await API.post("/api/user/signUp/checkId", params);
@@ -89,6 +89,16 @@ export const checkCertNum = async(params) => {
 export const updateUser = async(params) => {
     try {
         const {data} = await API.post("/api/user/myPage/update", params);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+}
+
+export const deleteUser = async(params) => {
+    try {
+        const {data} = await API.post("/api/user/myPage/delete", params);
         return data;
     } catch (e) {
         console.log(e);

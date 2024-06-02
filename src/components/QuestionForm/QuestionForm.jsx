@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { qEnroll } from '../../apis/qbot';
@@ -14,6 +14,8 @@ function QuestionForm() {
 
     const loginUser = useRecoilValue(loginUserState);
     const setModal = useSetRecoilState(isQuestionFormActive);
+    const [byte, setByte] = useState(0);
+
     const [editQuestion, setEditQuestion] = useState({
         userNo: loginUser.userNo,
         questionContent: ''
@@ -37,8 +39,21 @@ function QuestionForm() {
             setModal(false);
         } else {
             toast.error("문의 등록 실패");
+            if(byte > 4000) {
+                toast.error("입력 가능한 글자 수를 초과하였습니다.");
+            } else {
+                toast.error("문의 등록 실패");
+            }
         }
     }
+    
+    useEffect(() =>  {
+        let byte = 0;
+        for (let i = 0; i < editQuestion.questionContent.length; i++) {
+            editQuestion.questionContent.charCodeAt(i) > 127? byte +=3 : byte++;
+        }
+        setByte(byte);
+    }, [editQuestion])
 
     return (
         <ModalBackground>
@@ -53,6 +68,7 @@ function QuestionForm() {
                         onChange={(e) => onEditQuestion(e)}
                         id="questionContent" name="questionContent" />
                 </div>
+                <div className="questionForm__byte"><div>byte : {byte} / 4000 </div></div>
                 <div className="questionForm__footer">
                     <div className="btn-questionForm apply" onClick={questionUpload}>등록</div>
                     <div className="btn-questionForm cancel" onClick={() => modalClose()}>취소</div>
