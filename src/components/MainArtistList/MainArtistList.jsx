@@ -18,30 +18,6 @@ function MainArtistList() {
         setArtistList(list['data']);
     }
 
-    const test = [
-        {
-            artistNo: 1,
-            artistName: '박혜성 밴드',
-            imgUrl: img
-        },
-        {
-            artistNo: 2,
-            artistName: '박혜성 밴드',
-            imgUrl: img
-        },
-        {
-            artistNo: 3,
-            artistName: '박혜성 밴드',
-            imgUrl: img
-        },
-        {
-            artistNo: 4,
-            artistName: '박혜성 밴드',
-            imgUrl: null
-        },
-
-    ]
-
     return (
         <div className='mainArtistList__container'>
             <div className='mainArtistList__header'>

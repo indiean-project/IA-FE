@@ -5,7 +5,7 @@ import { loginUserState } from '../../recoil/LoginUser';
 import { tempImg } from '../../apis/imgFilter';
 import toast from 'react-hot-toast';
 
-import logo_black from '../../assets/logo/logo_black.png';
+import logo_black from '../../assets/default/defaultImg.png';
 import './UserProfile.scss';
 
 function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTempImg }) {
@@ -26,10 +26,12 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
     //     console.log(selectProfileImg);
     // }, [selectProfileImg]);
 
-    useEffect(() =>  {
+    useEffect(() => {
         let byte = 0;
-        for (let i = 0; i < editAccount.userContent.length; i++) {
-            editAccount.userContent.charCodeAt(i) > 127? byte +=3 : byte++;
+        if (editAccount.userContent != null) {
+            for (let i = 0; i < editAccount.userContent.length; i++) {
+                editAccount.userContent.charCodeAt(i) > 127 ? byte += 3 : byte++;
+            }
         }
         setByte(byte);
     }, [editAccount])
@@ -61,7 +63,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
             } catch (error) {
                 toast.error("이미지 업로드에 실패했습니다");
             }
-            
+
         }
     }
 
