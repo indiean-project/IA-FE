@@ -32,7 +32,6 @@ function ArtistEditor({ onEditorChange }) {
             setContent(content);
             return;
         }
-        console.log(text)
         setContent(text);
     };
     useEffect(() => {

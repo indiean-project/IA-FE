@@ -9,9 +9,6 @@ function ArtistItem({ artist }) {
         navigate('/artist/detail/' + artistNo);
     }
 
-    useEffect(()=>{
-        console.log(artist);
-    },[])
     
     return (
         <div className="artist__item__box" onClick={() => { handleDetailPost(artist.artistNo) }}>

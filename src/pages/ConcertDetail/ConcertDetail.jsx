@@ -103,7 +103,7 @@ function ConcertDetail() {
             </div>
             <div className='detail__content'>
                 <div className='detail__content_item'>
-                    {detailState === 'info' ? <ConcertInfo /> : <CommonReply type={'concert'} contentNo={concert.concertNo}/>}
+                    {detailState === 'info' ? <ConcertInfo concertInfo={concert.concertInfo} /> : <CommonReply type={'concert'} contentNo={concert.concertNo}/>}
                 </div>
             </div>
             {isModalOpen && <QuestionForm />}

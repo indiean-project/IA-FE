@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import ArtistItem from '../../components/ArtistItem';
 import { PuffLoader } from 'react-spinners';
 import { useInView } from 'react-intersection-observer';
-import { selectArtist } from '../../apis/artist/artist';
+import { artistConfirmation, selectArtist } from '../../apis/artist/artist';
 import { useRecoilValue } from "recoil";
 import { loginUserState } from "../../recoil/LoginUser";
 import toast from 'react-hot-toast';
@@ -21,17 +21,25 @@ function ArtistList() {
         sort: 'createDate',
         size: 10
     })
-    const artistEnrollMove = () =>{
-        if(loginUser.userNo ===''){
-            toast.error('로그인 후 이용가능 합니다.')  
-            return    
-        }
-        if(loginUser.userRole=='ARTIST'){
-            toast.error('등록된 아티스트입니다.')
+    const [comfiramationVal, setComfiramation] = useState(null);
+    const comfiramation = async () => {
+        const comfiramationList = await artistConfirmation(loginUser.userNo)
+        console.log(comfiramationList)
+        setComfiramation(comfiramationList)
+    }
+    const artistEnrollMove = async () => {
+        comfiramation()
+        if (loginUser.userNo === '') {
+            toast.error('로그인 후 이용가능 합니다.')
             return
         }
-        navigate('/artist/enroll')
-        
+        if (comfiramationVal !==null &&comfiramationVal.status === "SUCCESS") {
+            toast.error(comfiramationVal.data)
+            return
+        } else {
+            navigate('/artist/enroll')
+        }
+
     }
     const changeSort = (sortVal) => {
         setSelectItem({
@@ -42,7 +50,7 @@ function ArtistList() {
     const [loadingCheck, setLoadingCheck] = useState(false);
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
-            if(keyword.trim()===""){
+            if (keyword.trim() === "") {
                 setKeyword('')
                 toast.error('검색어를 입력해주세요')
                 return
@@ -96,7 +104,7 @@ function ArtistList() {
                 <div className='artistEnroll__btn'><NavLink onClick={artistEnrollMove}>아티스트 등록</NavLink></div>
             </div>
             <div className='artist__item__container'>
-                {artistList!=undefined && artistList.length > 0 ? artistList.map((artist, idx) => {
+                {artistList != undefined && artistList.length > 0 ? artistList.map((artist, idx) => {
                     return <ArtistItem artist={artist} key={idx} />
                 }) : ""
                 }

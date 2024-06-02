@@ -1,47 +1,58 @@
-.reply__container{
-        color: white;
-        margin-top: 5%;
-    .reply__count{
-      
-    }
-    .reply__text{
+.reply__container {
+    color: white;
+    margin-top: 5%;
+
+    .reply__count {}
+
+    .reply__text {
         border-radius: 5px;
         margin-top: 5%;
         padding: 2%;
         width: 95%;
         background-color: #242424;
+
         .reply__delete {
             margin-top: 20px;
             margin-bottom: 20px;
             text-align: center;
         }
-        table{
+
+        table {
             vertical-align: middle;
             width: 100%;
-            td{
+
+            td {
                 font-size: 15px;
-                .pointer{
-                    cursor: pointer;  
+
+                .pointer {
+                    cursor: pointer;
                 }
             }
-            .title{
+
+            .title {
                 border-right: 2px solid;
                 width: 150px;
             }
-            .reply__inputBar{
-                width: 600px;
+
+            .text {
+                word-break:break-all;
+                .reply__inputBar {
+                    width: 600px;
+                }
+
+
+                .reply__btn {
+                    width: 70px;
+                    height: 25px;
+                    font-size: 15px;
+                    margin-left: 5px;
+                }
             }
-            .report{
+            .report {
                 cursor: pointer;
                 text-align: right;
             }
-            .reply__btn {
-                width: 70px;
-                height: 25px;
-                font-size: 15px;
-                margin-left: 5px;
-            }
         }
     }
-        
+
 }

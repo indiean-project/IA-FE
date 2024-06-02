@@ -12,7 +12,6 @@ const Concert = (props) => {
         <div>
             <div className='board__concert__list'>
                 {props.concertList.length >0 ? props.concertList.map((concert,idx)=>{
-                    
                     return(
                         <div className="concert__item" key={idx} onClick={()=>{handleDetailPost({concert})}}>
                             <div>

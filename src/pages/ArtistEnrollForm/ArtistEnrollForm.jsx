@@ -66,7 +66,7 @@ function ArtistEnrollForm() {
             toast.error("음악장르를 입력해주세요");
             return;
         }
-        if (artistForm.artistInfo.trim() == '') {
+        if (artistForm.artistInfo.replace(/<p>/g, "").replace(/<\/p>/g, "").replace(/<br>/g, "").trim()  == '') {
             toast.error("아티스트 소개를 입력해주세요");
             return;
         }
@@ -181,7 +181,7 @@ function ArtistEnrollForm() {
                             return (
                                 <>
                                     {img != '' ?
-                                        <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)}>
+                                        <div className='artistEnrollForm__img__input' onClick={() => imageDelete(img, idx)} key={inx}>
                                             <img src={img} />
                                             <div className='delete__icon'>
                                                 <div className='delete__background'></div>
