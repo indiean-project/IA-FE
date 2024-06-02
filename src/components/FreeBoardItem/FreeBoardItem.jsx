@@ -7,6 +7,8 @@ import { boardPoint } from '../../recoil/boardPoint';
 import FundInputBar from '../FundInputBar';
 import { cPage } from '../../recoil/page';
 import { IoPrism } from "react-icons/io5";
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 function FreeBoardItem(props) {
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ function FreeBoardItem(props) {
         return <><div className='boardItem__none'>게시글이 존재하지 않습니다.</div>
             <div className='freeboarditem__input__area'>
                 <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
-                <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
+                <div className='freeboarditem__btn'><a onClick={() => { searchKeyword() }}>검색</a></div>
             </div>
         </>
     }
@@ -27,6 +29,15 @@ function FreeBoardItem(props) {
         ViewCount(boardNo);
         setBoardCategory("free");
         navigate("/board/detail/" + item.boardNo);
+    }
+
+    function searchKeyword() {
+        if (props.keyword.trim() === '') {
+            toast.error("키워드를 입력 해 주세요.");
+            return
+        }
+        props.list();
+        setCpage(1);
     }
 
     return (
@@ -72,7 +83,7 @@ function FreeBoardItem(props) {
             <PaginationBar pageInfo={props.pageInfo} list={props.list} />
             <div className='freeboarditem__input__area'>
                 <FundInputBar maxlength={30} width={"40%"} onChangeValue={(e) => { props.setKeyword(e.target.value) }} />
-                <div className='freeboarditem__btn'><a onClick={() => { props.list(); setCpage(1); }}>검색</a></div>
+                <div className='freeboarditem__btn'><a onClick={() => { searchKeyword() }}>검색</a></div>
             </div>
         </div>
     )
