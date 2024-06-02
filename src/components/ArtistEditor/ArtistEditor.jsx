@@ -5,11 +5,10 @@ import { useMemo, useRef, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 
-function ArtistEditor({ onEditorChange }) {
+function ArtistEditor({ onEditorChange, contentByte, setContentByte }) {
 
     const [content, setContent] = useState('');
     const quillRef = useRef();
-    const [contentByte, setContentByte] = useState(0);
 
     const formats = [
         'header', 'font', 'size',
