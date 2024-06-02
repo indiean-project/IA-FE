@@ -135,8 +135,8 @@ function BoardDetail() {
             <CommonReply type={"게시글"} contentNo={boardItem.boardNo} />
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
-                    <FreeBoardItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />
-                    : category === "아티스트 자랑" ? <ProudItem setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} /> : ""}
+                    <FreeBoardItem setKeyword={setKeyword} keyword={keyword} pageInfo={pageInfo} boardList={boardList} list={list} />
+                    : category === "아티스트 자랑" ? <ProudItem setKeyword={setKeyword}  pageInfo={pageInfo} boardList={boardList} list={list} /> : ""}
             </div>
             {modal && modalType === "삭제" ? <ModalWindow>
                 <div className='boardDetail__modal'>
