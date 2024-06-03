@@ -1,18 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 // import PaginationBar from '../PaginationBar';
 // import FundInputBar from '../FundInputBar';
 import { ViewCount } from '../../apis/board';
-import { boardPoint } from '../../recoil/boardPoint';
 
 import './MyPageBoard.scss';
 
 function MyPageBoard({ boardList }) {
 
     const navigate = useNavigate();
-    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
     // 카테고리 관련 정리 필요 (전부 자유게시판 양식으로 띄우고 있음)
 
     if (!boardList) {
@@ -21,11 +18,12 @@ function MyPageBoard({ boardList }) {
 
     function clickItem(item) {
         const boardNo = item.boardNo;
-        ViewCount(boardNo);
-        setBoardCategory(item.contentType);
-        if(boardCategory === "자유게시판" || boardCategory === "자랑게시판") {
-            navigate("/board/detail/" + item.boardNo);    
+        if(item.contentType === "자유게시판" || item.contentType === "자랑게시판") {
+            ViewCount(boardNo);
+            navigate("/board/detail/" + item.boardNo);
+            return;
         }
+        navigate("/board/colo")
     }
 
     return (
