@@ -3,21 +3,34 @@ import './NoticeSidebar.scss';
 import { loginUserState } from '../../recoil/LoginUser';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { artistConfirmation } from '../../apis/artist/artist';
+import { useEffect, useState } from 'react';
 
 function NoticeSidebar(props) {
     const [loginUser, setLoginUser] = useRecoilState(loginUserState);
     const navigate = useNavigate();
+    const [comfiramationVal, setComfiramation] = useState(null);
+
+    useEffect(()=>{
+        comfiramation();
+    }, [])
+
+    const comfiramation = async () => {
+        const comfiramationList = await artistConfirmation(loginUser.userNo)
+        setComfiramation(comfiramationList)
+    }
 
     const artistEnrollMove = () =>{
         if(loginUser.userNo ===''){
             toast.error('로그인 후 이용가능 합니다.')  
             return    
         }
-        if(loginUser.userRole=='ARTIST'){
-            toast.error('등록된 아티스트입니다.')
+        if (comfiramationVal !==null &&comfiramationVal.status === "SUCCESS") {
+            toast.error(comfiramationVal.data)
             return
+        } else {
+            navigate('/artist/enroll');
         }
-        navigate('/artist/enroll')
         
     }
 

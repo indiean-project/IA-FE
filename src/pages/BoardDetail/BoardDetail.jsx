@@ -50,9 +50,7 @@ function BoardDetail() {
         })
         setPageInfo(list.pageinfo);
         setBoardList(list.listDto);
-
     }
-
     const detail = async () => {
         const detail = await DetailBoard({
             boardNo: param
@@ -70,7 +68,6 @@ function BoardDetail() {
         })
         detail();
     }
-
     const boardDelete = async () => {
         const result = await BoardDelete({
             boardNo: boardItem.boardNo
@@ -79,15 +76,14 @@ function BoardDetail() {
         result.status === "SUCCESS" && boardItem.contentTypeNo === 1 ? navigate("/board/free") : result.status === "SUCCESS" && boardItem.contentTypeNo === 2 ? navigate("/board/proud") : "";
         setModal(false);
     }
-
-    const createMarkUp = (value) => {
-        return { __html: DOMPurify.sanitize(value) };
-    }
-
     const boardUpdate = () => {
         navigate("/board/enroll", { state: { boardItem: boardItem, boardCategory: boardCategory } })
     }
 
+    const createMarkUp = (value) => {
+        return { __html: DOMPurify.sanitize(value) };
+    }
+    
     if (!boardItem || boardItem.length < 1) {
         return <></>
     }
@@ -108,7 +104,7 @@ function BoardDetail() {
             </div>
             <hr className='boardDetail__hr' />
             <div className='boardDetail__box'>
-                <div>{category}</div>
+                <div>{boardItem.contentTypeNo === 1 ? "자유게시판" : "아티스트 자랑"}</div>
                 <div className='boardDetail__item'>
                     {boardItem.userNo === loginUser.userNo ?
                         <>
