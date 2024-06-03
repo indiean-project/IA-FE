@@ -81,10 +81,10 @@ function MyPageReport({ questionList, reportList }) {
                     <tbody>
                         {reportList.map((item, index) => (
                             <tr key={index}>
-                                <td className='userReport__tbody__content'>{item.contentNo}</td>
+                                <td className='userReport__tbody__content'>{item.reportNo}</td>
                                 <td>{item.reportDate}</td>
                                 <td>{item.nickname}</td>
-                                <td>{item.reportTypeNo}</td>
+                                <td>{item.reportType}</td>
                                 <td>{item.solveYn}</td>
                             </tr>
                         ))}
