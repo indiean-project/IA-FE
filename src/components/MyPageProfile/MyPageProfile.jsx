@@ -33,6 +33,7 @@ function MyPageProfile() {
 
     const [editAccount, setEditAccount] = useState({
         userNo: loginUser.userNo,
+        userRole: loginUser.userRole,
         nickname: loginUser.nickname,
         userName: loginUser.userName,
         userPwd: loginUser.userPwd,
