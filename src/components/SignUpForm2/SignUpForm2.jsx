@@ -51,17 +51,17 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
     const [certNum, setCertNum] = useState('');
     const [sendCode, setSendCode] = useState('');
 
-    const sendCertNum = async() => {
+    const sendCertNum = async () => {
         console.log(storageId);
         setSendCode('');
         const result = await sendEmail({
             userId: storageId
         })
-        
+
         console.log(result);
 
-        if(result !== undefined) {
-            toast.success('인증번호가 전송되었습니다.');    
+        if (result !== undefined) {
+            toast.success('인증번호가 전송되었습니다.');
         } else {
             toast.error('인증번호 전송에 실패했습니다.')
         }
@@ -133,6 +133,12 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 <img className="idIcon" src={loginicon} alt="x" />
                 <input type="text" className="inputId" id="userId"
                     name="userId" value={storageId} readOnly />
+                <br /><br />
+                <input type="text" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
+                    name="certNum" value={certNum} placeholder="인증번호를 입력하세요(이메일)"
+                    onChange={onCertNum} onBlur={onBlurCertNum} />
+                <button className="btn-cert" onClick={sendCertNum} >인증번호 발송</button>
+                {/* 인증번호 발송 관련 함수 필요함 */}
                 {storageSocial === 'N' && (
                     <>
                         <br /><br />
@@ -155,12 +161,10 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                     name="phone" value={signUpInfo.phone} placeholder="연락처를 입력하세요"
                     onChange={(e) => onChangeInfo(e)} />
                 <br /><br />
-                <input type="text" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
-                    name="certNum" value={certNum} placeholder="인증번호를 입력하세요"
+                {/* <input type="text" className={`certNum ${isCertNum === '' ? '' : (isCertNum)}`} id="certNum"
+                    name="certNum" value={certNum} placeholder="인증번호를 입력하세요(이메일)"
                     onChange={onCertNum} onBlur={onBlurCertNum} />
-                <button className="btn-cert" onClick={sendCertNum} >인증번호 발송</button>
-                {/* 인증번호 발송 관련 함수 필요함 */}
-                <br /><br />
+                <button className="btn-cert" onClick={sendCertNum} >인증번호 발송</button> */}
                 <button className="btn-suf2" onClick={nextPage}>등록완료</button>
                 <button className="btn-suf2" onClick={onPrevPage}>뒤로가기</button>
             </div>
