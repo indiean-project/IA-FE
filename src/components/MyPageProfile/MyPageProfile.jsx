@@ -63,11 +63,11 @@ function MyPageProfile() {
 
         let usedImage = newImg;
 
-        const pwdResult = await checkUserPwd ({
-            userPwd : editAccount.userPwd
+        const pwdResult = await checkUserPwd({
+            userPwd: editAccount.userPwd
         });
 
-        if(pwdResult.response && pwdResult.response.status === 400) {
+        if (pwdResult.response && pwdResult.response.status === 400) {
             toast.error("유효하지 않은 비밀번호 입니다.");
         }
 
@@ -100,7 +100,7 @@ function MyPageProfile() {
                 const unusedImages = tempImgUrls.filter(img => img !== usedImage);
 
                 console.log(unusedImages);
-    
+
                 if (unusedImages.length > 0) {
                     await imgDelete(unusedImages);
                 }
@@ -109,6 +109,10 @@ function MyPageProfile() {
                     result.response?.data?.name == "HAS_PHONE" ||
                     result.response?.data?.name == "INVALID_PASSWORD") {
                     setErrorMsg(result.response?.data?.name);
+                    setUpdateInfo(false);
+
+                } else if (pwdResult.response && pwdResult.response.status === 400) {
+                    setErrorMsg("INVALID_PASSWORD");
                     setUpdateInfo(false);
                 } else {
                     setUpdateInfo(false); // 기본적으로 실패한 경우 false로 설정
@@ -144,12 +148,12 @@ function MyPageProfile() {
 
     const onDeleteUser = async () => {
         const result = await deleteUser({
-            userNo : loginUser.userNo,
-            deleteYn : "Y",
+            userNo: loginUser.userNo,
+            deleteYn: "Y",
         })
         console.log(result);
         if (result.status === "SUCCESS") {
-            resetUserInfo(); 
+            resetUserInfo();
             toast.success("회원 탈퇴에 성공하셨습니다. 그동안 이용해주셔서 감사합니다.");
             navigate("/");
         } else {
@@ -172,7 +176,7 @@ function MyPageProfile() {
                 onAddTempImg={onAddTempImg}
                 onDoEdit={onDoEdit} />
             <UserTextInfo
-                loginUser = {loginUser}
+                loginUser={loginUser}
                 editAccount={editAccount}
                 doEdit={doEdit}
                 onChangeUserInfo={onChangeUserInfo}
@@ -189,7 +193,7 @@ function MyPageProfile() {
             {isModalOpen && modalType == "update" &&
                 <UserUpdateModal updateInfo={updateInfo} errorMsg={errorMsg} />}
             {isModalOpen && modalType == "delete" &&
-                <UserDeleteModal onConfirm={confirmDelete}/>}
+                <UserDeleteModal onConfirm={confirmDelete} />}
         </>
     );
 
