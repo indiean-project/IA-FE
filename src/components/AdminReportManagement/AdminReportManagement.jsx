@@ -43,14 +43,14 @@ function AdminReportManagement() {
     const searchCategory = [
         { label: '전체', value: 'all' },
         { label: '신고타입', value: 'reportTypeNo' },
-        { label: '유형', value: 'brType' },
-        { label: '처리상태', value: 'solveYn'}
+        { label: '신고자명', value: 'userName'},
+        { label: '유형', value: 'brType' },        
     ]
     const sortCategory = [
         { label: '신고일', value: 'reportDate' },
         { label: '유형', value: 'brType' },
         { label: '신고타입', value: 'reportTypeNo' },
-        { label: '처리상태', value: 'solveYn' },
+        { label: '신고자명', value: 'userName'},
     ]
 
     const onChangeKeyword = (e) => {
@@ -88,7 +88,7 @@ function AdminReportManagement() {
 
         const result = await updateReportStatus({
             reportNo: reportNo,
-            solveYn, solveYn
+            solveYn: solveYn
         });
         if (result.status === "SUCCESS") {
             toast.success("처리 완료");

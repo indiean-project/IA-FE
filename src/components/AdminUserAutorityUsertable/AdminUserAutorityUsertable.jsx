@@ -13,45 +13,45 @@ function AdminUserAutorityUsertable() {
         sortValue: 'createDate',
         keyword: ''
     })
-    // 초기 리스트 불러오는 함수들
+   
     // useEffect(() => {
     //     getList();
     // }, [])
-    // const getList = async () => {
-    //     const result = await adminUserList(standard);
-    //     
-    //     if (result.status === "SUCCESS")
-    //         setAdminUserRequest(result.data);
-    // }
+    const getList = async () => {
+        const result = await adminUserList(standard);
+        
+        if (result.status === "SUCCESS")
+            setAdminUserRequest(result.data);
+    }
     const onChangeKeyword = (e) => {
         setStandard({
             ...standard,
             [e.target.name]: e.target.value
         })
     }
-    // const contnetEnrollBtn = async () => {
-    //     setEditingContent(null)
-    //      유정 정보를 수정하는 함수
-    //     const result = await enrollUser();
-    //     if (result.status === 'SUCCESS') {
-    //         setAdminUserRequest(result.data);
-    //         toast.success('성공적으로 수정되었습니다.');
-    //     } else {
-    //         toast.error('수정 실패');
-    //     }
-    //     getList();
-    // }
+    const contnetEnrollBtn = async () => {
+        setEditingContent(null)
+    
+        const result = await enrollUser();
+        if (result.status === 'SUCCESS') {
+            setAdminUserRequest(result.data);
+            toast.success('성공적으로 수정되었습니다.');
+        } else {
+            toast.error('수정 실패');
+        }
+        getList();
+    }
 
-    // 유저 삭제하는 함수
-    // const deleteUser = async (userNo) => {
-    //     const deleteResult = await adminUserdelete(userNo)
-    //     if (deleteResult.status === 'SUCCESS') {
-    //         toast.success('성공적으로 수정되었습니다.');
-    //     } else {
-    //         toast.error('수정 실패');
-    //     }
-    //     getList();
-    // }
+   
+    const deleteUser = async (userNo) => {
+        const deleteResult = await adminUserdelete(userNo)
+        if (deleteResult.status === 'SUCCESS') {
+            toast.success('성공적으로 수정되었습니다.');
+        } else {
+            toast.error('수정 실패');
+        }
+        getList();
+    }
     const onChangeSearchStandard = (item) => {
         setStandard({
             ...standard,
@@ -118,54 +118,19 @@ function AdminUserAutorityUsertable() {
             userRole: 'ADMIN',
             createDate: '2024-05-28'
         },
-        {
-            userNo: 2,
-            userId: '아이디2',
-            nickName: '강서구 귀요미2',
-            address: '서울시 강서구 공항동',
-            phone: '01031058440',
-            userRole: 'USER',
-            createDate: '2024-05-28'
-        },
-        {
-            userNo: 3,
-            userId: '아이디3',
-            nickName: '강서구 귀요미3',
-            address: '서울시 강서구 공항동',
-            phone: '01031058440',
-            userRole: 'ARTIST',
-            createDate: '2024-05-28'
-        },
-        {
-            userNo: 4,
-            userId: '아이디4',
-            nickName: '강서구 귀요미4',
-            address: '서울시 강서구 공항동',
-            phone: '01031058440',
-            userRole: 'USER',
-            createDate: '2024-05-28'
-        },
-        {
-            userNo: 5,
-            userId: '아이디5',
-            nickName: '강서구 귀요미5',
-            address: '서울시 강서구 공항동',
-            phone: '01031058440',
-            userRole: 'ARTIST',
-            createDate: '2024-05-28'
-        },
+        
     ]
     const onClickSearch = async () => {
         console.log(newUsercontent)
-        //backEnd 작업 후 활성화 시켜주세요.
+        
 
-        // const list = await searchUserList(standard);
-        // if (list.status === 'SUCCESS'){
-        //     setAdminUserRequest(list.data);
-        //     toast.success('총' + list.data.length + '건의 검색 결과');
-        // } else {
-        //     toast.error('검색 실패');
-        // }
+        const list = await searchUserList(standard);
+        if (list.status === 'SUCCESS'){
+            setAdminUserRequest(list.data);
+            toast.success('총' + list.data.length + '건의 검색 결과');
+        } else {
+            toast.error('검색 실패');
+        }
     }
     return (
         <>
@@ -205,7 +170,7 @@ function AdminUserAutorityUsertable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {test.map((item, idx) => {
+                    {adminUserRequest.map((item, idx) => {
                         return (editingContent !== idx ?
                             <tr key={idx}>
                                 <th>{item.userNo}</th>

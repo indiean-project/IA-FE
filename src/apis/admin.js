@@ -73,7 +73,7 @@ export const enrollUser = async(params) => {
 }
 export const adminUserList = async(params) => {
     try {
-        const {data} = await API.get("/api/admin/user/list");
+        const {data} = await API.post("/api/admin/user/list", params);
         return data;
     } catch (e){
         console.log(e);
@@ -98,7 +98,7 @@ export const adminUserdelete = async(params) => {
 //admin artist
 export const adminArtistList = async(params) => {
     try {
-        const {data} = await API.get("/api/admin/artist/list");
+        const {data} = await API.post("/api/admin/artist/list",params);
         return data;
     } catch (e){
         console.log(e);
@@ -106,7 +106,7 @@ export const adminArtistList = async(params) => {
 }
 export const updateArtostStatus = async(params) => {
     try {
-        const {data} = await API.post("/api/admin/artist/updateStatus");
+        const {data} = await API.post("/api/admin/artist/updateStatus",params);
         return data;
     } catch (e){
         console.log(e);
