@@ -19,8 +19,12 @@ function QuestionBot({ activeQbot }) {
         { text: 'INDIE:안 에 오신걸 환영해요!', sender: 'bot' }
     ]);
 
+    // const options = [
+    //     '자유 문의', '공지사항', '문의 작성', '아티스트 조회', '음악 추천'
+    // ];
+
     const options = [
-        '자유 문의', '공지사항', '문의 작성', '아티스트 조회', '음악 추천'
+        '공지사항', '문의 작성'
     ];
 
     const handleOptionClick = (index, option) => {
@@ -48,8 +52,8 @@ function QuestionBot({ activeQbot }) {
 
     const getBotResponse = (userMessage) => {
         switch (userMessage) {
-            case '자유 문의':
-                return { text: '자유 문의를 선택하셨습니다. 무엇을 도와드릴까요?', sender: 'bot' };
+            // case '자유 문의':
+            //     return { text: '자유 문의를 선택하셨습니다. 무엇을 도와드릴까요?', sender: 'bot' };
             case '공지사항':
                 return {
                     text: (
@@ -68,10 +72,10 @@ function QuestionBot({ activeQbot }) {
                         </>
                     ), sender: 'bot'
                 };
-            case '아티스트 조회':
-                return { text: '아티스트 조회를 선택하셨습니다. 조회할 아티스트의 이름을 입력해주세요.', sender: 'bot' };
-            case '음악 추천':
-                return { text: '음악 추천을 선택하셨습니다. 기분이나 상황에 맞는 음악을 추천해드릴게요.', sender: 'bot' };
+            // case '아티스트 조회':
+            //     return { text: '아티스트 조회를 선택하셨습니다. 조회할 아티스트의 이름을 입력해주세요.', sender: 'bot' };
+            // case '음악 추천':
+            //     return { text: '음악 추천을 선택하셨습니다. 기분이나 상황에 맞는 음악을 추천해드릴게요.', sender: 'bot' };
             default:
                 return { text: `${userMessage}`, sender: 'bot' };
         }
