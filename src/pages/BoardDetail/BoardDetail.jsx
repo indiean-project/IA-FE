@@ -31,11 +31,13 @@ function BoardDetail() {
     const navigate = useNavigate();
     const [modal, setModal] = useRecoilState(isModalActive);
     const [modalType, setModalType] = useState("");
+    const [state, setState] = useState(1);
     let like;
 
     useEffect(() => {
         detail();
         list();
+        setState(state === 1 ? 0 : 1);
         window.scrollTo(0, 0);
     }, [param])
 
@@ -128,7 +130,7 @@ function BoardDetail() {
                     <div>{boardItem.likeCount}</div>
                 </div>
             </div>
-            <CommonReply type={"게시글"} contentNo={boardItem.boardNo} />
+            <CommonReply state={state} setState={setState} type={"게시글"} contentNo={boardItem.boardNo} />
             <div className='boardDetail__list'>
                 {category === "자유게시판" ?
                     <FreeBoardItem keyword={keyword} setKeyword={setKeyword} pageInfo={pageInfo} boardList={boardList} list={list} />
