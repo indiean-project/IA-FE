@@ -14,6 +14,7 @@ import ConcertEditor from '../../components/ConcertEditor';
 import { searchArtistList } from '../../apis/artist/artist';
 import ArtistTipLi from '../../components/ArtistTipLi';
 import moment from 'moment';
+import { concertEnroll } from '../../apis/concert/concertDetail';
 
 function AdminConcertEnrollForm() {
     const navigate = useNavigate()
@@ -29,25 +30,9 @@ function AdminConcertEnrollForm() {
         concertPrice: '',
         runtime: '',
         location: '',
-        ticketUrl: ''
+        ticketUrl: '',
+        concertLineupList:''
     })
-    const test = [
-        {
-            artistName: '첫번째',
-            artistNo: 1,
-            concertNo: ''
-        },
-        {
-            artistName: '두번째',
-            artistNo: 2,
-            concertNo: ''
-        },
-        {
-            artistName: '세번째',
-            artistNo: 3,
-            concertNo: ''
-        }
-    ]
     useEffect(() => {
         const handleClickOutside = (e) => {
 
@@ -59,50 +44,79 @@ function AdminConcertEnrollForm() {
             }
         };
         return () => {
-            document.addEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [inputRef]);
     const [artistSearchVal, setArtistSearchVal] = useState('')
-    const [artistSearch, setArtistSearch] = useState(test);
+    const [artistSearch, setArtistSearch] = useState();
     const [concertInfoImg, setConcertInfoImg] = useState([]);
     const onClickSubmit = async () => {
-        // if (concertForm.concertTitle.trim() == '') {
-        //     toast.error("콘서트 타이틀을 입력해주세요");
-        //     return;
-        // }
-        // if (concertForm.startDate === ''|| concertForm.endDate ==='') {
-        //     toast.error("콘서트 기간을 입력해주세요");
-        //     return;
-        // }
-        // if (concertForm.location.trim() == '') {
-        //     toast.error("장소를 입력해주세요");
-        //     return;
-        // }
-        // if (concertForm.concertInfo.trim() == '') {
-        //     toast.error("콘서트 소개를 입력해주세요");
-        //     return;
-        // }
-        // let num = 0;
-        // for (let i = 0; i < fundForm.fundInfo.length; i++) {
-        //     fundForm.fundInfo.charCodeAt(i) > 127 ? num += 3 : num++;
-        // }
-        // if (num > 4000) {
-        //     refs.fundInfo.current.scrollIntoView({ behavior: "smooth" });
-        //     toast.error('입력 가능한 글자 수를 초과하였습니다.');
-        //     return;
-        // }
-        // const result = await concertEnroll(concertForm);
-        // const newImgUrl = await imgMove(bossImg)
-        // if (newImgUrl != undefined && newImgUrl.data.length > 0) {
-        //     await imgEnroll({
-        //         contentNo: result.data,
-        //         imgUrlList: newImgUrl.data,
-        //         fabcTypeEnum: "ARTIST",
-        //         kcTypeEnum: "KING"
-        //     });
-        // }
-        // toast.success('콘서트 등록이 성공적으로 완료되었습니다.')
-        // navigate('/concert');
+        if (concertForm.concertTitle.trim() == '') {
+            toast.error("콘서트 타이틀을 입력해주세요");
+            return;
+        }
+        if (concertForm.startDate === '' || concertForm.endDate === '') {
+            toast.error("콘서트 기간을 입력해주세요");
+            return;
+        }
+        if (concertForm.location.trim() == '') {
+            toast.error("장소를 입력해주세요");
+            return;
+        }
+        if (concertForm.concertInfo.trim() == '') {
+            toast.error("콘서트 소개를 입력해주세요");
+            return;
+        }
+        if(lineup.length===0){
+            toast.error('라인업을 등록해주세요.');
+            return;
+        }
+        
+        let num = 0;
+        for (let i = 0; i < concertForm.concertInfo.length; i++) {
+            concertForm.concertInfo.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        if (num > 4000) {
+            toast.error('입력 가능한 글자 수를 초과하였습니다.');
+            return;
+        }
+        let concert = {
+            ...concertForm,
+            concertLineupList: lineup
+          
+        };
+        let moveList = new Array();
+        let deleteList = new Array();
+        const result = await concertEnroll(concert);
+        
+        if (result.status === "SUCCESS") {
+            concertInfoImg.forEach((item) => {
+                concertForm.concertInfo.indexOf(item) != -1 ? moveList.push(item) : deleteList.push(item);
+            })
+            deleteList.length > 0 && await imgDelete(deleteList);
+            let Cimg = moveList.length > 0 && await imgMove(moveList);
+            let Kimg = await imgMove(bossImg)
+            const imgResult = await imgEnroll({
+                contentNo: result['data'],
+                imgUrlList: Kimg['data'],
+                fabcTypeEnum: 'CONCERT',
+                kcTypeEnum: 'KING'
+            })
+            Cimg != false && await imgEnroll({
+                contentNo: result['data'],
+                imgUrlList: Cimg['data'],
+                fabcTypeEnum: 'CONCERT',
+                kcTypeEnum: 'CONTENT'
+            });
+            if (result.status === 'SUCCESS' && imgResult.status === 'SUCCESS') {
+                toast.success('콘서트를 정상적으로 등록하였습니다.');
+                navigate('/concert', { replace: true });
+            }
+
+        }else {
+            toast.error('콘서트 등록에 실패하였습니다.');
+        }
+
     }
     const onChangeConcertForm = (e) => {
         if (e.target.name === 'concertPrice' && parseInt(e.target.value) >= 1000000) {
@@ -117,23 +131,24 @@ function AdminConcertEnrollForm() {
     const artistSearchList = async (text) => {
         const artist = await searchArtistList(text)
         setIsDropbox(true);
-        setArtistSearch(artist)
+        setArtistSearch(artist.data)
     }
     const handleDropDownClick = (artist) => {
-
-        setLineup([...lineup, artist])
+        let artistVal = {
+            artistNo:artist.artistNo,
+            artistName:artist.artistName,
+            concertNo: ''
+        }
+        setLineup([...lineup, artistVal])
         setIsDropbox(false);
         setSelected(-1);
         setArtistSearchVal('')
     };
-    
+
     const searchTextList = (e) => {
         if (e.target.value.trim() !== '') {
             artistSearchList(e.target.value)
         }
-    }
-    const onChangeLindupForm = (e) => {
-
     }
 
     const onChangeArtist = (e) => {
@@ -168,7 +183,7 @@ function AdminConcertEnrollForm() {
     const undefindeArtist = (unknown) => {
         let unknownArtist = {
             artistName: unknown,
-            artistNo: 2,
+            artistNo: '',
             concertNo: ''
         }
         setLineup([...lineup, unknownArtist])
@@ -253,6 +268,16 @@ function AdminConcertEnrollForm() {
                                 maxlength={10}
                             />
                         </div>
+                        <div className='concertEnrollFrom__item'>
+                            <h1>콘서트 장소</h1>
+                            <FundInputBar width={"60%"}
+                                type={'text'}
+                                name={'location'}
+                                value={concertForm.location}
+                                onChangeValue={onChangeConcertForm}
+                                maxlength={100}
+                            />
+                        </div>
                     </div>
                     <div className="concertEnrollFrom__img">
                         <h1>콘서트 포스터</h1>
@@ -283,7 +308,7 @@ function AdminConcertEnrollForm() {
                 <div className='concert__lineup' ref={inputRef}>
                     <h1>라인업 등록</h1>
                     <div>
-                        <div className='lineup__input__container'>
+                        <div className='lineup__input__container' >
                             <input className='lineup__input' value={artistSearchVal} placeholder='뮤지션 이름을 입력하세요' onChange={(e) => { onChangeArtist(e), searchTextList(e) }}></input>
                         </div>
                         {isDrobBox && (
