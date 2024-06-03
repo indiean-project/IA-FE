@@ -18,7 +18,7 @@ function ErrorInterceptor() {
                     case 'artist-001':
                         navigate.current('/error');
                         break;
-                    case 'concert-002':
+                    case 'concert-001':
                         navigate.current('/error');
                         break;
                     case 'concert-002':
