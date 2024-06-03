@@ -43,7 +43,8 @@ function MyPageProfile() {
         userContent: loginUser.userContent,
         userFavoriteArtist: loginUser.userFavoriteArtist,
         userFavoriteMusic: loginUser.userFavoriteMusic,
-        socialstatus: loginUser.socialstatus
+        socialstatus: loginUser.socialstatus,
+        userId: loginUser.userId
     });
 
     const onChangeUserInfo = (e) => {
