@@ -22,10 +22,8 @@ function SocialLoginForm() {
     // const [kakaoLogin, setKakaoLogin] = useState(false);
     const kakaoClientId = import.meta.env.VITE_KAKAO_CLIENT_ID;
     const kakaoOnSuccess = async(data) => {
-        console.log(data)
         // const idToken = data.response.access_token // 액세스 토큰
         const tokenEmail = data.profile.kakao_account.email;
-        console.log(tokenEmail);
         
         const result = await loginUser({
             userId: tokenEmail,
@@ -33,7 +31,6 @@ function SocialLoginForm() {
             socialStatus: 'K'
         })
 
-        console.log(result);
 
         if(result === undefined) {
             toast.error('로그인 정보가 올바르지 않습니다.');
@@ -41,10 +38,7 @@ function SocialLoginForm() {
             setLoginUser(result['data']);
             setIsModalOpen(true);
         }
-        console.log(loginUserInfo);
-        console.log(isModalOpen);
 
-        console.log(loginUserState);
 
     }
     const kakaoOnFailure = (error) => {
@@ -53,15 +47,11 @@ function SocialLoginForm() {
 
     const googleOnSuccess = async(data) => {
         const tokenEmail = jwtDecode(data.credential).email;
-        console.log(tokenEmail);
-
         const result = await loginUser({
             userId: tokenEmail,
             userPwd: '',
             socialStatus: 'G'
         })
-
-        console.log(result);
 
         if(result === undefined) {
             toast.error('로그인 정보가 올바르지 않습니다.');
@@ -69,12 +59,6 @@ function SocialLoginForm() {
             setLoginUser(result['data']);
             setIsModalOpen(true);
         }
-        console.log(loginUserInfo);
-        console.log(isModalOpen);
-
-        console.log(loginUserState);
-        console.log("Login Success");
-
     }
 
     return (

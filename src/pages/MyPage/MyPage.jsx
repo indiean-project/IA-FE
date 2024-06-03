@@ -25,7 +25,6 @@ function MyPage() {
         const fetchUserBoard = async () => {
             try {
                 const board = await getUserBoard(loginUser.userNo);
-                console.log(board);
                 setBoardList(board.data);
             } catch (error) {
                 console.error("Failed to fetch user boards", error);
@@ -39,7 +38,6 @@ function MyPage() {
         const fetchUserReply = async () => {
             try {
                 const reply = await getUserReply(loginUser.userNo);
-                console.log(reply);
                 setReplyList(reply.data);
             } catch (error) {
                 console.error("Failed to fetch user replies", error);   
@@ -53,7 +51,6 @@ function MyPage() {
         const fetchUserFund = async () => {
             try {
                 const fund = await getUserFund(loginUser.userNo);
-                console.log(fund);
                 setFundList(fund.data);
             } catch (error) {
                 console.error("Failed to fetch user fund", error);
@@ -68,8 +65,6 @@ function MyPage() {
             try {
                 const questionLog = await getUserQuestion(loginUser.userNo);
                 const reportLog = await getUserReport(loginUser.userNo);
-                console.log(questionLog);
-                console.log(reportLog);
                 setQuestionList(questionLog.data);
                 setReportList(reportLog.data);
             } catch (error) {

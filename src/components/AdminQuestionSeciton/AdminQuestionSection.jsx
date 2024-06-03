@@ -185,8 +185,6 @@ function AdminQuestionSection() {
     }
 
     const onClickAnsUpdate = async (item) => {
-        console.log(ans);
-        console.log(item);
         const result = await updateQuestion({
             ansContent: ans,    //답변 내용
             questionNo: item.questionNo //업데이트할 문의 번호

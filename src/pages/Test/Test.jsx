@@ -28,12 +28,10 @@ function Test(){
     }
 
     const onClickLogin = async()=>{
-        console.log(account);
         const result = await loginUser({
             userId: account.userId,
             userPwd: account.userPwd,
         });
-        console.log(result);
         setLoginUser({
             userId: result.userId,
             userName: result.userName,

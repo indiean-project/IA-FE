@@ -32,7 +32,6 @@ function FindPwdModal( { userIdStorage } ) {
         const pwdResult = await checkUserPwd({
             userPwd: inputPwdAccount
         });
-        console.log(pwdResult);
 
         setIsDuplicatePwd(pwdRegExp ? 'good' : 'bad');
     }
@@ -63,7 +62,6 @@ function FindPwdModal( { userIdStorage } ) {
                 userId: userIdStorage,
                 userPwd: inputPwdAccount
             });
-            console.log(result);
             if (result.status == "SUCCESS") {
                 toast.success("비밀번호 수정이 완료되었습니다.");
                 setModal(false);

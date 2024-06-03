@@ -3,9 +3,11 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { tempImg } from '../../apis/imgFilter';
-function ConcertEditor({onEditorChange, imgList, setImgList}){
+import toast from 'react-hot-toast';
+function ConcertEditor({ onEditorChange, imgList, setImgList }) {
     const [content, setContent] = useState('');
     const quillRef = useRef();
+    const [contentByte, setContentByte] = useState(0);
 
     const imageHandler = () => {
         const input = document.createElement('input');
@@ -17,7 +19,7 @@ function ConcertEditor({onEditorChange, imgList, setImgList}){
             const formData = new FormData();
             formData.append('image', file);
             const result = await tempImg(formData); // 이미지 임시 저장
-            let imgTag = `<img src="/public/tempImg/${result.data}" alt="${result.data}"/>`;
+            let imgTag = `<img src="${result.data}" alt="${result.data}"/>`;
             setContent(prevContent => prevContent + imgTag);
             setImgList(imgList => [...imgList, result.data]);
         }
@@ -29,10 +31,20 @@ function ConcertEditor({onEditorChange, imgList, setImgList}){
         'link', 'image'
     ];
 
-    const handleChange = (content) => {
-        setContent(content);
+    const handleChange = (text) => {
+        let num = 0;
+        for (let i = 0; i < text.length; i++) {
+            text.charCodeAt(i) > 127 ? num += 3 : num++;
+        }
+        setContentByte(num);
+        if (contentByte >= 4000 && content.length < text.length) {
+            toast.error('입력 가능한 글자수를 초과하였습니다.')
+            setContent(content);
+            return;
+        }
+        setContent(text);
     };
-    useEffect(()=>{
+    useEffect(() => {
         onEditorChange(content);
     }, [content])
 
@@ -64,6 +76,7 @@ function ConcertEditor({onEditorChange, imgList, setImgList}){
                 onChange={handleChange}
                 ref={quillRef}
             />
+             <div className='byteCheck'>byte : {contentByte} / 4000</div>
         </div>
     );
-}export default ConcertEditor
+} export default ConcertEditor

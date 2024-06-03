@@ -44,14 +44,7 @@ export const adminQuestion = async(params) => {
         console.log(e);
     }
 }
-export const searchArtistList = async(params) => {
-    try {
-        const {data} = await API.post("/api/admin/concert/searchList");
-        return data;
-    } catch (e){
-        console.log(e);
-    }
-}
+
 //admin user
 export const enrollUser = async(params) => {
     try {

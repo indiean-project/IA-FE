@@ -1,17 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 
 // import PaginationBar from '../PaginationBar';
 // import FundInputBar from '../FundInputBar';
 import { ViewCount } from '../../apis/board';
-import { boardPoint } from '../../recoil/boardPoint';
 
 import './MyPageReply.scss';
 
 function MyPageReply( {replyList} ) {
     const navigate = useNavigate();
-    const [boardCategory, setBoardCategory] = useRecoilState(boardPoint);
 
     if (!replyList) {
         return <></>
@@ -19,17 +16,17 @@ function MyPageReply( {replyList} ) {
 
     function clickItem(item) {
         const boardNo = item.boardNo;
-        ViewCount(boardNo);
-        setBoardCategory(item.contentType);
-        if(boardCategory === "자유게시판" || boardCategory === "자랑게시판") {
-            navigate("/board/detail/" + item.boardNo);    
+        if(item.contentType === "자유게시판" || item.contentType === "자랑게시판") {
+            ViewCount(boardNo);
+            navigate("/board/detail/" + item.boardNo);
+            return
         // } else if(boardCategory === "콜로세움") {
         //     navigate("/board/colo/");
         //     // navigate("/board/colo/" + item.boardNo);
         // } else if(boardCategory === "전용게시판") {
         //     navigate("/board/");
         }
-        
+        navigate("/board/colo");
     }
 
     return (

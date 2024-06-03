@@ -15,7 +15,6 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
     const [byte, setByte] = useState(0);
 
     useEffect(() => {
-        console.log(selectProfileImg);
         if (selectProfileImg) {
             // setSelectProfileImg("img/user/"+loginUser.userNo+"/"+selectProfileImg);
             setSelectProfileImg(loginUser.userProfileImg);
@@ -51,8 +50,7 @@ function UserProfile({ editAccount, doEdit, onChangeUserInfo, onDoEdit, onAddTem
             formData.append('image', file);
             try {
                 const response = await tempImg(formData);
-                console.log(response);
-                console.log(response.data);
+
                 if (response && response.data) {
                     setSelectProfileImg(response.data);
                     onChangeUserInfo({ target: { name: 'userProfileImg', value: response.data } });

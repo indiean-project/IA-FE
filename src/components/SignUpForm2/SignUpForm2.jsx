@@ -12,8 +12,7 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
     const storageId = sessionStorage.getItem("userId");
     const storagePwd = sessionStorage.getItem("userPwd");
     const storageSocial = sessionStorage.getItem("socialStatus");
-    console.log(storagePwd);
-    console.log(storageSocial);
+
 
     const [isConfirmPwd, setIsConfirmPwd] = useState('');
     const [confirmPwd, setConfirmPwd] = useState('');
@@ -52,13 +51,11 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
     const [sendCode, setSendCode] = useState('');
 
     const sendCertNum = async () => {
-        console.log(storageId);
         setSendCode('');
         const result = await sendEmail({
             userId: storageId
         })
 
-        console.log(result);
 
         if (result !== undefined) {
             toast.success('인증번호가 전송되었습니다.');
@@ -77,7 +74,6 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
         }
         setIsCertNum(certNum === sendCode ? 'good' : 'bad');
         // code는 실제 받아오는 인증번호 값으로 정의해야 함
-        console.log(isCertNum);
     }
 
     const onCertNum = (e) => {
@@ -97,7 +93,6 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 phone: signUpInfo.phone,
                 socialStatus: storageSocial
             })
-            console.log(result);
             if (result.response && result.response.data.name == "HAS_PHONE") {
                 toast.error("동일 전화번호 계정이 있습니다! 중복 가입은 불가능합니다.");
             } else {
@@ -112,7 +107,6 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
                 phone: signUpInfo.phone,
                 socialStatus: storageSocial
             })
-            console.log(result);
             if (result.response && result.response.data.name == "HAS_PHONE") {
                 toast.error("동일 전화번호 계정이 있습니다! 중복 가입은 불가능합니다.");
             } else {
@@ -121,7 +115,6 @@ function SignUpForm2({ onNextPage, onPrevPage }) {
             }
         } else {
             toast.error("회원가입에 실패했습니다.");
-            console.log(error);
             return null;
         }
 

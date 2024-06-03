@@ -1,7 +1,7 @@
 import './ConcertList.scss';
 import ConcertItem from '../../components/ConcertItem';
 import PaginationBar from '../../components/PaginationBar';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { useRecoilState } from 'recoil';
@@ -27,8 +27,9 @@ function ConcertList() {
     const [keyword, setKeyword] = useState("");
     const [event, setEvent] = useState();
     const [pageInfo, setPageInfo] = useState();
+    const navigate = useNavigate();
     const list = async () => {
-        
+
         const currentBoard = 'concert/concertList'
         const result = await pageMove({
             url: currentBoard,
@@ -71,12 +72,12 @@ function ConcertList() {
     }, [sort])
     const handleKeyEnter = (e) => {
         if (e.key === 'Enter') {
-            if(keyword.trim() ===""){
+            if (keyword.trim() === "") {
                 setKeyword('');
                 toast.error("검색어를 입력해주세요")
                 return
             }
-            
+
             list();
         }
     }
@@ -95,7 +96,9 @@ function ConcertList() {
                     </select> &nbsp;
                     <span>정렬</span>
                 </div>
-                <div className='question__btn'><NavLink onClick={questionMove}>공연문의</NavLink></div>
+                <div>
+                    <div className='question__btn'><NavLink onClick={questionMove}>공연문의</NavLink></div>{loginUser.userRole === "ADMIN" ? <div className='concert__enroll__btn' onClick={()=>navigate("/admin/concertEnrollForm")}>콘서트 등록</div> : null}
+                </div>
             </div>
             <ConcertItem concertList={concertList}></ConcertItem>
             {concertList.length < 1 ? <div className='zero'>검색 결과가 없습니다.</div> : ""}

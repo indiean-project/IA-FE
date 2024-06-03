@@ -24,7 +24,6 @@ function SignUpForm1({ onNextPage }) {
         const idResult = await checkUserId ({
             userId : inputIdAccount
         });
-        console.log(idResult);
 
         if (idResult.response) {
             if (idResult.response.data.code === "account-003") {
@@ -58,7 +57,6 @@ function SignUpForm1({ onNextPage }) {
         const pwdResult = await checkUserPwd ({
             userPwd : inputPwdAccount
         });
-        console.log(pwdResult);
 
         setIsDuplicatePwd(pwdRegExp? 'good' : 'bad');
 
