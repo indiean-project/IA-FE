@@ -22,7 +22,7 @@ function CommonReply({ type, contentNo, setState, state }) {
         }
         
         reply();
-    }, [replyState])
+    }, [replyState, state])
 
     const clickOn = async () => {
         if (loginUser.userId === "") {
