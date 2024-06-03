@@ -21,8 +21,10 @@ const UserDeleteModal = ({ onConfirm }) => {
                 <div className="deleteModal__content">
                     <p>정말로 삭제하시겠습니까?</p>
                 </div>
-                <div onClick={onConfirm}>탈퇴</div>
-                <div onClick={modalClose}>취소</div>
+                <div className="deleteModal__btn">
+                    <div onClick={onConfirm}>탈퇴</div>
+                    <div onClick={modalClose}>취소</div>
+                </div>
             </div>
         </ModalWindow>
     );

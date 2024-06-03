@@ -16,3 +16,10 @@
 
     color:white;
 }
+
+.deleteModal__btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap : 25px;
+}
