@@ -11,16 +11,12 @@ function SocialSignUpForm({ onNextPage }) {
     
     const kakaoClientId = import.meta.env.VITE_KAKAO_CLIENT_ID;
     const kakaoOnSuccess = async(data) => {
-        console.log(data)
         // const idToken = data.response.access_token // 액세스 토큰
         const tokenEmail = data.profile.kakao_account.email;
-        console.log(tokenEmail);
         
         const idResult = await checkUserId({
             userId: tokenEmail,
         })
-
-        console.log(idResult);
 
         if(idResult.response && idResult.response.data.name === "HAS_ID") {
             toast.error('계정 정보가 존재합니다.');
@@ -29,10 +25,6 @@ function SocialSignUpForm({ onNextPage }) {
             sessionStorage.setItem("socialStatus", "K");
             return onNextPage();
         }
-        console.log(loginUserInfo);
-        console.log(isModalOpen);
-
-        console.log(loginUserState);
 
     };
 
@@ -42,13 +34,10 @@ function SocialSignUpForm({ onNextPage }) {
 
     const googleOnSuccess = async(data) => {
         const tokenEmail = jwtDecode(data.credential).email;
-        console.log(tokenEmail);
 
         const idResult = await checkUserId({
             userId: tokenEmail,
         })
-
-        console.log(idResult);
 
         if(idResult.response && idResult.response.data.name === "HAS_ID") {
             toast.error('계정 정보가 존재합니다.');
@@ -57,10 +46,6 @@ function SocialSignUpForm({ onNextPage }) {
             sessionStorage.setItem("socialStatus", "G");
             return onNextPage();
         }
-        console.log(loginUserInfo);
-        console.log(isModalOpen);
-
-        console.log(loginUserState);
 
     }
 

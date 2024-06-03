@@ -18,7 +18,6 @@ function MyPageFund({ fundList }) {
             if (selectFund) {  // selectFundNo가 null이 아닐 때만 호출
                 try {
                     const rwlog = await getUserRewardLog(loginUser.userNo, selectFund.fundNo);
-                    console.log(rwlog);
                     setRewardList(rwlog.data);
                 } catch (error) {
                     console.error("Failed to fetch user boards", error);
@@ -30,7 +29,7 @@ function MyPageFund({ fundList }) {
     }, [loginUser.userNo, selectFund]);
 
     useEffect(() => {
-        console.log("Selected Question No:", selectFund ? selectFund.fundNo : null);
+
     }, [selectFund]); // selectFundNo 값이 변하면 새로 렌더링
 
     if (!fundList) {
@@ -39,8 +38,7 @@ function MyPageFund({ fundList }) {
     function clickItem(fundNo) {
         setSelectFund(fundNo === (selectFund ? selectFund.fundNo : null) ? null : fundNo);
         // selectFund가 true면 fundNo를 가져오고, 이를 클릭 아이템의 fundNo와 비교해서 참 거짓 비교
-        console.log(fundNo);
-        console.log(selectFund);
+
     }
 
     return (

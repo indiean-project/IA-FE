@@ -40,8 +40,7 @@ function QuestionForm() {
         }
     
         const result = await qEnroll(editQuestion); 
-        console.log(editQuestion);
-        console.log(result);
+
         if(result) {
             toast.success("문의 등록 성공");
             setModal(false);

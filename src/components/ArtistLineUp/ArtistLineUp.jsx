@@ -6,7 +6,6 @@ import baseImg from '../../assets/default/defaultImg.png';
 
 function ArtistLineUp({ artist }) {
     
-    console.log(artist)
     const navigate = useNavigate()
     const handleOnClick = () => {
         if (artist.artistNo !== 0) {

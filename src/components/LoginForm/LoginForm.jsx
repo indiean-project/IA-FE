@@ -37,14 +37,12 @@ function LoginForm() {
     }
 
     const onClickLogin = async () => {
-        console.log(inputAccount);
         const result = await loginUser({
             userId: inputAccount.userId,
             userPwd: inputAccount.userPwd,
             socialStatus : "N"
         });
 
-        console.log(result);
         // if (result.status === 404 && result.code === "account-001") {
         //     alert(result.message);
         // } else if (result.status === 400 && result.code === "account-002") {
@@ -58,8 +56,7 @@ function LoginForm() {
             setLoginUser(result['data']);
             setIsModalOpen(true);
         }
-        console.log(loginUserInfo);
-        console.log(isModalOpen);
+   
     }
 
     const onSignUp = () => {

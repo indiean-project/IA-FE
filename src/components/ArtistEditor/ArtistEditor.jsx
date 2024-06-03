@@ -27,7 +27,6 @@ function ArtistEditor({ onEditorChange, contentByte, setContentByte }) {
         setContentByte(num);
         if (contentByte >= 4000 && content.length < text.length) {
             toast.error('입력 가능한 글자수를 초과하였습니다.')
-            console.log(quillRef.current)
             setContent(content);
             return;
         }

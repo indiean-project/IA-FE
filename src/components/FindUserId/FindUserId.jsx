@@ -24,22 +24,18 @@ function FindUserId() {
     }
 
     const clickVerifyBtn = async () => {
-        console.log(inputAccount);
         const result = await findUserId({
             phone: inputAccount.phone
         })
-        console.log(result); 
         if(result) {
             setToggleVerify(true);
             setReturnInfo(result['data']);
         } else {
             toast.error('가입 되어있지 않은 사용자 연락처입니다.')
         }
-        console.log(returnInfo);
     }
 
     useEffect(() => {
-        console.log(returnInfo);
     }, [returnInfo])
 
     return (

@@ -97,7 +97,7 @@ function ConcertList() {
                     <span>정렬</span>
                 </div>
                 <div>
-                    <div className='question__btn'><NavLink onClick={questionMove}>공연문의</NavLink></div>{loginUser.userRole === "ADMIN" ? <button onClick={()=>navigate("/admin/concertEnrollForm")}>콘서트 등록</button> : null}
+                    <div className='question__btn'><NavLink onClick={questionMove}>공연문의</NavLink></div>{loginUser.userRole === "ADMIN" ? <div className='concert__enroll__btn' onClick={()=>navigate("/admin/concertEnrollForm")}>콘서트 등록</div> : null}
                 </div>
             </div>
             <ConcertItem concertList={concertList}></ConcertItem>

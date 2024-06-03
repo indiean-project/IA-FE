@@ -148,11 +148,9 @@ function FundList() {
 
     useEffect(() => {
         selectAllFundList();
-        console.log(selectItem);
     }, [selectItem])
 
     useEffect(() => {
-        console.log(fundList)
     }, [fundList])
 
     useEffect(() => {

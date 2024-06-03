@@ -57,7 +57,6 @@ function MyPageProfile() {
     }
 
     const onClickUpdate = async () => {
-        console.log(editAccount);
         setModalType("update");
         const newImg = editAccount.userProfileImg;
 
@@ -80,8 +79,7 @@ function MyPageProfile() {
 
             const imgResponse = await imgMove([newImg]);
             usedImage = imgResponse.data[0];
-            console.log(newImg);
-            console.log(usedImage);
+
 
             // 변경된 이미지를 포함하여 새로운 editAccount 객체 생성
             const updateAccount = {
@@ -90,7 +88,6 @@ function MyPageProfile() {
             }
 
             const result = await updateUser(updateAccount);
-            console.log(result);
 
             if (result.status == "SUCCESS") {
                 setLoginUser(updateAccount);
@@ -99,7 +96,6 @@ function MyPageProfile() {
 
                 const unusedImages = tempImgUrls.filter(img => img !== usedImage);
 
-                console.log(unusedImages);
 
                 if (unusedImages.length > 0) {
                     await imgDelete(unusedImages);
@@ -121,7 +117,6 @@ function MyPageProfile() {
         } else {
             // 이미지가 변경되지 않은 경우
             const result = await updateUser(editAccount);
-            console.log(result);
 
             if (result.status == "SUCCESS") {
                 setLoginUser(editAccount);
@@ -151,7 +146,6 @@ function MyPageProfile() {
             userNo: loginUser.userNo,
             deleteYn: "Y",
         })
-        console.log(result);
         if (result.status === "SUCCESS") {
             resetUserInfo();
             toast.success("회원 탈퇴에 성공하셨습니다. 그동안 이용해주셔서 감사합니다.");

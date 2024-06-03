@@ -43,7 +43,6 @@ function FundPayment({ reward, totalPrice, fundNo }) {
                 subscribe_test_payment: true
             }
         })
-        console.log(pay);
         if(pay.event === 'done'){
             const reserve = await payReserve({
                 userNo: userInfo.userNo,

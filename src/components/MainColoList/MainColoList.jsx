@@ -18,7 +18,6 @@ function MainColoList() {
 
     const getColoList = async()=>{
         const list = await weeklyColo();
-        console.log(list);
         setColoList(shuffle(list['data']));
     }
 

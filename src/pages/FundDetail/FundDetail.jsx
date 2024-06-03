@@ -21,8 +21,6 @@ function FundDetail() {
         const navHandle = entries => {
             entries.map((entry) => {
                 if (entry.isIntersecting){
-                    // console.log(entry.target);
-                    // console.log(navRef.current.indexOf(entry.target))
                     onClickChangeNav(navRef.current.indexOf(entry.target))
                 }
             });

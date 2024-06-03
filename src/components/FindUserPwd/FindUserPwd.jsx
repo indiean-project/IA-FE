@@ -31,7 +31,6 @@ function FindUserPwd() {
     }
 
     const sendCertNum = async() => {
-        console.log(inputAccount);
         setSendCode('');
         if(inputAccount.userId === '') {
             toast.error('아이디 입력이 필요합니다.')
@@ -39,7 +38,6 @@ function FindUserPwd() {
             const result = await findEmail({
                 userId: inputAccount.userId
             })
-            console.log(result);
     
             if(result === "User ID does not exist") {
                 toast.error('존재하지 않는 아이디입니다.');
@@ -58,7 +56,6 @@ function FindUserPwd() {
             setIsModalOpen(true);
         } else {
             toast.error("인증번호가 다릅니다.");
-            console.log(error);
         }
     }   
 
@@ -73,7 +70,6 @@ function FindUserPwd() {
             return;
         }
         setIsCertNum(certNum === sendCode ? 'good' : 'bad');
-        console.log(isCertNum);
     }
 
     const onCertNum = (e) => {
@@ -83,9 +79,6 @@ function FindUserPwd() {
         confirmCertNum(certNum);
     }
 
-    useEffect(() => {
-        console.log();
-    }, [])
 
     return (
         <div className="find__box">

@@ -5,9 +5,6 @@ function FundMainImage({ imgItem }) {
     const [imgNum, setImgNum] = useState(0);
     const defaultImgList = [defaultImg, defaultImg, defaultImg, defaultImg, defaultImg]
 
-    useEffect(() => {
-        console.log(imgItem);
-    }, [])
 
     return (
         <div className='fundMainImage__container'>

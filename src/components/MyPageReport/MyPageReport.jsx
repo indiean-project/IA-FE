@@ -8,7 +8,7 @@ function MyPageReport({ questionList, reportList }) {
     const [selectQuestion, setSelectQuestion] = useState(null);
 
     useEffect(() => {
-        console.log("Selected Question No:", selectQuestion ? selectQuestion.questionNo : null);
+
     }, [selectQuestion]); // selectQuestion 값이 변하면 새로 렌더링
 
     if (!questionList || !reportList) {
@@ -16,8 +16,7 @@ function MyPageReport({ questionList, reportList }) {
     }
     function clickItem(questionNo) {
         setSelectQuestion(selectQuestion === questionNo ? null : questionNo);
-        console.log(questionNo);
-        console.log(selectQuestion);
+
     }
 
     return (

@@ -156,7 +156,6 @@ function AdminUserAutorityUsertable() {
         },
     ]
     const onClickSearch = async () => {
-        console.log(newUsercontent)
         //backEnd 작업 후 활성화 시켜주세요.
 
         // const list = await searchUserList(standard);

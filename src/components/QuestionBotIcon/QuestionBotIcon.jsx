@@ -11,7 +11,6 @@ function QuestionBotIcon() {
 
     const clickQBot = () => {
         setActiveQbot(!activeQbot);
-        console.log(activeQbot);
     }
 
     return (
