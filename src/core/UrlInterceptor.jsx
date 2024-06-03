@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 function UrlInterceptor({ page, children }) {
     const loginUser = useRecoilValue(loginUserState);
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         switch (page) {
             case 'login':
@@ -23,11 +23,11 @@ function UrlInterceptor({ page, children }) {
                 }
                 break;
             case 'artistBadAccess':
-                if (loginUser.userRole == '' ) {
+                if (loginUser.userRole == '') {
                     toast.error('로그인 후 이용 가능합니다.');
                     navigate('/artist', { replace: true });
                 }
-                if(loginUser.userRole == 'ARTIST'){
+                if (loginUser.userRole == 'ARTIST') {
                     toast.error('이미 등록되셨습니다.');
                     navigate('/artist', { replace: true });
                 }
@@ -35,7 +35,12 @@ function UrlInterceptor({ page, children }) {
             case 'notAdmin':
                 if (loginUser.userRole !== 'ADMIN') {
                     toast.error('잘못된 접근방식입니다.');
-                    navigate('/notice', {replace: true});
+                    navigate('/notice', { replace: true });
+                }
+            case 'concertAdmin':
+                if (loginUser.userRole !== 'ADMIN') {
+                    toast.error('잘못된 접근방식입니다.');
+                    navigate('/main', { replace: true });
                 }
         }
     }, [])

@@ -76,7 +76,7 @@ function ConcertDetail() {
                             </li>
                             <li>
                                 <div className='ticketlink'>
-                                    {concert.ticketUrl !== null || concert.ticketUrl ==='' ? <div className='btn'><NavLink target='_blank' to={concert.ticketUrl}>티켓구매</NavLink></div> : <div></div>}
+                                    {concert.ticketUrl !=='' ? <div className='btn'><NavLink target='_blank' to={concert.ticketUrl}>티켓구매</NavLink></div> : <div></div>}
                                 </div>
                             </li>
                         </ul>

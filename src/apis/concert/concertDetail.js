@@ -50,3 +50,14 @@ export const concertReplyUpdate = async(parama)=>{
     }
 
 }
+export const concertEnroll = async(parama) =>{
+    console.log(parama)
+    try {
+        
+        const {data} = await API.post('/api/concert/enroll',parama);
+       
+        return data;
+    } catch (e){
+        console.log(e);
+    }
+}
