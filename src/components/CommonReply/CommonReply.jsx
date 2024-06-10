@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { BoardReplyEnroll, BoardReplyList } from '../../apis/reply/reply';
 import { concertReply, addConcertReply } from '../../apis/concert/concertDetail';
 
-function CommonReply({ type, contentNo, setState, state }) {
+function CommonReply({ type, contentNo }) {
     
     const inputRef = useRef(null);
     const loginUser = useRecoilValue(loginUserState);
@@ -20,9 +20,8 @@ function CommonReply({ type, contentNo, setState, state }) {
             inputRef.current.placeholder = "로그인이 필요합니다.";
             inputRef.current.readOnly = true;
         }
-        
         reply();
-    }, [replyState, state])
+    }, [replyState, contentNo])
 
     const clickOn = async () => {
         if (loginUser.userId === "") {
@@ -64,7 +63,6 @@ function CommonReply({ type, contentNo, setState, state }) {
     const reply = async () => {
         const result = type === "게시글" ? await BoardReplyList(contentNo) : await concertReply(contentNo);
         setReplyList(result.data);
-        setState !== undefined ? setState(state === 1 ? 0 : 1) : "";
     }
     return (
         <>

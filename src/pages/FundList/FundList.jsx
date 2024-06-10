@@ -142,6 +142,12 @@ function FundList() {
         setSoonList(shuffle(list['data']));
     }
 
+    const onKeyDownSearch = (e)=>{
+        if(e.key === 'Enter'){
+            onClickKeywordSearch(keywordRef.current.value);
+        }
+    }
+
     useEffect(() => {
         selectSoonFundList();
     }, [])
@@ -173,7 +179,7 @@ function FundList() {
                 <h3>아티스트를 펀딩하고 다양한 리워드를 만나보세요!</h3>
                 <div className='fundList__form'>
                     <div className='fundList__form__input'>
-                        <input type="text" ref={keywordRef} placeholder='키워드를 입력하세요.' />
+                        <input type="text" ref={keywordRef} placeholder='키워드를 입력하세요.' onKeyDown={(e)=>onKeyDownSearch(e)}/>
                         <div className='fundList__form__icon' onClick={() => onClickKeywordSearch(keywordRef.current.value)}>
                             <Search size={25} />
                         </div>
