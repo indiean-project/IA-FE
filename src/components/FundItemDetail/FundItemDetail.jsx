@@ -116,6 +116,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
         })
         setTotalPrice(total);
     }
+    
     useEffect(() => {
 
     }, [orderList])
@@ -221,7 +222,8 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                     </div>
                 </div>
                 <div className='fundItemDetail__reward'>
-                    {day <= -1 ? <div className='fundItemDetail__reward__close'>마감된 펀딩입니다.</div> :
+                    {day <= -1 ? <div className='fundItemDetail__reward__close'>마감된 펀딩입니다.</div> : new Date() < new Date(moment(fund.startDate).format('YYYY-MM-DD')) ? 
+                    <div className='fundItemDetail__reward__close'>펀딩이 곧 시작됩니다.</div> :
                         <><div className='fundItemDetail__reward__item'>
                             {fund.rewardList != null && fund.rewardList.map((item, idx) => {
                                 return (
