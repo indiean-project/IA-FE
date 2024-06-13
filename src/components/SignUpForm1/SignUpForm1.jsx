@@ -29,9 +29,9 @@ function SignUpForm1({ onNextPage }) {
             if (idResult.response.data.code === "account-003") {
                 setIsDuplicateId('bad');
                 toast.error(idResult.response.data.message);
-            } else if (idResult.response.data.errors[0].code === "Pattern") {
-                setIsDuplicateId('bad');
-                toast.error(idResult.response.data.errors[0].defaultMessage);
+            // } else if (idResult.response.status === 404) {
+            //     setIsDuplicateId('bad');
+            //     toast.error("서버와 연결 실패");
             }
         } else {
             if(idResult.status === "SUCCESS") 

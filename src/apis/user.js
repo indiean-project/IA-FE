@@ -1,4 +1,4 @@
-import { API, imgAPI } from "../core"
+import { API } from "../core"
 
 export const loginUser = async(params) => {
     try {
