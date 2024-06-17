@@ -246,6 +246,14 @@
                         color: rgba(187, 187, 187, 1);
                         margin: 3%;
                         font-size: small;
+                        display: flex;
+                        justify-content: space-between;
+                        .reward__info__content{
+                            width: 65%;
+                        }
+                        .reward__info__limit{
+                            color: white;
+                        }
                     }
 
                     background-color: rgba(36, 36, 36, 1);

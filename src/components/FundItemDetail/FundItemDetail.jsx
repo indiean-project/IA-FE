@@ -45,11 +45,12 @@ function FundItemDetail({ nav, navRef, navHandle }) {
 
     const getFundDetail = async () => {
         const detail = await selectFundDetail(params);
-        if(detail.data.fundStatus != 'APPROVAL' && loginUser.userRole != 'ADMIN'){
+        if (detail.data.fundStatus != 'APPROVAL' && loginUser.userRole != 'ADMIN') {
             toast.error('잘못된 접근입니다.');
-            navigate('/funding', {replace: true});
+            navigate('/funding', { replace: true });
             return;
         }
+        console.log(detail);
         setFund(detail['data']);
         counting(detail['data'].revenue, detail['data'].target, detail['data'].people);
     }
@@ -109,6 +110,10 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                 amount: num
             }
         }
+        if ((reward.limitAmount - list[idx].amount) < 0) {
+            toast.error('잔여 리워드 수량을 초과하였습니다.');
+            return;
+        }
         setOrderList(list);
         let total = 0;
         list.map((item) => {
@@ -116,7 +121,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
         })
         setTotalPrice(total);
     }
-    
+
     useEffect(() => {
 
     }, [orderList])
@@ -136,7 +141,19 @@ function FundItemDetail({ nav, navRef, navHandle }) {
             toast.error("리워드를 1개 이상 선택해주세요.");
             return;
         }
-        setModal(true)
+        let amountCheck = true;
+        orderList.forEach((item)=>{
+            let idx = fund.rewardList.findIndex(e=>e.rewardNo === item.rewardNo);
+            if ((fund.rewardList[idx].limitAmount - item.amount) < 0){
+                toast.error("리워드 제한 수량을 초과하였습니다.");
+                amountCheck = false;
+            }
+        })
+        console.log(amountCheck);
+        if(!amountCheck){
+            return;
+        }
+        setModal(true);
     }
 
     let rateColor = {
@@ -222,8 +239,8 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                     </div>
                 </div>
                 <div className='fundItemDetail__reward'>
-                    {day <= -1 ? <div className='fundItemDetail__reward__close'>마감된 펀딩입니다.</div> : new Date() < new Date(moment(fund.startDate).format('YYYY-MM-DD')) ? 
-                    <div className='fundItemDetail__reward__close'>펀딩이 곧 시작됩니다.</div> :
+                    {day <= -1 ? <div className='fundItemDetail__reward__close'>마감된 펀딩입니다.</div> : new Date() < new Date(moment(fund.startDate).format('YYYY-MM-DD')) ?
+                        <div className='fundItemDetail__reward__close'>펀딩이 곧 시작됩니다.</div> :
                         <><div className='fundItemDetail__reward__item'>
                             {fund.rewardList != null && fund.rewardList.map((item, idx) => {
                                 return (
@@ -236,7 +253,8 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                                                     .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div>
                                             </div>
                                             <div className='reward__info'>
-                                                {item.rewardInfo}
+                                                <div className='reward__info__content'>{item.rewardInfo}</div>
+                                                {item.limitYn === 'Y' && <div className='reward__info__limit'>잔여 : {item.limitAmount - (orderList.length != 0 ? orderList[idx].amount : 0)}</div>}
                                             </div>
                                         </div>
                                     </div>
@@ -262,7 +280,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                                                     {item.rewardInfo}
                                                 </div>
                                             </div>
-                                            <div className='reward__delete__item' onClick={()=>onClickReward(item, 0)}>
+                                            <div className='reward__delete__item' onClick={() => onClickReward(item, 0)}>
                                                 <XSquareFill size={30} />
                                             </div>
                                         </div>
