@@ -110,7 +110,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                 amount: num
             }
         }
-        if ((reward.limitAmount - list[idx].amount) < 0) {
+        if (reward.limitYn === 'Y' && ((reward.limitAmount - list[idx].amount) < 0)) {
             toast.error('잔여 리워드 수량을 초과하였습니다.');
             return;
         }
@@ -144,7 +144,7 @@ function FundItemDetail({ nav, navRef, navHandle }) {
         let amountCheck = true;
         orderList.forEach((item)=>{
             let idx = fund.rewardList.findIndex(e=>e.rewardNo === item.rewardNo);
-            if ((fund.rewardList[idx].limitAmount - item.amount) < 0){
+            if (fund.rewardList[idx].limitYn === 'Y' && ((fund.rewardList[idx].limitAmount - item.amount)) < 0){
                 toast.error("리워드 제한 수량을 초과하였습니다.");
                 amountCheck = false;
             }
