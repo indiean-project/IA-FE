@@ -149,7 +149,6 @@ function FundItemDetail({ nav, navRef, navHandle }) {
                 amountCheck = false;
             }
         })
-        console.log(amountCheck);
         if(!amountCheck){
             return;
         }
