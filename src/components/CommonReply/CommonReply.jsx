@@ -8,7 +8,7 @@ import { BoardReplyEnroll, BoardReplyList } from '../../apis/reply/reply';
 import { concertReply, addConcertReply } from '../../apis/concert/concertDetail';
 
 function CommonReply({ type, contentNo }) {
-    
+
     const inputRef = useRef(null);
     const loginUser = useRecoilValue(loginUserState);
     const [replyText, setReplyText] = useState('');
@@ -43,19 +43,15 @@ function CommonReply({ type, contentNo }) {
             },
             replyContent: replyText
         }) : await addConcertReply({
-            member: {
-                userNo: loginUser.userNo
-            },
-            concert: {
-                concertNo: contentNo
-            },
+            userNo: loginUser.userNo,
+            concertNo: contentNo,
             replyContent: replyText
         });
         if (result.status === "SUCCESS") {
             toast.success("댓글이 등록되었습니다.");
             setReplyText("");
-            
-            
+
+
             reply();
         }
     }

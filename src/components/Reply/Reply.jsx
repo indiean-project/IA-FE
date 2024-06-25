@@ -52,12 +52,8 @@ function Reply({ type, replyList, setReplyState, replyState }) {
             replyContent: updateContent,
             replyNo: item.replyNo
         }) : await concertReplyUpdate({
-            member: {
-                userNo: loginUser.userNo
-            },
-            concert: {
-                concertNo: item.concertNo
-            },
+            userNo: loginUser.userNo,
+            concertNo: item.concertNo,
             replyContent: updateContent,
             concertReplyNo: item.concertReplyNo
         });
@@ -65,7 +61,9 @@ function Reply({ type, replyList, setReplyState, replyState }) {
             toast.success("댓글이 수정되었습니다.")
             setReplyIdx(-1);
             setReplyState(replyState === 1 ? 0 : 1);
-        };
+        }else{
+            toast.success("댓글이 수정에 실패해습니다..")
+        }
     }
 
     if (!replyList) {
