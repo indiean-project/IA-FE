@@ -128,6 +128,8 @@ function AdminConcertEnrollForm() {
 
         })
     }
+
+    
     const artistSearchList = async (text) => {
         const artist = await searchArtistList(text)
         setIsDropbox(true);
